@@ -1,0 +1,38 @@
+.container {
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #27243b;
+}
+
+.shadow {
+    position: absolute;
+    top: -60vw;
+    left: -100vw;
+    width: 200vw;
+    height: 150vw;
+    background: radial-gradient(#592e42, transparent 50%);
+}
+
+.shadow2 {
+    position: absolute;
+    bottom: -75vw;
+    left: -80vw;
+    width: 260vw;
+    height: 150vw;
+    background: radial-gradient(#3b3c74, transparent 50%);
+}
+
+.shadow3 {
+    position: absolute;
+    bottom: -10vw;
+    right: -100vw;
+    width: 150vw;
+    height: 100vw;
+    opacity: 0.8;
+    background: radial-gradient(#50346f, transparent 70%);
+}

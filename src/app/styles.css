@@ -1,0 +1,122 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none; /* Safari, Chrome */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE/Edge */
+    user-select: none;
+}
+
+html {
+    font-family: var(--tgui--font-family, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif);
+    font-size: 3.7vw;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    padding-bottom: 0 !important;
+    background: #27243b;
+    color: #ffffff;
+}
+
+body {}
+
+@media (min-width: 680px) {
+    html {
+        font-size: 25px;
+    }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: fade 0.4s ease-in-out;
+}
+@keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+[data-rwp-wrapper] ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+[data-rwp-wrapper] li {
+    margin: 0;
+    padding: 0;
+}
+
+[data-rwp-wrapper] {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    justify-content: space-between;
+    perspective: 2000px;
+    user-select: none;
+}
+
+[data-rwp] {
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    cursor: default;
+    mask-image: linear-gradient(
+            to bottom,
+            transparent 0%,
+            black 20%,
+            black 80%,
+            transparent 100%
+    );
+}
+
+[data-rwp-highlight-wrapper] {
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    font-size: 7.5vw;
+    font-weight: 800;
+}
+
+[data-rwp-highlight-list] {
+    position: absolute;
+    width: 100%;
+}
+
+[data-rwp-options] {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 0;
+    margin: 0 auto;
+    -webkit-font-smoothing: subpixel-antialiased;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+[data-rwp-option] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    -webkit-font-smoothing: subpixel-antialiased;
+    will-change: visibility;
+    font-size: 6vw;
+    font-weight: 800;
+}
+
+[data-rwp-option],
+[data-rwp-highlight-item] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
