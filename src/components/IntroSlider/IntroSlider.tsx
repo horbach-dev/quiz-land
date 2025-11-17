@@ -1,5 +1,5 @@
 import { useState, type AnimationEvent } from "react";
-import { useAppStore } from "../../stores/appStore";
+import { useAppStore } from "@/stores/appStore";
 import clsx from "clsx";
 import { ArrowLeft, ArrowDown, ChevronsRight } from "lucide-react";
 import { IntroSliderContent } from "./IntroSliderContent";

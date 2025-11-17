@@ -1,17 +1,17 @@
 import { ChevronRight, CircleUserRound } from "lucide-react";
 import styles from "./UserSection.module.css";
-import { useTelegramUser } from "../../../../shared/hooks/useTelegramUser";
+import { useTelegramUser } from "@/shared/hooks/useTelegramUser.ts";
 
 export const UserSection = () => {
-  const user = useTelegramUser()
-  const nick = user.firstName || user.username
+  const { photo_url, first_name, username } = useTelegramUser()
+  const nick = first_name || username
 
   return (
     <div className={styles.userSection}>
       <div className={styles.userInfo}>
         <div className={styles.avatar}>
-          {user.avatar ? (
-            <img src={user.avatar} alt='avatar' />
+          {photo_url ? (
+            <img src={photo_url} alt='avatar' />
           ) : (
             <CircleUserRound />
           )}
@@ -20,7 +20,7 @@ export const UserSection = () => {
           Привет {nick && <span>{nick}!</span>}
         </p>
         <p className={styles.welcomeDesc}>
-          Время пройти квиз!
+          Время создать или пройти квиз!
         </p>
       </div>
       <div className={styles.userStatistic}>

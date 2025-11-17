@@ -1,27 +1,56 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Progress } from './ui/Progress';
 import { QuizCard } from './ui/QuizCard';
 import { QuizFooter } from "./ui/QuizFooter";
-import { type TQuestion } from "./questions";
+import { useQuizStore } from "@/stores/quizStore";
+import IQImg from "@/pages/QuizPage/iq.jpg";
+import { questions } from "@/components/Quiz/questions";
 import styles from './Quiz.module.css';
 
 type TAnswers = Record<string, { value: string, point: number } | null>
 
 const DELAY_TRANSITION = 300
 const quizId = '1'
-
-interface IProps {
-  questions: TQuestion[]
+const currentQuizTest = {
+  id: 1,
+  title: 'Тест на уровень зависимости от лудомании',
+  description: 'Короткий тест показывает на сколько сильна зависимость от азартных игр.',
+  image: IQImg,
+  averageScore: 85,
+  results: [],
+  questions
 }
 
-export const Quiz = ({ questions }: IProps) => {
+const getAnswers = (questions: any[]) => {
+  return questions.reduce((a, v) => {
+    a[v.id] = null;
+    return a
+  }, {} as TAnswers)
+}
+
+export const QuizProgressPage = () => {
   const [isHide, setIsHide] = useState(false);
   const [step, setStep] = useState(0);
   const [isEnd, setEnd] = useState(false);
-  const [answers, setAnswers] = useState<TAnswers>(() => questions.reduce((a, v) => {
-    a[v.id] = null;
-    return a
-  }, {} as TAnswers));
+  const { currentQuiz, setCurrentQuiz } = useQuizStore()
+
+  const [answers, setAnswers] = useState<TAnswers | []>([]);
+
+  useEffect(() => {
+    if (currentQuiz) {
+      return
+    }
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setAnswers(getAnswers(currentQuizTest.questions))
+    setCurrentQuiz(currentQuizTest)
+  }, [currentQuiz])
+
+  if (!currentQuiz && !answers.length) {
+    return null
+  }
+
+  const { questions } = currentQuiz!
 
   const handleNext = () => {
     if (isHide) return

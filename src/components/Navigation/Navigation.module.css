@@ -7,10 +7,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem 2rem 3rem;
-    backdrop-filter: blur(20px);
-    mask-image: linear-gradient(to bottom, transparent, #fff 40%);
-    transition: opacity 0.35s, transform 0.35s;
+    --padding-bottom: 0;
+    padding: 0 1.5rem calc(1.5rem + var(--padding-bottom)) 1.5rem;
+    transition: opacity 0.5s, transform 0.5s;
 }
 
 @supports not (backdrop-filter: blur(10px)) {
@@ -27,6 +26,17 @@
     justify-content: center;
     width: 100%;
     max-width: 680px;
+    padding: 1rem 1rem 1.2rem 1rem;
+    backdrop-filter: blur(20px);
+    border-radius: 1rem;
+    box-shadow: 0 0 2rem 1rem rgba(33, 33, 33, 0.33);
+    background: rgba(39, 36, 59, 0.5);
+}
+
+@supports not (backdrop-filter: blur(20px)) {
+    .container {
+        background: rgba(39, 36, 59, 0.95);
+    }
 }
 
 .hide {

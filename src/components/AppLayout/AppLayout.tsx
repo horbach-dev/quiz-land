@@ -1,44 +1,53 @@
-import {type ReactNode, useLayoutEffect, useRef, useState} from "react";
-import { useLocation, useOutlet } from "react-router-dom";
+import {
+  useEffect,
+  useLayoutEffect,
+  useState
+} from "react";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import clsx from "clsx";
 import { requestContentSafeAreaInsets, requestSafeAreaInsets } from "@telegram-apps/sdk-react";
-import { Navigation } from "../Navigation";
-import styles from './AppLayout.module.css'
+import { CHANGE_APP_ROUTE_EVENT, PAGE_TRANSITION_DELAY } from "@/constants/app";
+import { Navigation } from "@/components/Navigation";
+import styles from './AppLayout.module.css';
+
+interface CustomEvent extends Event {
+  detail?: string;
+}
 
 export const AppLayout = () => {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
-  const outlet = useOutlet();
-  const prevPathname = useRef(pathname);
-
   const [isAnimating, setIsAnimating] = useState(false);
-  const [prevOutlet, setPrevOutlet] = useState<ReactNode>(null);
-  const [currentOutlet, setCurrentOutlet] = useState<ReactNode>(outlet);
-  const [top, setTop] = useState(0);
+  const [{ top, bottom }, setPaddings] = useState<{ top: number, bottom: number }>({ top: 0, bottom: 0 });
 
   // safe areas
   useLayoutEffect(() => {
     (async () => {
-      const { top } = await requestSafeAreaInsets();
-      const { top: topContent } = await requestContentSafeAreaInsets();
-      setTop(top + topContent);
+      const { top, bottom } = await requestSafeAreaInsets();
+      const { top: topContent, bottom: bottomContent } = await requestContentSafeAreaInsets();
+      setPaddings({
+        top: top + topContent,
+        bottom: bottom + bottomContent
+      });
     })();
   }, []);
 
-  // page transition logic
-  useLayoutEffect(() => {
-    if (prevPathname.current !== pathname) {
-      requestAnimationFrame(() => {
-        setPrevOutlet(currentOutlet);
-        setCurrentOutlet(outlet);
-        setIsAnimating(true);
-      })
+  function updateRoute(route: CustomEvent) {
+    if (route.detail === pathname) return
 
-      setTimeout(() => {
-        setPrevOutlet(null);
-        setIsAnimating(false);
-      }, 400);
+    setIsAnimating(true);
 
-      prevPathname.current = pathname;
+    setTimeout(() => {
+      setIsAnimating(false)
+      navigate(route.detail!)
+    }, PAGE_TRANSITION_DELAY)
+  }
+
+  useEffect(() => {
+    document.addEventListener(CHANGE_APP_ROUTE_EVENT, updateRoute)
+
+    return () => {
+      document.removeEventListener(CHANGE_APP_ROUTE_EVENT, updateRoute)
     }
   }, [pathname]);
 
@@ -46,20 +55,16 @@ export const AppLayout = () => {
     <>
       <div
         className={clsx(styles.layout, isAnimating && styles.hide)}
-        style={{ paddingTop: top }}
+        style={{
+          paddingTop: top,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
+          '--padding-bottom': bottom + 'px'
+      }}
       >
-        {!isAnimating && (
-          <div className={styles.content}>
-            {currentOutlet}
-          </div>
-        )}
-        {prevOutlet && (
-          <div className={styles.content}>
-            {prevOutlet}
-          </div>
-        )}
+        <Outlet />
       </div>
-      <Navigation />
+      <Navigation paddingBottom={bottom} />
     </>
   )
 }

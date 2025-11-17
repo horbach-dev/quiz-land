@@ -1,8 +1,9 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import { ngrok } from 'vite-plugin-ngrok';
+import path from 'path';
 
-// https://vite.dev/config/
+// @ts-ignore
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
 
@@ -22,6 +23,11 @@ export default defineConfig(({ mode }) => {
       allowedHosts: [
         env.VITE_NGROK_DOMAIN?.replace('https://', '').replace('http://', ''),
       ],
+    },
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+      },
     },
   }
 })

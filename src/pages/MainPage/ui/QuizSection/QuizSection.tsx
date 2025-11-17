@@ -1,7 +1,7 @@
-import styles from "./QuizSection.module.css";
-import {ChevronRight} from "lucide-react";
-import { Link } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
+import { navigateTo } from "@/shared/utils/navigateTo";
 import IQImg from './iq.jpg'
+import styles from "./QuizSection.module.css";
 
 const tests = [
   { id: 1, title: 'IQ тест', image: IQImg, link: '/quiz/1' },
@@ -30,10 +30,10 @@ export const QuizSection = () => {
       </div>
       <div className={styles.quizList}>
         {tests.map((item) => (
-          <Link
+          <div
             key={item.id}
             className={styles.quizItem}
-            to={item.link}
+            onClick={() => navigateTo(item.link)}
           >
             <div className={styles.quizImage}>
               {item.image && <img alt={item.title} src={item.image} />}
@@ -41,7 +41,7 @@ export const QuizSection = () => {
             <p>
               {item.title}
             </p>
-          </Link>
+          </div>
         ))}
       </div>
     </div>

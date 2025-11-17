@@ -1,3 +1,5 @@
+// import { ageRange } from "./config";
+
 export type TQuestionValue = { value: string, label: string, point: number };
 
 export type TQuestion = {

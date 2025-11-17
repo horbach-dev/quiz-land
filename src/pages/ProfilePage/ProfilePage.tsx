@@ -1,5 +1,5 @@
 import styles from './ProfilePage.module.css'
-import { Page } from "../../shared/ui/Page";
+import { Page } from "@/shared/ui/Page";
 
 export const ProfilePage = () => {
   return (

@@ -1,4 +1,4 @@
-import { Page } from "../../shared/ui/Page";
+import { Page } from "@/shared/ui/Page";
 import { UserSection } from "./ui/UserSection";
 import { Actions } from "./ui/Actions";
 import { QuizSection } from "./ui/QuizSection";

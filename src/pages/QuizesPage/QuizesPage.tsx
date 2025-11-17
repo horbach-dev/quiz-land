@@ -1,5 +1,5 @@
 import styles from './QuizzesPage.module.css'
-import { Page } from "../../shared/ui/Page";
+import { Page } from "@/shared/ui/Page";
 
 export const QuizzesPage = () => {
   return (

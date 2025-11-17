@@ -11,7 +11,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@directus/sdk": "^18.0.3",
     "@ncdai/react-wheel-picker": "^1.0.19",
+    "@tanstack/react-query": "^5.90.10",
     "@telegram-apps/sdk-react": "^3.3.9",
     "axios": "^1.13.2",
     "clsx": "^2.1.1",
@@ -26,9 +28,12 @@
     "@types/node": "^24.10.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
     "@vitejs/plugin-react-swc": "^4.2.1",
     "cross-env": "^10.1.0",
     "eslint": "^9.39.1",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",

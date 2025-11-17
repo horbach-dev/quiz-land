@@ -1,7 +1,7 @@
-import styles from "./Actions.module.css";
 import { SquarePen, Share } from "lucide-react";
-import { Button } from "../../../../shared/ui/Button";
-import {useState} from "react";
+import { useState } from "react";
+import { Button } from "@/shared/ui/Button";
+import styles from "./Actions.module.css";
 
 export const Actions = () => {
   const [isVis, setIsVis] = useState(true);

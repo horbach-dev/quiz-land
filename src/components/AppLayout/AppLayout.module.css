@@ -6,6 +6,8 @@
     min-height: 100vh;
     max-width: 680px;
     margin: 0 auto;
+    --padding-bottom: 0;
+    padding-bottom: calc(6.5rem + var(--padding-bottom));
     transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out;
 }
 
@@ -15,10 +17,6 @@
 }
 
 .content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    /*bottom: 8rem !important;*/
     width: 100%;
     transition: opacity 300ms ease, transform 300ms ease;
     will-change: opacity, transform;
@@ -29,3 +27,4 @@
 .spacer {
     height: 8rem;
 }
+

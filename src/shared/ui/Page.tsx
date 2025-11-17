@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { hideBackButton, onBackButtonClick, showBackButton } from '@telegram-apps/sdk-react';
 import { type PropsWithChildren, useEffect } from 'react';
-import { vibrationCallback } from "../utils/vibrationCallback";
+import { vibrationCallback } from "@/shared/utils/vibrationCallback";
 
 export function Page({ children, back = true, backLink }: PropsWithChildren<{
   /**
