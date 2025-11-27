@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
 import { EnvUnsupported } from './app/EnvUnsupported';
 import { init } from './app/init';
-import Root from './app/Root';
+import { App } from './app';
 import './app/mockEnv';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
@@ -22,7 +22,7 @@ try {
     .then(() => {
       root.render(
         <StrictMode>
-          <Root />
+          <App />
         </StrictMode>
       );
     });

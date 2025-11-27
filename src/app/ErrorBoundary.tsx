@@ -31,6 +31,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 function ErrorBoundaryError({ error }: { error: unknown }) {
   return (
     <div>

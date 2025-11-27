@@ -1,5 +1,5 @@
 import { Page } from "@/shared/ui/Page";
-import { questions } from "@/components/Quiz/questions";
+import { questions } from "@/widgets/Quiz/questions";
 import IQImg from './iq.jpg'
 import styles from './QuizPage.module.css'
 import { ChevronsRight } from "lucide-react";
@@ -16,6 +16,10 @@ const currentQuiz = {
   averageScore: 85,
   results: [],
   questions
+}
+
+export function QQ () {
+  return <></>
 }
 
 export const QuizPage = () => {

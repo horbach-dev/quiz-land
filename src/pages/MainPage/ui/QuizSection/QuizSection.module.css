@@ -48,6 +48,7 @@
     text-decoration: none;
     box-shadow: 0 0 50px 3px rgba(33,33,33,0.5);
     transition: background-color 0.2s;
+    cursor: pointer;
 }
 
 .quizItem:hover {

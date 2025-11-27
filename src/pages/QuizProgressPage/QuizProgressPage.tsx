@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { Progress } from './ui/Progress';
 import { QuizCard } from './ui/QuizCard';
 import { QuizFooter } from "./ui/QuizFooter";
+import { Page } from '@/shared/ui/Page';
 import { useQuizStore } from "@/stores/quizStore";
 import IQImg from "@/pages/QuizPage/iq.jpg";
-import { questions } from "@/components/Quiz/questions";
-import styles from './Quiz.module.css';
+import { questions } from "./questions";
+import styles from './Quiz.module.css'
 
 type TAnswers = Record<string, { value: string, point: number } | null>
 
@@ -28,12 +29,11 @@ const getAnswers = (questions: any[]) => {
   }, {} as TAnswers)
 }
 
-export const QuizProgressPage = () => {
+export default function QuizProgressPage () {
   const [isHide, setIsHide] = useState(false);
   const [step, setStep] = useState(0);
   const [isEnd, setEnd] = useState(false);
   const { currentQuiz, setCurrentQuiz } = useQuizStore()
-
   const [answers, setAnswers] = useState<TAnswers | []>([]);
 
   useEffect(() => {
@@ -107,26 +107,28 @@ export const QuizProgressPage = () => {
   // }, 0)
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <Progress
-          step={step}
-          isShow={!isEnd}
-          length={questions.length}
-        />
-        <QuizCard
-          isShow={!isHide && !isEnd}
-          value={currentAnswer?.value || ''}
-          setValue={handleSetValue}
-          question={currentQuestion}
+    <Page padding={{ bottom: 0 }}>
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <Progress
+            step={step}
+            isShow={!isEnd}
+            length={questions.length}
+          />
+          <QuizCard
+            isShow={!isHide && !isEnd}
+            value={currentAnswer?.value || ''}
+            setValue={handleSetValue}
+            question={currentQuestion}
+          />
+        </div>
+        <QuizFooter
+          id={quizId}
+          isDone={isEnd}
+          disabled={step === 0}
+          onClick={isEnd ? handleNext : handlePrev}
         />
       </div>
-      <QuizFooter
-        id={quizId}
-        isDone={isEnd}
-        disabled={step === 0}
-        onClick={isEnd ? handleNext : handlePrev}
-      />
-    </div>
+    </Page>
   )
 }

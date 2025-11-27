@@ -1,17 +1,24 @@
-import type { ReactNode } from "react";
+import type {ReactNode, SyntheticEvent} from "react";
 import clsx from "clsx";
 import styles from "./Button.module.css";
+import {navigateTo} from "@/shared/utils/navigateTo.ts";
 
 interface IProps {
   disabled?: boolean;
   loading?: boolean;
+  to?: string;
   children?: ReactNode;
   before?: ReactNode;
   after?: ReactNode;
-  onClick?: () => void;
+  onClick?: (event: SyntheticEvent) => void;
 }
 
-export const Button = ({ after, before, disabled, loading, children, onClick }: IProps) => {
+export const Button = ({ to, after, before, disabled, loading, children, onClick }: IProps) => {
+  const handleClick = (event: SyntheticEvent) => {
+    if (to) navigateTo(to)
+    onClick?.(event)
+  }
+
   return (
     <button
       className={
@@ -21,7 +28,7 @@ export const Button = ({ after, before, disabled, loading, children, onClick }: 
           before && styles.withBefore,
           )
       }
-      onClick={onClick}
+      onClick={handleClick}
       disabled={disabled || loading}
     >
       {before && <span className={styles.before}>{before}</span>}
