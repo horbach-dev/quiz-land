@@ -1,5 +1,5 @@
 import { useState, type AnimationEvent } from "react";
-import { useAppStore } from "@/stores/appStore";
+import { useAppConfigStore } from "@/shared/config/store";
 import clsx from "clsx";
 import { ArrowLeft, ArrowDown, ChevronsRight } from "lucide-react";
 import { IntroSliderContent } from "./IntroSliderContent";
@@ -10,7 +10,7 @@ import styles from "./IntroSlider.module.css";
 export const IntroSlider = () => {
   const [isClose, setIsClose] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const appStore = useAppStore();
+  const setShowIntro = useAppConfigStore(state => state.setShowIntro);
 
   const handleNext = () => {
     setCurrentSlide(prevSlide => {
@@ -35,7 +35,7 @@ export const IntroSlider = () => {
 
   const handleCloseIntro = (e: AnimationEvent) => {
     if (e.target === e.currentTarget && currentSlide === slides.length - 1) {
-      appStore.setIntro(false)
+      setShowIntro(false)
     }
   }
 
@@ -45,7 +45,6 @@ export const IntroSlider = () => {
         clsx(
           styles.container,
           isClose && styles.containerClose,
-          appStore.intro.withAnimation && styles.containerWithAnimation
         )
     }
       onAnimationEnd={handleCloseIntro}
