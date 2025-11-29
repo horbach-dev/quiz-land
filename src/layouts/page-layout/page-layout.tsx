@@ -1,16 +1,19 @@
 import {
   hideBackButton,
   onBackButtonClick,
-  retrieveLaunchParams,
+  useLaunchParams,
   showBackButton
 } from '@telegram-apps/sdk-react';
 import clsx from "clsx";
-import {type PropsWithChildren, useEffect, useMemo} from 'react';
+import { type PropsWithChildren, useEffect } from 'react';
 import { useAppConfigStore } from "@/shared/config/store";
 import { navigateTo } from "@/shared/utils/navigateTo";
 import { RotationAlert } from "@/features/rotation-alert";
 import { SwipeRedirect } from "@/features/swipe-redirect";
 import styles from './page-layout.module.css'
+import {useSafeArea} from "@/shared/hooks/useSafeArea.ts";
+
+const alertRotationPlatform = ['ios', 'android']
 
 interface IProps {
   backLink?: string | null
@@ -32,13 +35,12 @@ export function PageLayout({
   withRotationAlert = true,
   className
 }: PropsWithChildren<IProps>) {
-  const { top, bottom } = useAppConfigStore(state => state.safeArea)
+  const { top, bottom } = useSafeArea()
   const navigationHeight = useAppConfigStore(state => state.navigationHeight)
   const setNavigationVisible = useAppConfigStore(state => state.setNavigationVisible)
 
-  const isShowRotationAlert = useMemo(() => {
-    return ['ios', 'android'].includes(retrieveLaunchParams()?.tgWebAppPlatform)
-  }, [])
+  const { tgWebAppPlatform } = useLaunchParams()
+  const isShowRotationAlert = alertRotationPlatform.includes(tgWebAppPlatform)
 
   useEffect(() => {
     setNavigationVisible(withNavigation)

@@ -10,9 +10,7 @@ import {
 } from "react-router-dom";
 import { swipeBehavior } from "@telegram-apps/sdk-react";
 import { CHANGE_APP_ROUTE_EVENT } from "@/constants";
-import { useAppConfigStore } from "@/shared/config/store";
 import { Navigation } from "@/features/navigation";
-import { getSafeArea } from "@/shared/utils/getSafeeArea";
 import { Background } from "@/shared/ui/Background";
 import styles from './AppLayout.module.css';
 
@@ -23,13 +21,11 @@ interface CustomEvent extends Event {
 export const AppLayout = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const setSafeArea = useAppConfigStore(state => state.setSafeArea)
 
   // safe areas
   useLayoutEffect(() => {
     swipeBehavior?.mount()
     swipeBehavior?.disableVertical()
-    getSafeArea().then(setSafeArea);
   }, []);
 
   function updateRoute(route: CustomEvent) {

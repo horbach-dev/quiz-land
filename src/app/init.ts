@@ -11,7 +11,7 @@ import {
   themeParamsState,
   retrieveLaunchParams,
   emitEvent,
-  miniApp,
+  miniApp, isViewportCssVarsBound,
 } from '@telegram-apps/sdk-react';
 
 export async function init(options: {
@@ -64,7 +64,9 @@ export async function init(options: {
 
   if (mountViewport.isAvailable()) {
     mountViewport().then(() => {
+
       bindViewportCssVars();
+      console.log(isViewportCssVarsBound())
     })
   }
 }
