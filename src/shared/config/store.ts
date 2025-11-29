@@ -1,19 +1,15 @@
 import { create } from 'zustand';
 
-interface AppState {
-  navigationHeight: number;
+interface IAppState {
   isNavigationVisible: boolean;
   showIntro: boolean;
-  setNavigationHeight: (v: number) => void;
   setNavigationVisible: (v: boolean) => void;
   setShowIntro: (v: boolean) => void;
 }
 
-export const useAppConfigStore = create<AppState>((set) => ({
+export const useAppConfigStore = create<IAppState>((set) => ({
   isNavigationVisible: true,
-  navigationHeight: 0,
   showIntro: !localStorage.getItem('show-intro'),
-  setNavigationHeight: (navigationHeight) => set({ navigationHeight }),
   setNavigationVisible: (isNavigationVisible) => set({ isNavigationVisible }),
   setShowIntro: (isShow) => {
     if (isShow) {

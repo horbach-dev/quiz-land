@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv, type PluginOption } from 'vite'
 import react from '@vitejs/plugin-react-swc'
+import visualizer from "rollup-plugin-visualizer";
 import tailwindcss from "@tailwindcss/vite"
 import ngrok from '@ngrok/ngrok';
 import path from 'path';
@@ -20,6 +21,17 @@ export default defineConfig(({ mode }) => {
         port: VITE_PORT,
         token: env.VITE_NGROK_TOKEN,
         domain: env.VITE_NGROK_DOMAIN
+      })
+    )
+  }
+
+  if (env.VITE_VISUALIZER) {
+    plugins.push(
+      visualizer({
+        filename: 'stats.html',
+        open: true,
+        gzipSize: true,
+        brotliSize: true
       })
     )
   }

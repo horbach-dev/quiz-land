@@ -24,7 +24,7 @@
 
 /* backdrop-filter есть — включаем blur */
 @supports ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
-    .headerFill {
+    .content {
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         background: rgba(39, 36, 59, 0.7);
@@ -33,7 +33,7 @@
 
 /* fallback если НЕТ поддержки blur */
 @supports not ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
-    .headerFill {
+    .content {
         background: rgba(39, 36, 59, 0.95);
     }
 }

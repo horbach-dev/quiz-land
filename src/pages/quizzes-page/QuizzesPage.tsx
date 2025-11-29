@@ -4,7 +4,7 @@ import { Button } from "@/shared/ui/Button";
 import { PageLayout } from "@/layouts/page-layout";
 import { QuizList } from "@/features/quiz/quiz-list";
 import { QuizFilter } from "@/features/quiz/quiz-filter";
-import IQImg from "@/pages/MainPage/ui/QuizSection/iq.jpg";
+import IQImg from "@/pages/main-page/ui/QuizSection/iq.jpg";
 import { QuizzesPageHeader } from "./ui/quizzes-page-header";
 import styles from './QuizzesPage.module.css'
 

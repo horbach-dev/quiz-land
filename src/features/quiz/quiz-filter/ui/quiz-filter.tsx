@@ -1,5 +1,5 @@
 import { Button } from "@/shared/ui/Button";
-import { SearchCheck } from "lucide-react";
+import { SearchCheck, Trash2 } from "lucide-react";
 import { QuizFilterLayout } from "./quiz-filter-layout";
 
 export const QuizFilter = ({ isOpen, onClose }) => {
@@ -7,11 +7,25 @@ export const QuizFilter = ({ isOpen, onClose }) => {
     onClose();
   }
 
+  const handleClearSearch = () => {}
+
   return (
     <QuizFilterLayout
       isOpen={isOpen}
       onClose={onClose}
-      actions={(
+      title='Поиск квизов'
+      clearButton={(
+        <Button
+          size='sm'
+          style='white'
+          disabled={true}
+          onClick={handleClearSearch}
+          after={<Trash2 />}
+        >
+          Очистить
+        </Button>
+      )}
+      searchButton={(
         <Button
           onClick={handleSearch}
           after={<SearchCheck />}

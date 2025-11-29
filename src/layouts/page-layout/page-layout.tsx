@@ -24,12 +24,10 @@ export function PageLayout({
   back = true,
   backLink,
   withSwipeRedirect = true,
-  // withPaddingTop = true,
   withNavigation = true,
   withRotationAlert = true,
   className
 }: PropsWithChildren<IProps>) {
-  const navigationHeight = useAppConfigStore(state => state.navigationHeight)
   const setNavigationVisible = useAppConfigStore(state => state.setNavigationVisible)
 
   const { tgWebAppPlatform } = useLaunchParams()
@@ -51,7 +49,7 @@ export function PageLayout({
   return (
     <div
       className={clsx(styles.pageLayout, className)}
-      style={withNavigation ? { paddingBottom: `calc(${navigationHeight}px + var(--padding-bottom))` } : {}}
+      style={withNavigation ? { paddingBottom: `calc(var(--navigation-height) + var(--padding-bottom))` } : {}}
     >
       {withSwipeRedirect && <SwipeRedirect />}
       {children}

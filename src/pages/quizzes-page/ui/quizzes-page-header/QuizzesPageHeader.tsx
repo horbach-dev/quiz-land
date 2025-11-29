@@ -1,8 +1,6 @@
 import { createPortal } from "react-dom";
-import clsx from "clsx";
-import type { ReactNode } from "react";
+import {type ReactNode, useLayoutEffect, useRef} from "react";
 import { SectionHeader } from "@/shared/ui/section-header";
-import { usePageScroll } from "@/shared/hooks/usePageScroll";
 import styles from "./QuizzesPageHeader.module.css";
 
 interface IProps {
@@ -13,17 +11,26 @@ interface IProps {
 const header = document.getElementById("header")!;
 
 export const QuizzesPageHeader = ({ actions, title }: IProps) => {
-  const scroll = usePageScroll()
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  return createPortal(
-    <div className={styles.header}>
-      <div className={clsx(styles.content, scroll > 20 && styles.headerFill)}>
+  useLayoutEffect(() => {
+    if (containerRef?.current?.offsetHeight) {
+      document.documentElement.style.setProperty(
+        "--quizzes-page-header-height",
+        containerRef.current.offsetHeight + 'px'
+        );
+    }
+  }, [])
+
+  return (createPortal(
+    <div ref={containerRef} className={styles.header}>
+      <div className={styles.content}>
         <SectionHeader
           title={title}
           actions={actions}
         />
       </div>
     </div>,
-    header
+    header)
   )
 }

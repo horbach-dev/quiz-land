@@ -1,6 +1,6 @@
 .container {
     padding:
-            var(--padding-top)
+            calc(var(--quizzes-page-header-height) - var(--padding-top) + var(--default-padding))
             var(--default-padding)
             var(--default-padding)
             var(--default-padding);

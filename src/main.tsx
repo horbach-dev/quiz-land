@@ -18,6 +18,7 @@ try {
   await init({
     debug,
     eruda: isDev && ['ios', 'android'].includes(platform),
+    // eruda: true,
     mockForMacOS: platform === 'macos',
   })
     .then(() => {

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env VITE_DEV=true vite",
+    "visual": "cross-env VITE_VISUALIZER=true vite",
     "dev:ngrok": "cross-env VITE_DEV=true VITE_USE_NGROK=true vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
@@ -50,6 +51,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "rollup-plugin-visualizer": "^6.0.5",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.3",
     "vite": "^7.2.2"

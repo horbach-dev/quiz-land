@@ -1,5 +1,5 @@
 import { createHashRouter, Navigate } from "react-router-dom";
-import { MainPage } from "@/pages/MainPage";
+import { MainPage } from "@/pages/main-page";
 import { CreateQuizPage } from "@/pages/CreateQuizPage";
 import { QuizPage } from "@/pages/QuizPage";
 import { QuizProgressPage } from "@/pages/QuizProgressPage";

@@ -15,12 +15,14 @@ const items = [
 export const Navigation = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isNavigationVisible = useAppConfigStore(store => store.isNavigationVisible)
-  const setNavigationHeight = useAppConfigStore(store => store.setNavigationHeight)
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
     if (containerRef?.current?.offsetHeight) {
-      setNavigationHeight(containerRef.current.offsetHeight)
+      document.documentElement.style.setProperty(
+        "--navigation-height",
+        containerRef.current.offsetHeight + 'px'
+      );
     }
   }, [])
 
