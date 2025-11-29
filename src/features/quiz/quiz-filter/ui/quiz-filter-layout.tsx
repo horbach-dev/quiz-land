@@ -3,7 +3,6 @@ import BottomSheet from "react-light-sheet";
 import styles from "./quiz-filter.module.css";
 import { Background } from "@/shared/ui/Background";
 import type { ReactNode} from "react";
-import { useAppConfigStore } from "@/shared/config/store";
 
 const portalContainer = document.getElementById("modals")!;
 
@@ -15,8 +14,6 @@ interface IProps {
 }
 
 export const QuizFilterLayout = ({ isOpen, onClose, children, actions }: IProps) => {
-  const { top, bottom } = useAppConfigStore(state => state.safeArea)
-
   return createPortal(
     <BottomSheet
       overlayClassName={styles.overlay}
@@ -26,15 +23,9 @@ export const QuizFilterLayout = ({ isOpen, onClose, children, actions }: IProps)
       onClose={onClose}
     >
       <Background absolute />
-      <div
-        style={{ maxHeight: `calc(100vh - ${top + 50}px)` }}
-        className={styles.content}
-      >
+      <div className={styles.content}>
         {children}
-        <div
-          style={{ bottom, marginTop: `calc(var(--default-padding) + ${bottom}px)` }}
-          className={styles.actions}
-        >
+        <div className={styles.actions}>
           {actions}
         </div>
       </div>

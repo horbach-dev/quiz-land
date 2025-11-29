@@ -3,10 +3,10 @@ import { FilterIcon } from "lucide-react";
 import { Button } from "@/shared/ui/Button";
 import { PageLayout } from "@/layouts/page-layout";
 import { QuizList } from "@/features/quiz/quiz-list";
+import { QuizFilter } from "@/features/quiz/quiz-filter";
 import IQImg from "@/pages/MainPage/ui/QuizSection/iq.jpg";
 import { QuizzesPageHeader } from "./ui/quizzes-page-header";
 import styles from './QuizzesPage.module.css'
-import { QuizFilter } from "@/features/quiz/quiz-filter";
 
 const defaultData = [
   { id: 1, title: 'IQ тест', image: IQImg, link: '/quiz/1' },

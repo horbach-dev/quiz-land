@@ -6,7 +6,6 @@ import { navigateTo } from "@/shared/utils/navigateTo";
 import { RotationAlert } from "@/features/rotation-alert";
 import { SwipeRedirect } from "@/features/swipe-redirect";
 import styles from './page-layout.module.css'
-import { useSafeArea } from "@/shared/hooks/useSafeArea.ts";
 
 const alertRotationPlatform = ['ios', 'android']
 
@@ -25,18 +24,16 @@ export function PageLayout({
   back = true,
   backLink,
   withSwipeRedirect = true,
-  withPaddingTop = true,
+  // withPaddingTop = true,
   withNavigation = true,
   withRotationAlert = true,
   className
 }: PropsWithChildren<IProps>) {
-  const { top, bottom } = useSafeArea()
   const navigationHeight = useAppConfigStore(state => state.navigationHeight)
   const setNavigationVisible = useAppConfigStore(state => state.setNavigationVisible)
 
   const { tgWebAppPlatform } = useLaunchParams()
   const isShowRotationAlert = alertRotationPlatform.includes(tgWebAppPlatform)
-
 
   useEffect(() => {
     setNavigationVisible(withNavigation)
@@ -53,13 +50,8 @@ export function PageLayout({
 
   return (
     <div
-      className={clsx(styles.container, className)}
-      style={{
-        '--padding-top': `${top}px`,
-        '--padding-bottom': `${bottom}px`,
-        paddingTop: withPaddingTop ? top : 0,
-        paddingBottom: withNavigation ? navigationHeight + bottom : bottom
-      }}
+      className={clsx(styles.pageLayout, className)}
+      style={withNavigation ? { paddingBottom: `calc(${navigationHeight}px + var(--padding-bottom))` } : {}}
     >
       {withSwipeRedirect && <SwipeRedirect />}
       {children}

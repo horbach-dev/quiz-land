@@ -5,7 +5,6 @@ import clsx from "clsx";
 import { useAppConfigStore } from "@/shared/config/store";
 import { navigateTo } from "@/shared/utils/navigateTo";
 import styles from './Navigation.module.css';
-import {useSafeArea} from "@/shared/hooks/useSafeArea.ts";
 
 const items = [
   { id: 1, title: 'Главная', icon: Home, link: '/' },
@@ -14,7 +13,6 @@ const items = [
 ]
 
 export const Navigation = () => {
-  const { bottom } = useSafeArea()
   const containerRef = useRef<HTMLDivElement>(null);
   const isNavigationVisible = useAppConfigStore(store => store.isNavigationVisible)
   const setNavigationHeight = useAppConfigStore(store => store.setNavigationHeight)
@@ -27,10 +25,7 @@ export const Navigation = () => {
   }, [])
 
   return (
-    <div
-      style={{ '--padding-bottom': bottom + 'px' }}
-      className={clsx(styles.container, !isNavigationVisible && styles.hide)}
-    >
+    <div className={clsx(styles.container, !isNavigationVisible && styles.hide)}>
       <div ref={containerRef} className={styles.list}>
         {items.map(({ id, link, title, icon: Icon }) => {
           const active = pathname.includes(link) && link !== '/' || pathname === link;

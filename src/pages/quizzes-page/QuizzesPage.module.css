@@ -1,3 +1,7 @@
 .container {
-    padding: 5.6rem var(--default-padding) var(--default-padding) var(--default-padding);
+    padding:
+            var(--padding-top)
+            var(--default-padding)
+            var(--default-padding)
+            var(--default-padding);
 }

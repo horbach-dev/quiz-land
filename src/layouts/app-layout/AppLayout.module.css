@@ -6,8 +6,6 @@
     min-height: 100vh;
     max-width: var(--max-app-width);
     margin: 0 auto;
-    --padding-top: 0;
-    --padding-bottom: 0;
     transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out;
 }
 

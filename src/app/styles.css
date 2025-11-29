@@ -11,6 +11,15 @@
 :root {
     --default-padding: 1.5rem;
     --max-app-width: 680px;
+    --default-s-a-bottom: 22px;
+
+    --s-a-top: var(--tg-viewport-safe-area-inset-top, 0px);
+    --s-a-bottom: var(--tg-viewport-safe-area-inset-bottom, 0px);
+    --s-a-content-top: var(--tg-viewport-content-safe-area-inset-top, 0px);
+    --s-a-content-bottom: var(--tg-viewport-content-safe-area-inset-bottom, 0px);
+
+    --padding-top: calc(var(--s-a-top) + var(--s-a-content-top));
+    --padding-bottom: max(var(--s-a-bottom) + var(--s-a-content-bottom), var(--default-s-a-bottom));
 }
 
 html {

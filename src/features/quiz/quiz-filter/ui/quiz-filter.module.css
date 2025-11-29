@@ -2,7 +2,6 @@
     overflow: hidden;
     z-index: 5000 !important;
     background: #2a2a55 !important;
-    --padding-top: 0px;
 }
 
 .overlay {
@@ -17,7 +16,7 @@
 
 .content {
     position: relative;
-    padding: var(--default-padding);
+    /*padding: var(--default-padding);*/
 
     p {
         position: relative;
