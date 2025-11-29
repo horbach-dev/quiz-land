@@ -17,7 +17,7 @@
 
 .content {
     position: relative;
-    padding: 1.5rem;
+    padding: var(--default-padding);
 
     p {
         position: relative;

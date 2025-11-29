@@ -32,7 +32,7 @@ export const QuizFilterLayout = ({ isOpen, onClose, children, actions }: IProps)
       >
         {children}
         <div
-          style={{ bottom, marginTop: `calc(1.5rem + ${bottom}px)` }}
+          style={{ bottom, marginTop: `calc(var(--default-padding) + ${bottom}px)` }}
           className={styles.actions}
         >
           {actions}

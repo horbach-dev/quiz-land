@@ -19,7 +19,7 @@ export const QuizzesPageHeader = ({ actions, title }: IProps) => {
 
   return createPortal(
     <div
-      style={{ padding: `calc(${top}px + 1.5rem) 1.5rem 0` }}
+      style={{ padding: `calc(${top}px + var(--default-padding)) var(--default-padding) 0` }}
       className={clsx(styles.header, scroll > 20 && styles.headerFill)}
     >
       <SectionHeader

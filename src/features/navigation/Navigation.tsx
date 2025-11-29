@@ -27,11 +27,10 @@ export const Navigation = () => {
 
   return (
     <div
-      ref={containerRef}
       style={{ '--padding-bottom': paddingBottom + 'px' }}
       className={clsx(styles.container, !isNavigationVisible && styles.hide)}
     >
-      <div className={styles.list}>
+      <div ref={containerRef} className={styles.list}>
         {items.map(({ id, link, title, icon: Icon }) => {
           const active = pathname.includes(link) && link !== '/' || pathname === link;
           return (

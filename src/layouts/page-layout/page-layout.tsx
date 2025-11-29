@@ -56,7 +56,7 @@ export function PageLayout({
         '--padding-top': `${top}px`,
         '--padding-bottom': `${bottom}px`,
         paddingTop: withPaddingTop ? top : 0,
-        paddingBottom: withNavigation ? navigationHeight : bottom
+        paddingBottom: withNavigation ? navigationHeight + bottom : bottom
       }}
     >
       {children}

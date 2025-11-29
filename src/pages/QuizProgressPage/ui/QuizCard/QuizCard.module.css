@@ -8,7 +8,7 @@
 
 .title {
     margin-bottom: 2rem;
-    font-size: 1.5rem;
+    font-size: var(--default-padding);
     font-weight: 900;
 }
 

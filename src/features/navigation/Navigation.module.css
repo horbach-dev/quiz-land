@@ -8,7 +8,7 @@
     align-items: center;
     justify-content: center;
     --padding-bottom: 0;
-    padding: 0 1.5rem var(--padding-bottom) 1.5rem;
+    padding: 0 var(--default-padding) var(--padding-bottom) var(--default-padding);
     transition: opacity 0.5s, transform 0.5s;
 }
 

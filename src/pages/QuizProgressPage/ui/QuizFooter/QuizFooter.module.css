@@ -67,6 +67,6 @@
 }
 
 .arrow {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: var(--default-padding);
+    height: var(--default-padding);
 }
