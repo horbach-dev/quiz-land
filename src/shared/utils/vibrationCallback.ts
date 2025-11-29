@@ -1,7 +1,7 @@
-import { hapticFeedback, isHapticFeedbackSupported } from "@telegram-apps/sdk-react";
+import { hapticFeedback } from "@tma.js/sdk-react";
 
 export const vibrationCallback = () => {
-  if (isHapticFeedbackSupported()) {
+  if (hapticFeedback?.isSupported()) {
     hapticFeedback.impactOccurred('light')
   }
 }

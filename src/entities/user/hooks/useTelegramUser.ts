@@ -1,10 +1,8 @@
-import { useMemo } from "react";
-import { retrieveLaunchParams, type RetrieveLPResult } from "@telegram-apps/sdk-react";
+import { useLaunchParams } from "@tma.js/sdk-react";
 import type { ITelegramUser } from "../types";
 
 export const useTelegramUser = (): ITelegramUser => {
-  const launchParams = useMemo<RetrieveLPResult>(() => retrieveLaunchParams(), []);
-
+  const launchParams = useLaunchParams();
   return {
     id: String(launchParams?.tgWebAppData?.user?.id || ''),
     language: 'ru-RU',

@@ -1,17 +1,12 @@
-import {
-  hideBackButton,
-  onBackButtonClick,
-  useLaunchParams,
-  showBackButton
-} from '@telegram-apps/sdk-react';
-import clsx from "clsx";
+import { backButton, useLaunchParams } from '@tma.js/sdk-react';
 import { type PropsWithChildren, useEffect } from 'react';
+import clsx from "clsx";
 import { useAppConfigStore } from "@/shared/config/store";
 import { navigateTo } from "@/shared/utils/navigateTo";
 import { RotationAlert } from "@/features/rotation-alert";
 import { SwipeRedirect } from "@/features/swipe-redirect";
 import styles from './page-layout.module.css'
-import {useSafeArea} from "@/shared/hooks/useSafeArea.ts";
+import { useSafeArea } from "@/shared/hooks/useSafeArea.ts";
 
 const alertRotationPlatform = ['ios', 'android']
 
@@ -42,17 +37,18 @@ export function PageLayout({
   const { tgWebAppPlatform } = useLaunchParams()
   const isShowRotationAlert = alertRotationPlatform.includes(tgWebAppPlatform)
 
+
   useEffect(() => {
     setNavigationVisible(withNavigation)
 
     if (back) {
-      showBackButton();
-      return onBackButtonClick(() => {
+      backButton.show();
+      return backButton.onClick(() => {
         navigateTo(backLink ? backLink : 'back-navigate');
       });
     }
 
-    hideBackButton();
+    backButton.hide();
   }, [back, backLink, withNavigation]);
 
   return (
