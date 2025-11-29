@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 
 const element = document.getElementById("root")!;
+const SWIPE_DISTANCE = 100;
+const GAP = 20
 
 export const useSwipeEvents = (container: { current: HTMLDivElement | null }, onSwipeRight: () => void) => {
 
@@ -9,8 +11,6 @@ export const useSwipeEvents = (container: { current: HTMLDivElement | null }, on
     let touchStartX = 0;
     let touchEndX = 0;
     let touchEndY = 0;
-    const minSwipeDistance = 100;
-    const gap = 20
 
     function touchStart (event) {
       touchStartX = event.touches[0].clientX;
@@ -25,12 +25,12 @@ export const useSwipeEvents = (container: { current: HTMLDivElement | null }, on
 
       if (container.current) {
         container.current.style.transition = 'none'
-        const delta = touchEndX - touchStartX - Math.abs(touchEndY - touchStartY) - gap
-        if (delta < gap) {
+        const delta = touchEndX - touchStartX - Math.abs(touchEndY - touchStartY) - GAP
+        if (delta < GAP) {
           container.current.style.transform = `translateX(${delta}px)`;
         } else {
-          const scale = Math.min((delta - gap) * 2, minSwipeDistance)
-          container.current.style.transform = `scale(${(scale / (minSwipeDistance * 2)) + 1}) translateX(${gap}px)`;
+          const scale = Math.min((delta - GAP) * 2, SWIPE_DISTANCE)
+          container.current.style.transform = `scale(${(scale / (SWIPE_DISTANCE * 2)) + 1}) translateX(${GAP}px)`;
         }
       }
     }
@@ -42,9 +42,9 @@ export const useSwipeEvents = (container: { current: HTMLDivElement | null }, on
       }
       if (touchEndX === 0) return;
 
-      const deltaX = touchEndX - touchStartX - Math.abs(touchEndY - touchStartY) - gap
+      const deltaX = touchEndX - touchStartX - Math.abs(touchEndY - touchStartY) - GAP
 
-      if (Math.abs(deltaX) > minSwipeDistance) {
+      if (Math.abs(deltaX) > SWIPE_DISTANCE) {
         if (deltaX > 0) {
           if (onSwipeRight) onSwipeRight();
           console.log("Swipe Left detected");
