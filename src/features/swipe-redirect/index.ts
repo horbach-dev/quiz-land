@@ -1,0 +1,1 @@
+export { SwipeRedirect } from './ui/swipe-redirect'

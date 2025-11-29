@@ -9,6 +9,7 @@ import {type PropsWithChildren, useEffect, useMemo} from 'react';
 import { useAppConfigStore } from "@/shared/config/store";
 import { navigateTo } from "@/shared/utils/navigateTo";
 import { RotationAlert } from "@/features/rotation-alert";
+import { SwipeRedirect } from "@/features/swipe-redirect";
 import styles from './page-layout.module.css'
 
 interface IProps {
@@ -16,6 +17,7 @@ interface IProps {
   back?: boolean
   withPaddingTop?: boolean
   withNavigation?: boolean
+  withSwipeRedirect?: boolean
   withRotationAlert?: boolean
   className?: string
 }
@@ -24,6 +26,7 @@ export function PageLayout({
   children,
   back = true,
   backLink,
+  withSwipeRedirect = true,
   withPaddingTop = true,
   withNavigation = true,
   withRotationAlert = true,
@@ -60,6 +63,7 @@ export function PageLayout({
         paddingBottom: withNavigation ? navigationHeight + bottom : bottom
       }}
     >
+      {withSwipeRedirect && <SwipeRedirect />}
       {children}
       {(isShowRotationAlert && withRotationAlert) && <RotationAlert />}
     </div>
