@@ -38,8 +38,9 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       outDir: 'docs',
-      assetsDir: 'quiz-land/assets',
+      // assetsDir: 'quiz-land/assets',
     },
+    base: '/quiz-land/'
   }
 })
 
