@@ -4,7 +4,7 @@ import { Actions } from "./ui/Actions";
 import { QuizSection } from "./ui/QuizSection";
 import styles from "./MainPage.module.css";
 
-export const MainPage = () => {
+export default function MainPage () {
   return (
     <PageLayout back={false}>
       <div className={styles.container}>

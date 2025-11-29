@@ -20,7 +20,7 @@ interface IProps {
 
 export const Button = ({
   to,
-  type,
+  type = 'button',
   after,
   before,
   disabled,

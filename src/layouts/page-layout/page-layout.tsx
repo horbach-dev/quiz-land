@@ -5,14 +5,11 @@ import {
   showBackButton
 } from '@telegram-apps/sdk-react';
 import clsx from "clsx";
-import { type PropsWithChildren, useEffect } from 'react';
+import {type PropsWithChildren, useEffect, useMemo} from 'react';
 import { useAppConfigStore } from "@/shared/config/store";
 import { navigateTo } from "@/shared/utils/navigateTo";
 import { RotationAlert } from "@/features/rotation-alert";
 import styles from './page-layout.module.css'
-
-const launchParams = retrieveLaunchParams();
-const isShowRotationAlert = ['ios', 'android'].includes(launchParams?.tgWebAppPlatform)
 
 interface IProps {
   backLink?: string | null
@@ -35,6 +32,10 @@ export function PageLayout({
   const { top, bottom } = useAppConfigStore(state => state.safeArea)
   const navigationHeight = useAppConfigStore(state => state.navigationHeight)
   const setNavigationVisible = useAppConfigStore(state => state.setNavigationVisible)
+
+  const isShowRotationAlert = useMemo(() => {
+    return ['ios', 'android'].includes(retrieveLaunchParams()?.tgWebAppPlatform)
+  }, [])
 
   useEffect(() => {
     setNavigationVisible(withNavigation)

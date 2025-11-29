@@ -36,6 +36,7 @@ export const Navigation = () => {
           return (
             <button
               key={id}
+              type='button'
               className={clsx(styles.item, active && styles.active)}
               onClick={() => navigateTo(link)}
             >

@@ -59,6 +59,7 @@ export const IntroSlider = () => {
       />
       <div className={styles.footer}>
         <button
+          type='button'
           disabled={currentSlide === 0}
           className={styles.btnPrev}
           onClick={handlePrev}
@@ -66,7 +67,11 @@ export const IntroSlider = () => {
           <ArrowLeft className={styles.arrow} />
           <span>{'назад'}</span>
         </button>
-        <button className={styles.btnNext} onClick={handleNext}>
+        <button
+          type='button'
+          className={styles.btnNext}
+          onClick={handleNext}
+        >
           {currentSlide === 0 && (
             <ArrowDown
               size={24}

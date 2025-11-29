@@ -34,7 +34,7 @@ export const UserSection = () => {
         </p>
         <div className={styles.userStatisticBtn}>
           <span>В профиль</span>
-          <button>
+          <button type='button' title='в профиль'>
             <ChevronRight />
           </button>
         </div>
