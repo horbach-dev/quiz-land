@@ -14,9 +14,6 @@ import {
   miniApp,
 } from '@telegram-apps/sdk-react';
 
-/**
- * Initializes the application and configures its dependencies.
- */
 export async function init(options: {
   debug: boolean;
   eruda: boolean;
@@ -25,11 +22,12 @@ export async function init(options: {
   setDebug(options.debug);
   initSDK();
 
-  // Add Eruda if needed.
-  options.eruda && void import('eruda').then(({ default: eruda }) => {
-    eruda.init();
-    eruda.position({ x: window.innerWidth / 2, y: 50 });
-  });
+  if (options.eruda) {
+    void import('eruda').then(({ default: eruda }) => {
+      eruda.init();
+      eruda.position({ x: window.innerWidth / 2, y: 50 });
+    })
+  }
 
   if (options.mockForMacOS) {
     let firstThemeSent = false;
@@ -62,11 +60,11 @@ export async function init(options: {
   if (miniApp.mountSync.isAvailable()) {
     miniApp.mountSync();
     bindThemeParamsCssVars();
-    // disableVerticalSwipes()
   }
 
-
-  mountViewport.isAvailable() && mountViewport().then(() => {
-    bindViewportCssVars();
-  });
+  if (mountViewport.isAvailable()) {
+    mountViewport().then(() => {
+      bindViewportCssVars();
+    })
+  }
 }

@@ -18,14 +18,16 @@ export const QuizzesPageHeader = ({ actions, title }: IProps) => {
   const scroll = usePageScroll()
 
   return createPortal(
-    <div
-      style={{ padding: `calc(${top}px + var(--default-padding)) var(--default-padding) 0` }}
-      className={clsx(styles.header, scroll > 20 && styles.headerFill)}
-    >
-      <SectionHeader
-        title={title}
-        actions={actions}
-      />
+    <div className={styles.header}>
+      <div
+        style={{ padding: `calc(${top}px + var(--default-padding)) var(--default-padding) 0` }}
+        className={clsx(styles.content, scroll > 20 && styles.headerFill)}
+      >
+        <SectionHeader
+          title={title}
+          actions={actions}
+        />
+      </div>
     </div>,
     header
   )

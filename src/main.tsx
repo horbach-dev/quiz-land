@@ -12,11 +12,9 @@ const isDev = import.meta.env.VITE_DEV;
 try {
   const launchParams = retrieveLaunchParams();
   const { tgWebAppPlatform: platform } = launchParams;
-  const debug = (launchParams.tgWebAppStartParam || '').includes('platformer_debug')
-    || import.meta.env.DEV;
 
   await init({
-    debug,
+    debug: isDev,
     eruda: isDev && ['ios', 'android'].includes(platform),
     mockForMacOS: platform === 'macos',
   })
@@ -28,5 +26,5 @@ try {
       );
     });
 } catch (_: any) {
-  root.render(<EnvUnsupported/>);
+  root.render(<EnvUnsupported />);
 }

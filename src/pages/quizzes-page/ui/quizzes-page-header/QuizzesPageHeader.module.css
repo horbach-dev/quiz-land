@@ -5,6 +5,14 @@
     top: 0;
     z-index: 100;
     border-radius: 0 0 1rem 1rem;
+}
+
+.content {
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    max-width: var(--max-app-width);
+    border-radius: 0 0 1rem 1rem;
     will-change: backdrop-filter;
     transition: background-color 0.3s, backdrop-filter 0.3s;
 }
@@ -14,7 +22,7 @@
     .headerFill {
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        background: rgba(39, 36, 59, 0.95);
+        background: rgba(39, 36, 59, 0.7);
     }
 }
 

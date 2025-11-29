@@ -9,7 +9,8 @@
 }
 
 :root {
-    --default-padding: 1.5rem
+    --default-padding: 1.5rem;
+    --max-app-width: 680px;
 }
 
 html {

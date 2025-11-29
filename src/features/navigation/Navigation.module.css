@@ -17,7 +17,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 680px;
+    max-width: var(--max-app-width);
     padding: 1rem 1rem 1.2rem 1rem;
     border-radius: 1rem;
     box-shadow: 0 0 2rem 1rem rgba(33, 33, 33, 0.33);
