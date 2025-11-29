@@ -1,16 +1,20 @@
-import { requestContentSafeAreaInsets, requestSafeAreaInsets } from "@telegram-apps/sdk-react";
+import {
+  viewportSafeAreaInsetBottom,
+  viewportContentSafeAreaInsetTop,
+  viewportSafeAreaInsetTop,
+  viewportContentSafeAreaInsetBottom
+} from "@telegram-apps/sdk-react";
 
 const DEFAULT_BOTTOM = 22
 
 export const getSafeArea = async () => {
   try {
-    const screen = await requestSafeAreaInsets();
-    const content = await requestContentSafeAreaInsets();
-    const bottom = screen.bottom + content.bottom
+    const top = viewportContentSafeAreaInsetTop() + viewportSafeAreaInsetTop()
+    const bottom = viewportContentSafeAreaInsetBottom() + viewportSafeAreaInsetBottom()
 
     return {
-      top: screen.top + content.top,
-      bottom: bottom > 0 ? bottom : DEFAULT_BOTTOM
+      top,
+      bottom: bottom ? bottom : DEFAULT_BOTTOM
     }
   } catch (_: any) {
     return {
