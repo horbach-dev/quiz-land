@@ -1,12 +1,12 @@
 import styles from './ProfilePage.module.css'
-import { Page } from "@/shared/ui/Page";
+import { PageLayout } from "@/layouts/page-layout";
 
 export const ProfilePage = () => {
   return (
-    <Page>
+    <PageLayout>
       <div className={styles.container}>
         Profile page
       </div>
-    </Page>
+    </PageLayout>
   )
 }

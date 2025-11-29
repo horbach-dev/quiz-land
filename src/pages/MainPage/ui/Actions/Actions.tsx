@@ -7,11 +7,11 @@ export const Actions = () => {
     <div className={styles.actionSection}>
       <Button
         to='/create'
-        after={<SquarePen style={{ width: '1rem', height: '1rem' }} />}
+        after={<SquarePen />}
       >
         Создать квиз
       </Button>
-      <Button after={<Share style={{ width: '1rem', height: '1rem' }} />}>
+      <Button after={<Share />}>
         Поделиться
       </Button>
     </div>

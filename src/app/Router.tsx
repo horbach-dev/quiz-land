@@ -3,9 +3,9 @@ import { MainPage } from "@/pages/MainPage";
 import { CreateQuizPage } from "@/pages/CreateQuizPage";
 import { QuizPage } from "@/pages/QuizPage";
 import { QuizProgressPage } from "@/pages/QuizProgressPage";
-import { QuizzesPage } from "@/pages/QuizesPage";
+import { QuizzesPage } from "@/pages/quizzes-page";
 import { ProfilePage } from "@/pages/ProfilePage";
-import { AppLayout } from "@/app/AppLayout";
+import { AppLayout } from "@/layouts/app-layout";
 
 export const routes = [
   {

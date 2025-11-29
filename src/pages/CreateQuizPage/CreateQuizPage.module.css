@@ -1,5 +1,13 @@
-/*@import '../../shared/styles/globals.css';*/
-
 .container {
-    padding: 1rem;
+    background: rgba(1,1,1,0.3);
+}
+
+.content {
+    padding: 1.5rem;
+}
+
+.title {
+    font-weight: 800;
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
 }

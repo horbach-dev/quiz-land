@@ -1,6 +1,6 @@
 import { requestContentSafeAreaInsets, requestSafeAreaInsets } from "@telegram-apps/sdk-react";
 
-const DEFAULT_BOTTOM = 24
+const DEFAULT_BOTTOM = 22
 
 export const getSafeArea = async () => {
   try {

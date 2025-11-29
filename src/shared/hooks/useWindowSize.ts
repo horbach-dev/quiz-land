@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
+import { debounce } from "@/shared/utils/debounce";
 
 type TWindowSize = {
   width: number;
   height: number;
-}
-
-const debounce = fn => {
-  let timeout: number;
-
-  return () => {
-    clearTimeout(timeout);
-    timeout = setTimeout(fn, 300);
-  }
 }
 
 const getWindowSize = () => ({

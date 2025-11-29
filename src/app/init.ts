@@ -22,19 +22,15 @@ export async function init(options: {
   eruda: boolean;
   mockForMacOS: boolean;
 }): Promise<void> {
-  // Set @telegram-apps/sdk-react debug mode and initialize it.
   setDebug(options.debug);
   initSDK();
 
-  // // Add Eruda if needed.
-  // options.eruda && void import('eruda').then(({ default: eruda }) => {
-  //   eruda.init();
-  //   eruda.position({ x: window.innerWidth - 50, y: 0 });
-  // });
+  // Add Eruda if needed.
+  options.eruda && void import('eruda').then(({ default: eruda }) => {
+    eruda.init();
+    eruda.position({ x: window.innerWidth / 2, y: 50 });
+  });
 
-  // Telegram for macOS has a ton of bugs, including cases, when the client doesn't
-  // even response to the "web_app_request_theme" method. It also generates an incorrect
-  // event for the "web_app_request_safe_area" method.
   if (options.mockForMacOS) {
     let firstThemeSent = false;
     mockTelegramEnv({

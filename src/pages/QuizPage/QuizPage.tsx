@@ -1,5 +1,5 @@
-import { Page } from "@/shared/ui/Page";
-import { questions } from "@/widgets/Quiz/questions";
+import { PageLayout } from "@/layouts/page-layout";
+import { questions } from "@/pages/QuizProgressPage/questions";
 import IQImg from './iq.jpg'
 import styles from './QuizPage.module.css'
 import { ChevronsRight } from "lucide-react";
@@ -31,7 +31,7 @@ export const QuizPage = () => {
   }, [id])
 
   return (
-    <Page>
+    <PageLayout>
       <div className={styles.container}>
         <img
           className={styles.image}
@@ -53,6 +53,6 @@ export const QuizPage = () => {
           <ChevronsRight className={styles.arrow} />
         </button>
       </div>
-    </Page>
+    </PageLayout>
   )
 }

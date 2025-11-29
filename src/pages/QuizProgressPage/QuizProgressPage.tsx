@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
+import { PageLayout } from "@/layouts/page-layout";
+import { useQuizStore } from "@/stores/quizStore";
 import { Progress } from './ui/Progress';
 import { QuizCard } from './ui/QuizCard';
 import { QuizFooter } from "./ui/QuizFooter";
-import { Page } from '@/shared/ui/Page';
-import { useQuizStore } from "@/stores/quizStore";
 import IQImg from "@/pages/QuizPage/iq.jpg";
 import { questions } from "./questions";
 import styles from './Quiz.module.css'
@@ -107,7 +107,7 @@ export default function QuizProgressPage () {
   // }, 0)
 
   return (
-    <Page padding={{ bottom: 0 }}>
+    <PageLayout withNavigation={false}>
       <div className={styles.container}>
         <div className={styles.content}>
           <Progress
@@ -129,6 +129,6 @@ export default function QuizProgressPage () {
           onClick={isEnd ? handleNext : handlePrev}
         />
       </div>
-    </Page>
+    </PageLayout>
   )
 }

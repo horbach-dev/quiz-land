@@ -1,5 +1,5 @@
 export interface ITelegramUser {
-  id: number | string;
+  id: string;
   language: string;
   first_name: string;
   last_name?: string;

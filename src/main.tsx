@@ -7,6 +7,7 @@ import { App } from './app';
 import './app/mockEnv';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
+const isDev = import.meta.env.VITE_DEV;
 
 try {
   const launchParams = retrieveLaunchParams();
@@ -16,7 +17,7 @@ try {
 
   await init({
     debug,
-    eruda: debug && ['ios', 'android'].includes(platform),
+    eruda: isDev && ['ios', 'android'].includes(platform),
     mockForMacOS: platform === 'macos',
   })
     .then(() => {

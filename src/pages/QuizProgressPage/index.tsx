@@ -5,7 +5,7 @@ export const Page = lazy(() => import('./QuizProgressPage'))
 export const QuizProgressPage = () => {
   return (
     <Suspense fallback={<PageLoader />}>
-  <Page />
+      <Page />
   </Suspense>
 )
 }

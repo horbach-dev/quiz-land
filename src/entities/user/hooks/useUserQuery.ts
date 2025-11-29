@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getUser } from "../api/getUser";
+import { getUserData } from "../api/getUser";
 import { useTelegramUser } from "@/entities/user";
 
 export function useUserQuery () {
@@ -7,7 +7,7 @@ export function useUserQuery () {
 
   return useQuery({
     queryKey: ['getUser', tgUser.id],
-    queryFn: () => getUser(tgUser),
+    queryFn: () => getUserData(tgUser),
     select: (data) => {
       return {
         ...data,

@@ -1,9 +1,11 @@
-import { ChevronRight } from "lucide-react";
-import { navigateTo } from "@/shared/utils/navigateTo";
-import IQImg from './iq.jpg'
+import {ChevronRight, CircleCheckBig } from "lucide-react";
 import styles from "./QuizSection.module.css";
+import { QuizList } from "@/features/quiz/quiz-list";
+import {Button} from "@/shared/ui/Button";
+import {SectionHeader} from "@/shared/ui/section-header";
+import IQImg from "@/pages/MainPage/ui/QuizSection/iq.jpg";
 
-const tests = [
+const defaultData = [
   { id: 1, title: 'IQ тест', image: IQImg, link: '/quiz/1' },
   { id: 2, title: 'IQ тест', image: IQImg, link: '/quiz/1' },
   { id: 3, title: 'Тест на уровень лени', image: IQImg, link: '/quiz/1' },
@@ -19,30 +21,32 @@ const tests = [
 export const QuizSection = () => {
   return (
     <div className={styles.quizSection}>
-      <div className={styles.quizSectionHeader}>
-        <p className={styles.quizSectionTitle}>
-          Популярные тесты
-        </p>
-        <button className={styles.quizSectionBtn}>
-          см. все
-          <ChevronRight color='#333' />
-        </button>
-      </div>
-      <div className={styles.quizList}>
-        {tests.map((item) => (
-          <div
-            key={item.id}
-            className={styles.quizItem}
-            onClick={() => navigateTo(item.link)}
+      <SectionHeader
+        title={'Популярные тесты'}
+        actions={(
+          <Button
+            style='white'
+            size='sm'
+            to={`/quizzes`}
+            after={<ChevronRight color='#333' />}
           >
-            <div className={styles.quizImage}>
-              {item.image && <img alt={item.title} src={item.image} />}
-            </div>
-            <p>
-              {item.title}
-            </p>
-          </div>
-        ))}
+            см. все
+          </Button>
+        )}
+      />
+      <div className={styles.quizList}>
+        <QuizList
+          view='column'
+          data={defaultData}
+        />
+      </div>
+      <div className={styles.quizAll}>
+        <Button
+          to='/quizzes'
+          after={<CircleCheckBig />}
+        >
+          Все квизы
+        </Button>
       </div>
     </div>
   )

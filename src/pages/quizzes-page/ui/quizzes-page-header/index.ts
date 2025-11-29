@@ -1,0 +1,1 @@
+export { QuizzesPageHeader } from './QuizzesPageHeader'

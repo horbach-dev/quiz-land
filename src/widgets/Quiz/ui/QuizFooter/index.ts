@@ -1,1 +1,0 @@
-export { QuizFooter } from './QuizFooter';

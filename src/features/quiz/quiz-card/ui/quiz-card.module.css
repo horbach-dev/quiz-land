@@ -1,0 +1,73 @@
+.container {
+    position: relative;
+    width: 100%;
+    padding: 0.7rem 0.7rem 0.2rem;
+    border-radius: 1rem;
+    background-color: rgba(255,255,255,0.05);
+    color: #ffffff;
+    text-decoration: none;
+    box-shadow: 0 0 50px 3px rgba(33,33,33,0.5);
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.container:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.quizImageWrap {
+    width: 100%;
+    border-radius: 1rem;
+    aspect-ratio: 1;
+    background-color: rgba(255,255,255,0.05);
+    overflow: hidden;
+}
+
+.quizImage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.quizImage::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+    animation: move 0.75s linear infinite;
+}
+
+.quizImageLoaded::before {
+    content: none;
+}
+
+.quizImage img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.25s;
+    object-fit: cover;
+}
+
+.quizImageLoaded img {
+    opacity: 1;
+}
+
+.container p {
+    font-size: 1.15rem;
+    font-weight: 700;
+    padding: 0.7rem;
+}
+
+@keyframes move {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}

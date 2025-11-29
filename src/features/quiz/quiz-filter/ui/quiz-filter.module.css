@@ -1,0 +1,39 @@
+.container {
+    overflow: hidden;
+    z-index: 5000 !important;
+    background: #2a2a55 !important;
+    --padding-top: 0px;
+}
+
+.overlay {
+    z-index: 1000 !important;
+}
+
+.header {
+    position: relative;
+    z-index: 2;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.content {
+    position: relative;
+    padding: 1.5rem;
+
+    p {
+        position: relative;
+        z-index: 0;
+    }
+}
+
+.actions {
+    position: sticky;
+    z-index: 20;
+    border-radius: 1rem;
+    backdrop-filter: blur(20px);
+}
+
+@supports not (backdrop-filter: blur(20px)) {
+    .actions {
+        background: #35294d;
+    }
+}

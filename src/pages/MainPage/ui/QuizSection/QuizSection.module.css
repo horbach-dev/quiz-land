@@ -33,44 +33,9 @@
 }
 
 .quizList {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-}
-
-.quizItem {
-    position: relative;
     width: 100%;
-    padding: 0.7rem 0.7rem 0.2rem;
-    border-radius: 1rem;
-    background-color: rgba(255,255,255,0.05);
-    color: #ffffff;
-    text-decoration: none;
-    box-shadow: 0 0 50px 3px rgba(33,33,33,0.5);
-    transition: background-color 0.2s;
-    cursor: pointer;
 }
 
-.quizItem:hover {
-    background-color: rgba(255,255,255,0.1);
-}
-
-.quizImage {
-    width: 100%;
-    border-radius: 1rem;
-    aspect-ratio: 1;
-    background-color: rgba(255,255,255,0.05);
-    overflow: hidden;
-}
-
-.quizImage img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.quizItem p {
-    font-size: 1.25rem;
-    font-weight: 700;
-    padding: 0.7rem;
+.quizAll {
+    margin-top: 1.5rem;
 }

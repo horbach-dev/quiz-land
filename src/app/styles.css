@@ -2,8 +2,6 @@
 *::before,
 *::after {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
     -webkit-user-select: none; /* Safari, Chrome */
     -moz-user-select: none;    /* Firefox */
     -ms-user-select: none;     /* IE/Edge */
@@ -21,10 +19,12 @@ html {
     color: #ffffff;
 }
 
-button {
-    outline: none;
-    background: none;
-    border: none;
+body {
+    margin: 0;
+    padding: 0;
+}
+
+p {
     margin: 0;
     padding: 0;
 }

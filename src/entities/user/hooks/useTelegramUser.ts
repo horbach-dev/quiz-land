@@ -6,7 +6,7 @@ export const useTelegramUser = (): ITelegramUser => {
   const launchParams = useMemo<RetrieveLPResult>(() => retrieveLaunchParams(), []);
 
   return {
-    id: launchParams?.tgWebAppData?.user?.id || '',
+    id: String(launchParams?.tgWebAppData?.user?.id || ''),
     language: 'ru-RU',
     first_name: launchParams?.tgWebAppData?.user?.first_name || '',
     last_name: launchParams?.tgWebAppData?.user?.last_name || '',
