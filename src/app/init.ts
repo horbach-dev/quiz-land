@@ -11,8 +11,13 @@ import {
   themeParamsState,
   retrieveLaunchParams,
   emitEvent,
-  miniApp, isViewportCssVarsBound,
+  miniApp,
+  viewport,
 } from '@telegram-apps/sdk-react';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+window.TelegramGameProxy = { receiveEvent: function() {} };
 
 export async function init(options: {
   debug: boolean;
@@ -62,11 +67,16 @@ export async function init(options: {
     bindThemeParamsCssVars();
   }
 
+  console.log('mountViewport.isAvailable()', mountViewport.isAvailable())
+  console.log('viewport.mount', viewport.mount)
+  console.log('viewport', viewport)
+  console.log('mountViewport', mountViewport)
+
   if (mountViewport.isAvailable()) {
+    viewport.mount();
     mountViewport().then(() => {
 
       bindViewportCssVars();
-      console.log(isViewportCssVarsBound())
     })
   }
 }
