@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 const element = document.getElementById("root")!;
-const SWIPE_DISTANCE = 100;
+const SWIPE_DISTANCE = 85;
 const GAP = 20
 
 export const useSwipeEvents = (container: { current: HTMLDivElement | null }, onSwipeRight: () => void) => {
@@ -47,7 +47,6 @@ export const useSwipeEvents = (container: { current: HTMLDivElement | null }, on
       if (Math.abs(deltaX) > SWIPE_DISTANCE) {
         if (deltaX > 0) {
           if (onSwipeRight) onSwipeRight();
-          console.log("Swipe Left detected");
         }
       }
 

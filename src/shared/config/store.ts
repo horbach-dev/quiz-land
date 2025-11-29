@@ -23,7 +23,10 @@ export const useAppConfigStore = create<AppState>((set) => ({
   showIntro: !localStorage.getItem('show-intro'),
   setNavigationHeight: (navigationHeight) => set({ navigationHeight }),
   setNavigationVisible: (isNavigationVisible) => set({ isNavigationVisible }),
-  setSafeArea: (safeArea) => set({ safeArea }),
+  setSafeArea: (safeArea) => {
+    alert(safeArea)
+    set({ safeArea })
+  },
   setShowIntro: (isShow) => {
     if (isShow) {
       localStorage.removeItem('show-intro')
