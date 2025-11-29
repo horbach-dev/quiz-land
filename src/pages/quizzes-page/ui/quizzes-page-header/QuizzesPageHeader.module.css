@@ -9,12 +9,17 @@
     transition: background-color 0.3s, backdrop-filter 0.3s;
 }
 
-.headerFill {
-    background: rgba(39, 36, 59, 0.7);
-    backdrop-filter: blur(20px);
+/* backdrop-filter есть — включаем blur */
+@supports ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
+    .headerFill {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background: rgba(39, 36, 59, 0.95);
+    }
 }
 
-@supports not (backdrop-filter: blur(20px)) {
+/* fallback если НЕТ поддержки blur */
+@supports not ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
     .headerFill {
         background: rgba(39, 36, 59, 0.95);
     }

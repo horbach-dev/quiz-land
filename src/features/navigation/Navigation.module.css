@@ -19,14 +19,22 @@
     width: 100%;
     max-width: 680px;
     padding: 1rem 1rem 1.2rem 1rem;
-    will-change: backdrop-filter;
-    backdrop-filter: blur(20px);
     border-radius: 1rem;
     box-shadow: 0 0 2rem 1rem rgba(33, 33, 33, 0.33);
     background: rgba(39, 36, 59, 0.7);
 }
 
-@supports not (backdrop-filter: blur(20px)) {
+/* backdrop-filter есть — включаем blur */
+@supports ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
+    .list {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background: rgba(39, 36, 59, 0.7);
+    }
+}
+
+/* fallback если НЕТ поддержки blur */
+@supports not ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
     .container {
         background: rgba(39, 36, 59, 0.95);
     }
