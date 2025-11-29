@@ -6,7 +6,10 @@ import styles from "./MainPage.module.css";
 
 export default function MainPage () {
   return (
-    <PageLayout back={false}>
+    <PageLayout
+      withSwipeRedirect={false}
+      back={false}
+    >
       <div className={styles.container}>
         <UserSection />
         <Actions />
