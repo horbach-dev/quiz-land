@@ -8,7 +8,7 @@ export const navigateTo = (url: string, withVibration: boolean = true) => {
 
   document.dispatchEvent(
     new CustomEvent(CHANGE_APP_ROUTE_EVENT, {
-      detail: url,
+      detail: { pathname: url },
     }),
   )
 }

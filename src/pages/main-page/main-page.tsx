@@ -9,10 +9,7 @@ import styles from "./main-page.module.css";
 
 export default function MainPage () {
   return (
-    <PageLayout
-      withSwipeRedirect={false}
-      back={false}
-    >
+    <PageLayout back={false}>
       <div className={styles.container}>
         <div className={styles.userData}>
           <UserWelcome />

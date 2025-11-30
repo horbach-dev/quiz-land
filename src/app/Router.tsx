@@ -16,7 +16,7 @@ export const routes = [
       { path: 'create', element: <CreateQuizPage />, title: 'Create quiz' },
       { path: 'quizzes', element: <QuizzesPage />, title: 'Quizzes page' },
       { path: 'quiz/:id', element: <QuizPage />, title: 'Quiz page'},
-      { path: 'quiz/:id/progress', element: <QuizProgressPage />, title: 'Quiz progress page' },
+      { path: 'quiz/progress/:id', element: <QuizProgressPage />, title: 'Quiz progress page' },
       { path: 'profile', element: <ProfilePage />, title: 'Profile page' },
       { path: "*", element: <Navigate to="/" /> }
     ]

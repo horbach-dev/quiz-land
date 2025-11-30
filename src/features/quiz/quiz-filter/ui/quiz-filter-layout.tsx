@@ -1,8 +1,8 @@
 import { createPortal } from "react-dom";
-import BottomSheet from "react-light-sheet";
-import styles from "./quiz-filter.module.css";
-import { Background } from "@/shared/ui/Background";
 import type { ReactNode} from "react";
+import BottomSheet from "react-light-sheet";
+import { Background } from "@/shared/ui/Background";
+import styles from "./quiz-filter.module.css";
 
 const portalContainer = document.getElementById("modals")!;
 

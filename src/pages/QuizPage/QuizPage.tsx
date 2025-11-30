@@ -46,7 +46,7 @@ export const QuizPage = () => {
           dangerouslySetInnerHTML={{ __html: currentQuiz.description }}
         />
         <button
-          onClick={() => navigateTo(`quiz/${id}/progress`)}
+          onClick={() => navigateTo(`quiz/progress/${id}`)}
           className={styles.footerBtn}
         >
           Начать тест

@@ -7,7 +7,6 @@ export default function CreateQuizPage() {
   return (
     <PageLayout
       withNavigation={false}
-      withRotationAlert={false}
       className={styles.container}
     >
       <div className={styles.content}>

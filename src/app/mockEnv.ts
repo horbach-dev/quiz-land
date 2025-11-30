@@ -1,8 +1,5 @@
 import { emitEvent, isTMA, mockTelegramEnv } from '@tma.js/sdk-react';
 
-// It is important, to mock the environment only for development purposes. When building the
-// application, import.meta.env.DEV will become false, and the code inside will be tree-shaken,
-// so you will not see it in your final bundle.
 if (import.meta.env.DEV) {
   if (!await isTMA('complete')) {
     const themeParams = {
@@ -24,7 +21,6 @@ if (import.meta.env.DEV) {
 
     mockTelegramEnv({
       onEvent(e) {
-        // Here you can write your own handlers for all known Telegram Mini Apps methods:
         // https://docs.telegram-mini-apps.com/platform/methods
         if (e.name === 'web_app_request_theme') {
           return emitEvent('theme_changed', { theme_params: themeParams });
@@ -45,7 +41,6 @@ if (import.meta.env.DEV) {
         }
       },
       launchParams: new URLSearchParams([
-        // Discover more launch parameters:
         // https://docs.telegram-mini-apps.com/platform/launch-parameters#parameters-list
         ['tgWebAppThemeParams', JSON.stringify(themeParams)],
         // Your init data goes here. Learn more about it here:
@@ -71,9 +66,5 @@ if (import.meta.env.DEV) {
         ['tgWebAppPlatform', 'tdesktop'],
       ]),
     });
-
-    console.info(
-      '⚠️ As long as the current environment was not considered as the Telegram-based one, it was mocked. Take a note, that you should not do it in production and current behavior is only specific to the development process. Environment mocking is also applied only in development mode. So, after building the application, you will not see this behavior and related warning, leading to crashing the application outside Telegram.',
-    );
   }
 }
