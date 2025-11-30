@@ -43,13 +43,14 @@ export default defineConfig(({ mode }) => {
       host: true,
       allowedHosts: [env.VITE_NGROK_DOMAIN],
     },
+    root: path.resolve(__dirname),
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src'),
       },
     },
     build: {
-      outDir: 'docs',
+      outDir: '../docs',
       // assetsDir: 'quiz-land/assets',
     },
     base: '/quiz-land/'
