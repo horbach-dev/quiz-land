@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv, type PluginOption } from 'vite'
 import react from '@vitejs/plugin-react-swc'
-import visualizer from "rollup-plugin-visualizer";
+import { visualizer } from "rollup-plugin-visualizer";
 import tailwindcss from "@tailwindcss/vite"
 import ngrok from '@ngrok/ngrok';
 import path from 'path';
@@ -50,9 +50,9 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       outDir: 'docs',
-      // assetsDir: 'quiz-land/assets',
+      assetsDir: 'quiz-land/assets',
     },
-    base: '/quiz-land/'
+    // base: '/quiz-land/'
   }
 })
 

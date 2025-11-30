@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env VITE_DEV=true vite",
-    "visual": "cross-env VITE_VISUALIZER=true vite",
     "dev:ngrok": "cross-env VITE_DEV=true VITE_USE_NGROK=true vite",
     "build": "tsc -b && vite build",
+    "build:visual": "VITE_VISUALIZER=true vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

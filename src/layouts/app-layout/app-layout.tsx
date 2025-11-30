@@ -8,7 +8,7 @@ import {
   useLocation,
   ScrollRestoration
 } from "react-router-dom";
-import { swipeBehavior } from "@tma.js/sdk-react";
+import { swipeBehavior, viewport } from "@tma.js/sdk-react";
 import { CHANGE_APP_ROUTE_EVENT } from "@/constants";
 import { Navigation } from "@/features/navigation";
 import { Background } from "@/shared/ui/Background";
@@ -27,6 +27,10 @@ export const AppLayout = () => {
     if (swipeBehavior?.isSupported()) {
       swipeBehavior?.mount()
       swipeBehavior?.disableVertical()
+    }
+
+    if (viewport.requestFullscreen.isAvailable()) {
+      viewport.requestFullscreen();
     }
   }, []);
 

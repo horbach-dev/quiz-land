@@ -51,25 +51,7 @@ export const QuizFilter = ({ isOpen, onClose }) => {
       <p>Text</p>
       <p>Text</p>
       <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
+      <p>Text</p>ё
     </QuizFilterLayout>
   )
 }
