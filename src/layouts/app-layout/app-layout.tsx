@@ -8,11 +8,13 @@ import {
   useLocation,
   ScrollRestoration
 } from "react-router-dom";
-import { swipeBehavior, viewport } from "@tma.js/sdk-react";
+import {swipeBehavior, useLaunchParams, viewport} from "@tma.js/sdk-react";
 import { CHANGE_APP_ROUTE_EVENT } from "@/constants";
 import { Navigation } from "@/features/navigation";
 import { Background } from "@/shared/ui/Background";
 import styles from './app-layout.module.css';
+
+const fullscreenPlatforms = ['ios', 'android']
 
 interface CustomEvent extends Event {
   detail?: string;
@@ -22,6 +24,9 @@ export const AppLayout = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const { tgWebAppPlatform } = useLaunchParams()
+  const isFullscreen = fullscreenPlatforms.includes(tgWebAppPlatform)
+
   // safe areas
   useLayoutEffect(() => {
     if (swipeBehavior?.isSupported()) {
@@ -29,10 +34,10 @@ export const AppLayout = () => {
       swipeBehavior?.disableVertical()
     }
 
-    if (viewport.requestFullscreen.isAvailable()) {
+    if (isFullscreen && viewport.requestFullscreen?.isAvailable()) {
       viewport.requestFullscreen();
     }
-  }, []);
+  }, [isFullscreen]);
 
   function updateRoute(route: CustomEvent) {
     if (route.detail === pathname) return
