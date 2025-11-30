@@ -1,1 +1,1 @@
-export { QuizList } from './ui/QuizList.tsx'
+export { QuizList } from './ui/QuizList'

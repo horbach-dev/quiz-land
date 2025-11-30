@@ -10,7 +10,7 @@ export const QuizCardImage = ({ title, image }) => {
   if (!image) return null;
 
   return (
-    <div className={clsx(styles.quizImage, isImageLoaded && styles.quizImageLoaded)}>
+    <div className={clsx(styles.image, isImageLoaded && styles.imageLoaded)}>
       <img
         alt={title}
         src={image}

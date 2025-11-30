@@ -1,7 +1,7 @@
 import { CircleCheckBig } from "lucide-react";
 import styles from "./QuizSection.module.css";
-import { QuizList } from "@/features/quiz/quiz-list";
-import {Button} from "@/shared/ui/Button";
+import { QuizList } from "@/features/quiz";
+import { Button } from "@/shared/ui/Button";
 import IQImg from "@/pages/main-page/ui/QuizSection/iq.jpg";
 
 const defaultData = [

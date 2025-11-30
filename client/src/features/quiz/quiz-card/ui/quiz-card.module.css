@@ -3,19 +3,22 @@
     width: 100%;
     padding: 0.7rem 0.7rem 0.2rem;
     border-radius: 1rem;
-    background-color: rgba(255,255,255,0.05);
-    color: #ffffff;
     text-decoration: none;
+    background-color: rgba(255,255,255,0.05);
     box-shadow: 0 0 50px 3px rgba(33,33,33,0.5);
+
+}
+
+.card {
     transition: background-color 0.2s;
     cursor: pointer;
 }
 
-.container:hover {
+.card:hover {
     background-color: rgba(255,255,255,0.1);
 }
 
-.quizImageWrap {
+.imageWrap {
     width: 100%;
     border-radius: 1rem;
     aspect-ratio: 1;
@@ -23,13 +26,22 @@
     overflow: hidden;
 }
 
-.quizImage {
+.image {
     position: relative;
     width: 100%;
     height: 100%;
 }
 
-.quizImage::before {
+.image img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.25s;
+    object-fit: cover;
+}
+
+.image::before {
     position: absolute;
     content: '';
     top: 0;
@@ -40,27 +52,24 @@
     animation: move 0.75s linear infinite;
 }
 
-.quizImageLoaded::before {
+.imageLoaded::before {
     content: none;
 }
 
-.quizImage img {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.25s;
-    object-fit: cover;
-}
-
-.quizImageLoaded img {
+.imageLoaded img {
     opacity: 1;
 }
 
-.container p {
+.title {
     font-size: 1.15rem;
     font-weight: 700;
-    padding: 0.7rem;
+    margin: 0.7rem;
+}
+
+.skeletonTitle {
+    color: transparent;
+    border-radius: 1rem;
+    background-color: rgba(255,255,255,0.05);
 }
 
 @keyframes move {
