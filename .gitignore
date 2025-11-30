@@ -13,6 +13,7 @@ dist
 dist-ssr
 *.local
 client/stats.html
+backend/prisma/generated
 
 # Editor directories and files
 .vscode/*
