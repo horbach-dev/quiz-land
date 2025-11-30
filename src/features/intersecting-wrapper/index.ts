@@ -1,1 +1,0 @@
-export { IntersectingWrapper } from './IntersectingWrapper'
