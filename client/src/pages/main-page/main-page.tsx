@@ -33,7 +33,7 @@ export default function MainPage () {
               to={`/quizzes`}
               after={<ChevronRight color='#333' />}
             >
-              см. все
+              Cм. все
             </Button>
           )}
         />

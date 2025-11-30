@@ -1,7 +1,7 @@
 import type {ReactNode, SyntheticEvent} from "react";
 import clsx from "clsx";
-import { navigateTo } from "@/shared/utils/navigateTo";
 import { vibrationCallback } from "@/shared/utils/vibrationCallback";
+import { navigateTo } from "@/shared/utils/navigateTo";
 import styles from "./Button.module.css";
 
 interface IProps {
