@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { FilterIcon } from "lucide-react";
-import { Button } from "@/shared/ui/Button";
 import { PageLayout } from "@/layouts/page-layout";
 import { QuizList } from "@/features/quiz/quiz-list";
-import { QuizFilter } from "@/features/quiz/quiz-filter";
 import IQImg from "@/pages/main-page/ui/QuizSection/iq.jpg";
 import { QuizzesPageHeader } from "./ui/quizzes-page-header";
+import { QuizzesPageFilter } from "./ui/quizzes-page-filter";
 import styles from './QuizzesPage.module.css'
 
 const defaultData = [
@@ -22,17 +20,8 @@ const defaultData = [
 ]
 
 export default function QuizzesPage () {
-  const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [data, setData] = useState(defaultData)
-
-  const handleShowFilter = () => {
-    setIsFilterOpen(true)
-  }
-
-  const handleHideFilter = () => {
-    setIsFilterOpen(false)
-  }
 
   const handleLoadMore = () => {
     if (data.length > 50) return
@@ -53,15 +42,7 @@ export default function QuizzesPage () {
     <PageLayout>
       <QuizzesPageHeader
         title={'Библиотека квизов'}
-        actions={(
-          <Button
-            size='sm'
-            after={<FilterIcon />}
-            onClick={handleShowFilter}
-          >
-            Поиск
-          </Button>
-        )}
+        actions={<QuizzesPageFilter />}
       />
       <div className={styles.container}>
         <QuizList
@@ -70,10 +51,6 @@ export default function QuizzesPage () {
           handleLoadMore={handleLoadMore}
         />
       </div>
-      <QuizFilter
-        isOpen={isFilterOpen}
-        onClose={handleHideFilter}
-      />
     </PageLayout>
   )
 }

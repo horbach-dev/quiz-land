@@ -22,7 +22,7 @@ export const QuizzesPageHeader = ({ actions, title }: IProps) => {
     }
   }, [])
 
-  return (createPortal(
+  return createPortal(
     <div ref={containerRef} className={styles.header}>
       <div className={styles.content}>
         <SectionHeader
@@ -31,6 +31,6 @@ export const QuizzesPageHeader = ({ actions, title }: IProps) => {
         />
       </div>
     </div>,
-    header)
+    header
   )
 }

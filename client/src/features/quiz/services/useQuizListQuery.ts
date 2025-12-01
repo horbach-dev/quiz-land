@@ -5,6 +5,5 @@ export function useQuizListQuery () {
   return useQuery({
     queryKey: ['getQuizList'],
     queryFn: () => getQuizList({}),
-    refetchOnMount: false
   })
 }

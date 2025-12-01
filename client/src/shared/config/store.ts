@@ -8,7 +8,7 @@ interface IAppState {
 }
 
 export const useAppConfigStore = create<IAppState>((set) => ({
-  isNavigationVisible: true,
+  isNavigationVisible: false,
   showIntro: !localStorage.getItem('show-intro'),
   setNavigationVisible: (isNavigationVisible) => set({ isNavigationVisible }),
   setShowIntro: (isShow) => {
