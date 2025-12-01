@@ -1,7 +1,11 @@
-import { type ITelegramUser, type IUserProfile } from "../types.ts";
+import { type ITelegramUser, type IUserProfile } from "../types";
+import { api } from "@/shared/api";
 
 export const getUserData = async (tgUser: ITelegramUser): Promise<IUserProfile | object> => {
   try {
+    const response = await api.get(`/user/${tgUser.id}`);
+    console.log(response)
+
     return new Promise<IUserProfile>((resolve) => {
       resolve({
         id: '12',
