@@ -22,14 +22,15 @@ model User {
 }
 
 model Quiz {
-  id          String   @id @default(uuid()) @map("_id")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @default(now()) @map("updated_at")
-  title       String
-  description String
-  image       String?
-  authorId    String   @map("author_id")
-  isPublic    Boolean  @map("is_public")
+  id            String   @id @default(uuid()) @map("_id")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @default(now()) @map("updated_at")
+  title         String
+  description   String
+  image         String?
+  authorId      String   @map("author_id")
+  isPublic      Boolean  @map("is_public")
+  limitedByTime Boolean  @map("limited_by_time")
 
   @@map("quiz")
 }

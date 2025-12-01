@@ -33,7 +33,6 @@ export class TmaAuthGuard implements CanActivate {
 
     // Добавляем данные пользователя в объект запроса
     request.user = this.tmaAuthService.parseInitData(initDataRaw);
-
     return true;
   }
 }

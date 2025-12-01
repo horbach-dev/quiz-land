@@ -18,17 +18,17 @@ export const QuizList = ({
   isLoading,
   isLoadingMore
 }: IProps) => {
-  const isShowSkeleton = (isLoading && !data.length) || isLoadingMore;
+  const isShowSkeleton = (isLoading && !data?.length) || isLoadingMore;
 
   return (
     <>
       <div className={clsx(styles.container, styles[`container-${view}`])}>
-        {data.map((item) => (
+        {data?.map((item) => (
           <QuizCard
             key={item.id}
             image={item.image}
             title={item.title}
-            link={item.link}
+            link={`quiz/${item.id}`}
           />
         ))}
         {isShowSkeleton && (
@@ -43,7 +43,7 @@ export const QuizList = ({
       {(
         handleLoadMore &&
         !isLoading &&
-        data.length > 0 &&
+        data?.length > 0 &&
         !isLoadingMore
       ) && (
         <IntersectingWrapper onVisible={handleLoadMore} />

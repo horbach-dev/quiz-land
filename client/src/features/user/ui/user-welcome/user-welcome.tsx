@@ -1,21 +1,18 @@
-import { ChevronRight, CircleUserRound } from "lucide-react";
-import { useUserQuery } from "../../services/useUserQuery.ts";
+import { ChevronRight } from "lucide-react";
+import { useUserQuery } from "../../services/useUserQuery";
+import { Avatar } from "@/features/user/ui/avatar";
 import styles from './user-welcome.module.css'
 
 export const UserWelcome = () => {
-  const { data } = useUserQuery()
+  const { data, isLoading } = useUserQuery()
   const nick = data?.first_name || data?.username
+
+  console.log(data, isLoading)
 
   return (
     <div className={styles.userWelcome}>
       <div className={styles.userInfo}>
-        <div className={styles.avatar}>
-          {data?.avatar ? (
-            <img src={data?.avatar} alt='avatar' />
-          ) : (
-            <CircleUserRound />
-          )}
-        </div>
+        <Avatar image={data?.avatar} />
         <p className={styles.welcome}>
           Привет {nick && <span>{nick}!</span>}
         </p>

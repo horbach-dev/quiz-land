@@ -60,7 +60,14 @@ if (import.meta.env.DEV) {
           ['auth_date', (new Date().getTime() / 1000 | 0).toString()],
           ['hash', 'some-hash'],
           ['signature', 'some-signature'],
-          ['user', JSON.stringify({ id: 1, first_name: 'Anton' })],
+          ['user', JSON.stringify({
+            id: 1,
+            first_name: 'anton',
+            last_name: '',
+            language_code: 'ru',
+            photo_url: 'https://t.me/i/userpic/320/ORtO6jjeg5kv2JcCYLDXKaA_I17Bagt_MOBM5FjM43Y.svg',
+            username: 'horbachAI'
+          })],
         ]).toString()],
         ['tgWebAppVersion', '8.4'],
         ['tgWebAppPlatform', 'tdesktop'],

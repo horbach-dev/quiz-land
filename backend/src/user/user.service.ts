@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import type { User as TelegramUser } from '@tma.js/init-data-node';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../prisma.service';
@@ -15,10 +16,28 @@ export class UserService {
     return `This action returns all user`;
   }
 
-  findOne(id: string) {
-    return this.prisma.user.findUnique({
-      where: { id },
+  async findOne(user: TelegramUser) {
+    let userInDb = await this.prisma.user.findUnique({
+      where: { telegram_id: String(user.id) },
     });
+
+    if (!userInDb) {
+      console.log(`Пользователь с id ${user.id} не найден`);
+
+      userInDb = await this.prisma.user.create({
+        data: {
+          telegram_id: String(user.id),
+          username: user.username || null,
+          first_name: user.first_name || null,
+          last_name: user.last_name || null,
+          language: user.language_code || 'en',
+          avatar: user.photo_url || null,
+        },
+      });
+    } else {
+      console.log(`Пользователь с tg: ${user.id} в базе по id: ${userInDb.id}`);
+    }
+    return userInDb;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

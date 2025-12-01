@@ -17,14 +17,6 @@ export function useUserQuery () {
   return useQuery({
     queryKey: ['getUserData', telegramUser.id],
     queryFn: () => getUserData(telegramUser),
-    select: (data) => {
-      return {
-        ...data,
-        username: telegramUser.username,
-        last_name: telegramUser.last_name,
-        first_name: telegramUser.first_name,
-        avatar: telegramUser.avatar,
-      }
-    },
+    refetchOnMount: false
   })
 }

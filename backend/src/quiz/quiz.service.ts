@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
+import { defaultData } from './mock';
 
 @Injectable()
 export class QuizService {
@@ -9,7 +10,11 @@ export class QuizService {
   }
 
   findAll() {
-    return `This action returns all quiz`;
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(defaultData);
+      }, 3000);
+    });
   }
 
   findOne(id: number) {

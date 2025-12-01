@@ -15,12 +15,10 @@ try {
   const debug = (launchParams.tgWebAppStartParam || '').includes('platformer_debug')
     || import.meta.env.DEV;
 
-  console.log('isDev', isDev);
-
   await init({
     debug,
-    // eruda: isDev && ['ios', 'android'].includes(platform),
-    eruda: true,
+    eruda: isDev && ['ios', 'android'].includes(platform),
+    // eruda: true,
     mockForMacOS: platform === 'macos',
   })
     .then(() => {
