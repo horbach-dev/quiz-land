@@ -1,1 +1,1 @@
-export { CreateQuizForm } from './CreateQuizForm.tsx'
+export { CreateQuizForm } from './create-quiz-form'

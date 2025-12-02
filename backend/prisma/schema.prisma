@@ -66,6 +66,7 @@ model Question {
   createdAt   DateTime         @default(now()) @map("created_at")
   updatedAt   DateTime         @default(now()) @map("updated_at")
   text        String
+  image       String?
   order       Int // Порядок вопроса в квизе
   type        QuestionType // SINGLE_CHOICE, MULTI_CHOICE, TEXT_ANSWER
   quizId      String           @map("quiz_id")
@@ -79,6 +80,7 @@ model Question {
 model QuestionOption {
   id         String   @id @default(uuid()) @map("_id")
   text       String
+  image      String?
   isCorrect  Boolean  @map("is_correct")
   questionId String   @map("question_id")
   question   Question @relation(fields: [questionId], references: [id])

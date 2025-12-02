@@ -1,13 +1,20 @@
 .container {
+
     background: rgba(1,1,1,0.3);
 }
 
 .content {
-    padding: var(--default-padding);
+    padding: var(--default-padding) var(--default-padding) 7rem;
 }
 
 .title {
     font-weight: 800;
     font-size: 1.7rem;
     margin-bottom: 1rem;
+}
+
+.description {
+    font-size: 1rem;
+    opacity: 0.65;
+    margin-bottom: calc(var(--default-padding) * 2);
 }

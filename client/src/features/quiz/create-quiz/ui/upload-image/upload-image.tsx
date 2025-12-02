@@ -13,10 +13,18 @@ interface IProps {
   label: string;
   description: string;
   error?: string;
+  type: string;
   onChange: (value: string | null) => void;
 }
 
-export const UploadImageField = ({ id, label, description, error: formError, onChange }: IProps) => {
+export const UploadImageField = ({
+  id,
+  label,
+  type = 'poster',
+  description,
+  error: formError,
+  onChange
+}: IProps) => {
   const [error, setError] = useState<string | null>(null)
   const [image, setImage] = useState<string | null>(null)
   const [isDeleting, setIsDeleting] = useState(false);
@@ -27,14 +35,14 @@ export const UploadImageField = ({ id, label, description, error: formError, onC
     if (formError) setError(formError)
   }, [formError])
 
-  const uploadPoster = ({ target }) => {
+  const uploadImage = ({ target }) => {
     setError(null);
     const file = target.files[0];
 
     if (file) {
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('type', 'poster');
+      formData.append('type', type);
 
       uploadQuizImage(formData, setProgress).then((result) => {
         onChange(result.fileName);
@@ -82,7 +90,7 @@ export const UploadImageField = ({ id, label, description, error: formError, onC
         ) : (
           <UploadInput
             id={id}
-            onChange={uploadPoster}
+            onChange={uploadImage}
           />
         )}
 

@@ -43,7 +43,7 @@ export class FilesService {
   deleteFile(fileName: string) {
     const filePath = path.join(process.cwd(), fileName);
 
-    console.log(filePath)
+    console.log(filePath);
 
     // Проверяем, существует ли файл
     if (!existsSync(filePath)) {

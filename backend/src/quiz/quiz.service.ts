@@ -2,6 +2,8 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import type { User as TelegramUser } from '@tma.js/init-data-node';
 import { existsSync, mkdirSync, renameSync } from 'fs';
 import path from 'path';
+import { v4 as uuid } from 'uuid';
+import { QuizType } from '@prisma/client';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { defaultData } from './mock';
 import { PrismaService } from '../prisma.service';
@@ -10,8 +12,8 @@ import { PrismaService } from '../prisma.service';
 export class QuizService {
   constructor(private prisma: PrismaService) {}
 
-  moveQuizFiles(files: string[]) {
-    const destDir = path.join(process.cwd(), 'uploads/quizzes');
+  moveQuizFiles(dirId: string, files: string[]) {
+    const destDir = path.join(process.cwd(), `uploads/quizzes/${dirId}`);
     const tempDir = path.join(process.cwd(), 'uploads/temp');
 
     if (!existsSync(destDir)) {
@@ -34,18 +36,60 @@ export class QuizService {
         where: { telegram_id: String(user.id) },
       });
 
-      this.moveQuizFiles([createQuizDto.poster]);
-
       if (userInDb) {
-        return this.prisma.quiz.create({
-          data: {
-            isPublic: false,
-            ...createQuizDto,
-            poster: `uploads/quizzes/${createQuizDto.poster}`,
-            authorId: userInDb.id,
-            authorTelegramId: String(user.id),
-          },
-        });
+        const quizId = uuid();
+        const images = [createQuizDto.poster];
+        const getImagePath = (image: string) =>
+          `uploads/quizzes/${quizId}/${image}`;
+
+        console.log('createQuizDto', createQuizDto);
+
+        const data = {
+          id: quizId,
+          isPublic: false,
+          title: createQuizDto.title,
+          description: createQuizDto.description,
+          poster: getImagePath(createQuizDto.poster),
+          authorId: userInDb.id,
+          limitedByTime: createQuizDto.limitedByTime,
+          authorTelegramId: String(user.id),
+          type: QuizType.USER_GENERATED,
+          questions: {},
+        };
+
+        if (createQuizDto.questions?.length) {
+          data.questions = {
+            create: createQuizDto.questions.map((question) => {
+              if (question.image) images.push(question.image);
+
+              const optionsData = question.options?.map((option) => {
+                if (option.image) images.push(option.image);
+                return {
+                  image: option.image ? getImagePath(option.image) : null,
+                  ...option,
+                };
+              });
+
+              // Создаем объект options только если есть данные и массив не пустой
+              const optionsCreate =
+                optionsData && optionsData.length > 0
+                  ? { createMany: { data: optionsData } }
+                  : undefined;
+
+              return {
+                text: question.text,
+                order: question.order,
+                image: question.image ? getImagePath(question.image) : null,
+                type: question.type,
+                options: optionsCreate,
+              };
+            }),
+          };
+        }
+
+        this.moveQuizFiles(quizId, images);
+
+        return this.prisma.quiz.create({ data });
       }
     } catch (e) {
       console.log('Ошибка создания квиза', e);
