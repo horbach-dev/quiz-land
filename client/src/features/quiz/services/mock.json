@@ -1,0 +1,133 @@
+{
+  "id": "ec79b0ae-0439-44f3-a353-75401466f45b",
+  "createdAt": "2025-12-02T17:38:28.538Z",
+  "updatedAt": "2025-12-02T17:38:28.538Z",
+  "title": "Тест на пидора",
+  "description": "Это тест на пидора, который показывает на сколько вы пидор. Пожалуйста, отвечайте максимально честно иначе как-то по пидорски.",
+  "poster": "uploads/quizzes/ec79b0ae-0439-44f3-a353-75401466f45b/47ecdc4d-ef4d-4859-86e7-e3a84c759b0b.jpg",
+  "isPublic": false,
+  "limitedByTime": false,
+  "type": "USER_GENERATED",
+  "durationMinutes": null,
+  "authorId": "5bfb71fa-de0b-4197-a6f4-272378b09ea9",
+  "authorTelegramId": "1",
+  "author": {
+    "id": "5bfb71fa-de0b-4197-a6f4-272378b09ea9",
+    "createdAt": "2025-12-01T19:00:51.906Z",
+    "updatedAt": "2025-12-01T19:00:51.906Z",
+    "username": "horbachAI",
+    "telegram_id": "1",
+    "first_name": "anton",
+    "last_name": null,
+    "avatar": "https://t.me/i/userpic/320/ORtO6jjeg5kv2JcCYLDXKaA_I17Bagt_MOBM5FjM43Y.svg",
+    "language": "ru"
+  },
+  "questions": [
+    {
+      "id": "05cffa54-2590-41fc-836e-8f9c19f73561",
+      "createdAt": "2025-12-02T17:38:28.538Z",
+      "updatedAt": "2025-12-02T17:38:28.538Z",
+      "text": "Давали ли хоть раз в туза?",
+      "image": null,
+      "order": 0,
+      "type": "SINGLE_CHOICE",
+      "quizId": "ec79b0ae-0439-44f3-a353-75401466f45b",
+      "options": [
+        {
+          "id": "6e3a4d7d-2f1c-424d-86f0-fb91d83f811c",
+          "text": "Да, но всего разок",
+          "image": null,
+          "isCorrect": false,
+          "questionId": "05cffa54-2590-41fc-836e-8f9c19f73561"
+        },
+        {
+          "id": "f8bc5a47-a186-47a7-8d89-b466b4c0859f",
+          "text": "Да, иногда бывает",
+          "image": null,
+          "isCorrect": false,
+          "questionId": "05cffa54-2590-41fc-836e-8f9c19f73561"
+        },
+        {
+          "id": "21bebe96-74cf-4b84-9d01-c903b57bc09d",
+          "text": "Регулярно сверлюсь в трубу",
+          "image": null,
+          "isCorrect": false,
+          "questionId": "05cffa54-2590-41fc-836e-8f9c19f73561"
+        },
+        {
+          "id": "f4e75769-1385-4f27-813f-85e465b2eada",
+          "text": "Никогда",
+          "image": null,
+          "isCorrect": false,
+          "questionId": "05cffa54-2590-41fc-836e-8f9c19f73561"
+        }
+      ]
+    },
+    {
+      "id": "45ef123f-de64-4551-a06f-bd1ce562debb",
+      "createdAt": "2025-12-02T17:38:28.538Z",
+      "updatedAt": "2025-12-02T17:38:28.538Z",
+      "text": "Вы считаете себя пидором?",
+      "image": null,
+      "order": 1,
+      "type": "SINGLE_CHOICE",
+      "quizId": "ec79b0ae-0439-44f3-a353-75401466f45b",
+      "options": [
+        {
+          "id": "75b91222-5730-4072-aa81-8a3fd04d53a4",
+          "text": "Да, уверен",
+          "image": null,
+          "isCorrect": false,
+          "questionId": "45ef123f-de64-4551-a06f-bd1ce562debb"
+        },
+        {
+          "id": "ce17575d-aafc-417b-bf11-3c170ad787a7",
+          "text": "Не уверен, но мысли возникают",
+          "image": null,
+          "isCorrect": false,
+          "questionId": "45ef123f-de64-4551-a06f-bd1ce562debb"
+        },
+        {
+          "id": "0e0672db-5102-4027-867c-904f91f5baa8",
+          "text": "Нет",
+          "image": null,
+          "isCorrect": false,
+          "questionId": "45ef123f-de64-4551-a06f-bd1ce562debb"
+        }
+      ]
+    },
+    {
+      "id": "9c6ede2d-ec71-4a98-8656-107fff2e98a2",
+      "createdAt": "2025-12-02T17:38:28.538Z",
+      "updatedAt": "2025-12-02T17:38:28.538Z",
+      "text": "Где вы были когда Харьков бомбили?",
+      "image": null,
+      "order": 2,
+      "type": "SINGLE_CHOICE",
+      "quizId": "ec79b0ae-0439-44f3-a353-75401466f45b",
+      "options": [
+        {
+          "id": "0b65abc4-0c62-43ab-8e62-7ebb8be7daff",
+          "text": "Я ебу",
+          "image": null,
+          "isCorrect": false,
+          "questionId": "9c6ede2d-ec71-4a98-8656-107fff2e98a2"
+        },
+        {
+          "id": "5918ca6a-e8cb-461f-a81f-345ae581da97",
+          "text": "А тебя ебет?",
+          "image": null,
+          "isCorrect": false,
+          "questionId": "9c6ede2d-ec71-4a98-8656-107fff2e98a2"
+        },
+        {
+          "id": "dcefe14e-9783-4401-931b-c6371fdefbd6",
+          "text": "В рот брал за еду",
+          "image": null,
+          "isCorrect": false,
+          "questionId": "9c6ede2d-ec71-4a98-8656-107fff2e98a2"
+        }
+      ]
+    }
+  ]
+}

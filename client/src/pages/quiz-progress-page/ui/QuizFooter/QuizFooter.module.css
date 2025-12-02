@@ -11,7 +11,7 @@
     border-left: 1px solid rgba(255,255,255, 0.1);
     border-right: 1px solid rgba(255,255,255, 0.1);
     border-radius: 1rem 1rem 0 0;
-    padding: var(--default-padding) var(--default-padding) calc(var(--padding-bottom) + var(--default-padding));
+    padding: var(--default-padding) var(--default-padding) var(--padding-bottom);
     backdrop-filter: blur(20px);
     transition: opacity 1.3s, transform 0.3s;
 }
