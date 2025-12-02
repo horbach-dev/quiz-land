@@ -2,7 +2,7 @@ import { createHashRouter, Navigate } from "react-router-dom";
 import { MainPage } from "@/pages/main-page";
 import { CreateQuizPage } from "@/pages/create-quiz-page";
 import { QuizPage } from "@/pages/QuizPage";
-import { QuizProgressPage } from "@/pages/QuizProgressPage";
+import { QuizProgressPage } from "@/pages/quiz-progress-page";
 import { QuizzesPage } from "@/pages/quizzes-page";
 import { ProfilePage } from "@/pages/ProfilePage";
 import { AppLayout } from "@/layouts/app-layout";

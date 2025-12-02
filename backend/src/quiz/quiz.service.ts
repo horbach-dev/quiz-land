@@ -127,6 +127,11 @@ export class QuizService {
         where: { id },
         include: {
           author: true,
+          questions: {
+            include: {
+              options: true,
+            },
+          },
         },
       });
 

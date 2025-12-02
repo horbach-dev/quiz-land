@@ -1,36 +1,40 @@
 import clsx from "clsx";
 import { WheelPicker } from "@/shared/ui/WheelPicker";
 import { Options } from "@/shared/ui/Option";
-import type { TQuestion } from "../../questions.ts";
 import styles from "./QuizCard.module.css";
+import type { TQuizQuestion } from "@/features/quiz/types";
 
 interface IProps {
   isShow: boolean;
-  question: TQuestion;
+  question: TQuizQuestion;
   value: string | null;
   setValue: (value: string) => void;
 }
 
 export const QuizCard = ({ isShow, question, value, setValue }: IProps) => {
+  const opts = question.options.map(i => ({ label: i.text, value: i.id }))
+
+  console.log(opts)
+
   return (
     <div className={clsx(
       styles.container,
       !isShow && styles.hide,
     )}>
       <p className={styles.title}>
-        {question.question}
+        {question.text}
       </p>
-      {question.type === 'option' && (
+      {question.type === 'MULTI_CHOICE' && (
         <WheelPicker
           onValueChange={setValue}
-          options={question.options}
-          value={(value as string) || question?.default?.value || question.options[0].value}
+          options={opts}
+          value={(value as string)}
         />
       )}
-      {question.type === 'select' && (
+      {question.type === 'SINGLE_CHOICE' && (
         <Options
           value={value}
-          options={question.options}
+          options={opts}
           onChange={setValue}
         />
       )}

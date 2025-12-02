@@ -1,61 +1,31 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { PageLayout } from "@/layouts/page-layout";
-import { useQuizStore } from "@/stores/quizStore";
+import { useQuizQuery } from "@/features/quiz/services/useQuizQuery";
 import { Progress } from './ui/Progress';
 import { QuizCard } from './ui/QuizCard';
 import { QuizFooter } from "./ui/QuizFooter";
-import IQImg from "@/pages/QuizPage/iq.jpg";
-import { questions } from "./questions.ts";
-import styles from './Quiz.module.css'
+import styles from './quiz-progress-page.module.css'
 
-type TAnswers = Record<string, { value: string, point: number } | null>
+type TAnswers = Record<string, { value: string } | null>
 
 const DELAY_TRANSITION = 300
 const quizId = '1'
-const currentQuizTest = {
-  id: 1,
-  title: 'Тест на уровень зависимости от лудомании',
-  description: 'Короткий тест показывает на сколько сильна зависимость от азартных игр.',
-  image: IQImg,
-  averageScore: 85,
-  results: [],
-  questions
-}
-
-const getAnswers = (questions: any[]) => {
-  return questions.reduce((a, v) => {
-    a[v.id] = null;
-    return a
-  }, {} as TAnswers)
-}
 
 export default function QuizProgressPage () {
+  const { id } = useParams();
+  const { data } = useQuizQuery(id!);
+
   const [isHide, setIsHide] = useState(false);
   const [step, setStep] = useState(0);
   const [isEnd, setEnd] = useState(false);
-  const { currentQuiz, setCurrentQuiz } = useQuizStore()
   const [answers, setAnswers] = useState<TAnswers | []>([]);
 
-  useEffect(() => {
-    if (currentQuiz) {
-      return
-    }
-
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setAnswers(getAnswers(currentQuizTest.questions))
-    setCurrentQuiz(currentQuizTest)
-  }, [currentQuiz])
-
-  if (!currentQuiz && !answers.length) {
-    return null
-  }
-
-  const { questions } = currentQuiz!
 
   const handleNext = () => {
     if (isHide) return
 
-    if (step === questions.length - 1) {
+    if (step === (data?.questions?.length || 0) - 1) {
       setEnd(true)
       return;
     }
@@ -83,28 +53,21 @@ export default function QuizProgressPage () {
     }, DELAY_TRANSITION)
   }
 
-  const currentQuestion = questions[step]
-  const currentAnswer = answers[currentQuestion.id]
+  const currentQuestion = data?.questions[step]
+
+  if (!currentQuestion) {
+    return null
+  }
 
   const handleSetValue = (value: string) => {
     handleNext()
-
-    const variant = currentQuestion.options.find(option => option.value === value);
-
     setAnswers(prevAnswers => ({
       ...prevAnswers,
-      [currentQuestion.id]: { value, point: variant?.point || 0 }
+      [currentQuestion.id]: { value }
     }));
   }
 
-  // const points = Object.keys(answers).reduce((a, key) => {
-  //   const answer = answers[key]
-  //
-  //   if (answer?.point) {
-  //     return a + answer.point;
-  //   }
-  //   return a
-  // }, 0)
+  const currentAnswer = answers[currentQuestion.id]
 
   return (
     <PageLayout withNavigation={false}>
@@ -113,7 +76,7 @@ export default function QuizProgressPage () {
           <Progress
             step={step}
             isShow={!isEnd}
-            length={questions.length}
+            length={data?.questions?.length || 0}
           />
           <QuizCard
             isShow={!isHide && !isEnd}

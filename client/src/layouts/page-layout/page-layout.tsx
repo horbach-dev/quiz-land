@@ -38,7 +38,7 @@ export function PageLayout({
   return (
     <div
       className={clsx(styles.pageLayout, className)}
-      style={withNavigation ? { paddingBottom: `calc(var(--navigation-height) + var(--padding-bottom))` } : {}}
+      style={withNavigation ? { paddingBottom: `calc(var(--navigation-height) + var(--padding-bottom) + var(--default-padding))` } : {}}
     >
       {children}
     </div>

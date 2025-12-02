@@ -6,7 +6,7 @@
     transform: scale(0.95);
     animation: fadeIn 0.5s forwards;
     padding-top: var(--padding-top);
-    padding-bottom: var(--padding-bottom);
+    padding-bottom: calc(var(--padding-bottom) + var(--default-padding));
 }
 
 @keyframes fadeIn {

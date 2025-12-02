@@ -8,6 +8,7 @@ export type TQuiz = {
   category: TQuizCategory,
   authorId: string,
   isPublic: boolean,
+  questions: TQuizQuestion[],
   limitedByTime: boolean,
   settings: TQuizSettings,
   createdAt: string,
@@ -16,21 +17,23 @@ export type TQuiz = {
 
 export type TQuizQuestion = {
   id: string,
-  quiz_id: string,
   order: number,
   text: string,
+  quizId: string,
+  options: TQuizOption[]
   type: TQuizQuestionType,
   weight: number,
   image: string | null,
 }
 
-export type TQuizQuestionType = 'single' | 'multiple' | 'text'
+export type TQuizQuestionType = 'TEXT_ANSWER' | 'SINGLE_CHOICE' | 'MULTI_CHOICE'
 
-export type TQuizAnswer = {
+export type TQuizOption = {
   id: string,
-  question_id: string,
+  image: string | null,
+  questionId: string,
   text: string,
-  is_correct: boolean,
+  isCorrect: boolean,
 }
 
 export type TQuizSettings = {

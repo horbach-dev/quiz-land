@@ -34,19 +34,18 @@ export const CreateQuizForm = () => {
     isLoading,
   } = useCreateQuizForm()
 
-  const { fields, append, remove } = useFieldArray({ control, name: 'questions', rules: { required: 'Нельзя создавать квизы без вопросов' } });
+  const { fields: questionFields, append: questionAppend, remove: removeQuestion } =
+    useFieldArray({ control, name: 'questions', rules: { required: 'Нельзя создавать квизы без вопросов' } });
 
   const handleAddQuestion = () => {
-    append({
+    questionAppend({
       text: '',
       image: null,
       options: [],
-      type: 'TEXT_ANSWER',
-      order: fields?.length || 0,
-    })
+      type: 'SINGLE_CHOICE',
+      order: questionFields?.length || 0,
+    }, { shouldFocus: false });
   }
-
-  console.log(fields)
 
   const isDisabled = !!Object.keys(errors).length
 
@@ -64,7 +63,15 @@ export const CreateQuizForm = () => {
               <Input
                 id="quiz-title"
                 placeholder={t('create_page.form.title_placeholder')}
-                {...register('title', { required: 'Обязательное поле', minLength: 7, maxLength: 30 })}
+                {...register(
+                  'title',
+                  {
+                    required: 'Обязательное поле',
+                    minLength: 7,
+                    maxLength: 30,
+                    min: 'Минимальное кол-во символов 7',
+                    max: 'По максам дал брат'
+                  })}
               />
               {errors.title?.message ? (
                 <FieldError>
@@ -123,10 +130,10 @@ export const CreateQuizForm = () => {
             {t('create_page.description')}
           </FieldDescription>
 
-          {fields.map((field, index) => (
+          {questionFields.map((field, index) => (
             <QuestionFields
               key={field.id}
-              removeQuestion={() => remove(index)}
+              removeQuestion={() => removeQuestion(index)}
               questionIndex={index}
               setValue={setValue}
               control={control as Control<IFormData>}
