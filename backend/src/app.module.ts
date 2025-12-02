@@ -4,16 +4,18 @@ import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { QuizModule } from './quiz/quiz.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'upload'), // Путь к вашей папке 'upload'
-      serveRoot: '/upload', // URL-префикс, по которому файлы будут доступны
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
     }),
     AuthModule,
     UserModule,
     QuizModule,
+    FilesModule,
   ],
 })
 export class AppModule {}

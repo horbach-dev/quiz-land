@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import {QuizCard, QuizCardSkeleton} from "@/features/quiz";
 import { IntersectingWrapper } from "@/features/intersecting-wrapper";
+import { BASE_URL } from "@/constants";
 import styles from './QuizList.module.css';
 
 interface IProps {
@@ -26,7 +27,7 @@ export const QuizList = ({
         {data?.map((item) => (
           <QuizCard
             key={item.id}
-            image={item.image}
+            image={BASE_URL + item.poster}
             title={item.title}
             link={`quiz/${item.id}`}
           />

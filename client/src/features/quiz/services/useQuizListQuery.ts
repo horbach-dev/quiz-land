@@ -1,9 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import { getQuizList } from "../api/getQuizList";
+import { getQuizList } from "../api/get-quiz-list";
 
-export function useQuizListQuery () {
+type TQuizListParams = {
+  type: 'friends' | 'my' | 'public'
+}
+
+export function useQuizListQuery (params?: TQuizListParams) {
   return useQuery({
-    queryKey: ['getQuizList'],
-    queryFn: () => getQuizList({}),
+    queryKey: ['getQuizList', params],
+    queryFn: () => getQuizList(params),
   })
 }

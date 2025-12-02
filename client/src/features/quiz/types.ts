@@ -4,13 +4,14 @@ export type TQuiz = {
   id: string,
   title: string,
   description: string,
-  image: string,
+  poster: string,
   category: TQuizCategory,
-  author: string,
-  is_public: boolean,
+  authorId: string,
+  isPublic: boolean,
+  limitedByTime: boolean,
   settings: TQuizSettings,
-  created_at: string,
-  updated_at: string,
+  createdAt: string,
+  updatedAt: string,
 }
 
 export type TQuizQuestion = {

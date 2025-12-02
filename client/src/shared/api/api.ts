@@ -9,7 +9,7 @@ import { BASE_URL } from "@/constants";
 const initDataRaw = retrieveRawInitData()
 
 const axiosRequestConfig: AxiosRequestConfig = {
-  baseURL: BASE_URL,
+  baseURL: BASE_URL + 'api',
   responseType: 'json',
   headers: {
     'Content-Type': 'application/json',

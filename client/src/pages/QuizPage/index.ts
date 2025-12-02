@@ -1,1 +1,1 @@
-export { QuizPage } from './QuizPage.tsx'
+export { QuizPage } from './quiz-page'

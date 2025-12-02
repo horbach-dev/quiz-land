@@ -1,7 +1,8 @@
+import '@/shared/styles/globals.css';
 import { PageLayout } from "@/layouts/page-layout";
 import { CreateQuizForm } from "@/features/quiz";
-import '@/shared/styles/globals.css';
-import styles from './CreateQuizPage.module.css';
+import { SectionHeader } from "@/shared/ui/section-header";
+import styles from './create-quiz-page.module.css';
 
 export default function CreateQuizPage() {
   return (
@@ -10,7 +11,7 @@ export default function CreateQuizPage() {
       className={styles.container}
     >
       <div className={styles.content}>
-        <h1 className={styles.title}>Создание нового квиза</h1>
+        <SectionHeader title='Создание нового квиза' />
         <CreateQuizForm />
       </div>
     </PageLayout>

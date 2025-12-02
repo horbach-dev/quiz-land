@@ -4,10 +4,8 @@ import { Avatar } from "@/features/user/ui/avatar";
 import styles from './user-welcome.module.css'
 
 export const UserWelcome = () => {
-  const { data, isLoading } = useUserQuery()
+  const { data } = useUserQuery()
   const nick = data?.first_name || data?.username
-
-  console.log(data, isLoading)
 
   return (
     <div className={styles.userWelcome}>

@@ -5,3 +5,7 @@
             var(--default-padding)
             var(--default-padding);
 }
+
+.tabBar {
+    margin-bottom: var(--default-padding);
+}

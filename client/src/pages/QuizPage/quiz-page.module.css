@@ -24,6 +24,11 @@
     margin-bottom: 2rem;
 }
 
+.actions {
+    display: flex;
+    gap: 1rem;
+}
+
 .footer {
     position: fixed;
     bottom: 0;
