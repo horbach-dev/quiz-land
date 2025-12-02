@@ -6,11 +6,12 @@ import { QuizzesPageFilter } from "./ui/quizzes-page-filter";
 import { useQuizListQuery } from "@/features/quiz";
 import { TabBar } from "@/shared/ui/tab-bar";
 import styles from './QuizzesPage.module.css'
+import {useTranslation} from "react-i18next";
 
 const tabOptions = [
-  { label: "Публичные", value: "public" },
-  { label: "Личные", value: "my" },
-  { label: "Друзей", value: "friends" },
+  { label: "quizzes_page.tab.public", value: "public" },
+  { label: "quizzes_page.tab.my", value: "my" },
+  { label: "quizzes_page.tab.friends", value: "friends" },
 ];
 
 type TQuizListParams = {
@@ -18,13 +19,14 @@ type TQuizListParams = {
 }
 
 export default function QuizzesPage () {
+  const { t } = useTranslation();
   const [params, setParams] = useState<TQuizListParams>({ type: 'public' });
   const { isLoading, data } = useQuizListQuery(params)
 
   return (
     <PageLayout>
       <QuizzesPageHeader
-        title={'Библиотека квизов'}
+        title={t('quizzes_page.title')}
         actions={<QuizzesPageFilter />}
       />
       <div className={styles.container}>

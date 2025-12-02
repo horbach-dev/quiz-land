@@ -60,6 +60,9 @@ export class QuizService {
       if (type === 'my') {
         return this.prisma.quiz.findMany({
           where: { authorTelegramId: telegramId },
+          orderBy: {
+            createdAt: 'desc',
+          },
         });
       }
 
@@ -78,6 +81,9 @@ export class QuizService {
     try {
       const quiz = await this.prisma.quiz.findUnique({
         where: { id },
+        include: {
+          author: true,
+        },
       });
 
       if (!quiz) {

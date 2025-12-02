@@ -1,18 +1,20 @@
 import { useLocation } from "react-router-dom";
 import { useLayoutEffect, useRef } from "react";
 import { Home, CircleCheckBig, User } from "lucide-react";
+import {useTranslation} from "react-i18next";
 import clsx from "clsx";
 import { useAppConfigStore } from "@/shared/config/store.ts";
 import { navigateTo } from "@/shared/utils/navigateTo.ts";
 import styles from './Navigation.module.css';
 
 const items = [
-  { id: 1, title: 'Главная', icon: Home, link: '/' },
-  { id: 2, title: 'Квизы', icon: CircleCheckBig, link: '/quizzes' },
-  { id: 3, title: 'Профиль', icon: User, link: '/profile' },
+  { id: 1, title: 'navigation.main', icon: Home, link: '/' },
+  { id: 2, title: 'navigation.quizzes', icon: CircleCheckBig, link: '/quizzes' },
+  { id: 3, title: 'navigation.profile', icon: User, link: '/profile' },
 ]
 
 export const Navigation = () => {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const isNavigationVisible = useAppConfigStore(store => store.isNavigationVisible)
   const { pathname } = useLocation();
@@ -39,7 +41,7 @@ export const Navigation = () => {
               onClick={() => navigateTo(link)}
             >
               <Icon className={styles.icon} />
-              {title}
+              {t(title)}
             </button>
           )
         })}

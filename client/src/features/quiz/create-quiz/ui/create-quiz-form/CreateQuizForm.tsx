@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+import { BadgePlus } from "lucide-react";
 import {
   Field,
   FieldDescription, FieldError,
@@ -11,9 +13,8 @@ import { Button } from "@/shared/ui/Button";
 import { useCreateQuizForm } from "@/features/quiz/create-quiz/hooks/useCreateQuizForm";
 import { UploadImageField } from "@/features/quiz/create-quiz/ui/upload-image";
 
-const description = 'Квиз можно создавать разных типов (один вариант правильный / несколько), ограничивать по времени, добавлять ответы картинками.'
-
 export const CreateQuizForm = () => {
+  const { t } = useTranslation();
   const {
     onSubmit,
     register,
@@ -33,17 +34,17 @@ export const CreateQuizForm = () => {
         <FieldGroup>
           <FieldSet>
             <FieldDescription>
-              {description}
+              {t('create_page.description')}
             </FieldDescription>
             <FieldGroup>
 
               <Field>
                 <FieldLabel htmlFor="quiz-title">
-                  Название квиза
+                  {t('create_page.form.title')}
                 </FieldLabel>
                 <Input
                   id="quiz-title"
-                  placeholder='Заголовок...'
+                  placeholder={t('create_page.form.title_placeholder')}
                   {...register('title')}
                 />
                 {errors.title ? (
@@ -59,11 +60,11 @@ export const CreateQuizForm = () => {
 
               <Field>
                 <FieldLabel htmlFor="quiz-description">
-                  Описание квиза
+                  {t('create_page.form.description')}
                 </FieldLabel>
                 <Textarea
                   id="quiz-description"
-                  placeholder="Краткое описание..."
+                  placeholder={t('create_page.form.description_placeholder')}
                   className="resize-none"
                   {...register('description')}
                 />
@@ -95,6 +96,7 @@ export const CreateQuizForm = () => {
             loading={isLoading}
             disabled={isDisabled}
             type='submit'
+            after={<BadgePlus />}
           >
             Создать квиз
           </Button>

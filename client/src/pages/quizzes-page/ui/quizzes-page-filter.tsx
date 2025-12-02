@@ -1,9 +1,11 @@
 import { FilterIcon } from "lucide-react";
 import { useState } from "react";
+import {useTranslation} from "react-i18next";
 import { Button } from "@/shared/ui/Button";
 import { QuizFilter } from "@/features/quiz/quiz-filter";
 
 export const QuizzesPageFilter = () => {
+  const { t } = useTranslation();
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   const handleShowFilter = () => {
@@ -21,7 +23,7 @@ export const QuizzesPageFilter = () => {
         after={<FilterIcon />}
         onClick={handleShowFilter}
       >
-        Поиск
+        {t('quizzes_page.search')}
       </Button>
       <QuizFilter
         isOpen={isFilterOpen}

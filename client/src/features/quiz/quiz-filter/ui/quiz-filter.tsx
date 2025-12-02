@@ -1,8 +1,10 @@
 import { Button } from "@/shared/ui/Button";
 import { SearchCheck, Trash2 } from "lucide-react";
+import {useTranslation} from "react-i18next";
 import { QuizFilterLayout } from "./quiz-filter-layout.tsx";
 
 export const QuizFilter = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const handleSearch = () => {
     onClose();
   }
@@ -13,7 +15,7 @@ export const QuizFilter = ({ isOpen, onClose }) => {
     <QuizFilterLayout
       isOpen={isOpen}
       onClose={onClose}
-      title='Поиск квизов'
+      title={t('filter.title')}
       clearButton={(
         <Button
           size='sm'
@@ -22,7 +24,7 @@ export const QuizFilter = ({ isOpen, onClose }) => {
           onClick={handleClearSearch}
           after={<Trash2 />}
         >
-          Очистить
+          {t('filter.clear')}
         </Button>
       )}
       searchButton={(
@@ -30,7 +32,7 @@ export const QuizFilter = ({ isOpen, onClose }) => {
           onClick={handleSearch}
           after={<SearchCheck />}
         >
-          Поиск
+          {t('filter.search')}
         </Button>
       )}
     >

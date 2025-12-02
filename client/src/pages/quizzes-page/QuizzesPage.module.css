@@ -1,4 +1,5 @@
 .container {
+    width: 100%;
     padding:
             calc(var(--quizzes-page-header-height) - var(--padding-top) + var(--default-padding))
             var(--default-padding)
@@ -7,5 +8,6 @@
 }
 
 .tabBar {
+    width: 100%;
     margin-bottom: var(--default-padding);
 }

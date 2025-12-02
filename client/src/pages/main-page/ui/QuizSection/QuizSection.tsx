@@ -3,8 +3,10 @@ import { QuizList } from "@/features/quiz";
 import { useQuizListQuery } from "@/features/quiz";
 import { Button } from "@/shared/ui/Button";
 import styles from "./QuizSection.module.css";
+import {useTranslation} from "react-i18next";
 
 export const QuizSection = () => {
+  const { t } = useTranslation();
   const { data, isLoading } = useQuizListQuery()
 
   return (
@@ -21,7 +23,7 @@ export const QuizSection = () => {
           to='/quizzes'
           after={<CircleCheckBig />}
         >
-          Все квизы
+          {t('common.all_quizzes')}
         </Button>
       </div>
     </div>

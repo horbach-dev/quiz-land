@@ -1,5 +1,5 @@
 import { type FieldErrors, useForm } from "react-hook-form";
-import {useCreateQuizMutation} from "@/features/quiz/create-quiz/hooks/useCreateQuizMutation.ts";
+import { useCreateQuizMutation } from "@/features/quiz/create-quiz/hooks/useCreateQuizMutation";
 
 interface IFormData {
   title: string

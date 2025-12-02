@@ -1,4 +1,5 @@
 import { ChevronRight, SquarePen } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/layouts/page-layout";
 import { UserWelcome } from "@/features/user";
 import { ShareAppButton } from "@/features/share";
@@ -8,6 +9,8 @@ import { QuizSection } from "./ui/QuizSection";
 import styles from "./main-page.module.css";
 
 export default function MainPage () {
+  const { t } = useTranslation();
+
   return (
     <PageLayout back={false}>
       <div className={styles.container}>
@@ -19,13 +22,13 @@ export default function MainPage () {
             to='/create'
             after={<SquarePen />}
           >
-            Создать квиз
+            {t('common.create')}
           </Button>
           <ShareAppButton />
         </div>
 
         <SectionHeader
-          title='Популярные тесты'
+          title={t('main_page.popular')}
           actions={(
             <Button
               style='white'
@@ -33,7 +36,7 @@ export default function MainPage () {
               to={`/quizzes`}
               after={<ChevronRight color='#333' />}
             >
-              Cм. все
+              {t('main_page.more')}
             </Button>
           )}
         />

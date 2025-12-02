@@ -17,6 +17,11 @@
     justify-content: center;
 }
 
+.previewIcon {
+    width: 2rem;
+    height: 2rem;
+}
+
 .preview p {
     margin-top: 1rem;
 }

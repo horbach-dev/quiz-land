@@ -1,5 +1,6 @@
 import styles from './tab-bar.module.css'
 import clsx from "clsx";
+import {useTranslation} from "react-i18next";
 
 interface IProps {
   value: string
@@ -8,6 +9,7 @@ interface IProps {
 }
 
 export const TabBar = ({ options, value, onChange }: IProps) => {
+  const { t } = useTranslation();
   const activeIndex = options.findIndex(v => v.value === value)
   return (
     <div className={styles.tabBar}>
@@ -18,7 +20,7 @@ export const TabBar = ({ options, value, onChange }: IProps) => {
             onClick={() => onChange(item.value)}
             className={clsx(styles.tabBarItem, item.value === value && styles.tabBarItemActive)}
           >
-            {item.label}
+            {t(item.label)}
           </button>
         )
       })}

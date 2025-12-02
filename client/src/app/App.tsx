@@ -1,4 +1,5 @@
 import './styles.css'
+import '@/shared/config/i18n'
 import { RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ErrorBoundary } from "./ErrorBoundary.tsx";

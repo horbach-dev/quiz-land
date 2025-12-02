@@ -1,0 +1,44 @@
+{
+  "common": {
+    "create": "Create quiz",
+    "share": "Share app",
+    "all_quizzes": "All quizzes"
+  },
+  "navigation": {
+    "main": "Home",
+    "quizzes": "Quizzes",
+    "profile": "Profile"
+  },
+  "welcome": {
+    "hello": "Hello",
+    "description": "It`s time create or complete quiz!",
+    "completed": "Completed",
+    "created": "Created",
+    "to_profile": "Go profile"
+  },
+  "main_page": {
+    "popular": "Popular quizzes",
+    "more": "View all"
+  },
+  "quizzes_page": {
+    "title": "Quiz library",
+    "search": "Search",
+    "tab": {
+      "public": "Public",
+      "my": "My quizzes",
+      "friends": "Friends"
+    }
+  },
+  "filter": {
+    "title": "Search for quizzes",
+    "clear": "clear",
+    "search": "Search"
+  },
+  "create_page": {
+    "title": "Создание нового квиза",
+    "description": "Квиз можно создавать разных типов (один вариант правильный / несколько), ограничивать по времени, добавлять ответы картинками.",
+    "form": {
+      "title": "Название квиза"
+    }
+  }
+}

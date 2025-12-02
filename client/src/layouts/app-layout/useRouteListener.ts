@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import { useEffect, useState } from "react";
 import { CHANGE_APP_ROUTE_EVENT } from "@/constants.ts";
 import { useLocation, useNavigate, type NavigateOptions } from "react-router-dom";
 import {useLaunchParams} from "@tma.js/sdk-react";
@@ -10,9 +10,8 @@ interface CustomEvent extends Event {
   }
 }
 
-let redirected = false;
-
 export function useRouteListener() {
+  const [isRedirected, setIsRedirected] = useState<boolean>(false);
   const { tgWebAppStartParam } = useLaunchParams()
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -27,11 +26,12 @@ export function useRouteListener() {
   }
 
   useEffect(() => {
-    if (tgWebAppStartParam && !redirected) {
-      redirected = true;
+    if (tgWebAppStartParam && !isRedirected) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIsRedirected(true)
       navigate(`quiz/${tgWebAppStartParam}`)
     }
-  }, [tgWebAppStartParam]);
+  }, [tgWebAppStartParam, isRedirected]);
 
   useEffect(() => {
     document.addEventListener(CHANGE_APP_ROUTE_EVENT, updateRoute)

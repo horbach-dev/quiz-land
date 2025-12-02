@@ -95,8 +95,8 @@ export const UploadImageField = ({ id, label, description, error: formError, onC
 
         {!image && !isShowProgress && (
           <div className={styles.preview}>
-            <Images />
-            <p>Загрузить из галереи</p>
+            <Images className={styles.previewIcon} />
+            <p>Загрузить изображение</p>
           </div>
         )}
       </div>

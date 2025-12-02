@@ -10,6 +10,7 @@ import { useQuizStore } from "@/stores/quizStore";
 import { Button } from "@/shared/ui/Button";
 import { useQuizQuery } from "@/features/quiz/services/useQuizQuery";
 import { shareURL } from "@tma.js/sdk-react";
+import { Poster } from "@/pages/QuizPage/ui/poster";
 import styles from './quiz-page.module.css'
 
 const currentQuiz = {
@@ -38,10 +39,9 @@ export const QuizPage = () => {
   return (
     <PageLayout>
       <div className={styles.container}>
-        <img
-          className={styles.image}
-          src={data?.poster}
-          alt={data?.title}
+        <Poster
+          image={data?.poster}
+          title={data?.title}
         />
         <p className={styles.title}>
           {data?.title}
