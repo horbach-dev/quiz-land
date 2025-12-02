@@ -10,7 +10,7 @@ import {
 import { UploadImageField } from "@/features/quiz/create-quiz/ui/upload-image";
 import {Input} from "@/shared/shadcn/ui/input";
 import {
-  useFieldArray,
+  // useFieldArray,
   type Control,
   type UseFormRegister,
   type FieldErrors,
@@ -28,11 +28,11 @@ interface QuestionProps {
   removeQuestion: () => void;
 }
 
-export const QuestionFields = ({ questionIndex, removeQuestion, setValue, control, register, errors }: QuestionProps) => {
-  const { fields: answerFields, append: appendAnswer, remove: removeAnswer } = useFieldArray({
-    control,
-    name: `questions.${questionIndex}.answers`,
-  });
+export const QuestionFields = ({ questionIndex, removeQuestion, setValue, register, errors }: QuestionProps) => {
+  // const { fields: answerFields, append: appendAnswer, remove: removeAnswer } = useFieldArray({
+  //   control,
+  //   name: `questions.${questionIndex}.answers`,
+  // });
 
   const error = errors?.questions?.[questionIndex]
 
@@ -59,6 +59,8 @@ export const QuestionFields = ({ questionIndex, removeQuestion, setValue, contro
           placeholder={"Введите вопрос..."}
           {
           ...register(
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             `questions.${questionIndex}.text`,
             {
               required: 'Обязательное поле',
@@ -84,6 +86,8 @@ export const QuestionFields = ({ questionIndex, removeQuestion, setValue, contro
         label='Картинка вопроса'
         type='question'
         onChange={value => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           setValue(`questions.${questionIndex}.image`, value)
         }}
         description='Максимум 1мб, файл PNG, JPG, JPEG'
