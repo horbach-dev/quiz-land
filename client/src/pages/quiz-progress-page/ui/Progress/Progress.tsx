@@ -1,6 +1,10 @@
 import { Flag } from "lucide-react";
+import { useLayoutEffect, useRef } from "react";
 import clsx from "clsx";
 import styles from "./Progress.module.css";
+import {createPortal} from "react-dom";
+
+const portalContainer = document.getElementById("header")!;
 
 interface IProps {
   isShow: boolean;
@@ -9,9 +13,25 @@ interface IProps {
 }
 
 export const Progress = ({ isShow = true, step, length }: IProps) => {
-  const width = `${((step + 1) / length) * 100}%`
-  return (
-    <div className={clsx(styles.progressWrap, !isShow && styles.hide)}>
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const width = `${((step) / length) * 100}%`
+
+  useLayoutEffect(() => {
+    if (containerRef?.current?.offsetHeight) {
+      document.documentElement.style.setProperty(
+        "--quiz-progress-page-header-height",
+        containerRef.current.offsetHeight + 'px'
+      );
+    }
+  }, [])
+
+  return createPortal(
+    <div
+      ref={containerRef}
+      className={clsx(styles.progressWrap, !isShow && styles.hide)}>
+      <div className={styles.progressCount}>
+        {step + 1} / {length}
+      </div>
       <div className={styles.progress}>
         <div
           style={{ width }}
@@ -19,6 +39,7 @@ export const Progress = ({ isShow = true, step, length }: IProps) => {
         />
       </div>
       <Flag className={styles.progressIcon} />
-    </div>
+    </div>,
+    portalContainer
   )
 }

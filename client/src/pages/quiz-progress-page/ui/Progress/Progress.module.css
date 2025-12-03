@@ -1,15 +1,44 @@
 .progressWrap {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    gap: 1rem;
     display: flex;
     align-items: center;
-    margin-bottom: 2rem;
+    padding: var(--default-padding);
     width: 100%;
+    border-radius: 0 0 1rem 1rem;
     transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* backdrop-filter есть — включаем blur */
+@supports ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
+    .progressWrap {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background: rgba(39, 36, 59, 0.7);
+    }
+}
+
+/* fallback если НЕТ поддержки blur */
+@supports not ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
+    .progressWrap {
+        background: rgba(39, 36, 59, 0.95);
+    }
+}
+
+.progressCount {
+    display: block;
+    /*min-width: 3rem;*/
+    white-space: nowrap;
+    width: fit-content;
+    font-weight: 700;
 }
 
 .progressIcon {
     color: #ffffff;
-    width: 1rem;
-    height: 1rem;
+    width: 1.3rem;
+    height: 1.3rem;
 }
 
 .progress {
@@ -17,7 +46,6 @@
     width: 100%;
     height: 0.5rem;
     border-radius: 0.5rem;
-    margin: 0 0.75rem 0 0;
     background-color: rgba(255, 255, 255, 0.3);
 }
 

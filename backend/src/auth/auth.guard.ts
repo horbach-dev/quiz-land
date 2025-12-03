@@ -2,12 +2,14 @@ import {
   Injectable,
   CanActivate,
   ExecutionContext,
-  UnauthorizedException,
+  UnauthorizedException, Inject,
 } from '@nestjs/common';
+import { type Cache } from 'cache-manager';
 import { Request } from 'express';
 import type { User as TelegramUser } from '@tma.js/init-data-node';
 import { AuthService } from './auth.service';
 import { PrismaService } from '../prisma.service';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 const DEFAULT_LANGUAGE = 'ru';
 
@@ -23,6 +25,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private readonly tmaAuthService: AuthService,
     private readonly prisma: PrismaService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -52,31 +55,39 @@ export class AuthGuard implements CanActivate {
         throw new UnauthorizedException('данные Telegram не валидны');
       }
 
-      const dbUser = await this.prisma.user.upsert({
-        where: { telegram_id: String(telegramUser.id) },
-        update: {
-          telegram_id: String(telegramUser.id),
-          username: telegramUser.username || undefined,
-          first_name: telegramUser.first_name || undefined,
-          last_name: telegramUser.last_name || undefined,
-          language: telegramUser.language_code || DEFAULT_LANGUAGE,
-          avatar: telegramUser.photo_url || undefined,
-        },
-        create: {
-          telegram_id: String(telegramUser.id),
-          username: telegramUser.username || undefined,
-          first_name: telegramUser.first_name || undefined,
-          last_name: telegramUser.last_name || undefined,
-          language: telegramUser.language_code || DEFAULT_LANGUAGE,
-          avatar: telegramUser.photo_url || undefined,
-        },
-        select: { id: true, telegram_id: true },
-      });
+      const telegramUserId = String(telegramUser.id);
+      const cacheKey = `user_db_id:${telegramUserId}`;
+      let dbUserId = await this.cacheManager.get<string>(cacheKey);
+
+      if (!dbUserId) {
+        const dbUser = await this.prisma.user.upsert({
+          where: { telegram_id: telegramUserId },
+          create: {
+            telegram_id: telegramUserId,
+            username: telegramUser.username || null,
+            first_name: telegramUser.first_name || null,
+            last_name: telegramUser.last_name || null,
+            language: telegramUser.language_code || DEFAULT_LANGUAGE,
+            avatar: telegramUser.photo_url || null,
+          },
+          update: {
+            username: telegramUser.username || undefined,
+            first_name: telegramUser.first_name || undefined,
+            last_name: telegramUser.last_name || undefined,
+            language: telegramUser.language_code || DEFAULT_LANGUAGE,
+            avatar: telegramUser.photo_url || undefined,
+          },
+          select: { id: true, telegram_id: true },
+        });
+
+        dbUserId = dbUser.id;
+        await this.cacheManager.set(cacheKey, dbUserId, 600);
+      }
 
       request.user = {
         ...telegramUser,
         telegramId: telegramUser.id,
-        id: dbUser.id,
+        id: dbUserId,
       };
 
       return true;

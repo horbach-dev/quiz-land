@@ -62,8 +62,8 @@ if (import.meta.env.DEV) {
           ['hash', 'some-hash'],
           ['signature', 'some-signature'],
           ['user', JSON.stringify({
-            id: 1234,
-            first_name: 'anton',
+            id: 12345,
+            first_name: 'antonios',
             last_name: '',
             language_code: 'ru',
             photo_url: 'https://t.me/i/userpic/320/ORtO6jjeg5kv2JcCYLDXKaA_I17Bagt_MOBM5FjM43Y.svg',
