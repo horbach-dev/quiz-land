@@ -104,6 +104,24 @@ export class QuizService {
         });
       }
 
+      if (type === 'friends') {
+        return this.prisma.quiz.findMany({
+          where: {
+            accessTo: {
+              has: userId, // Используем оператор has для проверки наличия элемента в массиве
+            },
+            // Опционально: исключаем квизы, которые сам пользователь создал
+            NOT: {
+              authorId: userId,
+            },
+          },
+          include: {
+            author: { select: { username: true, id: true, avatar: true } },
+          },
+          orderBy: { createdAt: 'desc' },
+        });
+      }
+
       return this.prisma.quiz.findMany({
         where: {
           isPublic: true,
@@ -118,7 +136,7 @@ export class QuizService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, userId: string) {
     try {
       const quiz = await this.prisma.quiz.findUnique({
         where: { id },
@@ -136,6 +154,19 @@ export class QuizService {
         return new BadRequestException('Не удалось найти квиз в базе');
       }
 
+      console.log(quiz.authorId !== userId)
+
+      if (quiz.authorId !== userId) {
+        await this.prisma.quiz.update({
+          where: { id: quiz.id },
+          data: {
+            accessTo: {
+              push: userId,
+            },
+          },
+        });
+      }
+
       return quiz;
     } catch (e) {
       console.log('Не удалось найти квиз в базе', e);
@@ -148,7 +179,7 @@ export class QuizService {
       const quizToDelete = await this.prisma.quiz.findUnique({
         where: { id: quizId },
         select: {
-          authorTelegramId: true,
+          authorId: true,
           questions: {
             select: {
               image: true,
@@ -168,7 +199,7 @@ export class QuizService {
         throw new BadRequestException('Квиз не найден');
       }
 
-      if (quizToDelete?.authorTelegramId !== userId) {
+      if (quizToDelete?.authorId !== userId) {
         throw new BadRequestException(
           'У вас нет прав для удаления этого квиза.',
         );

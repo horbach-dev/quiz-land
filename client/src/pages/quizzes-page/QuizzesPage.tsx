@@ -24,6 +24,8 @@ export default function QuizzesPage () {
   const [params, setParams] = useState<TQuizListParams>({ type: 'public' });
   const { isLoading, data } = useQuizListQuery(params)
 
+  console.log(data)
+
   return (
     <PageLayout>
       <QuizzesPageHeader
@@ -49,6 +51,18 @@ export default function QuizzesPage () {
               image={BASE_URL + item.poster}
               title={item.title}
               link={`quiz/${item.id}`}
+              actions={item?.author && (
+                <div className={styles.author}>
+                  <img
+                    src={item.author.avatar}
+                    className={styles.authorAvatar}
+                    alt={item.author.username}
+                  />
+                  <p className={styles.authorNick}>
+                    {item.author.username}
+                  </p>
+                </div>
+              )}
             />
           )}
         />

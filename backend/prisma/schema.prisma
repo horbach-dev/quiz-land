@@ -30,6 +30,7 @@ model Quiz {
   title            String
   description      String
   poster           String
+  accessTo         String[]         @default([]) @map("access_to")
   isPublic         Boolean          @map("is_public")
   limitedByTime    Boolean          @map("limited_by_time")
   type             QuizType         @default(USER_GENERATED)

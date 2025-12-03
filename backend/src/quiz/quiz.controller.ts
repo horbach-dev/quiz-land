@@ -34,8 +34,8 @@ export class QuizController {
 
   @Get(':id')
   @UseGuards(AuthGuard)
-  findOne(@Param('id') id: string) {
-    return this.quizService.findOne(id);
+  findOne(@Param('id') id: string, @ReqUser() user: TUser) {
+    return this.quizService.findOne(id, user.id);
   }
 
   @Delete(':id')

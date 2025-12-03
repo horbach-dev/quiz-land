@@ -7,6 +7,7 @@ export type TQuiz = {
   poster: string,
   category: TQuizCategory,
   authorId: string,
+  author?: TQuizAuthor,
   isPublic: boolean,
   questions: TQuizQuestion[],
   limitedByTime: boolean,
@@ -34,6 +35,12 @@ export type TQuizOption = {
   questionId: string,
   text: string,
   isCorrect: boolean,
+}
+
+type TQuizAuthor = {
+  id: string,
+  username: string,
+  avatar: string
 }
 
 export type TQuizSettings = {
