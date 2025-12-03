@@ -6,7 +6,7 @@ import {
   Query,
   Param,
   Delete,
-  UseGuards,
+  UseGuards, HttpCode,
 } from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
@@ -39,7 +39,9 @@ export class QuizController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.quizService.remove(+id);
+  @UseGuards(TmaAuthGuard)
+  @HttpCode(201)
+  remove(@Param('id') id: string, @ReqUser() user: TelegramUser) {
+    return this.quizService.remove(id, String(user.id));
   }
 }

@@ -4,13 +4,14 @@ import { existsSync, mkdirSync, renameSync } from 'fs';
 import path from 'path';
 import { v4 as uuid } from 'uuid';
 import { QuizType } from '@prisma/client';
+import { FilesService } from '../files/files.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { defaultData } from './mock';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class QuizService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private filesService: FilesService) {}
 
   moveQuizFiles(dirId: string, files: string[]) {
     const destDir = path.join(process.cwd(), `uploads/quizzes/${dirId}`);
@@ -42,8 +43,6 @@ export class QuizService {
         const getImagePath = (image: string) =>
           `uploads/quizzes/${quizId}/${image}`;
 
-        console.log('createQuizDto', createQuizDto);
-
         const data = {
           id: quizId,
           isPublic: false,
@@ -65,6 +64,7 @@ export class QuizService {
               const optionsData = question.options?.map((option) => {
                 if (option.image) images.push(option.image);
                 return {
+                  quizId,
                   image: option.image ? getImagePath(option.image) : null,
                   ...option,
                 };
@@ -146,7 +146,77 @@ export class QuizService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} quiz`;
+  async remove(quizId: string, userId: string) {
+    try {
+      const quizToDelete = await this.prisma.quiz.findUnique({
+        where: { id: quizId },
+        select: {
+          authorTelegramId: true,
+          questions: {
+            select: {
+              image: true,
+              options: {
+                select: {
+                  image: true,
+                },
+              },
+            },
+          },
+          poster: true,
+        },
+      });
+
+      if (!quizToDelete) {
+        console.log(`Квиз не найден при удалении`);
+        throw new BadRequestException('Квиз не найден');
+      }
+
+      if (quizToDelete?.authorTelegramId !== userId) {
+        throw new BadRequestException(
+          'У вас нет прав для удаления этого квиза.',
+        );
+      }
+
+      const filesToDelete: string[] = [];
+
+      if (quizToDelete.poster) filesToDelete.push(quizToDelete.poster);
+
+      if (quizToDelete.questions.length) {
+        // Собираем пути к изображениям из вопросов и ответов
+        quizToDelete.questions.forEach((question) => {
+          if (question.image) filesToDelete.push(question.image);
+          question.options.forEach((option) => {
+            if (option.image) filesToDelete.push(option.image);
+          });
+        });
+      }
+
+      await this.prisma.$transaction(async (prisma) => {
+        // Удаляем варианты ответов (зависят от Question)
+        await prisma.questionOption.deleteMany({
+          where: { quizId: quizId },
+        });
+
+        // Удаляем вопросы (зависят от Quiz)
+        await prisma.question.deleteMany({
+          where: { quizId: quizId },
+        });
+
+        // Удаляем сам квиз
+        await prisma.quiz.delete({
+          where: { id: quizId },
+        });
+      });
+
+      this.filesService.deleteDirectory(`uploads/quizzes/${quizId}`);
+
+      return true;
+    } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      console.log(`Удаление квиза ${e.message}`);
+      throw new BadRequestException(
+        e instanceof Error ? e.message : 'Ошибка удаления квиза',
+      );
+    }
   }
 }

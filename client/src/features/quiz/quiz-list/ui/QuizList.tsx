@@ -1,15 +1,17 @@
+import type { ReactNode } from "react";
 import clsx from "clsx";
-import {QuizCard, QuizCardSkeleton} from "@/features/quiz";
+import type { TQuiz } from "@/features/quiz/types";
+import { QuizCardSkeleton } from "@/features/quiz";
 import { IntersectingWrapper } from "@/features/intersecting-wrapper";
-import { BASE_URL } from "@/constants";
 import styles from './QuizList.module.css';
 
 interface IProps {
   view?: 'column' | 'row';
-  data: any[];
+  data: TQuiz[] | undefined;
   isLoading?: boolean;
   isLoadingMore?: boolean;
   handleLoadMore?: () => void;
+  renderItem: (data: TQuiz) => ReactNode
 }
 
 export const QuizList = ({
@@ -17,35 +19,35 @@ export const QuizList = ({
   data,
   handleLoadMore,
   isLoading,
-  isLoadingMore
+  isLoadingMore,
+  renderItem
 }: IProps) => {
   const isShowSkeleton = (isLoading && !data?.length) || isLoadingMore;
 
   return (
     <>
       <div className={clsx(styles.container, styles[`container-${view}`])}>
-        {data?.map((item) => (
-          <QuizCard
-            key={item.id}
-            image={BASE_URL + item.poster}
-            title={item.title}
-            link={`quiz/${item.id}`}
-          />
-        ))}
+        {data?.map(renderItem)}
         {isShowSkeleton && (
           <>
-            <QuizCardSkeleton/>
-            <QuizCardSkeleton/>
-            <QuizCardSkeleton/>
-            <QuizCardSkeleton/>
+            <QuizCardSkeleton view={view} />
+            <QuizCardSkeleton view={view} />
+            <QuizCardSkeleton view={view} />
+            <QuizCardSkeleton view={view} />
           </>
         )}
       </div>
+      {!data?.length && !isLoading && (
+        <div className={styles.empty}>
+          <div className={styles.emptyImage} />
+          <p className={styles.emptyTitle}>Квизов не найдено</p>
+        </div>
+      )}
       {(
         handleLoadMore &&
         !isLoading &&
-        data?.length > 0 &&
-        !isLoadingMore
+        !isLoadingMore &&
+        !!data?.length
       ) && (
         <IntersectingWrapper onVisible={handleLoadMore} />
       )}

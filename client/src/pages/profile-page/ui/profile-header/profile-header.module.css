@@ -1,0 +1,16 @@
+.profileHeader {
+
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto var(--default-padding);
+}
+
+.nick {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+}

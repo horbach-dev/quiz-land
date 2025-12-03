@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { BadgePlus, FilePlusCorner } from "lucide-react";
 import { type Control, useFieldArray } from "react-hook-form";
+import {createPortal} from "react-dom";
 import {
   Field,
   FieldDescription,
@@ -18,7 +19,6 @@ import {type IFormData, useCreateQuizForm} from "@/features/quiz/create-quiz/hoo
 import { UploadImageField } from "@/features/quiz/create-quiz/ui/upload-image";
 import {QuestionFields} from "./question-fields";
 import styles from './create-quiz-form.module.css'
-import {createPortal} from "react-dom";
 
 const portalContainer = document.getElementById("footer")!;
 

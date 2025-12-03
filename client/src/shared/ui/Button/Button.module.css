@@ -65,6 +65,48 @@
     height: 1.2rem;
 }
 
+.style-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,0.15);
+    overflow: hidden;
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.05);
+}
+
+.style-icon:hover:not(:disabled) {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.style-icon.size-lg {
+    border-radius: 0.7rem;
+    box-shadow: 0 0 50px 10px rgba(0,0,0,0.3);
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.style-icon.size-sm {
+    border-radius: 0.7rem;
+    box-shadow: 0 0 50px 10px rgba(0,0,0,0.3);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.style-icon svg {
+    stroke: #fff;
+}
+
+.style-icon.size-lg svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.style-icon.size-sm svg {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
 .style-white {
     padding: 1rem;
     border-radius: var(--default-padding);

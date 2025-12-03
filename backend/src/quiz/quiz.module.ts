@@ -3,9 +3,10 @@ import { QuizService } from './quiz.service';
 import { QuizController } from './quiz.controller';
 import { AuthService } from '../auth/auth.service';
 import { PrismaService } from '../prisma.service';
+import { FilesService } from '../files/files.service';
 
 @Module({
   controllers: [QuizController],
-  providers: [QuizService, PrismaService, AuthService],
+  providers: [QuizService, PrismaService, AuthService, FilesService],
 })
 export class QuizModule {}

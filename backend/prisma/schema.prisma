@@ -49,13 +49,13 @@ model QuizSession {
   updatedAt        DateTime      @default(now()) @map("updated_at")
   userId           String        @map("user_id")
   user             User          @relation(fields: [userId], references: [id])
-  quizId           String        @map("quiz_id") // Связь с конкретным квизом
+  quizId           String        @map("quiz_id")
   quiz             Quiz          @relation(fields: [quizId], references: [id])
-  status           SessionStatus @default(IN_PROGRESS) // IN_PROGRESS, COMPLETED, etc.
+  status           SessionStatus @default(IN_PROGRESS)
   startedAt        DateTime      @map("started_at")
   completedAt      DateTime?     @map("completed_at") // null пока не завершен
-  timeSpentSeconds Int?          @map("time_spent_seconds") // Общее затраченное время (для сохранения прогресса)
-  score            Float? // Итоговый балл
+  timeSpentSeconds Int?          @map("time_spent_seconds")
+  score            Float?
   userAnswers      UserAnswer[] // Связь с ответами пользователя в этой сессии
 
   @@map("quiz_session")
@@ -83,6 +83,7 @@ model QuestionOption {
   image      String?
   isCorrect  Boolean  @map("is_correct")
   questionId String   @map("question_id")
+  quizId     String   @map("quiz_id")
   question   Question @relation(fields: [questionId], references: [id])
 
   @@map("question_option")
@@ -96,7 +97,7 @@ model UserAnswer {
   question            Question    @relation(fields: [questionId], references: [id])
   submittedAnswerText String?     @map("submitted_answer_text")
   submittedOptionIds  String[]    @map("submitted_option_ids")
-  isCorrect           Boolean?    @map("is_correct") // Вычисляется при завершении/проверке
+  isCorrect           Boolean?    @map("is_correct")
 
   @@map("user_answer")
 }

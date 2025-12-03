@@ -5,7 +5,7 @@ import { navigateTo } from "@/shared/utils/navigateTo";
 import styles from "./Button.module.css";
 
 interface IProps {
-  style?: 'white' | 'default';
+  style?: 'white' | 'default' | 'icon';
   size?: 'sm' | 'lg';
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
@@ -55,7 +55,7 @@ export const Button = ({
       disabled={disabled || loading}
     >
       {before && <span className={styles.before}>{before}</span>}
-      <span className={styles.text}>{children}</span>
+      {style === 'icon' ? children : <span className={styles.text}>{children}</span>}
       {after && <span className={styles.after}>{after}</span>}
       <span className={clsx(styles.loader, loading && styles.loading)} />
     </button>

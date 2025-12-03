@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import path from 'path';
-import { existsSync, unlinkSync } from 'fs';
+import { existsSync, unlinkSync, rmSync } from 'fs';
 
 type TFileType = 'poster' | 'question' | 'answer';
 
@@ -43,8 +43,6 @@ export class FilesService {
   deleteFile(fileName: string) {
     const filePath = path.join(process.cwd(), fileName);
 
-    console.log(filePath);
-
     // Проверяем, существует ли файл
     if (!existsSync(filePath)) {
       throw new NotFoundException(`Файл ${fileName} не найден`);
@@ -55,7 +53,26 @@ export class FilesService {
       console.log(`Успешно удален: ${fileName}`);
     } catch (error) {
       throw new InternalServerErrorException(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         `Нельзя удалить файл: ${error.message}`,
+      );
+    }
+  }
+
+  deleteDirectory(dirPath: string) {
+    const fullPath = path.join(process.cwd(), dirPath);
+
+    if (!existsSync(fullPath)) {
+      console.log(`Директория не найдена при попытке удаления: ${fullPath}`);
+      return;
+    }
+
+    try {
+      rmSync(fullPath, { recursive: true, force: true });
+      console.log(`Успешно удалена директория: ${fullPath}`);
+    } catch (error) {
+      console.error(
+        `Ошибка при удалении директории ${fullPath}: ${error.message}`,
       );
     }
   }
