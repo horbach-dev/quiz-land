@@ -1,6 +1,9 @@
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
 import { Button } from "@/shared/ui/Button";
 import styles from "./QuizFooter.module.css";
+import { createPortal } from "react-dom";
+
+const portalContainer = document.getElementById("footer")!;
 
 interface IProps {
   id: string;
@@ -10,7 +13,7 @@ interface IProps {
 }
 
 export const QuizFooter = ({ disabled, isDone, onClick }: IProps) => {
-  return (
+  return createPortal(
     <div className={styles.container}>
       <div className={styles.content}>
         <Button
@@ -22,6 +25,7 @@ export const QuizFooter = ({ disabled, isDone, onClick }: IProps) => {
           {isDone ? 'Поделиться' : 'Назад'}
         </Button>
       </div>
-    </div>
+    </div>,
+    portalContainer
   )
 }

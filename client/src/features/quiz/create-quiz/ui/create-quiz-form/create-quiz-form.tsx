@@ -32,6 +32,7 @@ export const CreateQuizForm = () => {
     clearErrors,
     errors,
     isLoading,
+    setError
   } = useCreateQuizForm()
 
   const { fields: questionFields, append: questionAppend, remove: removeQuestion } =
@@ -67,10 +68,14 @@ export const CreateQuizForm = () => {
                   'title',
                   {
                     required: 'Обязательное поле',
-                    minLength: 7,
-                    maxLength: 30,
-                    min: 'Минимальное кол-во символов 7',
-                    max: 'По максам дал брат'
+                    minLength: {
+                      value: 7,
+                      message: 'Минимальное кол-во символов 7'
+                    },
+                    maxLength: {
+                      value: 30,
+                      message: 'Максимальное кол-во символов 30'
+                    },
                   })}
               />
               {errors.title?.message ? (
@@ -92,7 +97,19 @@ export const CreateQuizForm = () => {
                 id="quiz-description"
                 placeholder={t('create_page.form.description_placeholder')}
                 className="resize-none"
-                {...register('description', { required: 'Обязательное поле', minLength: 10, maxLength: 1000 })}
+                {...register(
+                  'description',
+                  {
+                    required: 'Обязательное поле',
+                    minLength: {
+                      value: 10,
+                      message: 'Минимальное кол-во символов 30'
+                    },
+                    maxLength: {
+                      value: 1000,
+                      message: 'Максимальное кол-во символов 1000'
+                    }
+                  })}
               />
               {errors.description?.message ? (
                 <FieldError>
@@ -110,8 +127,12 @@ export const CreateQuizForm = () => {
               type='poster'
               label='Постер квиза (главное изображение)'
               onChange={value => {
+                if (value) {
+                  clearErrors('poster')
+                } else {
+                  setError('poster', { type: 'required', message: 'Обязательное поле' })
+                }
                 setValue('poster', value)
-                clearErrors('poster')
               }}
               error={errors.poster?.message}
               description='Максимум 1мб, разрешен файл PNG, JPG, JPEG'

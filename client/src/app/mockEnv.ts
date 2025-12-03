@@ -62,7 +62,7 @@ if (import.meta.env.DEV) {
           ['hash', 'some-hash'],
           ['signature', 'some-signature'],
           ['user', JSON.stringify({
-            id: 1,
+            id: 1234,
             first_name: 'anton',
             last_name: '',
             language_code: 'ru',

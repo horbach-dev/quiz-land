@@ -1,17 +1,19 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import type { User as TelegramUser } from '@tma.js/init-data-node';
 import { existsSync, mkdirSync, renameSync } from 'fs';
 import path from 'path';
 import { v4 as uuid } from 'uuid';
 import { QuizType } from '@prisma/client';
 import { FilesService } from '../files/files.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
-import { defaultData } from './mock';
 import { PrismaService } from '../prisma.service';
+import type { TUser } from '../user/user.decorator';
 
 @Injectable()
 export class QuizService {
-  constructor(private prisma: PrismaService, private filesService: FilesService) {}
+  constructor(
+    private prisma: PrismaService,
+    private filesService: FilesService,
+  ) {}
 
   moveQuizFiles(dirId: string, files: string[]) {
     const destDir = path.join(process.cwd(), `uploads/quizzes/${dirId}`);
@@ -31,89 +33,84 @@ export class QuizService {
     });
   }
 
-  async create(createQuizDto: CreateQuizDto, user: TelegramUser) {
+  async create(createQuizDto: CreateQuizDto, user: TUser) {
     try {
-      const userInDb = await this.prisma.user.findUnique({
-        where: { telegram_id: String(user.id) },
-      });
+      const quizId = uuid();
+      const images = [createQuizDto.poster];
+      const getImagePath = (image: string) =>
+        `uploads/quizzes/${quizId}/${image}`;
 
-      if (userInDb) {
-        const quizId = uuid();
-        const images = [createQuizDto.poster];
-        const getImagePath = (image: string) =>
-          `uploads/quizzes/${quizId}/${image}`;
+      const data = {
+        id: quizId,
+        isPublic: false,
+        title: createQuizDto.title,
+        description: createQuizDto.description,
+        poster: getImagePath(createQuizDto.poster),
+        authorId: user.id,
+        limitedByTime: createQuizDto.limitedByTime,
+        authorTelegramId: String(user.telegramId),
+        type: QuizType.USER_GENERATED,
+        questions: {},
+      };
 
-        const data = {
-          id: quizId,
-          isPublic: false,
-          title: createQuizDto.title,
-          description: createQuizDto.description,
-          poster: getImagePath(createQuizDto.poster),
-          authorId: userInDb.id,
-          limitedByTime: createQuizDto.limitedByTime,
-          authorTelegramId: String(user.id),
-          type: QuizType.USER_GENERATED,
-          questions: {},
-        };
+      if (createQuizDto.questions?.length) {
+        data.questions = {
+          create: createQuizDto.questions.map((question) => {
+            if (question.image) images.push(question.image);
 
-        if (createQuizDto.questions?.length) {
-          data.questions = {
-            create: createQuizDto.questions.map((question) => {
-              if (question.image) images.push(question.image);
-
-              const optionsData = question.options?.map((option) => {
-                if (option.image) images.push(option.image);
-                return {
-                  quizId,
-                  image: option.image ? getImagePath(option.image) : null,
-                  ...option,
-                };
-              });
-
-              // Создаем объект options только если есть данные и массив не пустой
-              const optionsCreate =
-                optionsData && optionsData.length > 0
-                  ? { createMany: { data: optionsData } }
-                  : undefined;
-
+            const optionsData = question.options?.map((option) => {
+              if (option.image) images.push(option.image);
               return {
-                text: question.text,
-                order: question.order,
-                image: question.image ? getImagePath(question.image) : null,
-                type: question.type,
-                options: optionsCreate,
+                quizId,
+                image: option.image ? getImagePath(option.image) : null,
+                ...option,
               };
-            }),
-          };
-        }
+            });
 
-        this.moveQuizFiles(quizId, images);
+            // Создаем объект options только если есть данные и массив не пустой
+            const optionsCreate =
+              optionsData && optionsData.length > 0
+                ? { createMany: { data: optionsData } }
+                : undefined;
 
-        return this.prisma.quiz.create({ data });
+            return {
+              text: question.text,
+              order: question.order,
+              image: question.image ? getImagePath(question.image) : null,
+              type: question.type,
+              options: optionsCreate,
+            };
+          }),
+        };
       }
+
+      this.moveQuizFiles(quizId, images);
+
+      return this.prisma.quiz.create({ data });
     } catch (e) {
       console.log('Ошибка создания квиза', e);
-      return new BadRequestException('Ошибка создания квиза');
+      throw new BadRequestException('Ошибка создания квиза');
     }
-
-    return {};
   }
 
-  findQuizzes(type: 'my' | 'friends' | 'public', telegramId: string) {
+  findQuizzes(type: 'my' | 'friends' | 'public', userId: string) {
     try {
       if (type === 'my') {
         return this.prisma.quiz.findMany({
-          where: { authorTelegramId: telegramId },
+          where: { authorId: userId },
           orderBy: {
             createdAt: 'desc',
           },
         });
       }
 
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(defaultData);
-        }, 3000);
+      return this.prisma.quiz.findMany({
+        where: {
+          isPublic: true,
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
       });
     } catch (e) {
       console.error('Не удалось найти квизы', e);

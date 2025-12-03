@@ -4,7 +4,7 @@ import { PageLayout } from "@/layouts/page-layout";
 import { QuizCard, QuizList, useQuizListQuery } from "@/features/quiz";
 import { SectionHeader } from "@/shared/ui/section-header";
 import { Button } from "@/shared/ui/Button";
-import { ProfileHeader } from "./ui/profile-header";
+// import { ProfileHeader } from "./ui/profile-header";
 import { CardActions } from "./ui/card-actions";
 import styles from './profile-page.module.css'
 
@@ -14,7 +14,7 @@ export const ProfilePage = () => {
   return (
     <PageLayout>
       <div className={styles.container}>
-        <ProfileHeader />
+        {/*<ProfileHeader />*/}
         <SectionHeader
           title={"Созданные квизы"}
           actions={(

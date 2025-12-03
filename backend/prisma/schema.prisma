@@ -24,19 +24,20 @@ model User {
 }
 
 model Quiz {
-  id               String        @id @default(uuid()) @map("_id")
-  createdAt        DateTime      @default(now()) @map("created_at")
-  updatedAt        DateTime      @default(now()) @map("updated_at")
+  id               String           @id @default(uuid()) @map("_id")
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime         @default(now()) @map("updated_at")
   title            String
   description      String
   poster           String
-  isPublic         Boolean       @map("is_public")
-  limitedByTime    Boolean       @map("limited_by_time")
-  type             QuizType      @default(USER_GENERATED)
-  durationMinutes  Int?          @map("duration_minutes")
-  authorId         String        @map("author_id")
-  authorTelegramId String        @map("author_telegram_id")
-  author           User          @relation(fields: [authorId], references: [id])
+  isPublic         Boolean          @map("is_public")
+  limitedByTime    Boolean          @map("limited_by_time")
+  type             QuizType         @default(USER_GENERATED)
+  scoringAlgorithm ScoringAlgorithm @default(STRICT_MATCH)
+  durationMinutes  Int?             @map("duration_minutes")
+  authorId         String           @map("author_id")
+  authorTelegramId String           @map("author_telegram_id")
+  author           User             @relation(fields: [authorId], references: [id])
   questions        Question[]
   sessions         QuizSession[]
 
@@ -44,17 +45,18 @@ model Quiz {
 }
 
 model QuizSession {
-  id               String        @id @default(uuid()) @map("_id")
-  createdAt        DateTime      @default(now()) @map("created_at")
-  updatedAt        DateTime      @default(now()) @map("updated_at")
-  userId           String        @map("user_id")
-  user             User          @relation(fields: [userId], references: [id])
-  quizId           String        @map("quiz_id")
-  quiz             Quiz          @relation(fields: [quizId], references: [id])
-  status           SessionStatus @default(IN_PROGRESS)
-  startedAt        DateTime      @map("started_at")
-  completedAt      DateTime?     @map("completed_at") // null пока не завершен
-  timeSpentSeconds Int?          @map("time_spent_seconds")
+  id               String            @id @default(uuid()) @map("_id")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @default(now()) @map("updated_at")
+  userId           String            @map("user_id")
+  user             User              @relation(fields: [userId], references: [id])
+  quizId           String            @map("quiz_id")
+  quiz             Quiz              @relation(fields: [quizId], references: [id])
+  status           SessionStatus     @default(IN_PROGRESS)
+  scoringAlgorithm ScoringAlgorithm?
+  startedAt        DateTime          @map("started_at")
+  completedAt      DateTime?         @map("completed_at") // null пока не завершен
+  timeSpentSeconds Int?              @map("time_spent_seconds")
   score            Float?
   userAnswers      UserAnswer[] // Связь с ответами пользователя в этой сессии
 
@@ -82,6 +84,7 @@ model QuestionOption {
   text       String
   image      String?
   isCorrect  Boolean  @map("is_correct")
+  weight     Float?   @map("weight")
   questionId String   @map("question_id")
   quizId     String   @map("quiz_id")
   question   Question @relation(fields: [questionId], references: [id])
@@ -111,6 +114,12 @@ enum QuestionType {
   SINGLE_CHOICE // один вариант ответа
   MULTI_CHOICE // несколько вариантов
   TEXT_ANSWER // ответ текстом
+}
+
+enum ScoringAlgorithm {
+  STRICT_MATCH // Подход А (пользовательские квизы)
+  PARTIAL_CREDIT // Подход Б
+  WEIGHTED_SCALE // Взвешенная шкала (тесты самочувствия, IQ и т.д)
 }
 
 enum SessionStatus {

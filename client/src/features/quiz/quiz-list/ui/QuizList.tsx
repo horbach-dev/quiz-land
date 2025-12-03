@@ -40,7 +40,7 @@ export const QuizList = ({
       {!data?.length && !isLoading && (
         <div className={styles.empty}>
           <div className={styles.emptyImage} />
-          <p className={styles.emptyTitle}>Квизов не найдено</p>
+          <p className={styles.emptyTitle}>Ничего не найдено</p>
         </div>
       )}
       {(

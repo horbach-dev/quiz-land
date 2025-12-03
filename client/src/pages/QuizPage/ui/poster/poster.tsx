@@ -22,7 +22,6 @@ export const Poster = ({ image, title }: IProps) => {
           onLoad={() => setIsLoading(false)}
           onError={() => {
             setIsLoading(true)
-            console.log('placeholderImg', placeholderImg)
             setCurrentImage(placeholderImg)
           }}
         />

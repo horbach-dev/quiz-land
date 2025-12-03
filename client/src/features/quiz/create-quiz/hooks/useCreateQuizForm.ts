@@ -37,7 +37,7 @@ export const useCreateQuizForm = () => {
 
   const onSubmit = (data) => {
     if (!data.poster) {
-      setError('poster', { type: 'required', message: 'Обязательно к заполнению' })
+      setError('poster', { type: 'required', message: 'Обязательное поле' })
       return
     }
 
@@ -53,5 +53,6 @@ export const useCreateQuizForm = () => {
     register,
     onSubmit: handleSubmit(onSubmit),
     errors,
+    setError
   }
 }

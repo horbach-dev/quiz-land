@@ -21,7 +21,6 @@ export default function QuizProgressPage () {
   const [isEnd, setEnd] = useState(false);
   const [answers, setAnswers] = useState<TAnswers | []>([]);
 
-
   const handleNext = () => {
     if (isHide) return
 
@@ -53,7 +52,7 @@ export default function QuizProgressPage () {
     }, DELAY_TRANSITION)
   }
 
-  const currentQuestion = data?.questions[step]
+  const currentQuestion = data?.questions?.[step]
 
   if (!currentQuestion) {
     return null
