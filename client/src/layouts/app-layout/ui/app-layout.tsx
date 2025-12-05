@@ -1,6 +1,6 @@
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import { Navigation } from "@/features/navigation";
-import { Background } from "@/shared/ui/Background";
+import { Background } from "@/shared/components/Background";
 import { RotationAlert } from "@/features/rotation-alert";
 import { SwipeRedirect } from "@/features/swipe-redirect";
 import { useViewportSettings } from "../useViewportSettings.ts";

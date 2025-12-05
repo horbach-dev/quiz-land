@@ -1,9 +1,10 @@
 import { CircleCheckBig } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { BASE_URL } from "@/constants";
-import {QuizCard, QuizList} from "@/features/quiz";
-import { useQuizListQuery } from "@/features/quiz";
-import { Button } from "@/shared/ui/Button";
+import { BASE_URL } from "@/shared/constants";
+import { QuizList } from "@/features/quiz/quiz-list";
+import { QuizCard } from "@/features/quiz/quiz-card";
+import { useQuizListQuery } from "@/features/quiz/services/useQuizListQuery";
+import { Button } from "@/shared/components/Button";
 import styles from "./QuizSection.module.css";
 
 export const QuizSection = () => {

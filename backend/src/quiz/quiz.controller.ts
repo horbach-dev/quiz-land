@@ -26,7 +26,7 @@ export class QuizController {
   @Get()
   @UseGuards(AuthGuard)
   findQuizzes(
-    @Query('type') type: 'my' | 'friends' | 'public',
+    @Query('type') type: 'my' | 'shared' | 'public',
     @ReqUser() user: TUser,
   ) {
     return this.quizService.findQuizzes(type, user.id);

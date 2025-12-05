@@ -1,7 +1,7 @@
 import { SquarePen, Trash2 } from "lucide-react";
 import type { TQuiz } from "@/features/quiz/types";
-import { Button } from "@/shared/ui/Button";
-import { Popover } from "@/shared/ui/popover";
+import { Button } from "@/shared/components/Button";
+import { Popover } from "@/shared/components/Popover";
 import styles from "./card-actions.module.css";
 import { useDeleteQuizQuery } from "@/features/quiz/services/useDeleteQuizQuery";
 

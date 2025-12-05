@@ -3,7 +3,7 @@ import {
   errorInterceptor,
   successInterceptor,
 } from './interceptors';
-import { BASE_URL } from "@/constants";
+import { BASE_URL } from "@/shared/constants";
 
 const axiosRequestConfig: AxiosRequestConfig = {
   baseURL: BASE_URL + 'api',

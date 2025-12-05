@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getQuizList } from "../api/get-quiz-list";
 
 type TQuizListParams = {
-  type: 'friends' | 'my' | 'public'
+  type: 'shared' | 'my' | 'public'
 }
 
 export function useQuizListQuery (params?: TQuizListParams) {

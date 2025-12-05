@@ -11,9 +11,25 @@ export type TQuiz = {
   isPublic: boolean,
   questions: TQuizQuestion[],
   limitedByTime: boolean,
-  settings: TQuizSettings,
   createdAt: string,
   updatedAt: string,
+  hasActiveSession?: boolean,
+}
+
+export type TQuizSession = {
+  id: string
+  createdAt: string
+  startedAt: string
+  updatedAt: string
+  completedAt: string | null
+  userId: string
+  quizId: string
+  score: number | null
+  nextQuestionId?: string | null
+  userAnswers?: TQuizAnswer[]
+  scoringAlgorithm: string | null
+  status: TQuizSessionStatus
+  timeSpentSeconds: number
 }
 
 export type TQuizQuestion = {
@@ -28,6 +44,16 @@ export type TQuizQuestion = {
 }
 
 export type TQuizQuestionType = 'TEXT_ANSWER' | 'SINGLE_CHOICE' | 'MULTI_CHOICE'
+export type TQuizSessionStatus = 'IN_PROGRESS' | 'COMPLETED' | 'ABANDONED' | 'TIMED_OUT'
+
+export type TQuizAnswer = {
+  id: string,
+  sessionId: string,
+  questionId: string,
+  submittedOptionIds: string[],
+  submittedAnswerText?: string,
+  timeSpentSeconds: number
+}
 
 export type TQuizOption = {
   id: string,
@@ -41,35 +67,4 @@ type TQuizAuthor = {
   id: string,
   username: string,
   avatar: string
-}
-
-export type TQuizSettings = {
-  id: string,
-  quiz_id: string,
-  time_limit: number | null,
-  show_timer: boolean,
-  scoring_mode: TQuizRulesets
-  passing_score: number | null,
-  shuffle_questions: boolean,
-  shuffle_answers: boolean,
-  show_correct_answers: boolean,
-}
-
-export type TQuizAttempt = {
-  id: string,
-  quiz_id: string,
-  user_id: string,
-  started_at: string,
-  finished_at: string,
-  duration_sec: number,
-  score: number,
-  correct_count: number,
-  ruleset_used: string,
-}
-
-export type TQuizRulesets = {
-  id: string,
-  code: string,
-  name: string,
-  description: string,
 }

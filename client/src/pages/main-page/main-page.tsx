@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/layouts/page-layout";
 import { UserWelcome } from "@/features/user";
 import { ShareAppButton } from "@/features/share";
-import { Button } from "@/shared/ui/Button";
-import { SectionHeader } from "@/shared/ui/section-header";
+import { Button } from "@/shared/components/Button";
+import { SectionHeader } from "@/shared/components/SectionHeader";
 import { QuizSection } from "./ui/QuizSection";
 import styles from "./main-page.module.css";
 

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import clsx from "clsx";
 import type { TQuiz } from "@/features/quiz/types";
-import { QuizCardSkeleton } from "@/features/quiz";
+import { QuizCardSkeleton } from "@/features/quiz/quiz-card";
 import { IntersectingWrapper } from "@/features/intersecting-wrapper";
 import styles from './QuizList.module.css';
 

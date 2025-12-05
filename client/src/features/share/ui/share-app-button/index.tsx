@@ -1,7 +1,7 @@
 import { Share } from "lucide-react";
 import { shareURL } from "@tma.js/sdk-react";
-import { Button } from "@/shared/ui/Button";
-import { APP_URL } from "@/constants";
+import { Button } from "@/shared/components/Button";
+import { APP_URL } from "@/shared/constants";
 import {useTranslation} from "react-i18next";
 
 const text = `Приложение для прохождения и создания квизов!`

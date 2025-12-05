@@ -6,7 +6,7 @@ import { navigateTo } from "@/shared/utils/navigateTo.ts";
 import styles from './page-layout.module.css'
 
 interface IProps {
-  backLink?: string | null
+  backCallback?: () => void;
   back?: boolean
   withPaddingTop?: boolean
   withNavigation?: boolean
@@ -16,7 +16,7 @@ interface IProps {
 export function PageLayout({
   children,
   back = true,
-  backLink,
+  backCallback,
   withNavigation = true,
   className
 }: PropsWithChildren<IProps>) {
@@ -28,12 +28,16 @@ export function PageLayout({
     if (back) {
       backButton.show();
       return backButton.onClick(() => {
-        navigateTo(backLink ? backLink : 'back-navigate');
+        if (backCallback) {
+          backCallback()
+        } else {
+          navigateTo('back-navigate');
+        }
       });
     }
 
     backButton.hide();
-  }, [back, backLink, withNavigation]);
+  }, [back, backCallback, withNavigation]);
 
   return (
     <div

@@ -1,0 +1,39 @@
+.footer {
+    position: fixed;
+    left: -1px;
+    right: -1px;
+    z-index: 100;
+    padding: calc(var(--default-padding) / 2) var(--default-padding) calc(var(--padding-bottom));
+    bottom: 0;
+    border-top: 1px solid rgba(255,255,255, 0.1);
+    border-left: 1px solid rgba(255,255,255, 0.1);
+    border-right: 1px solid rgba(255,255,255, 0.1);
+    border-radius: 1rem 1rem 0 0;
+    will-change: transform;
+    transform: translateY(100%);
+    transition: transform .25s;
+}
+
+.footerShow {
+    transform: translateY(0);
+}
+
+.button {
+    margin-top: calc(var(--default-padding) / 2);
+}
+
+/* backdrop-filter есть — включаем blur */
+@supports ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
+    .footer {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background: rgba(39, 36, 59, 0.7);
+    }
+}
+
+/* fallback если НЕТ поддержки blur */
+@supports not ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
+    .footer {
+        background: rgba(39, 36, 59, 0.95);
+    }
+}

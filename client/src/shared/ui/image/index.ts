@@ -1,1 +1,0 @@
-export { ImageWithLoading } from './image'

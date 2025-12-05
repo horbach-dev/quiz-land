@@ -1,6 +1,6 @@
-import styles from './profile-header.module.css'
-import { Avatar } from "@/shared/ui/avatar";
+import { Avatar } from "@/shared/components/Avatar";
 import { useUserQuery } from "@/features/user/services/useUserQuery";
+import styles from './profile-header.module.css'
 
 export const ProfileHeader = () => {
   const { data } = useUserQuery()

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CHANGE_APP_ROUTE_EVENT } from "@/constants.ts";
+import { CHANGE_APP_ROUTE_EVENT } from "@/shared/constants";
 import { useLocation, useNavigate, type NavigateOptions } from "react-router-dom";
 import {useLaunchParams} from "@tma.js/sdk-react";
 

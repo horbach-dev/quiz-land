@@ -1,30 +1,29 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { BASE_URL } from "@/constants.ts";
+import { BASE_URL } from "@/shared/constants";
 import { PageLayout } from "@/layouts/page-layout";
 import { QuizList } from "@/features/quiz/quiz-list";
 import { QuizzesPageHeader } from "./ui/quizzes-page-header";
 import { QuizzesPageFilter } from "./ui/quizzes-page-filter";
-import {QuizCard, useQuizListQuery} from "@/features/quiz";
-import { TabBar } from "@/shared/ui/tab-bar";
+import { useQuizListQuery} from "@/features/quiz/services/useQuizListQuery";
+import { QuizCard } from "@/features/quiz/quiz-card";
+import { TabBar } from "@/shared/components/TabBar";
 import styles from './QuizzesPage.module.css'
 
 const tabOptions = [
   { label: "quizzes_page.tab.public", value: "public" },
   { label: "quizzes_page.tab.my", value: "my" },
-  { label: "quizzes_page.tab.friends", value: "friends" },
+  { label: "quizzes_page.tab.shared", value: "shared" },
 ];
 
 type TQuizListParams = {
-  type: 'friends' | 'my' | 'public'
+  type: 'shared' | 'my' | 'public'
 }
 
 export default function QuizzesPage () {
   const { t } = useTranslation();
   const [params, setParams] = useState<TQuizListParams>({ type: 'public' });
   const { isLoading, data } = useQuizListQuery(params)
-
-  console.log(data)
 
   return (
     <PageLayout>

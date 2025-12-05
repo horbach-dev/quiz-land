@@ -5,21 +5,19 @@ import styles from './quiz-card.module.css'
 const loadedImages = new Set()
 
 export const QuizCardImage = ({ title, image }) => {
-  const [isImageLoaded, setImageLoaded] = useState(loadedImages.has(image));
-
-  if (!image) return null;
+  const [isLoading, setIsLoading] = useState(!loadedImages.has(image));
 
   return (
-    <div className={clsx(styles.image, isImageLoaded && styles.imageLoaded)}>
+    <div className={clsx(styles.image, !isLoading && styles.imageLoaded)}>
       <img
         alt={title}
         src={image}
         loading='lazy'
         onLoad={() => {
           loadedImages.add(image);
-          setImageLoaded(true)
+          setIsLoading(false)
         }}
-        onError={() => setImageLoaded(false)}
+        onError={() => setIsLoading(false)}
       />
     </div>
   )

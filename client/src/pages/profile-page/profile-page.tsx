@@ -1,9 +1,11 @@
 import { SquarePen } from "lucide-react";
-import { BASE_URL } from "@/constants";
+import { BASE_URL } from "@/shared/constants";
 import { PageLayout } from "@/layouts/page-layout";
-import { QuizCard, QuizList, useQuizListQuery } from "@/features/quiz";
-import { SectionHeader } from "@/shared/ui/section-header";
-import { Button } from "@/shared/ui/Button";
+import { useQuizListQuery } from "@/features/quiz/services/useQuizListQuery";
+import { QuizList } from "@/features/quiz/quiz-list";
+import { QuizCard } from "@/features/quiz/quiz-card";
+import { SectionHeader } from "@/shared/components/SectionHeader";
+import { Button } from "@/shared/components/Button";
 // import { ProfileHeader } from "./ui/profile-header";
 import { CardActions } from "./ui/card-actions";
 import styles from './profile-page.module.css'

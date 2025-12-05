@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { existsSync, mkdirSync, renameSync } from 'fs';
 import path from 'path';
 import { v4 as uuid } from 'uuid';
-import { QuizType } from '@prisma/client';
+import {QuizType, SessionStatus} from '@prisma/client';
 import { FilesService } from '../files/files.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { PrismaService } from '../prisma.service';
@@ -93,27 +93,20 @@ export class QuizService {
     }
   }
 
-  findQuizzes(type: 'my' | 'friends' | 'public', userId: string) {
+  findQuizzes(type: 'my' | 'shared' | 'public', userId: string) {
     try {
       if (type === 'my') {
         return this.prisma.quiz.findMany({
           where: { authorId: userId },
-          orderBy: {
-            createdAt: 'desc',
-          },
+          orderBy: { createdAt: 'desc' },
         });
       }
 
-      if (type === 'friends') {
+      if (type === 'shared') {
         return this.prisma.quiz.findMany({
           where: {
-            accessTo: {
-              has: userId, // Используем оператор has для проверки наличия элемента в массиве
-            },
-            // Опционально: исключаем квизы, которые сам пользователь создал
-            NOT: {
-              authorId: userId,
-            },
+            accessTo: { has: userId },
+            NOT: { authorId: userId },
           },
           include: {
             author: { select: { username: true, id: true, avatar: true } },
@@ -123,12 +116,8 @@ export class QuizService {
       }
 
       return this.prisma.quiz.findMany({
-        where: {
-          isPublic: true,
-        },
-        orderBy: {
-          createdAt: 'desc',
-        },
+        where: { isPublic: true },
+        orderBy: { createdAt: 'desc' },
       });
     } catch (e) {
       console.error('Не удалось найти квизы', e);
@@ -151,12 +140,10 @@ export class QuizService {
       });
 
       if (!quiz) {
-        return new BadRequestException('Не удалось найти квиз в базе');
+        throw new BadRequestException('Не удалось найти квиз в базе');
       }
 
-      console.log(quiz.authorId !== userId)
-
-      if (quiz.authorId !== userId) {
+      if (quiz.authorId !== userId && !quiz.accessTo.includes(userId)) {
         await this.prisma.quiz.update({
           where: { id: quiz.id },
           data: {
@@ -167,10 +154,22 @@ export class QuizService {
         });
       }
 
-      return quiz;
+      const activeSession = await this.prisma.quizSession.findFirst({
+        where: {
+          userId,
+          quizId: quiz.id,
+          status: SessionStatus.IN_PROGRESS,
+        },
+        include: {
+          userAnswers: true,
+        },
+        orderBy: { startedAt: 'desc' },
+      });
+
+      return { ...quiz, hasActiveSession: !!activeSession };
     } catch (e) {
       console.log('Не удалось найти квиз в базе', e);
-      return new BadRequestException('Не удалось найти квиз в базе');
+      throw new BadRequestException(e instanceof Error ? e.message : e);
     }
   }
 

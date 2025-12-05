@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getQuiz } from "../api/get-quiz";
-import { BASE_URL } from "@/constants";
+import { BASE_URL } from "@/shared/constants";
 
 export function useQuizQuery (id: string) {
   return useQuery({
@@ -12,10 +12,5 @@ export function useQuizQuery (id: string) {
         poster: BASE_URL + data.poster,
       }
     },
-    // placeholderData: (): TQuiz => {
-    //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //   // @ts-expect-error
-    //   return mock
-    // }
   })
 }

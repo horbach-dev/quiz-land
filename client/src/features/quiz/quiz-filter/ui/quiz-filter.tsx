@@ -1,4 +1,4 @@
-import { Button } from "@/shared/ui/Button";
+import { Button } from "@/shared/components/Button";
 import { SearchCheck, Trash2 } from "lucide-react";
 import {useTranslation} from "react-i18next";
 import { QuizFilterLayout } from "./quiz-filter-layout.tsx";

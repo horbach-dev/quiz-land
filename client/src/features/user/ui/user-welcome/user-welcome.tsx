@@ -1,7 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useUserQuery } from "../../services/useUserQuery";
-import { Avatar } from "@/shared/ui/avatar";
+import { Avatar } from "@/shared/components/Avatar";
 import styles from './user-welcome.module.css'
 
 export const UserWelcome = () => {

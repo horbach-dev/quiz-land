@@ -1,0 +1,36 @@
+.toggleWrap {
+    display: flex;
+    align-items: center;
+}
+
+.toggleLabel {
+    margin-right: 0.7rem;
+}
+
+.toggle {
+    position: relative;
+    width: 3rem;
+    height: 1.5rem;
+    border-radius: 2rem;
+    background-color: rgba(255,255,255,0.1);
+    transition: background-color 0.25s;
+}
+
+.toggleActive {
+    background-color: #46c860;
+}
+
+.togglePoint {
+    position: absolute;
+    top: 0.15rem;
+    left: 0.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 1.3rem;
+    background-color: rgba(255,255,255, 1);
+    transition: left 0.25s;
+}
+
+.toggleActive .togglePoint {
+    left: calc(100% - 1.2rem - 0.2rem);
+}
