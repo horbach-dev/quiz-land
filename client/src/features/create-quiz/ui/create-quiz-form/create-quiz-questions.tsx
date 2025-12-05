@@ -1,19 +1,21 @@
+import { FilePlusCorner } from 'lucide-react';
+import type { ReactNode } from 'react';
 import {
   type Control,
   type FieldArrayWithId,
-  type UseFieldArrayRemove,
   useFieldArray,
+  type UseFieldArrayRemove,
 } from 'react-hook-form';
-import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FilePlusCorner } from 'lucide-react';
+
+import { Button } from '@/shared/components/Button';
 import {
   FieldDescription,
   FieldError,
   FieldLegend,
   FieldSet,
 } from '@/shared/shadcn/ui/field';
-import { Button } from '@/shared/components/Button';
+
 import type { IFormData } from '../../types';
 
 type TRenderItemParams = {
@@ -61,7 +63,7 @@ export const CreateQuizQuestions = ({
   };
 
   return (
-    <FieldSet className="mb-5">
+    <FieldSet className='mb-5'>
       <FieldLegend>Вопросы к квизу</FieldLegend>
 
       <FieldDescription>{t('create_page.description')}</FieldDescription>
@@ -74,7 +76,7 @@ export const CreateQuizQuestions = ({
 
       <Button
         disabled={isLoading}
-        type="button"
+        type='button'
         onClick={handleAddQuestion}
         after={<FilePlusCorner />}
       >

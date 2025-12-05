@@ -1,5 +1,6 @@
-import { api } from '@/shared/api';
 import type { AxiosProgressEvent, GenericAbortSignal } from 'axios';
+
+import { api } from '@/shared/api';
 
 type TOptions = {
   signal?: GenericAbortSignal;

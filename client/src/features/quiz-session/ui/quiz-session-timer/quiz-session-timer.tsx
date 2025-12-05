@@ -5,6 +5,7 @@ import {
   useRef,
   useState,
 } from 'react';
+
 import styles from './quiz-session-timer.module.css';
 
 interface IProps {
@@ -24,15 +25,17 @@ export const QuizSessionTimer = ({ timeSpent }: IProps) => {
       const currentSeconds = Math.floor(elapsedMilliseconds / 1000);
 
       if (currentSeconds !== totalSeconds) {
-        // eslint-disable-next-line react-hooks/immutability
-        if (timeSpent?.current !== undefined)
+        if (timeSpent?.current !== undefined) {
+          // eslint-disable-next-line react-hooks/immutability
           timeSpent.current = currentSeconds;
+        }
         setTotalSeconds(currentSeconds);
       }
 
       // eslint-disable-next-line react-hooks/immutability
       animationRef.current = requestAnimationFrame(updateTimer);
     },
+    // eslint-disable-next-line
     [totalSeconds],
   );
 

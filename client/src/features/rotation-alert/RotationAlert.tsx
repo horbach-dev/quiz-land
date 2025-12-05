@@ -1,5 +1,7 @@
 import { createPortal } from 'react-dom';
+
 import { useWindowSize } from '@/shared/hooks/useWindowSize.ts';
+
 import styles from './RotationAlert.module.css';
 
 const portalRoot = document.getElementById('modals')!;

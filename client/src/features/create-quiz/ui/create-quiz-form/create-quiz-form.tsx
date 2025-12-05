@@ -1,9 +1,11 @@
 import { useRef } from 'react';
+
 import { useCreateQuizForm } from '@/features/create-quiz/hooks/useCreateQuizForm';
-import { CreateQuizMain } from './create-quiz-main';
-import { QuestionFields } from './question-fields';
-import { CreateQuizQuestions } from './create-quiz-questions';
+
 import { CreateQuizFormSubmit } from './create-quiz-form-submit';
+import { CreateQuizMain } from './create-quiz-main';
+import { CreateQuizQuestions } from './create-quiz-questions';
+import { QuestionFields } from './question-fields';
 
 export const CreateQuizForm = () => {
   const formRef = useRef(null);
@@ -22,7 +24,7 @@ export const CreateQuizForm = () => {
   const isDisabled = !!Object.keys(errors).length;
 
   return (
-    <div className="w-full max-w-md">
+    <div className='w-full max-w-md'>
       <form ref={formRef} onSubmit={onSubmit}>
         <CreateQuizMain
           register={register}

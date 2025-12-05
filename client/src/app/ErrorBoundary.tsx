@@ -19,8 +19,6 @@ export class ErrorBoundary extends Component<
   ErrorBoundaryState
 > {
   state: ErrorBoundaryState = {};
-
-  // eslint-disable-next-line max-len
   static getDerivedStateFromError: GetDerivedStateFromError<
     ErrorBoundaryProps,
     ErrorBoundaryState

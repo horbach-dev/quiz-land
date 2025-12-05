@@ -1,6 +1,8 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
-import { errorInterceptor, successInterceptor } from './interceptors';
+
 import { BASE_URL } from '@/shared/constants';
+
+import { errorInterceptor, successInterceptor } from './interceptors';
 
 const axiosRequestConfig: AxiosRequestConfig = {
   baseURL: BASE_URL + 'api',

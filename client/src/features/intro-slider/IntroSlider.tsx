@@ -1,11 +1,13 @@
-import { useState, type AnimationEvent } from 'react';
 import clsx from 'clsx';
-import { ArrowLeft, ArrowDown, ChevronsRight } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ChevronsRight } from 'lucide-react';
+import { type AnimationEvent, useState } from 'react';
+
 import { useAppStore } from '@/shared/store';
-import { IntroSliderContent } from './IntroSliderContent.tsx';
-import { IntroSliderTrack } from './IntroSliderTrack.tsx';
+
 import { slides } from './config.ts';
 import styles from './IntroSlider.module.css';
+import { IntroSliderContent } from './IntroSliderContent.tsx';
+import { IntroSliderTrack } from './IntroSliderTrack.tsx';
 
 export const IntroSlider = () => {
   const [isClose, setIsClose] = useState(false);
@@ -48,7 +50,7 @@ export const IntroSlider = () => {
       <IntroSliderContent slides={slides} currentSlide={currentSlide} />
       <div className={styles.footer}>
         <button
-          type="button"
+          type='button'
           disabled={currentSlide === 0}
           className={styles.btnPrev}
           onClick={handlePrev}
@@ -56,7 +58,7 @@ export const IntroSlider = () => {
           <ArrowLeft className={styles.arrow} />
           <span>{'назад'}</span>
         </button>
-        <button type="button" className={styles.btnNext} onClick={handleNext}>
+        <button type='button' className={styles.btnNext} onClick={handleNext}>
           {currentSlide === 0 && (
             <ArrowDown
               size={24}

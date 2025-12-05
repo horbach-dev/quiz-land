@@ -1,4 +1,5 @@
 import { api } from '@/shared/api';
+
 import type { IFormData } from '../types';
 
 export const createQuiz = async (data: IFormData) => {

@@ -1,5 +1,6 @@
-import styles from './Background.module.css';
 import clsx from 'clsx';
+
+import styles from './Background.module.css';
 
 export const Background = ({ absolute }: { absolute?: boolean }) => {
   return (

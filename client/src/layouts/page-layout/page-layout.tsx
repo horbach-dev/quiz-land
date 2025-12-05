@@ -1,8 +1,10 @@
 import { backButton } from '@tma.js/sdk-react';
-import { type PropsWithChildren, useEffect } from 'react';
 import clsx from 'clsx';
+import { type PropsWithChildren, useEffect } from 'react';
+
 import { useAppStore } from '@/shared/store';
 import { navigateTo } from '@/shared/utils/navigateTo';
+
 import styles from './page-layout.module.css';
 
 interface IProps {
@@ -39,6 +41,7 @@ export function PageLayout({
     }
 
     backButton.hide();
+    // eslint-disable-next-line
   }, [back, backCallback, withNavigation]);
 
   return (

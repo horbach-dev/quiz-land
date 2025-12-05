@@ -1,10 +1,13 @@
+import { Trash2 } from 'lucide-react';
 import type {
   FieldArrayWithId,
   UseFieldArrayRemove,
-  UseFormSetValue,
   UseFormRegister,
+  UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form';
+
+import { Toggle } from '@/shared/components/Toggle';
 import {
   Field,
   FieldDescription,
@@ -12,8 +15,7 @@ import {
   FieldLabel,
 } from '@/shared/shadcn/ui/field';
 import { Input } from '@/shared/shadcn/ui/input.tsx';
-import { Trash2 } from 'lucide-react';
-import { Toggle } from '@/shared/components/Toggle';
+
 import type { IFormData } from '../../types';
 
 interface IProps {
@@ -61,11 +63,11 @@ export const AnswerFields = ({
     const answerErrors = errors[index];
 
     return (
-      <Field key={answer.id} className="relative">
+      <Field key={answer.id} className='relative'>
         <FieldLabel htmlFor={`answer-text-${index}`}>
           Ответ {index + 1}
         </FieldLabel>
-        <div className="flex items-center gap-[1rem]">
+        <div className='flex items-center gap-[1rem]'>
           <Input
             id={`answer-text-${index}`}
             placeholder={'Введите ответ...'}
@@ -79,7 +81,7 @@ export const AnswerFields = ({
           />
           <Trash2
             onClick={() => removeAnswer(index)}
-            className="relative w-[1.5rem] h-[1.5rem] r-0"
+            className='relative w-[1.5rem] h-[1.5rem] r-0'
           />
         </div>
         {answerErrors?.text?.message ? (
@@ -90,10 +92,10 @@ export const AnswerFields = ({
         <Toggle
           active={correctIndex === index}
           onClick={() => setCorrectAnswer(index)}
-          label="Правильный вариант"
+          label='Правильный вариант'
         />
         <input
-          type="hidden"
+          type='hidden'
           {...register(`questions.${questionIndex}.options.${index}.isCorrect`)}
         />
       </Field>

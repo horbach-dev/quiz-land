@@ -1,11 +1,12 @@
-import { useTranslation } from 'react-i18next';
 import type {
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormClearErrors,
-  UseFormSetError,
   FieldErrors,
+  UseFormClearErrors,
+  UseFormRegister,
+  UseFormSetError,
+  UseFormSetValue,
 } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+
 import {
   Field,
   FieldDescription,
@@ -15,8 +16,9 @@ import {
   FieldSeparator,
   FieldSet,
 } from '@/shared/shadcn/ui/field';
-import { Textarea } from '@/shared/shadcn/ui/textarea';
 import { Input } from '@/shared/shadcn/ui/input';
+import { Textarea } from '@/shared/shadcn/ui/textarea';
+
 import { validationRules } from '../../config';
 import type { IFormData } from '../../types';
 import { UploadImage } from '../upload-image';
@@ -38,14 +40,14 @@ export const CreateQuizMain = ({
 }: IProps) => {
   const { t } = useTranslation();
   return (
-    <FieldSet className="mb-5">
+    <FieldSet className='mb-5'>
       <FieldGroup>
         <Field>
-          <FieldLabel htmlFor="quiz-title">
+          <FieldLabel htmlFor='quiz-title'>
             {t('create_page.form.title')}
           </FieldLabel>
           <Input
-            id="quiz-title"
+            id='quiz-title'
             placeholder={t('create_page.form.title_placeholder')}
             {...register('title', validationRules.title)}
           />
@@ -57,13 +59,13 @@ export const CreateQuizMain = ({
         </Field>
 
         <Field>
-          <FieldLabel htmlFor="quiz-description">
+          <FieldLabel htmlFor='quiz-description'>
             {t('create_page.form.description')}
           </FieldLabel>
           <Textarea
-            id="quiz-description"
+            id='quiz-description'
             placeholder={t('create_page.form.description_placeholder')}
-            className="resize-none"
+            className='resize-none'
             {...register('description', validationRules.description)}
           />
           {errors.description?.message ? (
@@ -76,13 +78,13 @@ export const CreateQuizMain = ({
         </Field>
 
         <Field>
-          <FieldLabel htmlFor="quiz-poster">
+          <FieldLabel htmlFor='quiz-poster'>
             {'Постер квиза (главное изображение)'}
           </FieldLabel>
 
           <UploadImage
-            id="quiz-poster"
-            type="poster"
+            id='quiz-poster'
+            type='poster'
             clearError={() => clearErrors('poster')}
             setError={(message) => setError('poster', { message })}
             onChange={(value) => setValue('poster', value)}

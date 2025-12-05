@@ -1,9 +1,11 @@
 import clsx from 'clsx';
-import { BASE_URL } from '@/shared/constants';
-import { WheelPicker } from '@/shared/components/WheelPicker';
-import { Options } from '@/shared/components/Options';
+
 import { LazyImage } from '@/shared/components/LazyImage';
+import { Options } from '@/shared/components/Options';
+import { WheelPicker } from '@/shared/components/WheelPicker';
+import { BASE_URL } from '@/shared/constants';
 import type { TQuizQuestion } from '@/shared/types/quiz';
+
 import { useSubmitAnswerMutation } from '../../services/useSubmitAnswerMutation';
 import styles from './quiz-session-step.module.css';
 

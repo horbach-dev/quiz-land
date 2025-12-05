@@ -1,7 +1,9 @@
 import { ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useUserQuery } from '../../services/useUserQuery';
+
 import { Avatar } from '@/shared/components/Avatar';
+
+import { useUserQuery } from '../../services/useUserQuery';
 import styles from './user-welcome.module.css';
 
 export const UserWelcome = () => {
@@ -29,7 +31,7 @@ export const UserWelcome = () => {
         </p>
         <div className={styles.userStatisticBtn}>
           <span>{t('welcome.to_profile')}</span>
-          <button type="button" title="в профиль">
+          <button type='button' title='в профиль'>
             <ChevronRight />
           </button>
         </div>

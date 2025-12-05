@@ -1,4 +1,5 @@
-import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import { deleteQuiz } from '../api/delete-quiz';
 
 export function useDeleteQuizQuery(id: string) {

@@ -69,5 +69,6 @@ export const useSwipeEvents = (
       element.removeEventListener('touchmove', touchmove);
       element.removeEventListener('touchend', touchend);
     };
+    // eslint-disable-next-line
   }, []);
 };

@@ -5,8 +5,10 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useClickOutside } from '@/shared/hooks/useClickOutside';
+
 import { Button } from '@/shared/components/Button';
+import { useClickOutside } from '@/shared/hooks/useClickOutside';
+
 import styles from './popover.module.css';
 
 interface IProps {
@@ -58,7 +60,7 @@ export const Popover = ({
 
       popoverRef.current.style.left = `calc(-${popoverWidth / 2 - childrenWidth / 2}px)`;
     }
-  }, [isOpen]);
+  }, [isOpen, windowWidth]);
 
   useClickOutside({
     ref: containerRef,
@@ -71,10 +73,10 @@ export const Popover = ({
         <div ref={popoverRef} className={styles.popoverContent}>
           {text}
           <div className={styles.popoverActions}>
-            <Button style="default" size="sm" onClick={handleConfirm}>
+            <Button style='default' size='sm' onClick={handleConfirm}>
               Да
             </Button>
-            <Button style="white" size="sm" onClick={handleCancel}>
+            <Button style='white' size='sm' onClick={handleCancel}>
               Нет
             </Button>
           </div>

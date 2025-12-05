@@ -1,9 +1,11 @@
-import { useLocation } from 'react-router-dom';
+import clsx from 'clsx';
 import { useLayoutEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import clsx from 'clsx';
+import { useLocation } from 'react-router-dom';
+
 import { useAppStore } from '@/shared/store';
 import { navigateTo } from '@/shared/utils/navigateTo';
+
 import { NAVIGATION_ITEMS } from './config';
 import styles from './Navigation.module.css';
 
@@ -33,7 +35,7 @@ export const Navigation = () => {
           return (
             <button
               key={id}
-              type="button"
+              type='button'
               className={clsx(styles.item, active && styles.active)}
               onClick={() => navigateTo(link)}
             >

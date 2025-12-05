@@ -1,31 +1,30 @@
-import { useEffect, useRef } from 'react';
 import { ListCheck, Trash2 } from 'lucide-react';
-
+import { useEffect, useRef } from 'react';
 import {
-  useFieldArray,
   type Control,
-  type UseFormRegister,
   type FieldErrors,
-  type UseFormSetValue,
-  type UseFormSetError,
+  useFieldArray,
   type UseFormClearErrors,
+  type UseFormRegister,
+  type UseFormSetError,
+  type UseFormSetValue,
   type UseFormWatch,
 } from 'react-hook-form';
 
+import { validationRules } from '@/features/create-quiz/config';
+import { UploadImage } from '@/features/create-quiz/ui/upload-image';
+import { Button } from '@/shared/components/Button';
 import {
+  Field,
   FieldDescription,
-  FieldSeparator,
-  FieldLegend,
+  FieldError,
   FieldGroup,
   FieldLabel,
-  FieldError,
-  Field,
+  FieldLegend,
+  FieldSeparator,
 } from '@/shared/shadcn/ui/field';
-
-import { UploadImage } from '@/features/create-quiz/ui/upload-image';
 import { Input } from '@/shared/shadcn/ui/input';
-import { Button } from '@/shared/components/Button';
-import { validationRules } from '@/features/create-quiz/config';
+
 import type { IFormData } from '../../types';
 import { AnswerFields } from './answer-fields';
 
@@ -90,15 +89,15 @@ export const QuestionFields = ({
     <FieldGroup
       ref={containerRef}
       id={`quiz-question-${questionIndex}`}
-      className="bg-[rgba(255,255,255,0.03)] p-[var(--default-padding)] rounded-[0.85rem]"
+      className='bg-[rgba(255,255,255,0.03)] p-[var(--default-padding)] rounded-[0.85rem]'
     >
-      <FieldLegend className="flex items-center justify-between">
-        <p className="w-full">Вопрос № {questionIndex + 1}</p>
-        <div className="w-fit">
+      <FieldLegend className='flex items-center justify-between'>
+        <p className='w-full'>Вопрос № {questionIndex + 1}</p>
+        <div className='w-fit'>
           <Button
-            size="sm"
+            size='sm'
             onClick={removeQuestion}
-            after={<Trash2 className="w-4" />}
+            after={<Trash2 className='w-4' />}
           >
             Удалить
           </Button>
@@ -130,7 +129,7 @@ export const QuestionFields = ({
 
         <UploadImage
           id={`question-image-${questionIndex}`}
-          type="question"
+          type='question'
           clearError={() => clearErrors(`questions.${questionIndex}.image`)}
           setError={(message) =>
             setError(`questions.${questionIndex}.image`, { message })
@@ -164,8 +163,8 @@ export const QuestionFields = ({
 
       <Field>
         <Button
-          type="button"
-          style="white"
+          type='button'
+          style='white'
           onClick={handleAddAnswer}
           after={<ListCheck />}
         >
@@ -174,7 +173,7 @@ export const QuestionFields = ({
       </Field>
 
       {questionErrors?.options?.root?.message && (
-        <FieldError className="text-center">
+        <FieldError className='text-center'>
           {questionErrors?.options?.root?.message}
         </FieldError>
       )}

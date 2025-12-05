@@ -1,6 +1,8 @@
-import { createPortal } from 'react-dom';
 import { type ReactNode, useLayoutEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
+
 import { SectionHeader } from '@/shared/components/SectionHeader';
+
 import styles from './QuizzesPageHeader.module.css';
 
 interface IProps {

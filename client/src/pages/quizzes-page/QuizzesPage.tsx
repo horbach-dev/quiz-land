@@ -1,14 +1,16 @@
 import { useTranslation } from 'react-i18next';
+
+import { QuizCard } from '@/features/quiz/components/QuizCard';
+import { QuizList } from '@/features/quiz/components/QuizList';
+import { useQuizListQuery } from '@/features/quiz/services/useQuizListQuery';
+import { PageLayout } from '@/layouts/page-layout';
+import { TabBar } from '@/shared/components/TabBar';
 import { BASE_URL } from '@/shared/constants';
 import { useAppStore } from '@/shared/store';
-import { PageLayout } from '@/layouts/page-layout';
-import { QuizList } from '@/features/quiz/components/QuizList';
-import { QuizzesPageHeader } from './ui/quizzes-page-header';
-import { QuizzesPageFilter } from './ui/quizzes-page-filter';
-import { useQuizListQuery } from '@/features/quiz/services/useQuizListQuery';
-import { QuizCard } from '@/features/quiz/components/QuizCard';
-import { TabBar } from '@/shared/components/TabBar';
+
 import styles from './QuizzesPage.module.css';
+import { QuizzesPageFilter } from './ui/quizzes-page-filter';
+import { QuizzesPageHeader } from './ui/quizzes-page-header';
 
 const tabOptions = [
   { label: 'quizzes_page.tab.public', value: 'public' },

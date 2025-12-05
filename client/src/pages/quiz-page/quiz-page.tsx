@@ -1,12 +1,14 @@
-import { useParams } from 'react-router-dom';
-import { useState } from 'react';
 import clsx from 'clsx';
-import { PageLayout } from '@/layouts/page-layout';
-import { QuizSession } from '@/features/quiz-session';
-import { useQuizQuery } from '@/features/quiz/services/useQuizQuery';
-import { useQuizSessionQuery } from '@/features/quiz-session/services/useQuizSessionQuery';
-import { QuizIntro } from '@/features/quiz/components/QuizIntro';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 import { QuizCompleted } from '@/features/quiz/components/QuizCompleted';
+import { QuizIntro } from '@/features/quiz/components/QuizIntro';
+import { useQuizQuery } from '@/features/quiz/services/useQuizQuery';
+import { QuizSession } from '@/features/quiz-session';
+import { useQuizSessionQuery } from '@/features/quiz-session/services/useQuizSessionQuery';
+import { PageLayout } from '@/layouts/page-layout';
+
 import styles from './quiz-page.module.css';
 
 const SCREENS = {

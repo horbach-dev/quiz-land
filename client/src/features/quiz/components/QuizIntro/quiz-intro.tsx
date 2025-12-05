@@ -1,11 +1,13 @@
 import { shareURL } from '@tma.js/sdk-react';
-import { Play, Share, RotateCcw } from 'lucide-react';
-import { APP_URL } from '@/shared/constants';
-import { LazyImage } from '@/shared/components/LazyImage';
+import { Play, RotateCcw, Share } from 'lucide-react';
+
 import { Button } from '@/shared/components/Button';
+import { LazyImage } from '@/shared/components/LazyImage';
+import { APP_URL } from '@/shared/constants';
 import type { TQuiz, TQuizSession } from '@/shared/types/quiz';
-import { QuizIntroSkeleton } from './quiz-intro-skeleton';
+
 import styles from './quiz-intro.module.css';
+import { QuizIntroSkeleton } from './quiz-intro-skeleton';
 
 interface IProps {
   quizData: TQuiz | undefined;
