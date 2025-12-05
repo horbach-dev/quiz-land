@@ -1,10 +1,12 @@
-import { createPortal } from 'react-dom';
-import { useEffect, useState } from 'react';
-import styles from './create-quiz-form.module.css';
-import { FieldError } from '@/shared/shadcn/ui/field.tsx';
-import { Button } from '@/shared/components/Button';
-import { BadgePlus } from 'lucide-react';
 import clsx from 'clsx';
+import { BadgePlus } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+
+import { Button } from '@/shared/components/Button';
+import { FieldError } from '@/shared/shadcn/ui/field.tsx';
+
+import styles from './create-quiz-form.module.css';
 
 const portalContainer = document.getElementById('footer')!;
 
@@ -44,6 +46,7 @@ export const CreateQuizFormSubmit = ({
         formElement.removeEventListener('focusout', checkFocus);
       }
     };
+    // eslint-disable-next-line
   }, []);
 
   return createPortal(
@@ -53,7 +56,7 @@ export const CreateQuizFormSubmit = ({
         className={styles.button}
         loading={isLoading}
         disabled={isDisabled}
-        type="submit"
+        type='submit'
         onClick={onSubmit}
         after={<BadgePlus />}
       >

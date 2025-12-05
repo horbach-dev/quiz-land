@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { getUserData } from '../api/getUserData.ts';
 import { useLaunchParams } from '@tma.js/sdk-react';
+
+import { getUserData } from '../api/getUserData.ts';
 
 export function useUserQuery() {
   const { tgWebAppData } = useLaunchParams();

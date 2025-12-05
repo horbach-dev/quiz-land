@@ -1,9 +1,12 @@
-import { PageLayout } from '@/layouts/page-layout';
-import { CreateQuizForm } from '@/features/create-quiz';
-import { SectionHeader } from '@/shared/components/SectionHeader';
 import '@/shared/styles/globals.css';
-import styles from './create-quiz-page.module.css';
+
 import { useTranslation } from 'react-i18next';
+
+import { CreateQuizForm } from '@/features/create-quiz';
+import { PageLayout } from '@/layouts/page-layout';
+import { SectionHeader } from '@/shared/components/SectionHeader';
+
+import styles from './create-quiz-page.module.css';
 
 export default function CreateQuizPage() {
   const { t } = useTranslation();

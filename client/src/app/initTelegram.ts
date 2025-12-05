@@ -1,14 +1,14 @@
 import {
-  setDebug,
-  themeParams,
-  initData,
-  viewport,
+  backButton,
+  emitEvent,
   init as initSDK,
+  initData,
+  miniApp,
   mockTelegramEnv,
   retrieveLaunchParams,
-  emitEvent,
-  miniApp,
-  backButton,
+  setDebug,
+  themeParams,
+  viewport,
 } from '@tma.js/sdk-react';
 
 /**

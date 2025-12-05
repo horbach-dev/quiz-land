@@ -1,5 +1,6 @@
-import { useForm } from 'react-hook-form';
 import type { SyntheticEvent } from 'react';
+import { useForm } from 'react-hook-form';
+
 import { useCreateQuizMutation } from '../hooks/useCreateQuizMutation';
 import type { IFormData } from '../types';
 

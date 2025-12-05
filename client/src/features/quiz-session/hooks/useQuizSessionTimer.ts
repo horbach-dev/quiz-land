@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { updateSessionTime } from '../api/update-session-time';
 
 const SECONDS = 10;

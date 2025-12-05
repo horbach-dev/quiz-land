@@ -1,5 +1,6 @@
-import { Avatar } from '@/shared/components/Avatar';
 import { useUserQuery } from '@/features/user/services/useUserQuery';
+import { Avatar } from '@/shared/components/Avatar';
+
 import styles from './profile-header.module.css';
 
 export const ProfileHeader = () => {

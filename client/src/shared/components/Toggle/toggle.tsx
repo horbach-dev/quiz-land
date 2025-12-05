@@ -1,5 +1,6 @@
-import styles from './toggle.module.css';
 import clsx from 'clsx';
+
+import styles from './toggle.module.css';
 
 interface IProps {
   active: boolean;

@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import clsx from 'clsx';
+import { useState } from 'react';
+
 import styles from './image.module.css';
 
 interface IProps {

@@ -1,8 +1,10 @@
-import type { ReactNode } from 'react';
 import clsx from 'clsx';
+import type { ReactNode } from 'react';
+
 import { navigateTo } from '@/shared/utils/navigateTo';
-import { QuizCardImage } from './quiz-card-image.tsx';
+
 import styles from './quiz-card.module.css';
+import { QuizCardImage } from './quiz-card-image.tsx';
 
 interface IProps {
   image: string;

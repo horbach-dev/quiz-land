@@ -1,10 +1,12 @@
+import './app/mockEnv.ts';
+
+import { retrieveLaunchParams } from '@tma.js/sdk-react';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
-import { retrieveLaunchParams } from '@tma.js/sdk-react';
+
+import { App } from './app';
 import { EnvUnsupported } from './app/EnvUnsupported.tsx';
 import { init } from './app/initTelegram.ts';
-import { App } from './app';
-import './app/mockEnv.ts';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 const isDev = import.meta.env.VITE_DEV;

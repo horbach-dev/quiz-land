@@ -1,10 +1,11 @@
 import { createHashRouter, Navigate } from 'react-router-dom';
-import { MainPage } from '@/pages/main-page';
+
+import { AppLayout } from '@/layouts/app-layout';
 import { CreateQuizPage } from '@/pages/create-quiz-page';
+import { MainPage } from '@/pages/main-page';
+import { ProfilePage } from '@/pages/profile-page';
 import { QuizPage } from '@/pages/quiz-page';
 import { QuizzesPage } from '@/pages/quizzes-page';
-import { ProfilePage } from '@/pages/profile-page';
-import { AppLayout } from '@/layouts/app-layout';
 
 export const routes = [
   {
@@ -16,7 +17,7 @@ export const routes = [
       { path: 'quizzes', element: <QuizzesPage />, title: 'Quizzes page' },
       { path: 'quiz/:id', element: <QuizPage />, title: 'Quiz page' },
       { path: 'profile', element: <ProfilePage />, title: 'Profile page' },
-      { path: '*', element: <Navigate to="/" /> },
+      { path: '*', element: <Navigate to='/' /> },
     ],
   },
 ];

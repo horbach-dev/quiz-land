@@ -1,5 +1,6 @@
-import { type ITelegramUser, type IUserProfile } from '../types';
 import { api } from '@/shared/api';
+
+import { type ITelegramUser, type IUserProfile } from '../types';
 
 export const getUserData = async (
   tgUser: ITelegramUser,

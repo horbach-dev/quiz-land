@@ -1,5 +1,6 @@
-import styles from './quiz-card.module.css';
 import clsx from 'clsx';
+
+import styles from './quiz-card.module.css';
 
 export const QuizCardSkeleton = ({ view }) => {
   return (

@@ -1,7 +1,9 @@
 import { ChevronsLeft, ChevronsRight } from 'lucide-react';
-import { Button } from '@/shared/components/Button';
-import styles from './QuizFooter.module.css';
 import { createPortal } from 'react-dom';
+
+import { Button } from '@/shared/components/Button';
+
+import styles from './QuizFooter.module.css';
 
 const portalContainer = document.getElementById('footer')!;
 

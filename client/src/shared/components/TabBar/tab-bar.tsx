@@ -1,6 +1,7 @@
-import styles from './tab-bar.module.css';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+
+import styles from './tab-bar.module.css';
 
 interface IProps {
   value: string;

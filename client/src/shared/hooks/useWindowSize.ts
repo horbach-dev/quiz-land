@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { debounce } from '@/shared/utils/debounce.ts';
 
 type TWindowSize = {

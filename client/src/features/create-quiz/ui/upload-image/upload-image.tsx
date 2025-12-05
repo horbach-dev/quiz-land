@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react';
-import { UploadImageInput } from '@/shared/components/UploadImageInput';
-import { uploadQuizImage } from '@/features/create-quiz/api/upload-quiz-image';
+
 import { deleteQuizImage } from '@/features/create-quiz/api/delete-quiz-image';
+import { uploadQuizImage } from '@/features/create-quiz/api/upload-quiz-image';
+import { UploadImageInput } from '@/shared/components/UploadImageInput';
+
 import styles from './upload-image.module.css';
 
 const ONE_MEGABIT = 1048576;
@@ -34,8 +36,13 @@ export const UploadImage = ({
 
   const handleUploadImage = (
     file: File,
-    onProgress: (v: number) => void,
-    onLoaded: () => void,
+    {
+      onLoaded,
+      onProgress,
+    }: {
+      onProgress: (v: number) => void;
+      onLoaded: () => void;
+    },
   ) => {
     clearError();
 

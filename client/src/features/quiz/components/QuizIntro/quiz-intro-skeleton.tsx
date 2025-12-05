@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+
 import styles from './quiz-intro.module.css';
 
 export const QuizIntroSkeleton = () => {

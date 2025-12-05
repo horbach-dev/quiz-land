@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
+
 import type { TQuiz, TQuizAnswer } from '@/shared/types/quiz';
-import { useQuizSessionQuery } from '../services/useQuizSessionQuery';
-import { useCompleteSessionMutation } from '../services/useCompleteSessionMutation';
-import { useSubmitAnswerMutation } from '../services/useSubmitAnswerMutation';
+
 import { useQuizSessionNavigation } from '../hooks/useQuizSessionNavigation';
-import { QuizSessionTimer } from './quiz-session-timer';
+import { useCompleteSessionMutation } from '../services/useCompleteSessionMutation';
+import { useQuizSessionQuery } from '../services/useQuizSessionQuery';
+import { useSubmitAnswerMutation } from '../services/useSubmitAnswerMutation';
 import { Progress } from './Progress';
-import { QuizSessionStep } from './quiz-session-step';
-import { QuizFooter } from './QuizFooter';
 import styles from './quiz-session.module.css';
+import { QuizSessionStep } from './quiz-session-step';
+import { QuizSessionTimer } from './quiz-session-timer';
+import { QuizFooter } from './QuizFooter';
 
 const getDoneAnswers = (answers: TQuizAnswer[]) => {
   const serverAnswers: TAnswers = {};

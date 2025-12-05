@@ -1,4 +1,5 @@
 import { type ReactNode, useEffect } from 'react';
+
 import { useIntersectionObserver } from '@/shared/hooks/useInterserctionObserver';
 
 interface IProps {

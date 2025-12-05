@@ -1,8 +1,10 @@
-import type { ReactNode } from 'react';
 import clsx from 'clsx';
-import type { TQuiz } from '@/shared/types/quiz';
+import type { ReactNode } from 'react';
+
 import { QuizCardSkeleton } from '@/features/quiz/components/QuizCard/quiz-card-skeleton';
 import { IntersectingWrapper } from '@/shared/components/IntersectingWrapper';
+import type { TQuiz } from '@/shared/types/quiz';
+
 import styles from './QuizList.module.css';
 
 interface IProps {

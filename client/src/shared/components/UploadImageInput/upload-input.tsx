@@ -1,7 +1,9 @@
-import { type ChangeEvent, useRef, useState } from 'react';
-import styles from './upload-input.module.css';
 import { Images, Trash2 } from 'lucide-react';
+import { type ChangeEvent, useRef, useState } from 'react';
+
 import { Button } from '@/shared/components/Button';
+
+import styles from './upload-input.module.css';
 
 interface IProps {
   id?: string;
@@ -9,8 +11,10 @@ interface IProps {
   onDelete?: () => void;
   onChange: (
     file: File,
-    onProgress: (value: number) => void,
-    onLoaded: () => void,
+    options: {
+      onProgress: (value: number) => void;
+      onLoaded: () => void;
+    },
   ) => void;
 }
 
@@ -41,7 +45,7 @@ export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
       };
 
       reader.readAsDataURL(file);
-      onChange(file, setProgress, onLoaded);
+      onChange(file, { onProgress: setProgress, onLoaded });
     }
   };
 
@@ -50,12 +54,12 @@ export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
       <div className={styles.uploadInputContent}>
         <input
           id={id}
-          type="file"
+          type='file'
           name={name}
           disabled={!!image}
           ref={inputRef}
           onChange={handleChange}
-          accept="image/png, image/jpeg, image/jpg"
+          accept='image/png, image/jpeg, image/jpg'
         />
 
         <div className={styles.uploadInputPreview}>
@@ -81,7 +85,7 @@ export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
 
       {image && (
         <Button
-          size="sm"
+          size='sm'
           after={<Trash2 />}
           className={styles.uploadInputDelete}
           onClick={handleDelete}

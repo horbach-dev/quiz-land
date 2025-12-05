@@ -1,8 +1,9 @@
-import {
-  WheelPickerWrapper,
-  WheelPicker as Component,
-} from '@ncdai/react-wheel-picker';
 import './WheelPicker.css';
+
+import {
+  WheelPicker as Component,
+  WheelPickerWrapper,
+} from '@ncdai/react-wheel-picker';
 
 const vw = (window.innerWidth * 12) / 100;
 

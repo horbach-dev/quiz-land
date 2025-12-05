@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import type { IClickOutside } from './types';
 
 export function useClickOutside({

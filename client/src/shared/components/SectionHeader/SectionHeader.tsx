@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import type { ReactNode } from 'react';
+
 import styles from './SectionHeader.module.css';
 
 interface IProps {

@@ -1,9 +1,11 @@
 import { SquarePen, Trash2 } from 'lucide-react';
-import type { TQuiz } from '@/shared/types/quiz';
+
+import { useDeleteQuizQuery } from '@/features/quiz/services/useDeleteQuizQuery';
 import { Button } from '@/shared/components/Button';
 import { Popover } from '@/shared/components/Popover';
+import type { TQuiz } from '@/shared/types/quiz';
+
 import styles from './card-actions.module.css';
-import { useDeleteQuizQuery } from '@/features/quiz/services/useDeleteQuizQuery';
 
 interface IProps {
   item: TQuiz;
@@ -14,7 +16,7 @@ export const CardActions = ({ item }: IProps) => {
 
   return (
     <div className={styles.cardActions}>
-      <Button size="sm" style="icon">
+      <Button size='sm' style='icon'>
         <SquarePen />
       </Button>
       <Popover
@@ -25,7 +27,7 @@ export const CardActions = ({ item }: IProps) => {
           </>
         }
       >
-        <Button size="sm" style="icon" loading={isPending}>
+        <Button size='sm' style='icon' loading={isPending} type='button'>
           <Trash2 />
         </Button>
       </Popover>

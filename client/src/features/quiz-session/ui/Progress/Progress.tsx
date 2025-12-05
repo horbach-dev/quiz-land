@@ -1,6 +1,7 @@
 import { Flag } from 'lucide-react';
 import { type ReactNode, useLayoutEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+
 import styles from './Progress.module.css';
 
 const portalContainer = document.getElementById('header')!;

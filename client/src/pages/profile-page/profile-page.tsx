@@ -1,14 +1,16 @@
 import { SquarePen } from 'lucide-react';
-import { BASE_URL } from '@/shared/constants';
-import { PageLayout } from '@/layouts/page-layout';
-import { useQuizListQuery } from '@/features/quiz/services/useQuizListQuery';
-import { QuizList } from '@/features/quiz/components/QuizList';
+
 import { QuizCard } from '@/features/quiz/components/QuizCard';
-import { SectionHeader } from '@/shared/components/SectionHeader';
+import { QuizList } from '@/features/quiz/components/QuizList';
+import { useQuizListQuery } from '@/features/quiz/services/useQuizListQuery';
+import { PageLayout } from '@/layouts/page-layout';
 import { Button } from '@/shared/components/Button';
+import { SectionHeader } from '@/shared/components/SectionHeader';
+import { BASE_URL } from '@/shared/constants';
+
+import styles from './profile-page.module.css';
 // import { ProfileHeader } from "./ui/profile-header";
 import { CardActions } from './ui/card-actions';
-import styles from './profile-page.module.css';
 
 export default function ProfilePage() {
   const { isLoading, data } = useQuizListQuery({ type: 'my' });
@@ -20,7 +22,7 @@ export default function ProfilePage() {
         <SectionHeader
           title={'Созданные квизы'}
           actions={
-            <Button size="sm" to="/create" after={<SquarePen />}>
+            <Button size='sm' to='/create' after={<SquarePen />}>
               Новый
             </Button>
           }
