@@ -1,8 +1,8 @@
 .container {
-    transition: opacity 0.3s;
-    opacity: 1;
+  transition: opacity 0.3s;
+  opacity: 1;
 }
 
 .containerTransition {
-    opacity: 0;
+  opacity: 0;
 }

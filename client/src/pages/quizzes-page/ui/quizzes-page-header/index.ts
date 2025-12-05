@@ -1,1 +1,1 @@
-export { QuizzesPageHeader } from './QuizzesPageHeader.tsx'
+export { QuizzesPageHeader } from './QuizzesPageHeader.tsx';

@@ -1,13 +1,13 @@
 .container {
-    padding: var(--default-padding);
+  padding: var(--default-padding);
 }
 
 .userData {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .actions {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }

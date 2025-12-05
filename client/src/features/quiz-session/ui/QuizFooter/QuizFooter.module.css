@@ -1,44 +1,49 @@
 .container {
-    position: fixed;
-    bottom: 0;
-    left: -1px;
-    right: -1px;
-    z-index: 1001;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-top: 1px solid rgba(255,255,255, 0.1);
-    border-left: 1px solid rgba(255,255,255, 0.1);
-    border-right: 1px solid rgba(255,255,255, 0.1);
-    border-radius: 1rem 1rem 0 0;
-    padding: var(--default-padding) var(--default-padding) var(--padding-bottom);
-    backdrop-filter: blur(20px);
-    transition: opacity 1.3s, transform 0.3s;
+  position: fixed;
+  bottom: 0;
+  left: -1px;
+  right: -1px;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem 1rem 0 0;
+  padding: var(--default-padding) var(--default-padding) var(--padding-bottom);
+  backdrop-filter: blur(20px);
+  transition:
+    opacity 1.3s,
+    transform 0.3s;
 }
 
 .hide {
-    opacity: 0;
+  opacity: 0;
 }
 
-
 /* backdrop-filter есть — включаем blur */
-@supports ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
-    .container {
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        background: rgba(39, 36, 59, 0.7);
-    }
+@supports (
+  (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))
+) {
+  .container {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(39, 36, 59, 0.7);
+  }
 }
 
 /* fallback если НЕТ поддержки blur */
-@supports not ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
-    .container {
-        background: rgba(39, 36, 59, 0.95);
-    }
+@supports not (
+  (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))
+) {
+  .container {
+    background: rgba(39, 36, 59, 0.95);
+  }
 }
 
 .content {
-    width: 100%;
-    max-width: var(--max-app-width);
-    padding: 0 1rem;
+  width: 100%;
+  max-width: var(--max-app-width);
+  padding: 0 1rem;
 }

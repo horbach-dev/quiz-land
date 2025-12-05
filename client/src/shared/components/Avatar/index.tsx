@@ -1,6 +1,6 @@
-import styles from './avatar.module.css'
-import { CircleUserRound } from "lucide-react";
-import { useState } from "react";
+import styles from './avatar.module.css';
+import { CircleUserRound } from 'lucide-react';
+import { useState } from 'react';
 
 export const Avatar = ({ image }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -11,11 +11,11 @@ export const Avatar = ({ image }) => {
       {image && (
         <img
           src={image}
-          alt='avatar'
+          alt="avatar"
           style={{ opacity: isLoaded ? 1 : 0 }}
           onLoad={() => setIsLoaded(true)}
         />
       )}
     </div>
-  )
-}
+  );
+};

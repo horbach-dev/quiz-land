@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { getUserData } from "../api/getUserData.ts";
-import { useLaunchParams } from "@tma.js/sdk-react";
+import { getUserData } from '../api/getUserData.ts';
+import { useLaunchParams } from '@tma.js/sdk-react';
 
-export function useUserQuery () {
-  const { tgWebAppData } = useLaunchParams()
+export function useUserQuery() {
+  const { tgWebAppData } = useLaunchParams();
 
   const telegramUser = {
     id: String(tgWebAppData?.user?.id || ''),
@@ -12,11 +12,11 @@ export function useUserQuery () {
     last_name: tgWebAppData?.user?.last_name || '',
     username: tgWebAppData?.user?.username || '',
     avatar: tgWebAppData?.user?.photo_url || '',
-  }
+  };
 
   return useQuery({
     queryKey: ['getUserData', telegramUser.id],
     queryFn: () => getUserData(telegramUser),
-    refetchOnMount: false
-  })
+    refetchOnMount: false,
+  });
 }

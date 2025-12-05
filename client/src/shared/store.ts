@@ -17,11 +17,11 @@ export const useAppStore = create<IAppState>((set) => ({
   setNavigationVisible: (isNavigationVisible) => set({ isNavigationVisible }),
   setShowIntro: (isShow) => {
     if (isShow) {
-      localStorage.removeItem('show-intro')
+      localStorage.removeItem('show-intro');
       set({ showIntro: true });
     } else {
       set({ showIntro: false });
-      localStorage.setItem('show-intro', 'false')
+      localStorage.setItem('show-intro', 'false');
     }
   },
 }));

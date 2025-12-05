@@ -1,1 +1,1 @@
-export { QuizSessionStep } from "./quiz-session-step";
+export { QuizSessionStep } from './quiz-session-step';

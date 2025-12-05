@@ -1,16 +1,16 @@
 import { backButton } from '@tma.js/sdk-react';
 import { type PropsWithChildren, useEffect } from 'react';
-import clsx from "clsx";
-import { useAppStore } from "@/shared/store";
-import { navigateTo } from "@/shared/utils/navigateTo";
-import styles from './page-layout.module.css'
+import clsx from 'clsx';
+import { useAppStore } from '@/shared/store';
+import { navigateTo } from '@/shared/utils/navigateTo';
+import styles from './page-layout.module.css';
 
 interface IProps {
   backCallback?: () => void;
-  back?: boolean
-  withPaddingTop?: boolean
-  withNavigation?: boolean
-  className?: string
+  back?: boolean;
+  withPaddingTop?: boolean;
+  withNavigation?: boolean;
+  className?: string;
 }
 
 export function PageLayout({
@@ -18,18 +18,20 @@ export function PageLayout({
   back = true,
   backCallback,
   withNavigation = true,
-  className
+  className,
 }: PropsWithChildren<IProps>) {
-  const setNavigationVisible = useAppStore(state => state.setNavigationVisible)
+  const setNavigationVisible = useAppStore(
+    (state) => state.setNavigationVisible,
+  );
 
   useEffect(() => {
-    setNavigationVisible(withNavigation)
+    setNavigationVisible(withNavigation);
 
     if (back) {
       backButton.show();
       return backButton.onClick(() => {
         if (backCallback) {
-          backCallback()
+          backCallback();
         } else {
           navigateTo('back-navigate');
         }
@@ -42,7 +44,13 @@ export function PageLayout({
   return (
     <div
       className={clsx(styles.pageLayout, className)}
-      style={withNavigation ? { paddingBottom: `calc(var(--navigation-height) + var(--padding-bottom))` } : {}}
+      style={
+        withNavigation
+          ? {
+              paddingBottom: `calc(var(--navigation-height) + var(--padding-bottom))`,
+            }
+          : {}
+      }
     >
       {children}
     </div>

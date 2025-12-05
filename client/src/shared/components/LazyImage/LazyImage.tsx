@@ -1,6 +1,6 @@
-import { useState } from "react";
-import clsx from "clsx";
-import styles from "./image.module.css";
+import { useState } from 'react';
+import clsx from 'clsx';
+import styles from './image.module.css';
 
 interface IProps {
   className?: string;
@@ -10,11 +10,17 @@ interface IProps {
 }
 
 export const LazyImage = ({ image, title, className, placeholder }: IProps) => {
-  const [currentImage, setCurrentImage] = useState<string | undefined>(image)
+  const [currentImage, setCurrentImage] = useState<string | undefined>(image);
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className={clsx(styles.container, isLoading && styles.containerLoading, className)}>
+    <div
+      className={clsx(
+        styles.container,
+        isLoading && styles.containerLoading,
+        className,
+      )}
+    >
       <img
         className={clsx(styles.image, !isLoading && styles.imageLoaded)}
         src={currentImage || image}
@@ -22,13 +28,13 @@ export const LazyImage = ({ image, title, className, placeholder }: IProps) => {
         onLoad={() => setIsLoading(false)}
         onError={() => {
           if (placeholder) {
-            setIsLoading(true)
-            setCurrentImage(placeholder)
+            setIsLoading(true);
+            setCurrentImage(placeholder);
           } else {
-            setIsLoading(false)
+            setIsLoading(false);
           }
         }}
       />
     </div>
-  )
-}
+  );
+};

@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
-import clsx from "clsx";
-import type { TQuiz } from "@/features/quiz/types";
-import { QuizCardSkeleton } from "@/features/quiz/components/QuizCard/quiz-card-skeleton";
-import { IntersectingWrapper } from "@/shared/components/IntersectingWrapper";
+import type { ReactNode } from 'react';
+import clsx from 'clsx';
+import type { TQuiz } from '@/shared/types/quiz';
+import { QuizCardSkeleton } from '@/features/quiz/components/QuizCard/quiz-card-skeleton';
+import { IntersectingWrapper } from '@/shared/components/IntersectingWrapper';
 import styles from './QuizList.module.css';
 
 interface IProps {
@@ -11,7 +11,7 @@ interface IProps {
   isLoading?: boolean;
   isLoadingMore?: boolean;
   handleLoadMore?: () => void;
-  renderItem: (data: TQuiz) => ReactNode
+  renderItem: (data: TQuiz) => ReactNode;
 }
 
 export const QuizList = ({
@@ -20,7 +20,7 @@ export const QuizList = ({
   handleLoadMore,
   isLoading,
   isLoadingMore,
-  renderItem
+  renderItem,
 }: IProps) => {
   const isShowSkeleton = (isLoading && !data?.length) || isLoadingMore;
 
@@ -43,14 +43,9 @@ export const QuizList = ({
           <p className={styles.emptyTitle}>Ничего не найдено</p>
         </div>
       )}
-      {(
-        handleLoadMore &&
-        !isLoading &&
-        !isLoadingMore &&
-        !!data?.length
-      ) && (
+      {handleLoadMore && !isLoading && !isLoadingMore && !!data?.length && (
         <IntersectingWrapper onVisible={handleLoadMore} />
       )}
     </>
-  )
-}
+  );
+};

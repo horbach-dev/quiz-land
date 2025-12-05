@@ -1,5 +1,5 @@
-import styles from "./quiz-card.module.css";
-import clsx from "clsx";
+import styles from './quiz-card.module.css';
+import clsx from 'clsx';
 
 export const QuizCardSkeleton = ({ view }) => {
   return (
@@ -9,5 +9,5 @@ export const QuizCardSkeleton = ({ view }) => {
         <p className={clsx(styles.title, styles.skeletonTitle)}>.</p>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,13 +1,13 @@
-import { ChevronRight } from "lucide-react";
-import { useTranslation } from "react-i18next";
-import { useUserQuery } from "../../services/useUserQuery";
-import { Avatar } from "@/shared/components/Avatar";
-import styles from './user-welcome.module.css'
+import { ChevronRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { useUserQuery } from '../../services/useUserQuery';
+import { Avatar } from '@/shared/components/Avatar';
+import styles from './user-welcome.module.css';
 
 export const UserWelcome = () => {
   const { t } = useTranslation();
-  const { data } = useUserQuery()
-  const nick = data?.first_name || data?.username
+  const { data } = useUserQuery();
+  const nick = data?.first_name || data?.username;
 
   return (
     <div className={styles.userWelcome}>
@@ -16,9 +16,7 @@ export const UserWelcome = () => {
         <p className={styles.welcome}>
           {t('welcome.hello')} {nick && <span>{nick}!</span>}
         </p>
-        <p className={styles.welcomeDesc}>
-          {t('welcome.description')}
-        </p>
+        <p className={styles.welcomeDesc}>{t('welcome.description')}</p>
       </div>
       <div className={styles.userStatistic}>
         <p className={styles.userStatisticItem}>
@@ -31,11 +29,11 @@ export const UserWelcome = () => {
         </p>
         <div className={styles.userStatisticBtn}>
           <span>{t('welcome.to_profile')}</span>
-          <button type='button' title='в профиль'>
+          <button type="button" title="в профиль">
             <ChevronRight />
           </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

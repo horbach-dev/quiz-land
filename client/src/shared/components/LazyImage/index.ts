@@ -1,1 +1,1 @@
-export { LazyImage } from './LazyImage'
+export { LazyImage } from './LazyImage';

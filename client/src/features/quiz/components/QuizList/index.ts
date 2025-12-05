@@ -1,1 +1,1 @@
-export { QuizList } from './QuizList'
+export { QuizList } from './QuizList';

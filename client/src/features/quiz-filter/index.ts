@@ -1,1 +1,1 @@
-export { QuizFilter } from './ui/quiz-filter.tsx'
+export { QuizFilter } from './ui/quiz-filter.tsx';

@@ -1,18 +1,19 @@
 .container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    /*padding: var(--quiz-progress-page-header-height) var(--default-padding) 7rem;*/
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  /*padding: var(--quiz-progress-page-header-height) var(--default-padding) 7rem;*/
 
-    padding: calc(var(--quiz-progress-page-header-height) - var(--padding-top) + var(--default-padding))
-    var(--default-padding)
-    6.5rem
-    var(--default-padding);
+  padding: calc(
+      var(--quiz-progress-page-header-height) - var(--padding-top) +
+        var(--default-padding)
+    )
+    var(--default-padding) 6.5rem var(--default-padding);
 }
 
 .content {
-    width: 100%;
+  width: 100%;
 }

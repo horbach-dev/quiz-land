@@ -9,6 +9,8 @@
     "build": "tsc -b && vite build --emptyOutDir && git add ./docs",
     "build:visual": "VITE_VISUALIZER=true vite build --emptyOutDir",
     "lint": "eslint ..",
+    "format": "prettier --write .",
+    "check-format": "prettier --check .",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -52,10 +54,13 @@
     "cross-env": "^10.1.0",
     "eruda": "^3.4.3",
     "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "prettier": "^3.7.4",
     "rollup-plugin-visualizer": "^6.0.5",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.3",

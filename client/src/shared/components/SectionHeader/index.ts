@@ -1,1 +1,1 @@
-export { SectionHeader } from './SectionHeader.tsx'
+export { SectionHeader } from './SectionHeader.tsx';

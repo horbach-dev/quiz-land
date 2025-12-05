@@ -1,86 +1,92 @@
 .container {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--default-padding) var(--default-padding) var(--padding-bottom);
-    transition: opacity 0.5s, transform 0.5s;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--default-padding) var(--default-padding) var(--padding-bottom);
+  transition:
+    opacity 0.5s,
+    transform 0.5s;
 }
 
 .list {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: var(--max-app-width);
-    padding: 1rem 1rem 1.2rem 1rem;
-    border-radius: 1rem;
-    box-shadow: 0 0 2rem 1rem rgba(33, 33, 33, 0.33);
-    background: rgba(39, 36, 59, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: var(--max-app-width);
+  padding: 1rem 1rem 1.2rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 2rem 1rem rgba(33, 33, 33, 0.33);
+  background: rgba(39, 36, 59, 0.7);
 }
 
 /* backdrop-filter есть — включаем blur */
-@supports ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
-    .list {
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        background: rgba(39, 36, 59, 0.7);
-    }
+@supports (
+  (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))
+) {
+  .list {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(39, 36, 59, 0.7);
+  }
 }
 
 /* fallback если НЕТ поддержки blur */
-@supports not ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
-    .container {
-        background: rgba(39, 36, 59, 0.95);
-    }
-    .list {
-        background: none;
-    }
+@supports not (
+  (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))
+) {
+  .container {
+    background: rgba(39, 36, 59, 0.95);
+  }
+  .list {
+    background: none;
+  }
 }
 
 .hide {
-    transform: translateY(100%);
+  transform: translateY(100%);
 }
 
 .item {
-    position: relative;
-    font-size: 0.7rem;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #ffffff;
-    background: none;
-    outline: none;
-    border: none;
-    text-decoration: none;
-    cursor: pointer;
+  position: relative;
+  font-size: 0.7rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+  background: none;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .item:before {
-    position: absolute;
-    content: '';
-    top: calc(100% + 0.3rem);
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0.3rem;
-    height: 0.3rem;
-    border-radius: 0.3rem;
-    background-color: #ffffff;
-    opacity: 0;
-    transition: opacity 0.3s;
+  position: absolute;
+  content: '';
+  top: calc(100% + 0.3rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 0.3rem;
+  background-color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .active:before {
-    opacity: 1;
+  opacity: 1;
 }
 
 .icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-bottom: 0.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-bottom: 0.25rem;
 }

@@ -1,17 +1,18 @@
-import { useRef, useState } from "react";
-import { UploadImageInput } from "@/shared/components/UploadImageInput";
-import { uploadQuizImage } from "@/features/create-quiz/api/upload-quiz-image";
-import { deleteQuizImage } from "@/features/create-quiz/api/delete-quiz-image";
-import styles from './upload-image.module.css'
+import { useRef, useState } from 'react';
+import { UploadImageInput } from '@/shared/components/UploadImageInput';
+import { uploadQuizImage } from '@/features/create-quiz/api/upload-quiz-image';
+import { deleteQuizImage } from '@/features/create-quiz/api/delete-quiz-image';
+import styles from './upload-image.module.css';
 
-const ONE_MEGABIT = 1048576
+const ONE_MEGABIT = 1048576;
 const ACCEPTED_FILES = ['image/png', 'image/jpeg', 'image/jpg'];
 
-const checkValidate = (file: File)=> {
-  if (file.size > ONE_MEGABIT) return 'Размер файла не должен превышать 1МБ'
-  if (!ACCEPTED_FILES.includes(file.type)) return 'Разрешены только файлы: PNG, JPEG'
-  return false
-}
+const checkValidate = (file: File) => {
+  if (file.size > ONE_MEGABIT) return 'Размер файла не должен превышать 1МБ';
+  if (!ACCEPTED_FILES.includes(file.type))
+    return 'Разрешены только файлы: PNG, JPEG';
+  return false;
+};
 
 interface IProps {
   id: string;
@@ -28,19 +29,19 @@ export const UploadImage = ({
   clearError,
   setError,
 }: IProps) => {
-  const abortController = useRef<AbortController>(null)
-  const [loadedImage, setLoadedImage] = useState<string | null>(null)
+  const abortController = useRef<AbortController>(null);
+  const [loadedImage, setLoadedImage] = useState<string | null>(null);
 
   const handleUploadImage = (
     file: File,
     onProgress: (v: number) => void,
-    onLoaded: () => void
-    ) => {
+    onLoaded: () => void,
+  ) => {
     clearError();
 
-    const validationFailed = checkValidate(file)
+    const validationFailed = checkValidate(file);
     if (validationFailed) {
-      setError(validationFailed)
+      setError(validationFailed);
       return;
     }
 
@@ -52,21 +53,24 @@ export const UploadImage = ({
       abortController.current = new AbortController();
       const signal = abortController.current.signal;
 
-      uploadQuizImage(formData, { signal, onProgress }).then((result) => {
-        onChange(result.fileName);
-        setLoadedImage(result.tempPath);
-      }).catch((err) => {
-        if (err.response?.data?.message) {
-          setError(err.response?.data?.message);
-        } else {
-          setError('Ошибка загрузки, пожалуйста, повторите позже')
-        }
-      }).finally(() => {
-        onLoaded();
-        abortController.current = null;
-      })
+      uploadQuizImage(formData, { signal, onProgress })
+        .then((result) => {
+          onChange(result.fileName);
+          setLoadedImage(result.tempPath);
+        })
+        .catch((err) => {
+          if (err.response?.data?.message) {
+            setError(err.response?.data?.message);
+          } else {
+            setError('Ошибка загрузки, пожалуйста, повторите позже');
+          }
+        })
+        .finally(() => {
+          onLoaded();
+          abortController.current = null;
+        });
     }
-  }
+  };
 
   const handleDeleteImage = async () => {
     onChange(null);
@@ -74,8 +78,8 @@ export const UploadImage = ({
     setLoadedImage(null);
 
     if (abortController.current) return abortController.current.abort();
-    if (loadedImage) deleteQuizImage(loadedImage)
-  }
+    if (loadedImage) deleteQuizImage(loadedImage);
+  };
 
   return (
     <div className={styles.content}>
@@ -85,5 +89,5 @@ export const UploadImage = ({
         onChange={handleUploadImage}
       />
     </div>
-  )
-}
+  );
+};

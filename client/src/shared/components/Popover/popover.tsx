@@ -3,49 +3,51 @@ import {
   type ReactNode,
   useLayoutEffect,
   useRef,
-  useState
-} from "react";
-import { useClickOutside } from "@/shared/hooks/useClickOutside";
-import { Button } from "@/shared/components/Button";
-import styles from './popover.module.css'
+  useState,
+} from 'react';
+import { useClickOutside } from '@/shared/hooks/useClickOutside';
+import { Button } from '@/shared/components/Button';
+import styles from './popover.module.css';
 
 interface IProps {
-  text: ReactNode
-  onConfirm: () => void
-  onCancel?: () => void
+  text: ReactNode;
+  onConfirm: () => void;
+  onCancel?: () => void;
 }
 
 export const Popover = ({
   children,
   text,
   onConfirm,
-  onCancel
+  onCancel,
 }: PropsWithChildren<IProps>) => {
   const [windowWidth, setWindowWidth] = useState(0);
-  const containerRef = useRef<HTMLDivElement | null>(null)
-  const childrenRef = useRef<HTMLDivElement | null>(null)
-  const popoverRef = useRef<HTMLDivElement | null>(null)
-  const [isOpen, setIsOpen] = useState(false)
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const childrenRef = useRef<HTMLDivElement | null>(null);
+  const popoverRef = useRef<HTMLDivElement | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleConfirm = () => {
-    setIsOpen(false)
-    onConfirm()
-  }
+    setIsOpen(false);
+    onConfirm();
+  };
 
   const handleCancel = () => {
-    setIsOpen(false)
-    onCancel?.()
-  }
+    setIsOpen(false);
+    onCancel?.();
+  };
 
   const handleChildrenClick = () => {
-    setWindowWidth(window.innerWidth)
-    setIsOpen(open => !open)
-  }
+    setWindowWidth(window.innerWidth);
+    setIsOpen((open) => !open);
+  };
 
   useLayoutEffect(() => {
     if (childrenRef.current && popoverRef.current && isOpen) {
-      const { left: popoverLeft, width: popoverWidth } = popoverRef.current.getBoundingClientRect()
-      const { width: childrenWidth } = childrenRef.current.getBoundingClientRect()
+      const { left: popoverLeft, width: popoverWidth } =
+        popoverRef.current.getBoundingClientRect();
+      const { width: childrenWidth } =
+        childrenRef.current.getBoundingClientRect();
 
       popoverRef.current.style.bottom = `calc(100% + 0.7rem)`;
 
@@ -56,48 +58,31 @@ export const Popover = ({
 
       popoverRef.current.style.left = `calc(-${popoverWidth / 2 - childrenWidth / 2}px)`;
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   useClickOutside({
     ref: containerRef,
-    onClickOutside: () => setIsOpen(false)
-  })
+    onClickOutside: () => setIsOpen(false),
+  });
 
   return (
-    <div
-      ref={containerRef}
-      className={styles.popover}
-    >
+    <div ref={containerRef} className={styles.popover}>
       {isOpen && (
-        <div
-          ref={popoverRef}
-          className={styles.popoverContent}
-        >
+        <div ref={popoverRef} className={styles.popoverContent}>
           {text}
           <div className={styles.popoverActions}>
-            <Button
-              style='default'
-              size='sm'
-              onClick={handleConfirm}
-            >
+            <Button style="default" size="sm" onClick={handleConfirm}>
               Да
             </Button>
-            <Button
-              style='white'
-              size='sm'
-              onClick={handleCancel}
-            >
+            <Button style="white" size="sm" onClick={handleCancel}>
               Нет
             </Button>
           </div>
         </div>
       )}
-      <div
-        onClick={handleChildrenClick}
-        ref={childrenRef}
-      >
+      <div onClick={handleChildrenClick} ref={childrenRef}>
         {children}
       </div>
     </div>
-  )
-}
+  );
+};

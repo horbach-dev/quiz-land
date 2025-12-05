@@ -1,12 +1,15 @@
-import { useEffect, useRef } from "react";
-import { ListCheck, Trash2 } from "lucide-react";
+import { useEffect, useRef } from 'react';
+import { ListCheck, Trash2 } from 'lucide-react';
 
 import {
   useFieldArray,
   type Control,
   type UseFormRegister,
   type FieldErrors,
-  type UseFormSetValue, type UseFormSetError, type UseFormClearErrors, type UseFormWatch,
+  type UseFormSetValue,
+  type UseFormSetError,
+  type UseFormClearErrors,
+  type UseFormWatch,
 } from 'react-hook-form';
 
 import {
@@ -16,15 +19,15 @@ import {
   FieldGroup,
   FieldLabel,
   FieldError,
-  Field
-} from "@/shared/shadcn/ui/field";
+  Field,
+} from '@/shared/shadcn/ui/field';
 
-import { UploadImage } from "@/features/create-quiz/ui/upload-image";
-import { Input } from "@/shared/shadcn/ui/input";
-import { Button } from "@/shared/components/Button";
-import { validationRules } from "@/features/create-quiz/config";
-import type { IFormData } from "../../types";
-import { AnswerFields } from "./answer-fields";
+import { UploadImage } from '@/features/create-quiz/ui/upload-image';
+import { Input } from '@/shared/shadcn/ui/input';
+import { Button } from '@/shared/components/Button';
+import { validationRules } from '@/features/create-quiz/config';
+import type { IFormData } from '../../types';
+import { AnswerFields } from './answer-fields';
 
 interface QuestionProps {
   questionIndex: number;
@@ -32,9 +35,9 @@ interface QuestionProps {
   register: UseFormRegister<IFormData>;
   errors: FieldErrors<IFormData>;
   setValue: UseFormSetValue<IFormData>;
-  setError: UseFormSetError<IFormData>
-  clearErrors: UseFormClearErrors<IFormData>
-  watch: UseFormWatch<IFormData>
+  setError: UseFormSetError<IFormData>;
+  clearErrors: UseFormClearErrors<IFormData>;
+  watch: UseFormWatch<IFormData>;
   removeQuestion: () => void;
 }
 
@@ -47,26 +50,29 @@ export const QuestionFields = ({
   setError,
   clearErrors,
   errors,
-  watch
+  watch,
 }: QuestionProps) => {
-  const containerRef = useRef<HTMLInputElement | null>(null)
+  const containerRef = useRef<HTMLInputElement | null>(null);
   const {
     fields: answerFields,
     append: appendAnswer,
-    remove: removeAnswer
+    remove: removeAnswer,
   } = useFieldArray({
     control,
     name: `questions.${questionIndex}.options`,
-    rules: { required: 'Нельзя создавать вопросы без ответов.' }
+    rules: { required: 'Нельзя создавать вопросы без ответов.' },
   });
 
   const handleAddAnswer = () => {
-    appendAnswer({
-      text: '',
-      image: null,
-      isCorrect: false
-    }, { shouldFocus: false })
-  }
+    appendAnswer(
+      {
+        text: '',
+        image: null,
+        isCorrect: false,
+      },
+      { shouldFocus: false },
+    );
+  };
 
   useEffect(() => {
     if (containerRef.current) {
@@ -76,21 +82,21 @@ export const QuestionFields = ({
         inline: 'nearest',
       });
     }
-  }, [])
+  }, []);
 
-  const questionErrors = errors?.questions?.[questionIndex]
+  const questionErrors = errors?.questions?.[questionIndex];
 
   return (
     <FieldGroup
       ref={containerRef}
       id={`quiz-question-${questionIndex}`}
-      className='bg-[rgba(255,255,255,0.03)] p-[var(--default-padding)] rounded-[0.85rem]'
+      className="bg-[rgba(255,255,255,0.03)] p-[var(--default-padding)] rounded-[0.85rem]"
     >
-      <FieldLegend className='flex items-center justify-between'>
-        <p className='w-full'>Вопрос № {questionIndex + 1}</p>
-        <div className='w-fit'>
+      <FieldLegend className="flex items-center justify-between">
+        <p className="w-full">Вопрос № {questionIndex + 1}</p>
+        <div className="w-fit">
           <Button
-            size='sm'
+            size="sm"
             onClick={removeQuestion}
             after={<Trash2 className="w-4" />}
           >
@@ -104,17 +110,16 @@ export const QuestionFields = ({
         </FieldLabel>
         <Input
           id={`question-text-${questionIndex}`}
-          placeholder={"Введите вопрос..."}
-          {...register(`questions.${questionIndex}.text`, validationRules.questionTitle)}
+          placeholder={'Введите вопрос...'}
+          {...register(
+            `questions.${questionIndex}.text`,
+            validationRules.questionTitle,
+          )}
         />
         {questionErrors?.text?.message ? (
-          <FieldError>
-            {questionErrors?.text?.message}
-          </FieldError>
+          <FieldError>{questionErrors?.text?.message}</FieldError>
         ) : (
-          <FieldDescription>
-            Минимум 7 символов
-          </FieldDescription>
+          <FieldDescription>Минимум 7 символов</FieldDescription>
         )}
       </Field>
 
@@ -125,20 +130,20 @@ export const QuestionFields = ({
 
         <UploadImage
           id={`question-image-${questionIndex}`}
-          type='question'
+          type="question"
           clearError={() => clearErrors(`questions.${questionIndex}.image`)}
-          setError={message => setError(`questions.${questionIndex}.image`, { message })}
-          onChange={value => setValue(`questions.${questionIndex}.image`, value)}
+          setError={(message) =>
+            setError(`questions.${questionIndex}.image`, { message })
+          }
+          onChange={(value) =>
+            setValue(`questions.${questionIndex}.image`, value)
+          }
         />
 
         {questionErrors?.image?.message ? (
-          <FieldError>
-            {questionErrors?.image?.message}
-          </FieldError>
+          <FieldError>{questionErrors?.image?.message}</FieldError>
         ) : (
-          <FieldDescription>
-            Минимум 7 символов
-          </FieldDescription>
+          <FieldDescription>Минимум 7 символов</FieldDescription>
         )}
       </Field>
 
@@ -152,15 +157,15 @@ export const QuestionFields = ({
             setValue={setValue}
             watch={watch}
             questionIndex={questionIndex}
-            errors={questionErrors?.options as any || []}
+            errors={(questionErrors?.options as any) || []}
           />
         </>
       )}
 
       <Field>
         <Button
-          type='button'
-          style='white'
+          type="button"
+          style="white"
           onClick={handleAddAnswer}
           after={<ListCheck />}
         >
@@ -169,10 +174,10 @@ export const QuestionFields = ({
       </Field>
 
       {questionErrors?.options?.root?.message && (
-        <FieldError className='text-center'>
+        <FieldError className="text-center">
           {questionErrors?.options?.root?.message}
         </FieldError>
       )}
     </FieldGroup>
-  )
-}
+  );
+};

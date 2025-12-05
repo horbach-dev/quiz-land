@@ -7,7 +7,12 @@ interface IProps {
   onEndReached?: () => void;
 }
 
-export function useQuizSessionNavigation({ totalSteps, initialStep = 0, transitionDelay = 300, onEndReached }: IProps) {
+export function useQuizSessionNavigation({
+  totalSteps,
+  initialStep = 0,
+  transitionDelay = 300,
+  onEndReached,
+}: IProps) {
   const [step, setStep] = useState(initialStep);
   const [isHide, setIsHide] = useState(false);
 
@@ -22,7 +27,7 @@ export function useQuizSessionNavigation({ totalSteps, initialStep = 0, transiti
     setIsHide(true);
     setTimeout(() => {
       setIsHide(false);
-      setStep(prevStep => prevStep + 1);
+      setStep((prevStep) => prevStep + 1);
     }, transitionDelay);
   }, [step, totalSteps, isHide, transitionDelay, onEndReached]);
 
@@ -33,7 +38,7 @@ export function useQuizSessionNavigation({ totalSteps, initialStep = 0, transiti
     setIsHide(true);
     setTimeout(() => {
       setIsHide(false);
-      setStep(prevStep => prevStep - 1);
+      setStep((prevStep) => prevStep - 1);
     }, transitionDelay);
   }, [step, isHide, transitionDelay]);
 

@@ -1,1 +1,1 @@
-export { CreateQuizForm } from './ui/create-quiz-form'
+export { CreateQuizForm } from './ui/create-quiz-form';

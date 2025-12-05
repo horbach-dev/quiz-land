@@ -1,45 +1,48 @@
-import { useLocation } from "react-router-dom";
-import { useLayoutEffect, useRef } from "react";
-import { useTranslation } from "react-i18next";
-import clsx from "clsx";
-import { useAppStore } from "@/shared/store";
-import { navigateTo } from "@/shared/utils/navigateTo";
-import { NAVIGATION_ITEMS } from "./config";
+import { useLocation } from 'react-router-dom';
+import { useLayoutEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
+import { useAppStore } from '@/shared/store';
+import { navigateTo } from '@/shared/utils/navigateTo';
+import { NAVIGATION_ITEMS } from './config';
 import styles from './Navigation.module.css';
 
 export const Navigation = () => {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
-  const isNavigationVisible = useAppStore(store => store.isNavigationVisible)
+  const isNavigationVisible = useAppStore((store) => store.isNavigationVisible);
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
     if (containerRef?.current?.offsetHeight) {
       document.documentElement.style.setProperty(
-        "--navigation-height",
-        containerRef.current.offsetHeight + 'px'
+        '--navigation-height',
+        containerRef.current.offsetHeight + 'px',
       );
     }
-  }, [])
+  }, []);
 
   return (
-    <div className={clsx(styles.container, !isNavigationVisible && styles.hide)}>
+    <div
+      className={clsx(styles.container, !isNavigationVisible && styles.hide)}
+    >
       <div ref={containerRef} className={styles.list}>
         {NAVIGATION_ITEMS.map(({ id, link, title, icon: Icon }) => {
-          const active = pathname.includes(link) && link !== '/' || pathname === link;
+          const active =
+            (pathname.includes(link) && link !== '/') || pathname === link;
           return (
             <button
               key={id}
-              type='button'
+              type="button"
               className={clsx(styles.item, active && styles.active)}
               onClick={() => navigateTo(link)}
             >
               <Icon className={styles.icon} />
               {t(title)}
             </button>
-          )
+          );
         })}
       </div>
     </div>
-  )
-}
+  );
+};

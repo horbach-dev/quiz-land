@@ -1,7 +1,4 @@
-import {
-  type AxiosError,
-  type AxiosResponse,
-} from 'axios';
+import { type AxiosError, type AxiosResponse } from 'axios';
 
 export interface ConsoleError {
   status: number;

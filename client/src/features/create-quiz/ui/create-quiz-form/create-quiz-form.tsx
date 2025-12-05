@@ -1,12 +1,12 @@
-import { useRef } from "react";
-import { useCreateQuizForm } from "@/features/create-quiz/hooks/useCreateQuizForm";
-import { CreateQuizMain } from "./create-quiz-main";
-import { QuestionFields } from "./question-fields";
-import { CreateQuizQuestions } from "./create-quiz-questions";
-import { CreateQuizFormSubmit } from "./create-quiz-form-submit";
+import { useRef } from 'react';
+import { useCreateQuizForm } from '@/features/create-quiz/hooks/useCreateQuizForm';
+import { CreateQuizMain } from './create-quiz-main';
+import { QuestionFields } from './question-fields';
+import { CreateQuizQuestions } from './create-quiz-questions';
+import { CreateQuizFormSubmit } from './create-quiz-form-submit';
 
 export const CreateQuizForm = () => {
-  const formRef = useRef(null)
+  const formRef = useRef(null);
   const {
     watch,
     control,
@@ -16,17 +16,14 @@ export const CreateQuizForm = () => {
     clearErrors,
     errors,
     isLoading,
-    setError
-  } = useCreateQuizForm()
+    setError,
+  } = useCreateQuizForm();
 
-  const isDisabled = !!Object.keys(errors).length
+  const isDisabled = !!Object.keys(errors).length;
 
   return (
     <div className="w-full max-w-md">
-      <form
-        ref={formRef}
-        onSubmit={onSubmit}
-      >
+      <form ref={formRef} onSubmit={onSubmit}>
         <CreateQuizMain
           register={register}
           errors={errors}
@@ -63,5 +60,5 @@ export const CreateQuizForm = () => {
         />
       </form>
     </div>
-  )
-}
+  );
+};

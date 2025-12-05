@@ -1,1 +1,1 @@
-export { UserWelcome } from './user-welcome.tsx'
+export { UserWelcome } from './user-welcome.tsx';

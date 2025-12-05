@@ -1,14 +1,11 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
-import {
-  errorInterceptor,
-  successInterceptor,
-} from './interceptors';
-import { BASE_URL } from "@/shared/constants";
+import { errorInterceptor, successInterceptor } from './interceptors';
+import { BASE_URL } from '@/shared/constants';
 
 const axiosRequestConfig: AxiosRequestConfig = {
   baseURL: BASE_URL + 'api',
   responseType: 'json',
-  headers: { 'Content-Type': 'application/json' }
+  headers: { 'Content-Type': 'application/json' },
 };
 
 export const setAuthHeader = (token: string) => {

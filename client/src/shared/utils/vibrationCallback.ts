@@ -1,7 +1,7 @@
-import { hapticFeedback } from "@tma.js/sdk-react";
+import { hapticFeedback } from '@tma.js/sdk-react';
 
 export const vibrationCallback = () => {
   if (hapticFeedback?.isSupported()) {
-    hapticFeedback.impactOccurred('light')
+    hapticFeedback.impactOccurred('light');
   }
-}
+};

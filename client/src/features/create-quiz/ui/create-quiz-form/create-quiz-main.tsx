@@ -1,11 +1,11 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 import type {
   UseFormRegister,
   UseFormSetValue,
   UseFormClearErrors,
   UseFormSetError,
-  FieldErrors
-} from "react-hook-form";
+  FieldErrors,
+} from 'react-hook-form';
 import {
   Field,
   FieldDescription,
@@ -13,20 +13,20 @@ import {
   FieldGroup,
   FieldLabel,
   FieldSeparator,
-  FieldSet
-} from "@/shared/shadcn/ui/field";
-import { Textarea } from "@/shared/shadcn/ui/textarea";
-import { Input } from "@/shared/shadcn/ui/input";
-import { validationRules } from "../../config";
-import type { IFormData } from "../../types";
-import { UploadImage } from "../upload-image";
+  FieldSet,
+} from '@/shared/shadcn/ui/field';
+import { Textarea } from '@/shared/shadcn/ui/textarea';
+import { Input } from '@/shared/shadcn/ui/input';
+import { validationRules } from '../../config';
+import type { IFormData } from '../../types';
+import { UploadImage } from '../upload-image';
 
 interface IProps {
-  register: UseFormRegister<IFormData>
-  errors: FieldErrors<IFormData>
-  setError: UseFormSetError<IFormData>
-  clearErrors: UseFormClearErrors<IFormData>
-  setValue:  UseFormSetValue<IFormData>
+  register: UseFormRegister<IFormData>;
+  errors: FieldErrors<IFormData>;
+  setError: UseFormSetError<IFormData>;
+  clearErrors: UseFormClearErrors<IFormData>;
+  setValue: UseFormSetValue<IFormData>;
 }
 
 export const CreateQuizMain = ({
@@ -34,11 +34,11 @@ export const CreateQuizMain = ({
   errors,
   setError,
   clearErrors,
-  setValue
+  setValue,
 }: IProps) => {
   const { t } = useTranslation();
   return (
-    <FieldSet className='mb-5'>
+    <FieldSet className="mb-5">
       <FieldGroup>
         <Field>
           <FieldLabel htmlFor="quiz-title">
@@ -50,13 +50,9 @@ export const CreateQuizMain = ({
             {...register('title', validationRules.title)}
           />
           {errors.title?.message ? (
-            <FieldError>
-              {errors.title.message}
-            </FieldError>
+            <FieldError>{errors.title.message}</FieldError>
           ) : (
-            <FieldDescription>
-              Минимум 7 символов
-            </FieldDescription>
+            <FieldDescription>Минимум 7 символов</FieldDescription>
           )}
         </Field>
 
@@ -71,9 +67,7 @@ export const CreateQuizMain = ({
             {...register('description', validationRules.description)}
           />
           {errors.description?.message ? (
-            <FieldError>
-              {errors.description?.message}
-            </FieldError>
+            <FieldError>{errors.description?.message}</FieldError>
           ) : (
             <FieldDescription>
               Минимум 100 символов, максимум 10000
@@ -82,22 +76,20 @@ export const CreateQuizMain = ({
         </Field>
 
         <Field>
-          <FieldLabel htmlFor='quiz-poster'>
+          <FieldLabel htmlFor="quiz-poster">
             {'Постер квиза (главное изображение)'}
           </FieldLabel>
 
           <UploadImage
-            id='quiz-poster'
-            type='poster'
+            id="quiz-poster"
+            type="poster"
             clearError={() => clearErrors('poster')}
-            setError={message => setError('poster', { message })}
-            onChange={value => setValue('poster', value)}
+            setError={(message) => setError('poster', { message })}
+            onChange={(value) => setValue('poster', value)}
           />
 
           {errors.poster?.message ? (
-            <FieldError>
-              {errors.poster?.message}
-            </FieldError>
+            <FieldError>{errors.poster?.message}</FieldError>
           ) : (
             <FieldDescription>
               {'Максимум 1мб, разрешен файл PNG, JPEG'}
@@ -106,8 +98,7 @@ export const CreateQuizMain = ({
         </Field>
 
         <FieldSeparator />
-
       </FieldGroup>
     </FieldSet>
-  )
-}
+  );
+};

@@ -1,1 +1,1 @@
-export { UploadImageInput } from './upload-input'
+export { UploadImageInput } from './upload-input';

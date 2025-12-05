@@ -1,1 +1,1 @@
-export { IntersectingWrapper } from './IntersectingWrapper'
+export { IntersectingWrapper } from './IntersectingWrapper';

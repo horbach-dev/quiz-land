@@ -4,5 +4,5 @@ export const debounce = (fn, delay = 300) => {
   return (...args) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => fn(...args), delay);
-  }
-}
+  };
+};

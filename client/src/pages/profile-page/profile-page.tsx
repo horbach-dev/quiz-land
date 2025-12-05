@@ -1,33 +1,29 @@
-import { SquarePen } from "lucide-react";
-import { BASE_URL } from "@/shared/constants";
-import { PageLayout } from "@/layouts/page-layout";
-import { useQuizListQuery } from "@/features/quiz/services/useQuizListQuery";
-import { QuizList } from "@/features/quiz/components/QuizList";
-import { QuizCard } from "@/features/quiz/components/QuizCard";
-import { SectionHeader } from "@/shared/components/SectionHeader";
-import { Button } from "@/shared/components/Button";
+import { SquarePen } from 'lucide-react';
+import { BASE_URL } from '@/shared/constants';
+import { PageLayout } from '@/layouts/page-layout';
+import { useQuizListQuery } from '@/features/quiz/services/useQuizListQuery';
+import { QuizList } from '@/features/quiz/components/QuizList';
+import { QuizCard } from '@/features/quiz/components/QuizCard';
+import { SectionHeader } from '@/shared/components/SectionHeader';
+import { Button } from '@/shared/components/Button';
 // import { ProfileHeader } from "./ui/profile-header";
-import { CardActions } from "./ui/card-actions";
-import styles from './profile-page.module.css'
+import { CardActions } from './ui/card-actions';
+import styles from './profile-page.module.css';
 
-export const ProfilePage = () => {
-  const { isLoading, data } = useQuizListQuery({ type: 'my' })
+export default function ProfilePage() {
+  const { isLoading, data } = useQuizListQuery({ type: 'my' });
 
   return (
     <PageLayout>
       <div className={styles.container}>
         {/*<ProfileHeader />*/}
         <SectionHeader
-          title={"Созданные квизы"}
-          actions={(
-            <Button
-              size='sm'
-              to='/create'
-              after={<SquarePen />}
-            >
+          title={'Созданные квизы'}
+          actions={
+            <Button size="sm" to="/create" after={<SquarePen />}>
               Новый
             </Button>
-          )}
+          }
         />
         <QuizList
           isLoading={isLoading}
@@ -44,5 +40,5 @@ export const ProfilePage = () => {
         />
       </div>
     </PageLayout>
-  )
+  );
 }

@@ -1,1 +1,1 @@
-export { QuizCompleted } from './quiz-completed'
+export { QuizCompleted } from './quiz-completed';

@@ -1,1 +1,1 @@
-export { RotationAlert } from './RotationAlert.tsx'
+export { RotationAlert } from './RotationAlert.tsx';

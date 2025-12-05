@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { updateSessionTime } from "../api/update-session-time";
+import { useEffect } from 'react';
+import { updateSessionTime } from '../api/update-session-time';
 
-const SECONDS = 10
+const SECONDS = 10;
 
 export const useQuizSessionTimer = (sessionId) => {
   useEffect(() => {
@@ -15,4 +15,4 @@ export const useQuizSessionTimer = (sessionId) => {
       clearInterval(intervalId);
     };
   }, [sessionId]);
-}
+};

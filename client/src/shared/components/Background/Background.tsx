@@ -1,5 +1,5 @@
-import styles from './Background.module.css'
-import clsx from "clsx";
+import styles from './Background.module.css';
+import clsx from 'clsx';
 
 export const Background = ({ absolute }: { absolute?: boolean }) => {
   return (
@@ -8,5 +8,5 @@ export const Background = ({ absolute }: { absolute?: boolean }) => {
       <span className={styles.shadow2} />
       <span className={styles.shadow3} />
     </div>
-  )
-}
+  );
+};

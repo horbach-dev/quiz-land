@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react";
-import type { TQuiz, TQuizAnswer } from "@/shared/types/quiz";
-import { useQuizSessionQuery } from "../services/useQuizSessionQuery";
-import { useCompleteSessionMutation } from "../services/useCompleteSessionMutation";
-import { useSubmitAnswerMutation } from "../services/useSubmitAnswerMutation";
-import { useQuizSessionNavigation } from "../hooks/useQuizSessionNavigation";
-import { QuizSessionTimer } from "./quiz-session-timer";
+import { useEffect, useRef, useState } from 'react';
+import type { TQuiz, TQuizAnswer } from '@/shared/types/quiz';
+import { useQuizSessionQuery } from '../services/useQuizSessionQuery';
+import { useCompleteSessionMutation } from '../services/useCompleteSessionMutation';
+import { useSubmitAnswerMutation } from '../services/useSubmitAnswerMutation';
+import { useQuizSessionNavigation } from '../hooks/useQuizSessionNavigation';
+import { QuizSessionTimer } from './quiz-session-timer';
 import { Progress } from './Progress';
 import { QuizSessionStep } from './quiz-session-step';
-import { QuizFooter } from "./QuizFooter";
-import styles from './quiz-session.module.css'
+import { QuizFooter } from './QuizFooter';
+import styles from './quiz-session.module.css';
 
 const getDoneAnswers = (answers: TQuizAnswer[]) => {
   const serverAnswers: TAnswers = {};
@@ -23,52 +23,52 @@ const getDoneAnswers = (answers: TQuizAnswer[]) => {
     return serverAnswers;
   }
 
-  return serverAnswers
-}
+  return serverAnswers;
+};
 
-type TAnswers = Record<string, string | null>
+type TAnswers = Record<string, string | null>;
 
 interface IProps {
-  quizData: TQuiz
-  setScreen: (screen: 'main' | 'finish') => void
+  quizData: TQuiz;
+  setScreen: (screen: 'main' | 'finish') => void;
 }
 
-export function QuizSession ({ quizData, setScreen }: IProps) {
-  const { data } = useQuizSessionQuery(quizData.id)
-  const { submitAnswer } = useSubmitAnswerMutation()
-  const { completeSession } = useCompleteSessionMutation(quizData.id)
+export function QuizSession({ quizData, setScreen }: IProps) {
+  const { data } = useQuizSessionQuery(quizData.id);
+  const { submitAnswer } = useSubmitAnswerMutation();
+  const { completeSession } = useCompleteSessionMutation(quizData.id);
   const timeSpent = useRef<number>(data?.session?.timeSpentSeconds || 0);
   const [answers, setAnswers] = useState<TAnswers | []>([]);
-  const session = data?.session
-  const quizQuestions = quizData.questions
+  const session = data?.session;
+  const quizQuestions = quizData.questions;
 
   const initialStepIndex = data?.nextQuestionId
-    ? quizQuestions.findIndex(q => q.id === data?.nextQuestionId)
+    ? quizQuestions.findIndex((q) => q.id === data?.nextQuestionId)
     : 0;
 
-  const initialStep = (initialStepIndex === -1 || initialStepIndex === undefined) ? 0 : initialStepIndex;
+  const initialStep =
+    initialStepIndex === -1 || initialStepIndex === undefined
+      ? 0
+      : initialStepIndex;
 
   useEffect(() => {
     if (session?.userAnswers) {
-      const answers = getDoneAnswers(session?.userAnswers)
+      const answers = getDoneAnswers(session?.userAnswers);
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setAnswers(answers);
     }
-  }, [session?.userAnswers])
+  }, [session?.userAnswers]);
 
-  const {
-    step,
-    isHide,
-    goToNextStep,
-    goToPrevStep
-  } = useQuizSessionNavigation({ initialStep, totalSteps: quizQuestions.length });
+  const { step, isHide, goToNextStep, goToPrevStep } = useQuizSessionNavigation(
+    { initialStep, totalSteps: quizQuestions.length },
+  );
 
-  const currentQuestion = quizQuestions[step]
+  const currentQuestion = quizQuestions[step];
 
-  if (!currentQuestion || !session) return null
+  if (!currentQuestion || !session) return null;
 
   const handleSetAnswer = async (value: string) => {
-    if (!session) return
+    if (!session) return;
 
     try {
       await submitAnswer({
@@ -76,25 +76,25 @@ export function QuizSession ({ quizData, setScreen }: IProps) {
         questionId: currentQuestion.id,
         submittedOptionIds: [value],
         timeSpentSeconds: timeSpent.current,
-      })
+      });
 
       if (step + 1 === quizQuestions.length) {
         completeSession(session.id).then(() => {
-          setScreen('finish')
+          setScreen('finish');
         });
       } else {
-        goToNextStep()
-        setAnswers(prevAnswers => ({
+        goToNextStep();
+        setAnswers((prevAnswers) => ({
           ...prevAnswers,
-          [currentQuestion.id]: value
+          [currentQuestion.id]: value,
         }));
       }
     } catch (error) {
-      console.error('Не удалось отправить ответ', error)
+      console.error('Не удалось отправить ответ', error);
     }
-  }
+  };
 
-  const currentAnswer = answers[currentQuestion.id]
+  const currentAnswer = answers[currentQuestion.id];
 
   return (
     <div className={styles.container}>
@@ -111,11 +111,7 @@ export function QuizSession ({ quizData, setScreen }: IProps) {
           question={currentQuestion}
         />
       </div>
-      <QuizFooter
-        isDone={false}
-        disabled={step === 0}
-        onClick={goToPrevStep}
-      />
+      <QuizFooter isDone={false} disabled={step === 0} onClick={goToPrevStep} />
     </div>
-  )
+  );
 }

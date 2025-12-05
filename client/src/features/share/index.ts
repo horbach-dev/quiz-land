@@ -1,1 +1,1 @@
-export { ShareAppButton } from './ui/share-app-button'
+export { ShareAppButton } from './ui/share-app-button';

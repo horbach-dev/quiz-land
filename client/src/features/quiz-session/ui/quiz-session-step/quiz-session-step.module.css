@@ -1,24 +1,26 @@
 .container {
-    width: 100%;
-    opacity: 1;
-    color: #ffffff;
-    transform: scale(1);
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  width: 100%;
+  opacity: 1;
+  color: #ffffff;
+  transform: scale(1);
+  transition:
+    opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
 }
 
 .title {
-    margin-bottom: 2rem;
-    font-size: var(--default-padding);
-    font-weight: 900;
+  margin-bottom: 2rem;
+  font-size: var(--default-padding);
+  font-weight: 900;
 }
 
 .hide {
-    transform: scale(0.95);
-    opacity: 0;
-    user-select: none;
-    pointer-events: none;
+  transform: scale(0.95);
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
 }
 
 .disabled {
-    user-select: none;
+  user-select: none;
 }

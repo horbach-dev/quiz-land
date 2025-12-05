@@ -1,1 +1,1 @@
-export { QuizSessionTimer } from './quiz-session-timer'
+export { QuizSessionTimer } from './quiz-session-timer';

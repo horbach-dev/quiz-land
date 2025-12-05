@@ -1,20 +1,25 @@
-import { api } from "@/shared/api";
-import type { AxiosProgressEvent, GenericAbortSignal } from "axios";
+import { api } from '@/shared/api';
+import type { AxiosProgressEvent, GenericAbortSignal } from 'axios';
 
 type TOptions = {
-  signal?: GenericAbortSignal
+  signal?: GenericAbortSignal;
   onProgress?: (progress: number) => void;
-}
+};
 
-export const uploadQuizImage = async (formData: FormData, { signal, onProgress }: TOptions) => {
+export const uploadQuizImage = async (
+  formData: FormData,
+  { signal, onProgress }: TOptions,
+) => {
   const response = await api.post('/files', formData, {
     signal,
     onUploadProgress: (progressEvent: AxiosProgressEvent) => {
       if (onProgress && progressEvent.total) {
-        onProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
+        onProgress(
+          Math.round((progressEvent.loaded * 100) / progressEvent.total),
+        );
       }
     },
-    headers: { 'Content-Type': 'multipart/form-data' }
+    headers: { 'Content-Type': 'multipart/form-data' },
   });
   return response?.data;
-}
+};

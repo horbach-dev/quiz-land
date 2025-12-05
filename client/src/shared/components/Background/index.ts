@@ -1,1 +1,1 @@
-export { Background } from './Background.tsx'
+export { Background } from './Background.tsx';

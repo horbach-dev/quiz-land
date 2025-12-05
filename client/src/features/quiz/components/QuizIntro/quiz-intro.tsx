@@ -1,11 +1,11 @@
-import { shareURL } from "@tma.js/sdk-react";
-import { Play, Share, RotateCcw } from "lucide-react";
-import { APP_URL } from "@/shared/constants";
-import { LazyImage } from "@/shared/components/LazyImage";
-import { Button } from "@/shared/components/Button";
-import type { TQuiz, TQuizSession } from "@/shared/types/quiz";
-import { QuizIntroSkeleton } from "./quiz-intro-skeleton";
-import styles from "./quiz-intro.module.css";
+import { shareURL } from '@tma.js/sdk-react';
+import { Play, Share, RotateCcw } from 'lucide-react';
+import { APP_URL } from '@/shared/constants';
+import { LazyImage } from '@/shared/components/LazyImage';
+import { Button } from '@/shared/components/Button';
+import type { TQuiz, TQuizSession } from '@/shared/types/quiz';
+import { QuizIntroSkeleton } from './quiz-intro-skeleton';
+import styles from './quiz-intro.module.css';
 
 interface IProps {
   quizData: TQuiz | undefined;
@@ -22,24 +22,22 @@ export const QuizIntro = ({
   setScreen,
 }: IProps) => {
   const handleShare = () => {
-    shareURL(`${APP_URL}?startapp=${quizData?.id}`, `Пройди квиз: ${quizData?.title}`);
-  }
+    shareURL(
+      `${APP_URL}?startapp=${quizData?.id}`,
+      `Пройди квиз: ${quizData?.title}`,
+    );
+  };
 
   const handleStartSession = () => {
-    startSession().then(() => setScreen('session'))
-  }
+    startSession().then(() => setScreen('session'));
+  };
 
   return (
     <div className={styles.container}>
-      <LazyImage
-        image={quizData?.poster}
-        title={quizData?.title}
-      />
+      <LazyImage image={quizData?.poster} title={quizData?.title} />
       {quizData ? (
         <>
-          <p className={styles.title}>
-            {quizData?.title}
-          </p>
+          <p className={styles.title}>{quizData?.title}</p>
           {quizData?.hasActiveSession && (
             <Button
               loading={isSessionLoading}
@@ -60,17 +58,11 @@ export const QuizIntro = ({
                 Начать заново
               </Button>
             ) : (
-              <Button
-                onClick={handleStartSession}
-                after={<Play />}
-              >
+              <Button onClick={handleStartSession} after={<Play />}>
                 Начать
               </Button>
             )}
-            <Button
-              onClick={handleShare}
-              after={<Share />}
-            >
+            <Button onClick={handleShare} after={<Share />}>
               Поделиться
             </Button>
           </div>
@@ -84,5 +76,5 @@ export const QuizIntro = ({
         <QuizIntroSkeleton />
       )}
     </div>
-  )
-}
+  );
+};

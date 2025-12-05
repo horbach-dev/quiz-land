@@ -1,5 +1,5 @@
-import {useMutation, useQueryClient} from "@tanstack/react-query";
-import { createQuiz } from "../api/create-quiz";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createQuiz } from '../api/create-quiz';
 
 export const useCreateQuizMutation = () => {
   const queryClient = useQueryClient();
@@ -7,7 +7,9 @@ export const useCreateQuizMutation = () => {
   return useMutation({
     mutationFn: createQuiz,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['getQuizList', { type: 'my' }] });
+      queryClient.invalidateQueries({
+        queryKey: ['getQuizList', { type: 'my' }],
+      });
     },
-  })
-}
+  });
+};

@@ -1,12 +1,10 @@
-import clsx from "clsx";
-import styles from "./quiz-intro.module.css";
+import clsx from 'clsx';
+import styles from './quiz-intro.module.css';
 
 export const QuizIntroSkeleton = () => {
   return (
     <>
-      <div className={clsx(styles.title, styles.skeletonLine)}>
-        Loading...
-      </div>
+      <div className={clsx(styles.title, styles.skeletonLine)}>Loading...</div>
       <div className={clsx(styles.actions, styles.skeletonActions)}>
         <div className={styles.skeletonLine}></div>
         <div className={styles.skeletonLine}></div>
@@ -19,5 +17,5 @@ export const QuizIntroSkeleton = () => {
         <div className={styles.skeletonLine}></div>
       </div>
     </>
-  )
-}
+  );
+};

@@ -1,1 +1,1 @@
-export { CreateQuizForm } from './create-quiz-form'
+export { CreateQuizForm } from './create-quiz-form';

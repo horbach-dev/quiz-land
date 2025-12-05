@@ -1,82 +1,81 @@
 .uploadInput {
-    position: relative;
-    width: 100%;
-
+  position: relative;
+  width: 100%;
 }
 
 .uploadInputContent {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    min-height: 7rem;
-    border-radius: 0.8rem;
-    border: 0.1rem dashed rgba(255,255,255,0.7);
-    overflow: hidden;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 7rem;
+  border-radius: 0.8rem;
+  border: 0.1rem dashed rgba(255, 255, 255, 0.7);
+  overflow: hidden;
 }
 
 .uploadInput input {
-    position: absolute;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
 }
 
 .uploadInputPreview {
-    position: absolute;
-    z-index: 5;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .uploadInputIcon {
-    width: 2rem;
-    height: 2rem;
+  width: 2rem;
+  height: 2rem;
 }
 
 .uploadInputPreview p {
-    margin-top: 1rem;
-    font-size: 0.8rem;
+  margin-top: 1rem;
+  font-size: 0.8rem;
 }
 
 .uploadInputImage {
-    position: relative;
-    z-index: 15;
+  position: relative;
+  z-index: 15;
 }
 
 .uploadInputProgress {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(1,1,1,0.3);
-    z-index: 20;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(1, 1, 1, 0.3);
+  z-index: 20;
 }
 
 .uploadInputProgress span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 100%;
-    z-index: 15;
-    transition: width 0.5s;
-    background-color: rgba(255,255,255,0.25);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  z-index: 15;
+  transition: width 0.5s;
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
 .uploadInputDelete {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }

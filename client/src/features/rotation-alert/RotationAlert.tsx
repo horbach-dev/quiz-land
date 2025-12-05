@@ -1,5 +1,5 @@
-import { createPortal } from "react-dom";
-import { useWindowSize } from "@/shared/hooks/useWindowSize.ts";
+import { createPortal } from 'react-dom';
+import { useWindowSize } from '@/shared/hooks/useWindowSize.ts';
 import styles from './RotationAlert.module.css';
 
 const portalRoot = document.getElementById('modals')!;
@@ -13,8 +13,10 @@ export const RotationAlert = () => {
 
   return createPortal(
     <div className={styles.container}>
-      <p>Пожалуйста <br/> поверните устройство</p>
+      <p>
+        Пожалуйста <br /> поверните устройство
+      </p>
     </div>,
-    portalRoot
-  )
-}
+    portalRoot,
+  );
+};

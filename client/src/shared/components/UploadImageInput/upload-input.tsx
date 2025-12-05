@@ -1,17 +1,17 @@
-import {type ChangeEvent, useRef, useState} from "react";
-import styles from './upload-input.module.css'
-import {Images, Trash2} from "lucide-react";
-import {Button} from "@/shared/components/Button";
+import { type ChangeEvent, useRef, useState } from 'react';
+import styles from './upload-input.module.css';
+import { Images, Trash2 } from 'lucide-react';
+import { Button } from '@/shared/components/Button';
 
 interface IProps {
-  id?: string
-  name?: string
-  onDelete?: () => void
+  id?: string;
+  name?: string;
+  onDelete?: () => void;
   onChange: (
     file: File,
     onProgress: (value: number) => void,
-    onLoaded: () => void
-  ) => void
+    onLoaded: () => void,
+  ) => void;
 }
 
 export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
@@ -20,30 +20,30 @@ export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
   const [progress, setProgress] = useState<number | null>(0);
 
   const handleDelete = () => {
-    if (inputRef.current?.value) inputRef.current.value = ''
-    setImage(null)
-    setProgress(0)
-    onDelete?.()
-  }
+    if (inputRef.current?.value) inputRef.current.value = '';
+    setImage(null);
+    setProgress(0);
+    onDelete?.();
+  };
 
   const onLoaded = () => {
-    setProgress(0)
-  }
+    setProgress(0);
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setProgress(0)
-    const file = e.target.files?.[0]
-    const reader = new FileReader()
+    setProgress(0);
+    const file = e.target.files?.[0];
+    const reader = new FileReader();
 
     if (file) {
-      reader.onload = function(e) {
-        if (e.target?.result) setImage(e.target.result)
+      reader.onload = function (e) {
+        if (e.target?.result) setImage(e.target.result);
       };
 
       reader.readAsDataURL(file);
-      onChange(file, setProgress, onLoaded)
+      onChange(file, setProgress, onLoaded);
     }
-  }
+  };
 
   return (
     <div className={styles.uploadInput}>
@@ -81,7 +81,7 @@ export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
 
       {image && (
         <Button
-          size='sm'
+          size="sm"
           after={<Trash2 />}
           className={styles.uploadInputDelete}
           onClick={handleDelete}
@@ -90,5 +90,5 @@ export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
         </Button>
       )}
     </div>
-  )
-}
+  );
+};

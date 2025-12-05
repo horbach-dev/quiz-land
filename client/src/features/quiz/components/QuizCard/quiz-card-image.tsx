@@ -1,8 +1,8 @@
-import {useState} from "react";
-import clsx from "clsx";
-import styles from './quiz-card.module.css'
+import { useState } from 'react';
+import clsx from 'clsx';
+import styles from './quiz-card.module.css';
 
-const loadedImages = new Set()
+const loadedImages = new Set();
 
 export const QuizCardImage = ({ title, image }) => {
   const [isLoading, setIsLoading] = useState(!loadedImages.has(image));
@@ -12,13 +12,13 @@ export const QuizCardImage = ({ title, image }) => {
       <img
         alt={title}
         src={image}
-        loading='lazy'
+        loading="lazy"
         onLoad={() => {
           loadedImages.add(image);
-          setIsLoading(false)
+          setIsLoading(false);
         }}
         onError={() => setIsLoading(false)}
       />
     </div>
-  )
-}
+  );
+};

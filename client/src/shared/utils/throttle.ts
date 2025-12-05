@@ -1,15 +1,15 @@
 export const throttle = (fn, delay = 500) => {
-  let canCall = true
+  let canCall = true;
 
   return (...args) => {
     if (canCall) {
-      fn(...args)
-      canCall = false
+      fn(...args);
+      canCall = false;
 
       setTimeout(() => {
-        canCall = true
-        fn(...args)
-      }, delay)
+        canCall = true;
+        fn(...args);
+      }, delay);
     }
-  }
-}
+  };
+};

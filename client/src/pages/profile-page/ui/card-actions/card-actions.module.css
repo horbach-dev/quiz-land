@@ -1,6 +1,6 @@
 .cardActions {
-    display: flex;
-    gap: 0.7rem;
-    justify-content: flex-end;
-    margin-top: 0.7rem;
+  display: flex;
+  gap: 0.7rem;
+  justify-content: flex-end;
+  margin-top: 0.7rem;
 }
