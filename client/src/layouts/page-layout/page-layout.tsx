@@ -1,8 +1,8 @@
 import { backButton } from '@tma.js/sdk-react';
 import { type PropsWithChildren, useEffect } from 'react';
 import clsx from "clsx";
-import { useAppConfigStore } from "@/shared/config/store.ts";
-import { navigateTo } from "@/shared/utils/navigateTo.ts";
+import { useAppStore } from "@/shared/store";
+import { navigateTo } from "@/shared/utils/navigateTo";
 import styles from './page-layout.module.css'
 
 interface IProps {
@@ -20,7 +20,7 @@ export function PageLayout({
   withNavigation = true,
   className
 }: PropsWithChildren<IProps>) {
-  const setNavigationVisible = useAppConfigStore(state => state.setNavigationVisible)
+  const setNavigationVisible = useAppStore(state => state.setNavigationVisible)
 
   useEffect(() => {
     setNavigationVisible(withNavigation)

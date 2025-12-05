@@ -1,1 +1,0 @@
-import{j as t,i as a}from"./index-B7p0B3Mk.js";const i="_container_aczj3_1",o="_title_aczj3_9",r="_actions_aczj3_14",s={container:i,title:o,actions:r},_=({title:n,actions:c,className:e})=>t.jsxs("div",{className:a(s.container,e),children:[t.jsx("p",{className:s.title,children:n}),c&&t.jsx("div",{className:s.actions,children:c})]});export{_ as S};

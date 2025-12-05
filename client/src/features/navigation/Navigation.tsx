@@ -1,22 +1,16 @@
 import { useLocation } from "react-router-dom";
 import { useLayoutEffect, useRef } from "react";
-import { Home, CircleCheckBig, User } from "lucide-react";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import clsx from "clsx";
-import { useAppConfigStore } from "@/shared/config/store.ts";
-import { navigateTo } from "@/shared/utils/navigateTo.ts";
+import { useAppStore } from "@/shared/store";
+import { navigateTo } from "@/shared/utils/navigateTo";
+import { NAVIGATION_ITEMS } from "./config";
 import styles from './Navigation.module.css';
-
-const items = [
-  { id: 1, title: 'navigation.main', icon: Home, link: '/' },
-  { id: 2, title: 'navigation.quizzes', icon: CircleCheckBig, link: '/quizzes' },
-  { id: 3, title: 'navigation.profile', icon: User, link: '/profile' },
-]
 
 export const Navigation = () => {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
-  const isNavigationVisible = useAppConfigStore(store => store.isNavigationVisible)
+  const isNavigationVisible = useAppStore(store => store.isNavigationVisible)
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
@@ -31,7 +25,7 @@ export const Navigation = () => {
   return (
     <div className={clsx(styles.container, !isNavigationVisible && styles.hide)}>
       <div ref={containerRef} className={styles.list}>
-        {items.map(({ id, link, title, icon: Icon }) => {
+        {NAVIGATION_ITEMS.map(({ id, link, title, icon: Icon }) => {
           const active = pathname.includes(link) && link !== '/' || pathname === link;
           return (
             <button

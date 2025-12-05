@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
-import { PageLayout } from "@/layouts/page-layout";
-import { useQuizQuery } from "@/features/quiz/services/useQuizQuery";
 import { useState } from "react";
-import { QuizIntro } from "@/features/quiz/quiz-intro";
-import { QuizSession } from "@/features/quiz/quiz-session";
-import { QuizCompleted } from "@/features/quiz/quiz-completed";
-import styles from './quiz-page.module.css'
 import clsx from "clsx";
+import { PageLayout } from "@/layouts/page-layout";
+import { QuizSession } from "@/features/quiz-session";
+import { useQuizQuery } from "@/features/quiz/services/useQuizQuery";
+import { useQuizSessionQuery } from "@/features/quiz-session/services/useQuizSessionQuery";
+import { QuizIntro } from "@/features/quiz/components/QuizIntro";
+import { QuizCompleted } from "@/features/quiz/components/QuizCompleted";
+import styles from './quiz-page.module.css'
 
 const SCREENS = {
   main: QuizIntro,
@@ -19,6 +20,10 @@ export const QuizPage = () => {
   const [screen, setScreen] = useState('main')
   const { id } = useParams()
   const { data } = useQuizQuery(id!)
+  const {
+    refetch: startSession,
+    isLoading: isSessionLoading
+  } = useQuizSessionQuery(id!)
 
   const handleSetScreen = (screen: string) => {
     setIsTransition(true)
@@ -29,7 +34,6 @@ export const QuizPage = () => {
   }
 
   const handleSessionBack = () => handleSetScreen('main')
-
   const CurrentScreen = SCREENS[screen]
 
   return (
@@ -40,6 +44,8 @@ export const QuizPage = () => {
       <div className={clsx(styles.container, isTransition && styles.containerTransition)}>
         <CurrentScreen
           quizData={data}
+          startSession={startSession}
+          isSessionLoading={isSessionLoading}
           setScreen={handleSetScreen}
         />
       </div>

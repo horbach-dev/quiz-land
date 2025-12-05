@@ -1,7 +1,7 @@
 import { useState, type AnimationEvent } from "react";
-import { useAppConfigStore } from "@/shared/config/store.ts";
 import clsx from "clsx";
 import { ArrowLeft, ArrowDown, ChevronsRight } from "lucide-react";
+import { useAppStore } from "@/shared/store";
 import { IntroSliderContent } from "./IntroSliderContent.tsx";
 import { IntroSliderTrack } from "./IntroSliderTrack.tsx";
 import { slides } from "./config.ts";
@@ -10,7 +10,7 @@ import styles from "./IntroSlider.module.css";
 export const IntroSlider = () => {
   const [isClose, setIsClose] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const setShowIntro = useAppConfigStore(state => state.setShowIntro);
+  const setShowIntro = useAppStore(state => state.setShowIntro);
 
   const handleNext = () => {
     setCurrentSlide(prevSlide => {

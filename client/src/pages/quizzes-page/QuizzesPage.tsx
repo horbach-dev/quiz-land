@@ -1,12 +1,12 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BASE_URL } from "@/shared/constants";
+import { useAppStore } from "@/shared/store";
 import { PageLayout } from "@/layouts/page-layout";
-import { QuizList } from "@/features/quiz/quiz-list";
+import { QuizList } from "@/features/quiz/components/QuizList";
 import { QuizzesPageHeader } from "./ui/quizzes-page-header";
 import { QuizzesPageFilter } from "./ui/quizzes-page-filter";
 import { useQuizListQuery} from "@/features/quiz/services/useQuizListQuery";
-import { QuizCard } from "@/features/quiz/quiz-card";
+import { QuizCard } from "@/features/quiz/components/QuizCard";
 import { TabBar } from "@/shared/components/TabBar";
 import styles from './QuizzesPage.module.css'
 
@@ -14,7 +14,7 @@ const tabOptions = [
   { label: "quizzes_page.tab.public", value: "public" },
   { label: "quizzes_page.tab.my", value: "my" },
   { label: "quizzes_page.tab.shared", value: "shared" },
-];
+]
 
 type TQuizListParams = {
   type: 'shared' | 'my' | 'public'
@@ -22,8 +22,9 @@ type TQuizListParams = {
 
 export default function QuizzesPage () {
   const { t } = useTranslation();
-  const [params, setParams] = useState<TQuizListParams>({ type: 'public' });
-  const { isLoading, data } = useQuizListQuery(params)
+  const quizActiveTab = useAppStore(store => store.quizActiveTab)
+  const setQuizActiveTab = useAppStore(store => store.setQuizActiveTab)
+  const { isLoading, data } = useQuizListQuery({ type: quizActiveTab })
 
   return (
     <PageLayout>
@@ -34,11 +35,9 @@ export default function QuizzesPage () {
       <div className={styles.container}>
         <div className={styles.tabBar}>
           <TabBar
-            value={params.type}
+            value={quizActiveTab}
             options={tabOptions}
-            onChange={(value) => {
-              setParams(prev => ({ ...prev, type: value as TQuizListParams['type'] }))
-            }}
+            onChange={v => setQuizActiveTab(v as TQuizListParams['type'])}
           />
         </div>
         <QuizList

@@ -1,1 +1,1 @@
-export { SwipeRedirect } from './ui/swipe-redirect.tsx'
+export { SwipeRedirect } from './ui/swipe-redirect'
