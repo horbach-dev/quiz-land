@@ -4,27 +4,29 @@ import { Play, RotateCcw, Share } from 'lucide-react';
 import { Button } from '@/shared/components/Button';
 import { LazyImage } from '@/shared/components/LazyImage';
 import { APP_URL } from '@/shared/constants';
-import type { TQuiz, TQuizSession } from '@/shared/types/quiz';
+import type { TQuiz } from '@/shared/types/quiz';
 
 import styles from './quiz-intro.module.css';
 import { QuizIntroSkeleton } from './quiz-intro-skeleton';
 
 interface IProps {
   quizData: TQuiz | undefined;
-  isSessionLoading: boolean;
-  sessionData: TQuizSession | undefined;
-  startSession: () => Promise<void>;
-  setScreen: (value: 'main' | 'session' | 'finish') => void;
+  isLoadingStart: boolean;
+  isLoadingRestart: boolean;
+  onStartSession: (restart?: boolean) => void;
 }
 
-export const QuizIntro = ({ quizData, startSession, isSessionLoading, setScreen }: IProps) => {
+export const QuizIntro = ({
+  quizData,
+  onStartSession,
+  isLoadingStart,
+  isLoadingRestart,
+}: IProps) => {
   const handleShare = () => {
-    shareURL(`${APP_URL}?startapp=${quizData?.id}`, `Пройди квиз: ${quizData?.title}`);
+    shareURL(`${APP_URL}?startapp=${quizData?.id}`, `Пройди тест: ${quizData?.title}`);
   };
 
-  const handleStartSession = () => {
-    startSession().then(() => setScreen('session'));
-  };
+  const disabled = isLoadingStart || isLoadingRestart;
 
   return (
     <div className={styles.container}>
@@ -32,27 +34,40 @@ export const QuizIntro = ({ quizData, startSession, isSessionLoading, setScreen 
       {quizData ? (
         <>
           <p className={styles.title}>{quizData?.title}</p>
+
           {quizData?.hasActiveSession && (
             <Button
-              loading={isSessionLoading}
+              disabled={disabled}
+              loading={isLoadingStart}
               className={styles.resumeButton}
-              onClick={handleStartSession}
+              onClick={() => onStartSession()}
               after={<Play />}
             >
               Продолжить
             </Button>
           )}
+
           <div className={styles.actions}>
             {quizData?.hasActiveSession ? (
-              <Button loading={isSessionLoading} onClick={handleStartSession} after={<RotateCcw />}>
+              <Button
+                disabled={disabled}
+                loading={isLoadingRestart}
+                onClick={() => onStartSession(true)}
+                after={<RotateCcw />}
+              >
                 Начать заново
               </Button>
             ) : (
-              <Button onClick={handleStartSession} after={<Play />}>
+              <Button
+                disabled={disabled}
+                loading={isLoadingStart}
+                onClick={() => onStartSession()}
+                after={<Play />}
+              >
                 Начать
               </Button>
             )}
-            <Button onClick={handleShare} after={<Share />}>
+            <Button disabled={disabled} onClick={handleShare} after={<Share />}>
               Поделиться
             </Button>
           </div>

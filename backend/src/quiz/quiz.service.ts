@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { existsSync, mkdirSync, renameSync } from 'fs';
 import path from 'path';
 import { v4 as uuid } from 'uuid';
-import {QuizType, SessionStatus} from '@prisma/client';
+import { QuizType, SessionStatus } from '@prisma/client';
 import { FilesService } from '../files/files.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { PrismaService } from '../prisma.service';

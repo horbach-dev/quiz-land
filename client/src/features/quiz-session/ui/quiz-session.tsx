@@ -20,6 +20,7 @@ interface IProps {
 }
 
 export function QuizSession({ quizData, setScreen }: IProps) {
+  console.log(quizData);
   const { data } = useQuizSessionQuery(quizData.id);
   const { submitAnswer } = useSubmitAnswerMutation();
   const { completeSession } = useCompleteSessionMutation(quizData.id);
@@ -68,16 +69,12 @@ export function QuizSession({ quizData, setScreen }: IProps) {
       });
 
       if (step + 1 === quizQuestions.length) {
-        completeSession(session.id).then(() => {
-          setScreen('finish');
-        });
-      } else {
-        goToNextStep();
-        setAnswers((prevAnswers) => ({
-          ...prevAnswers,
-          [currentQuestion.id]: value,
-        }));
+        completeSession(session.id).then(() => setScreen('finish'));
+        return;
       }
+
+      setAnswers((prevAnswers) => ({ ...prevAnswers, [currentQuestion.id]: value }));
+      goToNextStep();
     } catch (error) {
       console.error('Не удалось отправить ответ', error);
     }

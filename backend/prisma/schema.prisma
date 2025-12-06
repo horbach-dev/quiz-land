@@ -91,7 +91,7 @@ model QuestionOption {
   weight     Float?   @map("weight")
   questionId String   @map("question_id")
   quizId     String   @map("quiz_id")
-  question   Question @relation(fields: [questionId], references: [id])
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   @@map("question_option")
 }
@@ -99,7 +99,7 @@ model QuestionOption {
 model UserAnswer {
   id                  String      @id @default(uuid()) @map("_id")
   sessionId           String      @map("session_id")
-  session             QuizSession @relation(fields: [sessionId], references: [id])
+  session             QuizSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
   questionId          String      @map("question_id")
   question            Question    @relation(fields: [questionId], references: [id])
   submittedAnswerText String?     @map("submitted_answer_text")

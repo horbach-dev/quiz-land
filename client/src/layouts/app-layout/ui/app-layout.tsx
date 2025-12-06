@@ -12,9 +12,6 @@ import styles from './app-layout.module.css';
 export const AppLayout = () => {
   const { pathname } = useRouteListener();
   const { isMobile } = useViewportSettings();
-
-  console.log('roue');
-
   return (
     <>
       <Background />

@@ -2,7 +2,7 @@ import {
   SessionStatus,
   ScoringAlgorithm,
   UserAnswer,
-  // QuizSession,
+  Prisma,
 } from '@prisma/client';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { QuestionContext, QuizScoringStrategy } from './scoring/types';
@@ -11,6 +11,7 @@ import { PartialScoring } from './scoring/partial-scoring';
 import { WeightedScoring } from './scoring/weight-scoring';
 import { PrismaService } from '../prisma.service';
 import { SubmitAnswerDto } from './dto/submit-answer.dto';
+import { QuizSessionRepository } from './quiz-session.repository';
 
 // interface SessionStateResult {
 //   session: QuizSession;
@@ -20,7 +21,10 @@ import { SubmitAnswerDto } from './dto/submit-answer.dto';
 
 @Injectable()
 export class QuizSessionService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private repository: QuizSessionRepository,
+  ) {}
 
   // Доступные стратегий подсчета баллов
   private scoringStrategies: Record<ScoringAlgorithm, QuizScoringStrategy> = {
@@ -42,23 +46,23 @@ export class QuizSessionService {
     });
   }
 
-  async getSessionState(userId: string, quizId: string) {
-    // Ищем активную сессию с уже данными ответами
-    const existingSession = await this.prisma.quizSession.findFirst({
-      where: {
-        userId,
-        quizId,
-        status: SessionStatus.IN_PROGRESS,
-      },
-      orderBy: { startedAt: 'desc' },
-      include: { userAnswers: true },
-    });
+  async startSession(userId: string, quizId: string, restart: boolean) {
+    let existingSession: Prisma.QuizSessionGetPayload<{
+      include: { userAnswers: true };
+    }> | null = null;
+
+    if (restart) {
+      // Удаляем все активные сессии пользователя для этого квиза
+      await this.repository.deleteSession(userId, quizId);
+    } else {
+      // Ищем активную сессию с уже данными ответами
+      existingSession = await this.repository.findActiveSession(userId, quizId);
+    }
 
     if (existingSession) {
-      // Сессия найдена, определяем следующий вопрос
-      const answeredQuestionIds = existingSession.userAnswers.map(
-        (ua) => ua.questionId,
-      );
+      // Сессия найдена (и это не был restart), возобновляем
+      const answeredQuestionIds = existingSession.userAnswers?.map((ua) => ua.questionId);
+
       const nextQuestion = await this.findNextUnansweredQuestion(
         quizId,
         answeredQuestionIds,
@@ -67,32 +71,22 @@ export class QuizSessionService {
       return {
         session: existingSession,
         status: 'resumed',
-        nextQuestionId: nextQuestion?.id || null, // Если nextQuestion нет, значит, квиз закончен
+        nextQuestionId: nextQuestion?.id || null,
       };
     }
 
-    // Если сессии нет, создаем новую
-    const quiz = await this.prisma.quiz.findUnique({
-      where: { id: quizId },
-      include: { questions: { orderBy: { order: 'asc' } } }, // Загружаем вопросы сразу
-    });
+    // Если сессии нет (либо не найдена, либо удалена при рестарте), создаем новую
+
+    const quiz = await this.repository.findQuiz(quizId);
 
     if (!quiz || quiz.questions.length === 0) {
       throw new BadRequestException('Квиз не найден или не содержит вопросов.');
     }
 
-    const newSession = await this.prisma.quizSession.create({
-      data: {
-        userId,
-        quizId,
-        startedAt: new Date(),
-        status: SessionStatus.IN_PROGRESS,
-      },
-      include: { questions: true },
-    });
+    const newSession = await this.repository.createSession(userId, quizId);
 
     // Для новой сессии следующий вопрос - это самый первый вопрос в списке
-    const firstQuestionId = quiz.questions[0].id;
+    const firstQuestionId = quiz.questions[0].id; // Доступ к id первого элемента
 
     return {
       session: newSession,
@@ -112,9 +106,7 @@ export class QuizSessionService {
     submittedAnswerText,
     timeSpentSeconds,
   }: SubmitAnswerDto) {
-    const session = await this.prisma.quizSession.findUnique({
-      where: { id: sessionId, status: SessionStatus.IN_PROGRESS },
-    });
+    const session = await this.repository.findSession(sessionId);
 
     if (!session) {
       throw new BadRequestException('Сессия не активна или не найдена.');
@@ -122,29 +114,14 @@ export class QuizSessionService {
 
     // TODO: Здесь должна быть проверка времени, если квиз ограничен по времени
 
-    await this.prisma.quizSession.update({
-      where: { id: sessionId },
-      data: { timeSpentSeconds },
-    });
+    await this.repository.updateSessionTime(sessionId, timeSpentSeconds);
 
-    return this.prisma.userAnswer.upsert({
-      where: {
-        sessionId_questionId: {
-          sessionId: sessionId,
-          questionId: questionId,
-        },
-      },
-      update: {
-        submittedOptionIds: submittedOptionIds,
-        submittedAnswerText: submittedAnswerText,
-      },
-      create: {
-        sessionId: sessionId,
-        questionId: questionId,
-        submittedOptionIds: submittedOptionIds,
-        submittedAnswerText: submittedAnswerText,
-      },
-    });
+    return this.repository.updateAnswer(
+      sessionId,
+      questionId,
+      submittedOptionIds,
+      submittedAnswerText,
+    );
   }
 
   /**
@@ -222,47 +199,6 @@ export class QuizSessionService {
 
     await Promise.all(updates);
 
-    // 2. Подсчет баллов за каждый ответ в цикле
-    // for (const userAnswer of session.userAnswers) {
-    //   // Получаем вопрос целиком с опциями, чтобы создать контекст для стратегии
-    //   const questionWithOptions = await this.prisma.question.findUnique({
-    //     where: { id: userAnswer.questionId },
-    //     include: { options: true }, // Загружаем все опции вопроса
-    //   });
-    //
-    //   if (!questionWithOptions) continue;
-    //
-    //   // Формируем объект контекста, соответствующий интерфейсу QuestionContext
-    //   const context: QuestionContext = {
-    //     id: questionWithOptions.id,
-    //     type: questionWithOptions.type,
-    //     options: questionWithOptions.options.map((opt) => ({
-    //       id: opt.id,
-    //       isCorrect: opt.isCorrect,
-    //       weight: opt.weight || null,
-    //     })),
-    //   };
-    //
-    //   // Применяем выбранную стратегию для вычисления результата конкретного вопроса
-    //   const score = scoringEngine.calculateScore(
-    //     userAnswer.submittedOptionIds,
-    //     context,
-    //   );
-    //
-    //   const isCorrect = scoringEngine.isCorrect(
-    //     userAnswer.submittedOptionIds,
-    //     context,
-    //   );
-    //
-    //   totalScore += score;
-    //
-    //   // Обновляем флаг isCorrect в UserAnswer в БД
-    //   await this.prisma.userAnswer.update({
-    //     where: { id: userAnswer.id },
-    //     data: { isCorrect },
-    //   });
-    // }
-
     // 3. Обновление сессии: статус, время, итоговый балл
     const completedAt = new Date();
 
@@ -284,10 +220,19 @@ export class QuizSessionService {
     };
   }
 
-  async updateSessionTime(sessionId: string, timeSpentSeconds: number) {
-    return this.prisma.quizSession.update({
-      where: { id: sessionId },
-      data: { timeSpentSeconds },
-    });
+  async updateSessionTime(data: { sessionId: string; seconds: number }) {
+    try {
+      if (!data.sessionId || typeof data.seconds !== 'number') {
+        throw new BadRequestException(
+          'Не правильно переданы параметры sessionId или seconds',
+        );
+      }
+
+      await this.repository.updateSessionTime(data.sessionId, data.seconds);
+      return true;
+    } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      throw new BadRequestException(e.message);
+    }
   }
 }

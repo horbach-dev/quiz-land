@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getSession } from '../api/start-session';
+import type { TResult } from '../api/start-session';
 
 export function useQuizSessionQuery(id: string) {
-  // const queryClient = useQueryClient();
-
-  return useQuery({
+  return useQuery<TResult>({
     queryKey: ['getSession', id],
-    queryFn: () => getSession(id),
     enabled: false,
+    queryFn: () =>
+      new Promise((resolve) => {
+        resolve({} as TResult);
+      }),
   });
 }

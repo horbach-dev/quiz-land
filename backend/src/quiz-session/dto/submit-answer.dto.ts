@@ -15,5 +15,5 @@ export class SubmitAnswerDto {
 
   @IsString()
   @IsOptional()
-  submittedAnswerText?: string | null;
+  submittedAnswerText?: string;
 }
