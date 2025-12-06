@@ -2,7 +2,8 @@ import {
   Injectable,
   CanActivate,
   ExecutionContext,
-  UnauthorizedException, Inject,
+  UnauthorizedException,
+  Inject,
 } from '@nestjs/common';
 import { type Cache } from 'cache-manager';
 import { Request } from 'express';

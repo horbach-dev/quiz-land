@@ -1,34 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 
-import type { TQuiz, TQuizAnswer } from '@/shared/types/quiz';
+import type { TQuiz } from '@/shared/types/quiz';
 
+import { updateSessionTime } from '../api/update-session-time';
 import { useQuizSessionNavigation } from '../hooks/useQuizSessionNavigation';
 import { useCompleteSessionMutation } from '../services/useCompleteSessionMutation';
 import { useQuizSessionQuery } from '../services/useQuizSessionQuery';
 import { useSubmitAnswerMutation } from '../services/useSubmitAnswerMutation';
+import { getDoneAnswers, getInitialStep } from '../utils';
 import { Progress } from './Progress';
 import styles from './quiz-session.module.css';
 import { QuizSessionStep } from './quiz-session-step';
 import { QuizSessionTimer } from './quiz-session-timer';
 import { QuizFooter } from './QuizFooter';
-
-const getDoneAnswers = (answers: TQuizAnswer[]) => {
-  const serverAnswers: TAnswers = {};
-
-  if (answers) {
-    answers.forEach((ua) => {
-      // Учитываем, что у нас пока single choice (value: submittedOptionIds[0])
-      if (ua.submittedOptionIds && ua.submittedOptionIds.length > 0) {
-        serverAnswers[ua.questionId] = ua.submittedOptionIds[0];
-      }
-    });
-    return serverAnswers;
-  }
-
-  return serverAnswers;
-};
-
-type TAnswers = Record<string, string | null>;
 
 interface IProps {
   quizData: TQuiz;
@@ -39,31 +23,34 @@ export function QuizSession({ quizData, setScreen }: IProps) {
   const { data } = useQuizSessionQuery(quizData.id);
   const { submitAnswer } = useSubmitAnswerMutation();
   const { completeSession } = useCompleteSessionMutation(quizData.id);
+
   const timeSpent = useRef<number>(data?.session?.timeSpentSeconds || 0);
-  const [answers, setAnswers] = useState<TAnswers | []>([]);
+  const [answers, setAnswers] = useState<Record<string, string> | []>([]);
+
   const session = data?.session;
   const quizQuestions = quizData.questions;
-
-  const initialStepIndex = data?.nextQuestionId
-    ? quizQuestions.findIndex((q) => q.id === data?.nextQuestionId)
-    : 0;
-
-  const initialStep =
-    initialStepIndex === -1 || initialStepIndex === undefined
-      ? 0
-      : initialStepIndex;
+  const initialStep = getInitialStep(data?.nextQuestionId as string, quizQuestions);
 
   useEffect(() => {
-    if (session?.userAnswers) {
-      const answers = getDoneAnswers(session?.userAnswers);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setAnswers(answers);
-    }
-  }, [session?.userAnswers]);
+    if (!session) return;
 
-  const { step, isHide, goToNextStep, goToPrevStep } = useQuizSessionNavigation(
-    { initialStep, totalSteps: quizQuestions.length },
-  );
+    if (session?.userAnswers?.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setAnswers(getDoneAnswers(session.userAnswers));
+    }
+
+    return () => {
+      updateSessionTime({
+        sessionId: session.id,
+        seconds: timeSpent.current,
+      }).catch((_) => {});
+    };
+  }, [session]);
+
+  const { step, isHide, goToNextStep, goToPrevStep } = useQuizSessionNavigation({
+    initialStep,
+    totalSteps: quizQuestions.length,
+  });
 
   const currentQuestion = quizQuestions[step];
 

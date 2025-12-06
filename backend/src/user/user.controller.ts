@@ -1,16 +1,7 @@
-import {
-  Controller,
-  Get,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ReqUser, type TUser } from './user.decorator';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('user')
 export class UserController {
@@ -21,7 +12,6 @@ export class UserController {
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard)
   findOne(@ReqUser() user: TUser) {
     return this.userService.findOne(user.telegramId);
   }

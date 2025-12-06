@@ -9,7 +9,7 @@ import { EnvUnsupported } from './app/EnvUnsupported.tsx';
 import { init } from './app/initTelegram.ts';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
-const isDev = import.meta.env.VITE_DEV;
+// const isDev = import.meta.env.VITE_DEV;
 
 try {
   const launchParams = retrieveLaunchParams();
@@ -20,8 +20,8 @@ try {
 
   await init({
     debug,
-    eruda: isDev && ['ios', 'android'].includes(platform),
-    // eruda: true,
+    // eruda: isDev && ['ios', 'android'].includes(platform),
+    eruda: false,
     mockForMacOS: platform === 'macos',
   }).then(() => {
     root.render(
