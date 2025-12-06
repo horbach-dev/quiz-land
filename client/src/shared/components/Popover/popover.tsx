@@ -1,10 +1,4 @@
-import {
-  type PropsWithChildren,
-  type ReactNode,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { type PropsWithChildren, type ReactNode, useLayoutEffect, useRef, useState } from 'react';
 
 import { Button } from '@/shared/components/Button';
 import { useClickOutside } from '@/shared/hooks/useClickOutside';
@@ -17,12 +11,7 @@ interface IProps {
   onCancel?: () => void;
 }
 
-export const Popover = ({
-  children,
-  text,
-  onConfirm,
-  onCancel,
-}: PropsWithChildren<IProps>) => {
+export const Popover = ({ children, text, onConfirm, onCancel }: PropsWithChildren<IProps>) => {
   const [windowWidth, setWindowWidth] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const childrenRef = useRef<HTMLDivElement | null>(null);
@@ -46,10 +35,8 @@ export const Popover = ({
 
   useLayoutEffect(() => {
     if (childrenRef.current && popoverRef.current && isOpen) {
-      const { left: popoverLeft, width: popoverWidth } =
-        popoverRef.current.getBoundingClientRect();
-      const { width: childrenWidth } =
-        childrenRef.current.getBoundingClientRect();
+      const { left: popoverLeft, width: popoverWidth } = popoverRef.current.getBoundingClientRect();
+      const { width: childrenWidth } = childrenRef.current.getBoundingClientRect();
 
       popoverRef.current.style.bottom = `calc(100% + 0.7rem)`;
 

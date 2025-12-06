@@ -16,39 +16,20 @@ interface IProps {
   setValue: (value: string) => void;
 }
 
-export const QuizSessionStep = ({
-  isHide,
-  question,
-  value,
-  setValue,
-}: IProps) => {
+export const QuizSessionStep = ({ isHide, question, value, setValue }: IProps) => {
   const { isPending } = useSubmitAnswerMutation();
   const options = question.options.map((i) => ({ label: i.text, value: i.id }));
 
   return (
-    <div
-      className={clsx(
-        styles.container,
-        isHide && styles.hide,
-        isPending && styles.disabled,
-      )}
-    >
+    <div className={clsx(styles.container, isHide && styles.hide, isPending && styles.disabled)}>
       {question.image && (
-        <LazyImage
-          key={question.id}
-          image={BASE_URL + question.image}
-          title={question.text}
-        />
+        <LazyImage key={question.id} image={BASE_URL + question.image} title={question.text} />
       )}
 
       <p className={styles.title}>{question.text}</p>
 
       {question.type === 'MULTI_CHOICE' && (
-        <WheelPicker
-          onValueChange={setValue}
-          options={options}
-          value={value as string}
-        />
+        <WheelPicker onValueChange={setValue} options={options} value={value as string} />
       )}
 
       {question.type === 'SINGLE_CHOICE' && (

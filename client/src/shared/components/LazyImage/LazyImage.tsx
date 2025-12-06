@@ -15,13 +15,7 @@ export const LazyImage = ({ image, title, className, placeholder }: IProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div
-      className={clsx(
-        styles.container,
-        isLoading && styles.containerLoading,
-        className,
-      )}
-    >
+    <div className={clsx(styles.container, isLoading && styles.containerLoading, className)}>
       <img
         className={clsx(styles.image, !isLoading && styles.imageLoaded)}
         src={currentImage || image}

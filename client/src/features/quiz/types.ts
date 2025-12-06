@@ -43,15 +43,8 @@ export type TQuizQuestion = {
   image: string | null;
 };
 
-export type TQuizQuestionType =
-  | 'TEXT_ANSWER'
-  | 'SINGLE_CHOICE'
-  | 'MULTI_CHOICE';
-export type TQuizSessionStatus =
-  | 'IN_PROGRESS'
-  | 'COMPLETED'
-  | 'ABANDONED'
-  | 'TIMED_OUT';
+export type TQuizQuestionType = 'TEXT_ANSWER' | 'SINGLE_CHOICE' | 'MULTI_CHOICE';
+export type TQuizSessionStatus = 'IN_PROGRESS' | 'COMPLETED' | 'ABANDONED' | 'TIMED_OUT';
 
 export type TQuizAnswer = {
   id: string;

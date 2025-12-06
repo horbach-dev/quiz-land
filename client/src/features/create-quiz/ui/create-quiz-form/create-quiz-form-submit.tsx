@@ -10,12 +10,7 @@ import styles from './create-quiz-form.module.css';
 
 const portalContainer = document.getElementById('footer')!;
 
-export const CreateQuizFormSubmit = ({
-  formRef,
-  isDisabled,
-  isLoading,
-  onSubmit,
-}) => {
+export const CreateQuizFormSubmit = ({ formRef, isDisabled, isLoading, onSubmit }) => {
   const [isShow, setIsShow] = useState<boolean>(true);
 
   useEffect(() => {

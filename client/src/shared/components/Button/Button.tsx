@@ -55,11 +55,7 @@ export const Button = ({
       disabled={disabled || loading}
     >
       {before && <span className={styles.before}>{before}</span>}
-      {style === 'icon' ? (
-        children
-      ) : (
-        <span className={styles.text}>{children}</span>
-      )}
+      {style === 'icon' ? children : <span className={styles.text}>{children}</span>}
       {after && <span className={styles.after}>{after}</span>}
       <span className={clsx(styles.loader, loading && styles.loading)} />
     </button>

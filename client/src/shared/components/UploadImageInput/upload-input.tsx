@@ -67,13 +67,7 @@ export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
           <p>Загрузить изображение</p>
         </div>
 
-        {image && (
-          <img
-            className={styles.uploadInputImage}
-            src={image as string}
-            alt={name}
-          />
-        )}
+        {image && <img className={styles.uploadInputImage} src={image as string} alt={name} />}
 
         {!!progress && (
           <div className={styles.uploadInputProgress}>

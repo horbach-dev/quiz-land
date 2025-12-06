@@ -5,9 +5,7 @@ type TSessionTime = {
   seconds: number;
 };
 
-export const updateSessionTime = async (
-  data: TSessionTime,
-): Promise<unknown> => {
+export const updateSessionTime = async (data: TSessionTime): Promise<unknown> => {
   const response = await api.post(`/quiz-session/update-time`, data);
   return response?.data;
 };

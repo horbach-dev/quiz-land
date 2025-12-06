@@ -22,9 +22,7 @@ export function PageLayout({
   withNavigation = true,
   className,
 }: PropsWithChildren<IProps>) {
-  const setNavigationVisible = useAppStore(
-    (state) => state.setNavigationVisible,
-  );
+  const setNavigationVisible = useAppStore((state) => state.setNavigationVisible);
 
   useEffect(() => {
     setNavigationVisible(withNavigation);

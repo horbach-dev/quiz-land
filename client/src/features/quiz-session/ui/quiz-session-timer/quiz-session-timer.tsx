@@ -1,10 +1,4 @@
-import {
-  type RefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { type RefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 import styles from './quiz-session-timer.module.css';
 

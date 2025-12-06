@@ -3,9 +3,7 @@
   z-index: 5000 !important;
   will-change: transform;
   background: #2a2a55 !important;
-  max-height: calc(
-    100vh - var(--padding-top) - var(--default-padding) * 1.2
-  ) !important;
+  max-height: calc(100vh - var(--padding-top) - var(--default-padding) * 1.2) !important;
 }
 
 .overlay {

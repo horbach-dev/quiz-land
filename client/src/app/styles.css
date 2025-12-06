@@ -19,10 +19,7 @@
   --s-a-content-bottom: var(--tg-viewport-content-safe-area-inset-bottom, 0px);
 
   --padding-top: calc(var(--s-a-top) + var(--s-a-content-top));
-  --padding-bottom: max(
-    var(--s-a-bottom) + var(--s-a-content-bottom),
-    var(--default-s-a-bottom)
-  );
+  --padding-bottom: max(var(--s-a-bottom) + var(--s-a-content-bottom), var(--default-s-a-bottom));
 }
 
 html {
@@ -110,13 +107,7 @@ img {
   overflow: hidden;
   flex: 1;
   cursor: default;
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 20%,
-    black 80%,
-    transparent 100%
-  );
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
 }
 
 [data-rwp-highlight-wrapper] {

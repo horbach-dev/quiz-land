@@ -18,17 +18,8 @@ export const IntroSliderContent = ({ slides, currentSlide }: IProps) => {
     >
       {slides.map((item, idx) => (
         <div key={item.id} className={styles.sliderItem}>
-          <img
-            alt={item.title}
-            className={styles.sliderImage}
-            src={item.image}
-          />
-          <div
-            className={clsx(
-              styles.sliderInfo,
-              currentSlide === idx && styles.sliderInfoShow,
-            )}
-          >
+          <img alt={item.title} className={styles.sliderImage} src={item.image} />
+          <div className={clsx(styles.sliderInfo, currentSlide === idx && styles.sliderInfoShow)}>
             <p className={styles.sliderItemTitle}>{item.title}</p>
             <p
               className={styles.sliderItemDescription}

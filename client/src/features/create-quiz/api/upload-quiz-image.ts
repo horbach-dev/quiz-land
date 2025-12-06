@@ -7,17 +7,12 @@ type TOptions = {
   onProgress?: (progress: number) => void;
 };
 
-export const uploadQuizImage = async (
-  formData: FormData,
-  { signal, onProgress }: TOptions,
-) => {
+export const uploadQuizImage = async (formData: FormData, { signal, onProgress }: TOptions) => {
   const response = await api.post('/files', formData, {
     signal,
     onUploadProgress: (progressEvent: AxiosProgressEvent) => {
       if (onProgress && progressEvent.total) {
-        onProgress(
-          Math.round((progressEvent.loaded * 100) / progressEvent.total),
-        );
+        onProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
       }
     },
     headers: { 'Content-Type': 'multipart/form-data' },

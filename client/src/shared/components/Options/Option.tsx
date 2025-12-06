@@ -14,10 +14,7 @@ export const Options = ({ options, value, onChange }: IProps) => {
       {options.map((option) => (
         <div
           key={option.value}
-          className={clsx(
-            styles.item,
-            value === option.value && styles.itemActive,
-          )}
+          className={clsx(styles.item, value === option.value && styles.itemActive)}
           onClick={() => onChange(option.value)}
         >
           {option.label}

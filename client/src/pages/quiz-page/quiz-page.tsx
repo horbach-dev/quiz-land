@@ -36,7 +36,7 @@ export const QuizPage = () => {
     return () => {
       setRedirectCallback('default');
     };
-  }, [screen]);
+  }, [screen, setRedirectCallback]);
 
   const handleSetScreen = (screen: string) => {
     setIsTransition(true);

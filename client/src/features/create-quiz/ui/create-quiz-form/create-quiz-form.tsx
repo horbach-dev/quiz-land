@@ -9,17 +9,8 @@ import { QuestionFields } from './question-fields';
 
 export const CreateQuizForm = () => {
   const formRef = useRef(null);
-  const {
-    watch,
-    control,
-    onSubmit,
-    register,
-    setValue,
-    clearErrors,
-    errors,
-    isLoading,
-    setError,
-  } = useCreateQuizForm();
+  const { watch, control, onSubmit, register, setValue, clearErrors, errors, isLoading, setError } =
+    useCreateQuizForm();
 
   const isDisabled = !!Object.keys(errors).length;
 

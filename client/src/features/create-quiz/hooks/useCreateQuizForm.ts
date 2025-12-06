@@ -24,8 +24,7 @@ export const useCreateQuizForm = () => {
   };
 
   const preSubmit = (data: SyntheticEvent<HTMLFormElement>) => {
-    if (!getValues()?.poster)
-      setError('poster', { message: 'Обязательное поле' });
+    if (!getValues()?.poster) setError('poster', { message: 'Обязательное поле' });
     return handleSubmit(onSubmit)(data);
   };
 

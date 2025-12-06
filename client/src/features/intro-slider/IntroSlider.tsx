@@ -60,11 +60,7 @@ export const IntroSlider = () => {
         </button>
         <button type='button' className={styles.btnNext} onClick={handleNext}>
           {currentSlide === 0 && (
-            <ArrowDown
-              size={24}
-              color={'#fff'}
-              className={styles.arrowBounce}
-            />
+            <ArrowDown size={24} color={'#fff'} className={styles.arrowBounce} />
           )}
           <span>{currentSlide === slides.length - 1 ? 'Начать' : 'Далее'}</span>
           <ChevronsRight className={styles.arrow} />

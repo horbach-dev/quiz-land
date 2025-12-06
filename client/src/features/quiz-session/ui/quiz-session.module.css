@@ -8,8 +8,7 @@
   /*padding: var(--quiz-progress-page-header-height) var(--default-padding) 7rem;*/
 
   padding: calc(
-      var(--quiz-progress-page-header-height) - var(--padding-top) +
-        var(--default-padding)
+      var(--quiz-progress-page-header-height) - var(--padding-top) + var(--default-padding)
     )
     var(--default-padding) 6.5rem var(--default-padding);
 }

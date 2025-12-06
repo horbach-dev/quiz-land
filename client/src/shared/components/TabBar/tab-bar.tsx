@@ -19,10 +19,7 @@ export const TabBar = ({ options, value, onChange }: IProps) => {
           <button
             key={item.value}
             onClick={() => onChange(item.value)}
-            className={clsx(
-              styles.tabBarItem,
-              item.value === value && styles.tabBarItemActive,
-            )}
+            className={clsx(styles.tabBarItem, item.value === value && styles.tabBarItemActive)}
           >
             {t(item.label)}
           </button>

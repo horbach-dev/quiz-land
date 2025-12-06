@@ -29,12 +29,7 @@ export default function MainPage() {
         <SectionHeader
           title={t('main_page.popular')}
           actions={
-            <Button
-              style='white'
-              size='sm'
-              to={`/quizzes`}
-              after={<ChevronRight color='#333' />}
-            >
+            <Button style='white' size='sm' to={`/quizzes`} after={<ChevronRight color='#333' />}>
               {t('main_page.more')}
             </Button>
           }

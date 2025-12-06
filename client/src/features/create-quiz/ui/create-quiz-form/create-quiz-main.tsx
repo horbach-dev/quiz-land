@@ -31,21 +31,13 @@ interface IProps {
   setValue: UseFormSetValue<IFormData>;
 }
 
-export const CreateQuizMain = ({
-  register,
-  errors,
-  setError,
-  clearErrors,
-  setValue,
-}: IProps) => {
+export const CreateQuizMain = ({ register, errors, setError, clearErrors, setValue }: IProps) => {
   const { t } = useTranslation();
   return (
     <FieldSet className='mb-5'>
       <FieldGroup>
         <Field>
-          <FieldLabel htmlFor='quiz-title'>
-            {t('create_page.form.title')}
-          </FieldLabel>
+          <FieldLabel htmlFor='quiz-title'>{t('create_page.form.title')}</FieldLabel>
           <Input
             id='quiz-title'
             placeholder={t('create_page.form.title_placeholder')}
@@ -59,9 +51,7 @@ export const CreateQuizMain = ({
         </Field>
 
         <Field>
-          <FieldLabel htmlFor='quiz-description'>
-            {t('create_page.form.description')}
-          </FieldLabel>
+          <FieldLabel htmlFor='quiz-description'>{t('create_page.form.description')}</FieldLabel>
           <Textarea
             id='quiz-description'
             placeholder={t('create_page.form.description_placeholder')}
@@ -71,16 +61,12 @@ export const CreateQuizMain = ({
           {errors.description?.message ? (
             <FieldError>{errors.description?.message}</FieldError>
           ) : (
-            <FieldDescription>
-              Минимум 100 символов, максимум 10000
-            </FieldDescription>
+            <FieldDescription>Минимум 100 символов, максимум 10000</FieldDescription>
           )}
         </Field>
 
         <Field>
-          <FieldLabel htmlFor='quiz-poster'>
-            {'Постер квиза (главное изображение)'}
-          </FieldLabel>
+          <FieldLabel htmlFor='quiz-poster'>{'Постер квиза (главное изображение)'}</FieldLabel>
 
           <UploadImage
             id='quiz-poster'
@@ -93,9 +79,7 @@ export const CreateQuizMain = ({
           {errors.poster?.message ? (
             <FieldError>{errors.poster?.message}</FieldError>
           ) : (
-            <FieldDescription>
-              {'Максимум 1мб, разрешен файл PNG, JPEG'}
-            </FieldDescription>
+            <FieldDescription>{'Максимум 1мб, разрешен файл PNG, JPEG'}</FieldDescription>
           )}
         </Field>
 

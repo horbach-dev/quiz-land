@@ -8,12 +8,7 @@ import type {
 } from 'react-hook-form';
 
 import { Toggle } from '@/shared/components/Toggle';
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-} from '@/shared/shadcn/ui/field';
+import { Field, FieldDescription, FieldError, FieldLabel } from '@/shared/shadcn/ui/field';
 import { Input } from '@/shared/shadcn/ui/input.tsx';
 
 import type { IFormData } from '../../types';
@@ -47,13 +42,9 @@ export const AnswerFields = ({
       });
     });
 
-    setValue(
-      `questions.${questionIndex}.options.${selectedIndex}.isCorrect`,
-      true,
-      {
-        shouldDirty: true,
-      },
-    );
+    setValue(`questions.${questionIndex}.options.${selectedIndex}.isCorrect`, true, {
+      shouldDirty: true,
+    });
   };
 
   const optionsForQuestion = watch(`questions.${questionIndex}.options`);
@@ -64,9 +55,7 @@ export const AnswerFields = ({
 
     return (
       <Field key={answer.id} className='relative'>
-        <FieldLabel htmlFor={`answer-text-${index}`}>
-          Ответ {index + 1}
-        </FieldLabel>
+        <FieldLabel htmlFor={`answer-text-${index}`}>Ответ {index + 1}</FieldLabel>
         <div className='flex items-center gap-[1rem]'>
           <Input
             id={`answer-text-${index}`}

@@ -9,12 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/shared/components/Button';
-import {
-  FieldDescription,
-  FieldError,
-  FieldLegend,
-  FieldSet,
-} from '@/shared/shadcn/ui/field';
+import { FieldDescription, FieldError, FieldLegend, FieldSet } from '@/shared/shadcn/ui/field';
 
 import type { IFormData } from '../../types';
 
@@ -31,12 +26,7 @@ interface IProps {
   renderItem: (params: TRenderItemParams) => ReactNode;
 }
 
-export const CreateQuizQuestions = ({
-  error,
-  control,
-  renderItem,
-  isLoading,
-}: IProps) => {
+export const CreateQuizQuestions = ({ error, control, renderItem, isLoading }: IProps) => {
   const { t } = useTranslation();
 
   const {

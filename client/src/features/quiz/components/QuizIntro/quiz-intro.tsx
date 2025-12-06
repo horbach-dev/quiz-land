@@ -17,17 +17,9 @@ interface IProps {
   setScreen: (value: 'main' | 'session' | 'finish') => void;
 }
 
-export const QuizIntro = ({
-  quizData,
-  startSession,
-  isSessionLoading,
-  setScreen,
-}: IProps) => {
+export const QuizIntro = ({ quizData, startSession, isSessionLoading, setScreen }: IProps) => {
   const handleShare = () => {
-    shareURL(
-      `${APP_URL}?startapp=${quizData?.id}`,
-      `Пройди квиз: ${quizData?.title}`,
-    );
+    shareURL(`${APP_URL}?startapp=${quizData?.id}`, `Пройди квиз: ${quizData?.title}`);
   };
 
   const handleStartSession = () => {
@@ -52,11 +44,7 @@ export const QuizIntro = ({
           )}
           <div className={styles.actions}>
             {quizData?.hasActiveSession ? (
-              <Button
-                loading={isSessionLoading}
-                onClick={handleStartSession}
-                after={<RotateCcw />}
-              >
+              <Button loading={isSessionLoading} onClick={handleStartSession} after={<RotateCcw />}>
                 Начать заново
               </Button>
             ) : (

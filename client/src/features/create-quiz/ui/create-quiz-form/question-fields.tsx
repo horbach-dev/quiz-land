@@ -94,26 +94,17 @@ export const QuestionFields = ({
       <FieldLegend className='flex items-center justify-between'>
         <p className='w-full'>Вопрос № {questionIndex + 1}</p>
         <div className='w-fit'>
-          <Button
-            size='sm'
-            onClick={removeQuestion}
-            after={<Trash2 className='w-4' />}
-          >
+          <Button size='sm' onClick={removeQuestion} after={<Trash2 className='w-4' />}>
             Удалить
           </Button>
         </div>
       </FieldLegend>
       <Field>
-        <FieldLabel htmlFor={`question-text-${questionIndex}`}>
-          Текст вопроса
-        </FieldLabel>
+        <FieldLabel htmlFor={`question-text-${questionIndex}`}>Текст вопроса</FieldLabel>
         <Input
           id={`question-text-${questionIndex}`}
           placeholder={'Введите вопрос...'}
-          {...register(
-            `questions.${questionIndex}.text`,
-            validationRules.questionTitle,
-          )}
+          {...register(`questions.${questionIndex}.text`, validationRules.questionTitle)}
         />
         {questionErrors?.text?.message ? (
           <FieldError>{questionErrors?.text?.message}</FieldError>
@@ -123,20 +114,14 @@ export const QuestionFields = ({
       </Field>
 
       <Field>
-        <FieldLabel htmlFor={`question-text-${questionIndex}`}>
-          Картинка вопроса
-        </FieldLabel>
+        <FieldLabel htmlFor={`question-text-${questionIndex}`}>Картинка вопроса</FieldLabel>
 
         <UploadImage
           id={`question-image-${questionIndex}`}
           type='question'
           clearError={() => clearErrors(`questions.${questionIndex}.image`)}
-          setError={(message) =>
-            setError(`questions.${questionIndex}.image`, { message })
-          }
-          onChange={(value) =>
-            setValue(`questions.${questionIndex}.image`, value)
-          }
+          setError={(message) => setError(`questions.${questionIndex}.image`, { message })}
+          onChange={(value) => setValue(`questions.${questionIndex}.image`, value)}
         />
 
         {questionErrors?.image?.message ? (
@@ -162,20 +147,13 @@ export const QuestionFields = ({
       )}
 
       <Field>
-        <Button
-          type='button'
-          style='white'
-          onClick={handleAddAnswer}
-          after={<ListCheck />}
-        >
+        <Button type='button' style='white' onClick={handleAddAnswer} after={<ListCheck />}>
           Добавить ответ
         </Button>
       </Field>
 
       {questionErrors?.options?.root?.message && (
-        <FieldError className='text-center'>
-          {questionErrors?.options?.root?.message}
-        </FieldError>
+        <FieldError className='text-center'>{questionErrors?.options?.root?.message}</FieldError>
       )}
     </FieldGroup>
   );

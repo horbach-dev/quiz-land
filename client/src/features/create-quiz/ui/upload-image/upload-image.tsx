@@ -11,8 +11,7 @@ const ACCEPTED_FILES = ['image/png', 'image/jpeg', 'image/jpg'];
 
 const checkValidate = (file: File) => {
   if (file.size > ONE_MEGABIT) return 'Размер файла не должен превышать 1МБ';
-  if (!ACCEPTED_FILES.includes(file.type))
-    return 'Разрешены только файлы: PNG, JPEG';
+  if (!ACCEPTED_FILES.includes(file.type)) return 'Разрешены только файлы: PNG, JPEG';
   return false;
 };
 
@@ -24,13 +23,7 @@ interface IProps {
   setError: (error: string) => void;
 }
 
-export const UploadImage = ({
-  id,
-  type = 'poster',
-  onChange,
-  clearError,
-  setError,
-}: IProps) => {
+export const UploadImage = ({ id, type = 'poster', onChange, clearError, setError }: IProps) => {
   const abortController = useRef<AbortController>(null);
   const [loadedImage, setLoadedImage] = useState<string | null>(null);
 
@@ -90,11 +83,7 @@ export const UploadImage = ({
 
   return (
     <div className={styles.content}>
-      <UploadImageInput
-        id={id}
-        onDelete={handleDeleteImage}
-        onChange={handleUploadImage}
-      />
+      <UploadImageInput id={id} onDelete={handleDeleteImage} onChange={handleUploadImage} />
     </div>
   );
 };
