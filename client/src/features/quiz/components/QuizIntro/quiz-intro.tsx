@@ -30,7 +30,10 @@ export const QuizIntro = ({
 
   return (
     <div className={styles.container}>
-      <LazyImage image={quizData?.poster} title={quizData?.title} />
+      <LazyImage
+        image={quizData?.poster}
+        title={quizData?.title}
+      />
       {quizData ? (
         <>
           <p className={styles.title}>{quizData?.title}</p>
@@ -67,7 +70,11 @@ export const QuizIntro = ({
                 Начать
               </Button>
             )}
-            <Button disabled={disabled} onClick={handleShare} after={<Share />}>
+            <Button
+              disabled={disabled}
+              onClick={handleShare}
+              after={<Share />}
+            >
               Поделиться
             </Button>
           </div>

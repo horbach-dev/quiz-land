@@ -42,3 +42,10 @@
   height: 1.3rem;
   margin-bottom: 1rem;
 }
+
+.description div {
+  font-family: var(--default-font) !important;
+  line-height: 1.5 !important;
+  font-size: 1.1rem !important;
+  background-color: transparent !important;
+}

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { SessionStatus } from '@prisma/client';
+import { ScoringAlgorithm, SessionStatus } from '@prisma/client';
 
 @Injectable()
 export class QuizSessionRepository {
@@ -19,18 +19,6 @@ export class QuizSessionRepository {
     });
   }
 
-  createSession(userId: string, quizId: string) {
-    return this.prisma.quizSession.create({
-      data: {
-        userId,
-        quizId,
-        startedAt: new Date(),
-        status: SessionStatus.IN_PROGRESS,
-      },
-      // include: { questions: true }, // Включите, если нужно
-    });
-  }
-
   findActiveSession(userId: string, quizId: string) {
     return this.prisma.quizSession.findFirst({
       where: {
@@ -43,37 +31,40 @@ export class QuizSessionRepository {
     });
   }
 
-  async deleteSession(userId: string, quizId: string) {
-    const sessionsToDelete = await this.prisma.quizSession.findMany({
-      where: {
+  async findFullSession(sessionId: string) {
+    return this.prisma.quizSession.findUnique({
+      where: { id: sessionId },
+      include: {
+        quiz: {
+          include: {
+            questions: {
+              include: {
+                options: true,
+              },
+            },
+          },
+        },
+        userAnswers: true,
+        user: true,
+      },
+    });
+  }
+
+  createSession(
+    userId: string,
+    quizId: string,
+    scoringAlgorithm: ScoringAlgorithm,
+  ) {
+    return this.prisma.quizSession.create({
+      data: {
         userId,
         quizId,
+        scoringAlgorithm,
+        startedAt: new Date(),
         status: SessionStatus.IN_PROGRESS,
       },
-      select: { id: true },
+      // include: { questions: true }, // Включите, если нужно
     });
-
-    const sessionIds = sessionsToDelete.map(s => s.id);
-
-    if (sessionIds.length > 0) {
-      // Удаляем ВСЕ ответы, привязанные к этим сессиям
-      await this.prisma.userAnswer.deleteMany({
-        where: {
-          sessionId: {
-            in: sessionIds,
-          },
-        },
-      });
-
-      // Удаляем сами сессии
-      await this.prisma.quizSession.deleteMany({
-        where: {
-          id: {
-            in: sessionIds,
-          },
-        },
-      });
-    }
   }
 
   updateAnswer(
@@ -107,5 +98,38 @@ export class QuizSessionRepository {
       where: { id: sessionId },
       data: { timeSpentSeconds },
     });
+  }
+
+  async deleteSession(userId: string, quizId: string) {
+    const sessionsToDelete = await this.prisma.quizSession.findMany({
+      where: {
+        userId,
+        quizId,
+        status: SessionStatus.IN_PROGRESS,
+      },
+      select: { id: true },
+    });
+
+    const sessionIds = sessionsToDelete.map((s) => s.id);
+
+    if (sessionIds.length > 0) {
+      // Удаляем ВСЕ ответы, привязанные к этим сессиям
+      await this.prisma.userAnswer.deleteMany({
+        where: {
+          sessionId: {
+            in: sessionIds,
+          },
+        },
+      });
+
+      // Удаляем сами сессии
+      await this.prisma.quizSession.deleteMany({
+        where: {
+          id: {
+            in: sessionIds,
+          },
+        },
+      });
+    }
   }
 }

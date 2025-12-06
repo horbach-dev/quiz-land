@@ -12,6 +12,7 @@ export function useStartSessionMutation(quizId: string) {
     onMutate: ({ restart }) => setIsRestart(!!restart),
     onSuccess: (data) => {
       queryClient.setQueryData(['getSession', quizId], data);
+      queryClient.invalidateQueries({ queryKey: ['getQuiz', quizId] });
     },
   });
 

@@ -1,2 +1,34 @@
 .quizCompleted {
+    padding: var(--default-padding);
+}
+
+.resultTitle {
+    /*margin-bottom: var(--default-padding);*/
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resultText {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    font-size: 1.2rem;
+}
+
+.resultTextResult {
+    margin-right: 0.3rem;
+    font-weight: 700;
+}
+
+.resultTextCount {
+    margin-left: 0.3rem;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
 }

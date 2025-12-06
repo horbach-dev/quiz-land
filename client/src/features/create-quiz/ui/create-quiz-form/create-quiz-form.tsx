@@ -18,6 +18,7 @@ export const CreateQuizForm = () => {
     <div className='w-full max-w-md'>
       <form ref={formRef} onSubmit={onSubmit}>
         <CreateQuizMain
+          control={control}
           register={register}
           errors={errors}
           setError={setError}

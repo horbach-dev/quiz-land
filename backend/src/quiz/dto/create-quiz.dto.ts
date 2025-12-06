@@ -9,7 +9,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { QuestionType } from '@prisma/client';
+import { QuestionType, ScoringAlgorithm } from '@prisma/client';
 
 // ----------------------------------------------------
 // DTO для Вариантов ответа (Option)
@@ -77,4 +77,7 @@ export class CreateQuizDto {
   @ValidateNested({ each: true })
   @Type(() => CreateQuestionDto) // Указываем класс для вложенных вопросов
   questions: CreateQuestionDto[];
+
+  @IsString()
+  scoringAlgorithm?: ScoringAlgorithm;
 }

@@ -27,6 +27,11 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
     },
     plugins: {
       react: react,
@@ -36,21 +41,8 @@ export default defineConfig([
       import: importPlugin,
     },
     rules: {
-      "react/jsx-first-prop-new-line": [2, "multiline"],
-      "react/jsx-max-props-per-line": [
-        2, {
-          "maximum": 1,
-          "when": "multiline"
-        }
-      ],
-      "react/jsx-closing-bracket-location": ["error", "tag-aligned"],
       'brace-style': ['warn', '1tbs', { allowSingleLine: false }],
-      'max-params': [
-        'warn',
-        {
-          max: 2,
-        },
-      ],
+      'max-params': ['warn', { max: 2 }],
       'sort-imports': 'off',
       'import/order': 'off',
       'simple-import-sort/imports': 'error',

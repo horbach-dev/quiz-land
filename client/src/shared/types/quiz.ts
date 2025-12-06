@@ -34,6 +34,13 @@ export type TQuizSession = {
   timeSpentSeconds: number;
 };
 
+export type TSessionCompleted = {
+  id: string;
+  score: number | null;
+  totalQuestions: number;
+  timeSpentSeconds: number;
+};
+
 export type TQuizAnswer = {
   id: string;
   sessionId: string;

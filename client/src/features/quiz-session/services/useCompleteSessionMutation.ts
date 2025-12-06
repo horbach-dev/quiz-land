@@ -6,7 +6,8 @@ export function useCompleteSessionMutation(quizId: string) {
   const queryClient = useQueryClient();
   const { mutateAsync, isPending, isSuccess } = useMutation({
     mutationFn: completeSession,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      queryClient.setQueryData(['getCompletedSession', quizId], data);
       queryClient.invalidateQueries({ queryKey: ['getQuiz', quizId] });
     },
   });

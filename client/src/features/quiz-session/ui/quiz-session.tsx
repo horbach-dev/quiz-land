@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import type { TQuiz } from '@/shared/types/quiz';
 
@@ -20,17 +20,29 @@ interface IProps {
 }
 
 export function QuizSession({ quizData, setScreen }: IProps) {
-  console.log(quizData);
   const { data } = useQuizSessionQuery(quizData.id);
-  const { submitAnswer } = useSubmitAnswerMutation();
+  const { submitAnswer, isPending } = useSubmitAnswerMutation();
   const { completeSession } = useCompleteSessionMutation(quizData.id);
 
+  // заводим переменную на хранение времени
   const timeSpent = useRef<number>(data?.session?.timeSpentSeconds || 0);
   const [answers, setAnswers] = useState<Record<string, string> | []>([]);
 
   const session = data?.session;
   const quizQuestions = quizData.questions;
   const initialStep = getInitialStep(data?.nextQuestionId as string, quizQuestions);
+
+  const { step, isHide, goToNextStep, goToPrevStep } = useQuizSessionNavigation({
+    initialStep,
+    totalSteps: quizQuestions.length,
+  });
+
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [step]);
 
   useEffect(() => {
     if (!session) return;
@@ -48,37 +60,38 @@ export function QuizSession({ quizData, setScreen }: IProps) {
     };
   }, [session]);
 
-  const { step, isHide, goToNextStep, goToPrevStep } = useQuizSessionNavigation({
-    initialStep,
-    totalSteps: quizQuestions.length,
-  });
-
   const currentQuestion = quizQuestions[step];
 
-  if (!currentQuestion || !session) return null;
+  const handleSubmitAnswer = useCallback(
+    // eslint-disable-next-line react-hooks/preserve-manual-memoization
+    (value: string) => {
+      if (!session?.id || !currentQuestion.id) return;
 
-  const handleSetAnswer = async (value: string) => {
-    if (!session) return;
+      setAnswers((prevAnswers) => ({ ...prevAnswers, [currentQuestion.id]: value }));
 
-    try {
-      await submitAnswer({
+      submitAnswer({
         sessionId: session.id,
         questionId: currentQuestion.id,
         submittedOptionIds: [value],
         timeSpentSeconds: timeSpent.current,
-      });
+      })
+        .then(() => {
+          if (step + 1 === quizQuestions.length) {
+            completeSession(session.id).then(() => setScreen('finish'));
+            return;
+          }
 
-      if (step + 1 === quizQuestions.length) {
-        completeSession(session.id).then(() => setScreen('finish'));
-        return;
-      }
+          goToNextStep();
+        })
+        .catch((error) => {
+          console.error('Не удалось отправить ответ', error);
+        });
 
-      setAnswers((prevAnswers) => ({ ...prevAnswers, [currentQuestion.id]: value }));
-      goToNextStep();
-    } catch (error) {
-      console.error('Не удалось отправить ответ', error);
-    }
-  };
+      //eslint-disable-next-line
+    },[step, session?.id, currentQuestion.id, quizQuestions.length]
+  );
+
+  if (!currentQuestion || !session) return null;
 
   const currentAnswer = answers[currentQuestion.id];
 
@@ -92,12 +105,17 @@ export function QuizSession({ quizData, setScreen }: IProps) {
         />
         <QuizSessionStep
           isHide={isHide}
+          isLoading={isPending}
           value={currentAnswer || ''}
-          setValue={handleSetAnswer}
+          setValue={handleSubmitAnswer}
           question={currentQuestion}
         />
       </div>
-      <QuizFooter isDone={false} disabled={step === 0} onClick={goToPrevStep} />
+      <QuizFooter
+        isDone={false}
+        disabled={step === 0}
+        onClick={goToPrevStep}
+      />
     </div>
   );
 }

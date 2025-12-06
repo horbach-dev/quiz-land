@@ -83,7 +83,11 @@ export class QuizSessionService {
       throw new BadRequestException('Квиз не найден или не содержит вопросов.');
     }
 
-    const newSession = await this.repository.createSession(userId, quizId);
+    const newSession = await this.repository.createSession(
+      userId,
+      quizId,
+      quiz.scoringAlgorithm,
+    );
 
     // Для новой сессии следующий вопрос - это самый первый вопрос в списке
     const firstQuestionId = quiz.questions[0].id; // Доступ к id первого элемента
@@ -128,29 +132,14 @@ export class QuizSessionService {
    * Финализирует сессию, подсчитывает результаты и обновляет статистику.
    */
   async completeSession(sessionId: string) {
-    const session = await this.prisma.quizSession.findUnique({
-      where: { id: sessionId },
-      // Загружаем связанные данные, необходимые для расчетов и статистики
-      include: {
-        quiz: {
-          include: {
-            questions: {
-              include: {
-                options: true,
-              },
-            },
-          },
-        },
-        userAnswers: true,
-        user: true,
-      },
-    });
+    // Загружаем связанные данные, необходимые для расчетов и статистики
+    const session = await this.repository.findFullSession(sessionId);
 
     if (!session || session.status !== SessionStatus.IN_PROGRESS) {
       throw new BadRequestException('Сессия не может быть завершена.');
     }
 
-    // 1. Выбираем стратегию подсчета (по умолчанию STRICT_MATCH для пользовательских квизов)
+    // Выбираем стратегию подсчета (по умолчанию STRICT_MATCH)
     const strategyType =
       session.quiz.scoringAlgorithm || ScoringAlgorithm.STRICT_MATCH;
     const scoringEngine = this.scoringStrategies[strategyType];
@@ -181,6 +170,7 @@ export class QuizSessionService {
         userAnswer.submittedOptionIds,
         context,
       );
+
       const isCorrect = scoringEngine.isCorrect(
         userAnswer.submittedOptionIds,
         context,

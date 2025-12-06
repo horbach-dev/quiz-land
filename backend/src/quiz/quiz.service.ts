@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { existsSync, mkdirSync, renameSync } from 'fs';
 import path from 'path';
 import { v4 as uuid } from 'uuid';
-import { QuizType, SessionStatus } from '@prisma/client';
+import { QuizType, SessionStatus, ScoringAlgorithm } from '@prisma/client';
 import { FilesService } from '../files/files.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { PrismaService } from '../prisma.service';
@@ -47,6 +47,8 @@ export class QuizService {
         description: createQuizDto.description,
         poster: getImagePath(createQuizDto.poster),
         authorId: user.id,
+        scoringAlgorithm:
+          createQuizDto.scoringAlgorithm || ScoringAlgorithm.STRICT_MATCH,
         limitedByTime: createQuizDto.limitedByTime,
         authorTelegramId: String(user.telegramId),
         type: QuizType.USER_GENERATED,
@@ -202,20 +204,6 @@ export class QuizService {
         throw new BadRequestException(
           'У вас нет прав для удаления этого квиза.',
         );
-      }
-
-      const filesToDelete: string[] = [];
-
-      if (quizToDelete.poster) filesToDelete.push(quizToDelete.poster);
-
-      if (quizToDelete.questions.length) {
-        // Собираем пути к изображениям из вопросов и ответов
-        quizToDelete.questions.forEach((question) => {
-          if (question.image) filesToDelete.push(question.image);
-          question.options.forEach((option) => {
-            if (option.image) filesToDelete.push(option.image);
-          });
-        });
       }
 
       await this.prisma.$transaction(async (prisma) => {

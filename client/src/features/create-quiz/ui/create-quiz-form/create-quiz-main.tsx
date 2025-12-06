@@ -1,12 +1,16 @@
-import type {
-  FieldErrors,
-  UseFormClearErrors,
-  UseFormRegister,
-  UseFormSetError,
-  UseFormSetValue,
+import {
+  type Control,
+  Controller,
+  type FieldErrors,
+  type UseFormClearErrors,
+  type UseFormRegister,
+  type UseFormSetError,
+  type UseFormSetValue,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { validateDescription } from '@/features/create-quiz/utils.ts';
+import { TextEditor } from '@/shared/components/TextEditor';
 import {
   Field,
   FieldDescription,
@@ -17,13 +21,13 @@ import {
   FieldSet,
 } from '@/shared/shadcn/ui/field';
 import { Input } from '@/shared/shadcn/ui/input';
-import { Textarea } from '@/shared/shadcn/ui/textarea';
 
 import { validationRules } from '../../config';
 import type { IFormData } from '../../types';
 import { UploadImage } from '../upload-image';
 
 interface IProps {
+  control: Control<IFormData>;
   register: UseFormRegister<IFormData>;
   errors: FieldErrors<IFormData>;
   setError: UseFormSetError<IFormData>;
@@ -31,7 +35,14 @@ interface IProps {
   setValue: UseFormSetValue<IFormData>;
 }
 
-export const CreateQuizMain = ({ register, errors, setError, clearErrors, setValue }: IProps) => {
+export const CreateQuizMain = ({
+  control,
+  register,
+  errors,
+  setError,
+  clearErrors,
+  setValue,
+}: IProps) => {
   const { t } = useTranslation();
   return (
     <FieldSet className='mb-5'>
@@ -51,12 +62,19 @@ export const CreateQuizMain = ({ register, errors, setError, clearErrors, setVal
         </Field>
 
         <Field>
-          <FieldLabel htmlFor='quiz-description'>{t('create_page.form.description')}</FieldLabel>
-          <Textarea
-            id='quiz-description'
-            placeholder={t('create_page.form.description_placeholder')}
-            className='resize-none'
-            {...register('description', validationRules.description)}
+          <FieldLabel>{t('create_page.form.description')}</FieldLabel>
+          <Controller
+            name='description'
+            control={control}
+            rules={{ validate: validateDescription }}
+            render={({ field }) => (
+              <TextEditor
+                id='quiz-description'
+                value={field.value}
+                onChange={field.onChange}
+                placeholder={t('create_page.form.description_placeholder')}
+              />
+            )}
           />
           {errors.description?.message ? (
             <FieldError>{errors.description?.message}</FieldError>

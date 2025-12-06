@@ -46,7 +46,11 @@ export const QuizPage = () => {
   };
 
   useEffect(() => {
-    setRedirectCallback(screen === 'session' ? handleSessionBack : 'default');
+    if (screen === 'session') {
+      setRedirectCallback(handleSessionBack);
+    } else if (screen === 'finish') {
+      setRedirectCallback(() => setScreen('main'));
+    }
 
     return () => {
       setRedirectCallback('default');
