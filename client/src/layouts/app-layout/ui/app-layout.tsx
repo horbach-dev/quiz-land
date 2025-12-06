@@ -10,8 +10,10 @@ import { useViewportSettings } from '../useViewportSettings.ts';
 import styles from './app-layout.module.css';
 
 export const AppLayout = () => {
-  const { isMain, isCreateQuiz } = useRouteListener();
+  const { pathname } = useRouteListener();
   const { isMobile } = useViewportSettings();
+
+  console.log('roue');
 
   return (
     <>
@@ -21,8 +23,8 @@ export const AppLayout = () => {
       </div>
       <ScrollRestoration />
       <Navigation />
-      {!isMain && <SwipeRedirect />}
-      {isMobile && !isCreateQuiz && <RotationAlert />}
+      {pathname !== '/' && <SwipeRedirect />}
+      {isMobile && pathname !== '/create' && <RotationAlert />}
     </>
   );
 };

@@ -1,6 +1,7 @@
 .container {
   overflow: hidden;
   z-index: 5000 !important;
+  will-change: transform;
   background: #2a2a55 !important;
   max-height: calc(
     100vh - var(--padding-top) - var(--default-padding) * 1.2
@@ -8,6 +9,7 @@
 }
 
 .overlay {
+  will-change: opacity;
   z-index: 1000 !important;
 }
 

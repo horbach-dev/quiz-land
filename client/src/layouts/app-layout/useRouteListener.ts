@@ -47,8 +47,5 @@ export function useRouteListener() {
     // eslint-disable-next-line
   }, [pathname]);
 
-  return {
-    isMain: pathname === '/',
-    isCreateQuiz: pathname === '/create',
-  };
+  return { pathname };
 }

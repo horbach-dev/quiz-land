@@ -38,6 +38,7 @@
   height: 100%;
   width: 33.33%;
   border-radius: 0.5rem;
+  will-change: transform;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0 0 0.3rem 0.3rem rgba(0, 0, 0, 0.2);
   transition: transform 0.3s;
