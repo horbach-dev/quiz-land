@@ -31,7 +31,10 @@ export const UserWelcome = () => {
         </p>
         <div className={styles.userStatisticBtn}>
           <span>{t('welcome.to_profile')}</span>
-          <button type='button' title='в профиль'>
+          <button
+            type='button'
+            title='в профиль'
+          >
             <ChevronRight />
           </button>
         </div>

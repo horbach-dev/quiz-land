@@ -25,9 +25,15 @@ export const QuizzesPageHeader = ({ actions, title }: IProps) => {
   }, []);
 
   return createPortal(
-    <div ref={containerRef} className={styles.header}>
+    <div
+      ref={containerRef}
+      className={styles.header}
+    >
       <div className={styles.content}>
-        <SectionHeader title={title} actions={actions} />
+        <SectionHeader
+          title={title}
+          actions={actions}
+        />
       </div>
     </div>,
     header,

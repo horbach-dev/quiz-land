@@ -1,6 +1,10 @@
 import { useLaunchParams } from '@tma.js/sdk-react';
 import { useEffect, useState } from 'react';
-import { type NavigateOptions, useLocation, useNavigate } from 'react-router-dom';
+import {
+  type NavigateOptions,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 
 import { CHANGE_APP_ROUTE_EVENT } from '@/shared/constants';
 

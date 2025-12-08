@@ -15,7 +15,10 @@ export const ShareAppButton = () => {
   };
 
   return (
-    <Button onClick={handleShare} after={<Share />}>
+    <Button
+      onClick={handleShare}
+      after={<Share />}
+    >
       {t('common.share')}
     </Button>
   );

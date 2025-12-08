@@ -24,7 +24,9 @@ export const useAppStore = create<IAppState>((set) => ({
   setSwipeRedirectCallback: (swipeRedirectCallback) => {
     set({
       swipeRedirectCallback:
-        swipeRedirectCallback === 'default' ? DEFAULT_SWIPE_REDIRECT_CB : swipeRedirectCallback,
+        swipeRedirectCallback === 'default'
+          ? DEFAULT_SWIPE_REDIRECT_CB
+          : swipeRedirectCallback,
     });
   },
   setShowIntro: (isShow) => {

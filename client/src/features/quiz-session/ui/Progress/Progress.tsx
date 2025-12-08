@@ -26,14 +26,20 @@ export const Progress = ({ step, timer, length }: IProps) => {
   }, []);
 
   return createPortal(
-    <div ref={containerRef} className={styles.progressWrap}>
+    <div
+      ref={containerRef}
+      className={styles.progressWrap}
+    >
       {timer}
       <div className={styles.progressContainer}>
         <div className={styles.progressCount}>
           {step + 1} / {length}
         </div>
         <div className={styles.progress}>
-          <div style={{ width }} className={styles.progressTrack} />
+          <div
+            style={{ width }}
+            className={styles.progressTrack}
+          />
         </div>
         <Flag className={styles.progressIcon} />
       </div>

@@ -24,7 +24,13 @@ interface IProps {
   setError: (error: string) => void;
 }
 
-export const UploadImage = ({ id, type = 'poster', onChange, clearError, setError }: IProps) => {
+export const UploadImage = ({
+  id,
+  type = 'poster',
+  onChange,
+  clearError,
+  setError,
+}: IProps) => {
   const { t } = useTranslation();
   const abortController = useRef<AbortController>(null);
   const [loadedImage, setLoadedImage] = useState<string | null>(null);

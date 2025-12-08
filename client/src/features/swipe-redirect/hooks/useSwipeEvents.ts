@@ -27,7 +27,8 @@ export const useSwipeEvents = (
 
       if (container.current) {
         container.current.style.transition = 'none';
-        const delta = touchEndX - touchStartX - Math.abs(touchEndY - touchStartY) - GAP;
+        const delta =
+          touchEndX - touchStartX - Math.abs(touchEndY - touchStartY) - GAP;
         if (delta < GAP) {
           container.current.style.transform = `translateX(${delta}px)`;
         } else {
@@ -44,7 +45,8 @@ export const useSwipeEvents = (
       }
       if (touchEndX === 0) return;
 
-      const deltaX = touchEndX - touchStartX - Math.abs(touchEndY - touchStartY) - GAP;
+      const deltaX =
+        touchEndX - touchStartX - Math.abs(touchEndY - touchStartY) - GAP;
 
       if (Math.abs(deltaX) > SWIPE_DISTANCE) {
         if (deltaX > 0) {

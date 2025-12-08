@@ -14,6 +14,7 @@ export interface IUserProfile {
   first_name?: string;
   last_name?: string;
   avatar?: string;
+  language?: 'en' | 'ru';
   quizzes_created: number;
   quizzes_completed: number;
   average_score: number;

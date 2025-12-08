@@ -111,7 +111,11 @@
   align-items: center;
   justify-content: space-between;
   padding: 12vw 5.5vw 10vw;
-  background: linear-gradient(180deg, transparent 0%, rgba(91, 0, 246, 0.35) 80%);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(91, 0, 246, 0.35) 80%
+  );
 }
 
 .btnPrev {

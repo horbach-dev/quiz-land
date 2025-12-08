@@ -55,7 +55,15 @@ export default defineConfig(({ mode }) => {
 });
 
 let ngrokListener: ngrok.Listener | null = null;
-function ngrokPlugin({ token, domain, port }: { token: string; domain: string; port: number }) {
+function ngrokPlugin({
+  token,
+  domain,
+  port,
+}: {
+  token: string;
+  domain: string;
+  port: number;
+}) {
   return {
     name: 'vite-plugin-ngrok-runner',
     async buildStart() {

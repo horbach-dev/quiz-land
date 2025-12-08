@@ -23,7 +23,10 @@ export const QuizIntro = ({
   isLoadingRestart,
 }: IProps) => {
   const handleShare = () => {
-    shareURL(`${APP_URL}?startapp=${quizData?.id}`, `Пройди тест: ${quizData?.title}`);
+    shareURL(
+      `${APP_URL}?startapp=${quizData?.id}`,
+      `Пройди тест: ${quizData?.title}`,
+    );
   };
 
   const disabled = isLoadingStart || isLoadingRestart;

@@ -14,7 +14,10 @@ interface ErrorBoundaryState {
   error?: unknown;
 }
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   state: ErrorBoundaryState = {};
   static getDerivedStateFromError: GetDerivedStateFromError<
     ErrorBoundaryProps,
@@ -31,7 +34,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
       props: { children },
     } = this;
 
-    return 'error' in this.state ? <ErrorBoundaryError error={error} /> : children;
+    return 'error' in this.state ? (
+      <ErrorBoundaryError error={error} />
+    ) : (
+      children
+    );
   }
 }
 

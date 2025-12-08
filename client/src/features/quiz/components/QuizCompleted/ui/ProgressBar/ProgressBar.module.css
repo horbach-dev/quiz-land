@@ -1,40 +1,40 @@
 .container {
-    position: relative;
-    width: 12rem;
-    height: 12rem;
+  position: relative;
+  width: 12rem;
+  height: 12rem;
 }
 
 .background {
-    stroke: rgba(224, 224, 224, 0.1);
+  stroke: rgba(224, 224, 224, 0.1);
 }
 
 .bad {
-    stroke: rgb(240 102 0);
-    filter: drop-shadow(0 0 0.35rem rgb(240 102 0));
+  stroke: rgb(240 102 0);
+  filter: drop-shadow(0 0 0.35rem rgb(240 102 0));
 }
 
 .middle {
-    stroke: rgb(234 225 19);
-    filter: drop-shadow(0 0 0.35rem rgb(234 225 19));
+  stroke: rgb(234 225 19);
+  filter: drop-shadow(0 0 0.35rem rgb(234 225 19));
 }
 
 .good {
-    stroke: rgb(19 234 170);
-    filter: drop-shadow(0 0 0.35rem rgb(19 234 170));
+  stroke: rgb(19 234 170);
+  filter: drop-shadow(0 0 0.35rem rgb(19 234 170));
 }
 
 .circle {
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-    transition: stroke-dashoffset 0.35s;
-    animation: fillProgress 1.5s ease-out forwards;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 0.35s;
+  animation: fillProgress 1.5s ease-out forwards;
 }
 
 @keyframes fillProgress {
-    0% {
-        stroke-dashoffset: var(--circumference-value);
-    }
-    100% {
-        stroke-dashoffset: var(--offset-value);
-    }
+  0% {
+    stroke-dashoffset: var(--circumference-value);
+  }
+  100% {
+    stroke-dashoffset: var(--offset-value);
+  }
 }

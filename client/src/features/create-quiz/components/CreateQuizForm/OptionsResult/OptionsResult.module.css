@@ -1,39 +1,41 @@
-.container {}
+.container {
+}
 
 .item {
-    border-radius: 0.7rem;
-    background-color: rgb(255 86 86 / 15%);
+  border-radius: 0.7rem;
+  background-color: rgb(255 86 86 / 15%);
 
-    padding: 1rem;
-    gap: 1rem;
-    width: 100%;
-    margin-bottom: var(--default-padding);
+  padding: 1rem;
+  gap: 1rem;
+  width: 100%;
+  margin-bottom: var(--default-padding);
 }
 
 .itemCorrect {
-    background-color: rgb(40 255 125 / 15%);
+  background-color: rgb(40 255 125 / 15%);
 }
 
 .itemHeader {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
 
-.actions {}
+.actions {
+}
 
 .itemTitle {
-    font-weight: 700;
-    font-size: 0.85rem;
+  font-weight: 700;
+  font-size: 0.85rem;
 }
 
 .itemTitle span {
-    margin-left: 0.5rem;
-    color: #13eaaa;
+  margin-left: 0.5rem;
+  color: #13eaaa;
 }
 
 .itemText {
-    font-size: 1.15rem;
+  font-size: 1.15rem;
 }

@@ -16,6 +16,7 @@ interface IProps {
   children?: ReactNode;
   before?: ReactNode;
   after?: ReactNode;
+  auto?: boolean;
   className?: string;
   onClick?: (event: SyntheticEvent) => void;
 }
@@ -30,6 +31,7 @@ export const Button = ({
   children,
   onClick,
   className,
+  auto = false,
   style = 'default',
   size = 'lg',
 }: IProps) => {
@@ -44,6 +46,7 @@ export const Button = ({
       type={type}
       className={clsx(
         styles.container,
+        auto && styles.auto,
         after && styles.withAfter,
         before && styles.withBefore,
         styles[`style-${style}`],
@@ -55,7 +58,11 @@ export const Button = ({
       disabled={disabled || loading}
     >
       {before && <span className={styles.before}>{before}</span>}
-      {style === 'icon' ? children : <span className={styles.text}>{children}</span>}
+      {style === 'icon' ? (
+        children
+      ) : (
+        <span className={styles.text}>{children}</span>
+      )}
       {after && <span className={styles.after}>{after}</span>}
       <span className={clsx(styles.loader, loading && styles.loading)} />
     </button>

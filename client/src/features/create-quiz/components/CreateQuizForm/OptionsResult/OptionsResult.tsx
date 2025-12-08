@@ -45,9 +45,9 @@ export const OptionsResult = ({
               <p
                 className={styles.itemTitle}
                 dangerouslySetInnerHTML={{
-                  __html: t('create_page.option.title', {
+                  __html: t('create_page.options.title', {
                     value: isCorrect
-                      ? `${index + 1} <span>правильный</span>`
+                      ? `${index + 1} <span>${t('create_page.options.right')}</span>`
                       : index + 1,
                   }),
                 }}

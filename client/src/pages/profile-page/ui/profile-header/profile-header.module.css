@@ -1,15 +1,25 @@
 .profileHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .profileInfo {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto var(--default-padding);
+  margin-bottom: var(--default-padding);
+}
+
+.profileContent {
+  margin-left: 0.7rem;
 }
 
 .nick {
-  margin-top: 1rem;
+  margin-bottom: 0.5rem;
   font-size: 1.2rem;
   font-weight: 700;
+}
+
+.line {
+  font-weight: 700;
+  font-size: 0.8rem;
 }

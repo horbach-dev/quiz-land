@@ -1,6 +1,9 @@
 .container {
   width: 100%;
-  padding: calc(var(--quizzes-page-header-height) - var(--padding-top) + var(--default-padding))
+  padding: calc(
+      var(--quizzes-page-header-height) - var(--padding-top) +
+        var(--default-padding)
+    )
     var(--default-padding) var(--default-padding) var(--default-padding);
 }
 

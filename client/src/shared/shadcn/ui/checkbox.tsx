@@ -3,7 +3,10 @@ import { CheckIcon } from 'lucide-react';
 
 import { cn } from '@/shared/shadcn/utils.ts';
 
-function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
+function Checkbox({
+  className,
+  ...props
+}: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
   return (
     <CheckboxPrimitive.Root
       data-slot='checkbox'

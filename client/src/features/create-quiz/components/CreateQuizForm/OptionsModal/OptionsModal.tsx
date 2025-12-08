@@ -9,6 +9,7 @@ import type {
 import type { IFormData } from '@/features/create-quiz/types.ts';
 import { Button } from '@/shared/components/Button';
 import { Drawer } from '@/shared/components/Drawer';
+import { useTranslation } from 'react-i18next';
 
 type TOption = FieldArrayWithId<IFormData, `questions.${number}.options`, 'id'>;
 
@@ -38,6 +39,8 @@ export const OptionsModal = ({
   watch,
   renderItem,
 }: PropsWithChildren<IProps>) => {
+  const { t } = useTranslation();
+
   const setCorrectOption = (selectedIndex: number) => {
     options.forEach((_, index) => {
       setValue(`questions.${questionIndex}.options.${index}.isCorrect`, false, {
@@ -60,15 +63,16 @@ export const OptionsModal = ({
     <Drawer
       isOpen={isOpen}
       onClose={onClose}
-      title={`Ответы к № ${questionIndex + 1}`}
+      title={t('create_page.options.modal_title', { value: questionIndex + 1 })}
       headerActions={
         <Button
           size='sm'
           style='white'
+          auto={true}
           after={<FilePlus />}
           onClick={addOption}
         >
-          Добавить
+          {t('create_page.options.add_variant')}
         </Button>
       }
       actions={
@@ -77,7 +81,7 @@ export const OptionsModal = ({
           disabled={false}
           onClick={onClose}
         >
-          Применить ответы
+          {t('create_page.options.apply_options')}
         </Button>
       }
     >

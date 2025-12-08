@@ -9,8 +9,8 @@ import { SectionHeader } from '@/shared/components/SectionHeader';
 import { BASE_URL } from '@/shared/constants';
 
 import styles from './profile-page.module.css';
-// import { ProfileHeader } from "./ui/profile-header";
 import { CardActions } from './ui/card-actions';
+import { ProfileHeader } from './ui/profile-header';
 
 export default function ProfilePage() {
   const { isLoading, data } = useQuizListQuery({ type: 'my' });
@@ -18,11 +18,15 @@ export default function ProfilePage() {
   return (
     <PageLayout>
       <div className={styles.container}>
-        {/*<ProfileHeader />*/}
+        <ProfileHeader />
         <SectionHeader
           title={'Созданные квизы'}
           actions={
-            <Button size='sm' to='/create' after={<SquarePen />}>
+            <Button
+              size='sm'
+              to='/create'
+              after={<SquarePen />}
+            >
               Новый
             </Button>
           }

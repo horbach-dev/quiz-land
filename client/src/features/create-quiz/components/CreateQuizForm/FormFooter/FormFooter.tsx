@@ -17,7 +17,11 @@ export const FormFooter = ({ formRef, isDisabled, isLoading, onSubmit }) => {
 
   return createPortal(
     <div className={clsx(styles.footer, isShow && styles.footerShow)}>
-      {isDisabled && <FieldError>{t('create_page.check_fields')}</FieldError>}
+      {isDisabled && (
+        <FieldError className='text-center'>
+          {t('create_page.check_fields')}
+        </FieldError>
+      )}
       <Button
         className={styles.button}
         loading={isLoading}

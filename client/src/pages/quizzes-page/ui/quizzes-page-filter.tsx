@@ -19,10 +19,17 @@ export const QuizzesPageFilter = () => {
 
   return (
     <>
-      <Button size='sm' after={<FilterIcon />} onClick={handleShowFilter}>
+      <Button
+        size='sm'
+        after={<FilterIcon />}
+        onClick={handleShowFilter}
+      >
         {t('quizzes_page.search')}
       </Button>
-      <QuizFilter isOpen={isFilterOpen} onClose={handleHideFilter} />
+      <QuizFilter
+        isOpen={isFilterOpen}
+        onClose={handleHideFilter}
+      />
     </>
   );
 };

@@ -16,7 +16,10 @@ export const CardActions = ({ item }: IProps) => {
 
   return (
     <div className={styles.cardActions}>
-      <Button size='sm' style='icon'>
+      <Button
+        size='sm'
+        style='icon'
+      >
         <SquarePen />
       </Button>
       <Popover
@@ -27,7 +30,12 @@ export const CardActions = ({ item }: IProps) => {
           </>
         }
       >
-        <Button size='sm' style='icon' loading={isPending} type='button'>
+        <Button
+          size='sm'
+          style='icon'
+          loading={isPending}
+          type='button'
+        >
           <Trash2 />
         </Button>
       </Popover>

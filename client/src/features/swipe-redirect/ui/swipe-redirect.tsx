@@ -15,7 +15,10 @@ export const SwipeRedirect = () => {
   useSwipeEvents(containerRef, callback);
 
   return createPortal(
-    <div className={styles.container} ref={containerRef}>
+    <div
+      className={styles.container}
+      ref={containerRef}
+    >
       <ChevronLeft />
     </div>,
     portal,

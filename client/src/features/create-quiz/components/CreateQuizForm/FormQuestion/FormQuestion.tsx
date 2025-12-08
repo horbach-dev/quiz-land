@@ -1,6 +1,6 @@
 import { type ReactNode, useEffect, useRef } from 'react';
 
-import styles from './FormQuestion.module.css'
+import styles from './FormQuestion.module.css';
 
 interface QuestionProps {
   index: number;

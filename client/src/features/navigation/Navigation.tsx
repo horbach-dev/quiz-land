@@ -25,10 +25,16 @@ export const Navigation = () => {
   }, []);
 
   return (
-    <div className={clsx(styles.container, !isNavigationVisible && styles.hide)}>
-      <div ref={containerRef} className={styles.list}>
+    <div
+      className={clsx(styles.container, !isNavigationVisible && styles.hide)}
+    >
+      <div
+        ref={containerRef}
+        className={styles.list}
+      >
         {NAVIGATION_ITEMS.map(({ id, link, title, icon: Icon }) => {
-          const active = (pathname.includes(link) && link !== '/') || pathname === link;
+          const active =
+            (pathname.includes(link) && link !== '/') || pathname === link;
           return (
             <button
               key={id}

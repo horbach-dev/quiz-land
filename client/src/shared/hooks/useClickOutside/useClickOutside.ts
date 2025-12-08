@@ -2,14 +2,20 @@ import { useEffect } from 'react';
 
 import type { IClickOutside } from './types';
 
-export function useClickOutside({ onClickOutside, ref, options = {} }: IClickOutside) {
+export function useClickOutside({
+  onClickOutside,
+  ref,
+  options = {},
+}: IClickOutside) {
   useEffect(() => {
     const listener = (e) => {
       const excludedElementsSelector = options.excludedElementsSelector;
 
       const isClickByExcluded =
         excludedElementsSelector &&
-        excludedElementsSelector.some((selector) => !!e.target.closest(selector));
+        excludedElementsSelector.some(
+          (selector) => !!e.target.closest(selector),
+        );
 
       if (!ref.current || ref.current.contains(e.target) || isClickByExcluded) {
         return;

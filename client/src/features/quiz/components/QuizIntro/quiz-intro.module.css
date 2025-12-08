@@ -58,7 +58,8 @@
   list-style: disc;
 }
 
-.description ol, ul {
+.description ol,
+ul {
   line-height: 1.5;
   padding-left: 1.5rem;
 }

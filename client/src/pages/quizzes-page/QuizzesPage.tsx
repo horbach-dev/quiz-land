@@ -30,7 +30,10 @@ export default function QuizzesPage() {
 
   return (
     <PageLayout>
-      <QuizzesPageHeader title={t('quizzes_page.title')} actions={<QuizzesPageFilter />} />
+      <QuizzesPageHeader
+        title={t('quizzes_page.title')}
+        actions={<QuizzesPageFilter />}
+      />
       <div className={styles.container}>
         <div className={styles.tabBar}>
           <TabBar

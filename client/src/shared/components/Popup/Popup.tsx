@@ -12,7 +12,11 @@ interface IProps {
   onClose: () => void;
 }
 
-export const Popup = ({ isOpen, onClose, children }: PropsWithChildren<IProps>) => {
+export const Popup = ({
+  isOpen,
+  onClose,
+  children,
+}: PropsWithChildren<IProps>) => {
   const [isShow, setIsShow] = useState<boolean>(false);
 
   useEffect(() => {
@@ -28,7 +32,12 @@ export const Popup = ({ isOpen, onClose, children }: PropsWithChildren<IProps>) 
   if (!isShow) return null;
 
   return createPortal(
-    <div className={clsx(styles.popup, isOpen ? styles.popupOpen : styles.popupClose)}>
+    <div
+      className={clsx(
+        styles.popup,
+        isOpen ? styles.popupOpen : styles.popupClose,
+      )}
+    >
       <div
         className={styles.popupOverlay}
         onClick={onClose}

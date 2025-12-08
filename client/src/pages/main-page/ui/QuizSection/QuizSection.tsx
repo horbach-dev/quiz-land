@@ -30,7 +30,10 @@ export const QuizSection = () => {
         />
       </div>
       <div className={styles.quizAll}>
-        <Button to='/quizzes' after={<CircleCheckBig />}>
+        <Button
+          to='/quizzes'
+          after={<CircleCheckBig />}
+        >
           {t('common.all_quizzes')}
         </Button>
       </div>

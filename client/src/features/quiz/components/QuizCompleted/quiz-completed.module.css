@@ -1,52 +1,52 @@
 .quizCompleted {
-    padding: var(--default-padding);
+  padding: var(--default-padding);
 }
 
 .content {
-    padding-top: 1rem;
+  padding-top: 1rem;
 }
 
 .title {
-    margin-bottom: var(--default-padding);
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: 700;
+  margin-bottom: var(--default-padding);
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .poster {
-    margin: auto;
-    width: 50%;
+  margin: auto;
+  width: 50%;
 }
 
 .resultTitle {
-    margin-top: var(--default-padding);
-    margin-bottom: -5%;
-    /*margin-bottom: var(--default-padding);*/
-    text-align: center;
-    font-weight: 700;
-    /*font-size: 1.5rem;*/
+  margin-top: var(--default-padding);
+  margin-bottom: -5%;
+  /*margin-bottom: var(--default-padding);*/
+  text-align: center;
+  font-weight: 700;
+  /*font-size: 1.5rem;*/
 }
 
 .result {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .resultText {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  font-size: 1.2rem;
 }
 
 .resultTextResult {
-    margin-right: 0.3rem;
-    font-weight: 700;
+  margin-right: 0.3rem;
+  font-weight: 700;
 }
 
 .resultTextCount {
-    margin-left: 0.3rem;
-    color: rgba(255,255,255,0.5);
-    font-size: 0.8rem;
+  margin-left: 0.3rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
 }

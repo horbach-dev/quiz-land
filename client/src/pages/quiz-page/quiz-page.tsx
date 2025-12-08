@@ -26,7 +26,8 @@ export const QuizPage = () => {
 
   const { id } = useParams();
   const { data } = useQuizQuery(id!);
-  const { startSession, isLoadingStart, isLoadingRestart } = useStartSessionMutation(id!);
+  const { startSession, isLoadingStart, isLoadingRestart } =
+    useStartSessionMutation(id!);
   const setRedirectCallback = useAppStore((s) => s.setSwipeRedirectCallback);
 
   const onStartSession = (restart?: boolean) => {
@@ -64,7 +65,12 @@ export const QuizPage = () => {
       backCallback={screen === 'session' ? handleSessionBack : undefined}
       withNavigation={screen !== 'session'}
     >
-      <div className={clsx(styles.container, isTransition && styles.containerTransition)}>
+      <div
+        className={clsx(
+          styles.container,
+          isTransition && styles.containerTransition,
+        )}
+      >
         <CurrentScreen
           quizData={data}
           onStartSession={onStartSession}

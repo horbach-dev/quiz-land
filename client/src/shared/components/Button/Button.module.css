@@ -12,6 +12,10 @@
     opacity 0.2s;
 }
 
+.auto {
+  width: auto;
+}
+
 .style-default {
   color: #fff;
   overflow: hidden;

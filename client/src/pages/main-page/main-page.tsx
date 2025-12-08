@@ -20,7 +20,10 @@ export default function MainPage() {
           <UserWelcome />
         </div>
         <div className={styles.actions}>
-          <Button to='/create' after={<SquarePen />}>
+          <Button
+            to='/create'
+            after={<SquarePen />}
+          >
             {t('common.create')}
           </Button>
           <ShareAppButton />
@@ -29,7 +32,12 @@ export default function MainPage() {
         <SectionHeader
           title={t('main_page.popular')}
           actions={
-            <Button style='white' size='sm' to={`/quizzes`} after={<ChevronRight color='#333' />}>
+            <Button
+              style='white'
+              size='sm'
+              to={`/quizzes`}
+              after={<ChevronRight color='#333' />}
+            >
               {t('main_page.more')}
             </Button>
           }

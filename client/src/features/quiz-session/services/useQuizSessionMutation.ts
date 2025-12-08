@@ -8,7 +8,8 @@ export function useStartSessionMutation(quizId: string) {
   const queryClient = useQueryClient();
 
   const { isPending, mutateAsync } = useMutation({
-    mutationFn: ({ restart }: { restart?: boolean }) => startSession({ id: quizId, restart }),
+    mutationFn: ({ restart }: { restart?: boolean }) =>
+      startSession({ id: quizId, restart }),
     onMutate: ({ restart }) => setIsRestart(!!restart),
     onSuccess: (data) => {
       queryClient.setQueryData(['getSession', quizId], data);

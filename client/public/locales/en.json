@@ -26,7 +26,7 @@
     "tab": {
       "public": "Public",
       "my": "My quizzes",
-      "friends": "Friends"
+      "shared": "Shared"
     }
   },
   "filter": {
@@ -35,10 +35,63 @@
     "search": "Search"
   },
   "create_page": {
-    "title": "Создание нового квиза",
-    "description": "Квиз можно создавать разных типов (один вариант правильный / несколько), ограничивать по времени, добавлять ответы картинками.",
-    "form": {
-      "title": "Название квиза"
+    "title": "Creating a new test",
+    "description": "Tests can be created in different types (single choice / multiple choice), time-limited, and include image answers.",
+    "main": {
+      "title": "Test Title",
+      "title_placeholder": "Enter title...",
+      "description": "Test Description",
+      "description_placeholder": "Enter description / test rules...",
+      "poster": "Main image",
+      "poster_placeholder": "Maximum 1mb, PNG and JPEG files allowed"
+    },
+    "questions": {
+      "title": "Test Questions",
+      "description": "First, you need to define the test type (single choice, multiple choice, answer weights)",
+      "add_question": "Add question"
+    },
+    "question": {
+      "title": "Question #{{value}}",
+      "delete": "Delete",
+      "field_title": "Question Text",
+      "field_placeholder": "Enter question...",
+      "image": "Question Image",
+      "image_placeholder": "Maximum 1mb, PNG and JPEG files allowed"
+    },
+    "options": {
+      "title": "Answer {{value}}",
+      "placeholder": "Enter answer...",
+      "add_edit": "Add / edit answers",
+      "modal_title": "Answers for #{{value}}",
+      "add_variant": "Add variant",
+      "apply_options": "Apply answers",
+      "right": "Correct answer"
+    },
+    "check_fields": "Check fields for errors"
+  },
+  "validation": {
+    "required": "Required field",
+    "min_length": "Minimum length: {{value}} characters",
+    "max_length": "Maximum length: {{value}} characters",
+    "length_limit": "Character limit exceeded by {{value}} pcs.",
+    "questions": {
+      "required": "Cannot create tests without questions",
+      "min_length": "Minimum number of questions: {{value}}"
+    },
+    "options": {
+      "required": "Cannot create questions without answers",
+      "min_length": "Minimum number of answers: {{value}}"
+    }
+  },
+  "shared": {
+    "load_image": "Upload image",
+    "delete_image": "Delete image"
+  },
+  "errors": {
+    "image": {
+      "size": "File size cannot exceed {{value}}MB",
+      "format": "Only the following files are allowed: PNG, JPEG",
+      "load": "Upload error, please try again later"
     }
   }
 }

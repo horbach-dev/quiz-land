@@ -30,12 +30,17 @@ export function QuizSession({ quizData, setScreen }: IProps) {
 
   const session = data?.session;
   const quizQuestions = quizData.questions;
-  const initialStep = getInitialStep(data?.nextQuestionId as string, quizQuestions);
+  const initialStep = getInitialStep(
+    data?.nextQuestionId as string,
+    quizQuestions,
+  );
 
-  const { step, isHide, goToNextStep, goToPrevStep } = useQuizSessionNavigation({
-    initialStep,
-    totalSteps: quizQuestions.length,
-  });
+  const { step, isHide, goToNextStep, goToPrevStep } = useQuizSessionNavigation(
+    {
+      initialStep,
+      totalSteps: quizQuestions.length,
+    },
+  );
 
   useEffect(() => {
     window.scroll({
@@ -67,7 +72,10 @@ export function QuizSession({ quizData, setScreen }: IProps) {
     (value: string) => {
       if (!session?.id || !currentQuestion.id) return;
 
-      setAnswers((prevAnswers) => ({ ...prevAnswers, [currentQuestion.id]: value }));
+      setAnswers((prevAnswers) => ({
+        ...prevAnswers,
+        [currentQuestion.id]: value,
+      }));
 
       submitAnswer({
         sessionId: session.id,
@@ -88,7 +96,8 @@ export function QuizSession({ quizData, setScreen }: IProps) {
         });
 
       //eslint-disable-next-line
-    },[step, session?.id, currentQuestion.id, quizQuestions.length]
+    },
+    [step, session?.id, currentQuestion.id, quizQuestions.length],
   );
 
   if (!currentQuestion || !session) return null;

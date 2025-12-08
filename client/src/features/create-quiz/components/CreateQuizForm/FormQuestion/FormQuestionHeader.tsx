@@ -26,5 +26,5 @@ export const FormQuestionHeader = ({ index, removeQuestion }: IProps) => {
         </Button>
       </div>
     </FieldLegend>
-  )
-}
+  );
+};

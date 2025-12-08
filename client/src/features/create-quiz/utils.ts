@@ -1,16 +1,20 @@
-export const validateDescription = (value = '') => {
-  if (!value) {
-    return 'Обязательное поле';
-  }
+export const validateDescription =
+  (t) =>
+  (value = '') => {
+    if (!value) {
+      return t('validation.required');
+    }
 
-  if (value.length < 50) {
-    return 'Минимальное кол-во символов: 50';
-  }
+    if (value.length < 50) {
+      return t('validation.min_length', { value: 50 });
+    }
 
-  const length = value.replace(/<[^>]*>?/gm, '').replace(/\n\s*\n/g, '\n').length;
+    const length = value
+      .replace(/<[^>]*>?/gm, '')
+      .replace(/\n\s*\n/g, '\n').length;
 
-  if (length > 3000) {
-    return `Превышен лимит символов на ${length - 3000} шт.`;
-  }
-  return true;
-};
+    if (length > 3000) {
+      return t('validation.length_limit', { value: length - 3000 });
+    }
+    return true;
+  };

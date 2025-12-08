@@ -30,7 +30,10 @@ export const QuizFilter = ({ isOpen, onClose }) => {
         </Button>
       }
       searchButton={
-        <Button onClick={handleSearch} after={<SearchCheck />}>
+        <Button
+          onClick={handleSearch}
+          after={<SearchCheck />}
+        >
           {t('filter.search')}
         </Button>
       }

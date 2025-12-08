@@ -32,11 +32,15 @@ export const QuizCompleted = ({ quizData }: IProps) => {
         )}
         <p className={styles.resultTitle}>Ваш результат</p>
         <div className={styles.result}>
-          <ProgressBar percentage={((data?.score || 0) / data.totalQuestions) * 100} />
+          <ProgressBar
+            percentage={((data?.score || 0) / data.totalQuestions) * 100}
+          />
           <p className={styles.resultText}>
             <span className={styles.resultTextResult}>{data.score}</span>
             {' / '}
-            <span className={styles.resultTextCount}>{data.totalQuestions}</span>
+            <span className={styles.resultTextCount}>
+              {data.totalQuestions}
+            </span>
             {/*{data.score} из {data.totalQuestions}*/}
           </p>
         </div>

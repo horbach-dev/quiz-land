@@ -120,7 +120,7 @@ export const FormQuestionOptions = ({
           onClick={handleChangeOptions}
         >
           {/*Добавить ответ*/}
-          {t('create_page.question.add_option')}
+          {t('create_page.options.add_edit')}
         </Button>
       </Field>
 

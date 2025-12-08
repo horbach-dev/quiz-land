@@ -70,7 +70,7 @@ export const FormMain = ({
           <Controller
             name='description'
             control={control}
-            rules={{ validate: validateDescription }}
+            rules={{ validate: validateDescription(t) }}
             render={({ field }) => (
               <TextEditor
                 id='quiz-description'

@@ -17,7 +17,8 @@ export function EnvUnsupported() {
       />
       <h1>Упс :(</h1>
       <p style={{ textAlign: 'center', padding: '10px' }}>
-        Похоже, вы пытаетесь открыть приложение в браузере или у вас старая версия Telegram
+        Похоже, вы пытаетесь открыть приложение в браузере или у вас старая
+        версия Telegram
       </p>
     </div>
   );

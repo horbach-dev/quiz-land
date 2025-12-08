@@ -12,7 +12,10 @@ type TParams = {
   restart?: boolean;
 };
 
-export const startSession = async ({ id, restart }: TParams): Promise<TResult> => {
+export const startSession = async ({
+  id,
+  restart,
+}: TParams): Promise<TResult> => {
   const response = await api.post(`/quiz-session/start/${id}`, { restart });
   return response?.data;
 };

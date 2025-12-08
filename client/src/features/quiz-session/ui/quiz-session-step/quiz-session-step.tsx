@@ -17,37 +17,48 @@ interface IProps {
   setValue: (value: string) => void;
 }
 
-export const QuizSessionStep = memo(({ isHide, isLoading, question, value, setValue }: IProps) => {
-  const options = question.options.map((i) => ({ label: i.text, value: i.id }));
+export const QuizSessionStep = memo(
+  ({ isHide, isLoading, question, value, setValue }: IProps) => {
+    const options = question.options.map((i) => ({
+      label: i.text,
+      value: i.id,
+    }));
 
-  return (
-    <div className={clsx(styles.container, isHide && styles.hide, isLoading && styles.disabled)}>
-      {question.image && (
-        <LazyImage
-          key={question.id}
-          image={BASE_URL + question.image}
-          title={question.text}
-        />
-      )}
+    return (
+      <div
+        className={clsx(
+          styles.container,
+          isHide && styles.hide,
+          isLoading && styles.disabled,
+        )}
+      >
+        {question.image && (
+          <LazyImage
+            key={question.id}
+            image={BASE_URL + question.image}
+            title={question.text}
+          />
+        )}
 
-      <p className={styles.title}>{question.text}</p>
+        <p className={styles.title}>{question.text}</p>
 
-      {question.type === 'MULTI_CHOICE' && (
-        <WheelPicker
-          onValueChange={setValue}
-          options={options}
-          value={value as string}
-        />
-      )}
+        {question.type === 'MULTI_CHOICE' && (
+          <WheelPicker
+            onValueChange={setValue}
+            options={options}
+            value={value as string}
+          />
+        )}
 
-      {question.type === 'SINGLE_CHOICE' && (
-        <Options
-          isLoading={isLoading}
-          value={value}
-          options={options}
-          onChange={setValue}
-        />
-      )}
-    </div>
-  );
-});
+        {question.type === 'SINGLE_CHOICE' && (
+          <Options
+            isLoading={isLoading}
+            value={value}
+            options={options}
+            onChange={setValue}
+          />
+        )}
+      </div>
+    );
+  },
+);

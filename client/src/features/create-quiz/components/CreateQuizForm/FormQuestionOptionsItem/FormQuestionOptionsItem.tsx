@@ -31,12 +31,12 @@ export const FormQuestionOptionsItem = ({
     <Field className={styles.container}>
       <div className={styles.header}>
         <FieldLabel htmlFor={`answer-text-${index}`}>
-          {t('create_page.option.title', { value: index + 1 })}
+          {t('create_page.options.title', { value: index + 1 })}
         </FieldLabel>
         <Toggle
           active={isCorrect}
           onClick={() => setCorrectOption(index)}
-          label='Верный ответ'
+          label={t('create_page.options.right')}
         />
         <Button
           style='icon'
@@ -49,7 +49,7 @@ export const FormQuestionOptionsItem = ({
       <Textarea
         id={`answer-text-${index}`}
         multiple={true}
-        placeholder={t('create_page.option.placeholder')}
+        placeholder={t('create_page.options.placeholder')}
         {...register(
           `questions.${questionIndex}.options.${index}.text`,
           validationRules(t).option,

@@ -46,8 +46,14 @@ export const IntroSlider = () => {
       className={clsx(styles.container, isClose && styles.containerClose)}
       onAnimationEnd={handleCloseIntro}
     >
-      <IntroSliderTrack slides={slides} currentSlide={currentSlide} />
-      <IntroSliderContent slides={slides} currentSlide={currentSlide} />
+      <IntroSliderTrack
+        slides={slides}
+        currentSlide={currentSlide}
+      />
+      <IntroSliderContent
+        slides={slides}
+        currentSlide={currentSlide}
+      />
       <div className={styles.footer}>
         <button
           type='button'
@@ -58,9 +64,17 @@ export const IntroSlider = () => {
           <ArrowLeft className={styles.arrow} />
           <span>{'назад'}</span>
         </button>
-        <button type='button' className={styles.btnNext} onClick={handleNext}>
+        <button
+          type='button'
+          className={styles.btnNext}
+          onClick={handleNext}
+        >
           {currentSlide === 0 && (
-            <ArrowDown size={24} color={'#fff'} className={styles.arrowBounce} />
+            <ArrowDown
+              size={24}
+              color={'#fff'}
+              className={styles.arrowBounce}
+            />
           )}
           <span>{currentSlide === slides.length - 1 ? 'Начать' : 'Далее'}</span>
           <ChevronsRight className={styles.arrow} />
