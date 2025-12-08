@@ -12,6 +12,7 @@ import { Button } from '@/shared/components/Button';
 import { FieldError } from '@/shared/shadcn/ui/field.tsx';
 
 import styles from './OptionsResult.module.css';
+import DndKitList from '@/shared/components/DragAndDrop/DragAndDrop.tsx';
 
 interface IProps {
   options: FieldArrayWithId<IFormData, `questions.${number}.options`, 'id'>[];
@@ -34,6 +35,8 @@ export const OptionsResult = ({
 
   return (
     <div className={styles.container}>
+      <DndKitList />
+
       {options.map((answer, index) => {
         const isCorrect = optionsForQuestion[index].isCorrect;
         return (
