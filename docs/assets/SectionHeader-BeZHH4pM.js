@@ -1,0 +1,1 @@
+import{j as t,d as i}from"./index-DmPxrPMJ.js";const a="_container_14992_1",o="_title_14992_9",r="_actions_14992_14",s={container:a,title:o,actions:r},_=({title:e,actions:n,className:c})=>t.jsxs("div",{className:i(s.container,c),children:[t.jsx("p",{className:s.title,children:e}),n&&t.jsx("div",{className:s.actions,children:n})]});export{_ as S};

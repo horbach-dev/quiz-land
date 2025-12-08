@@ -2,10 +2,10 @@ import { Redo2, Undo2 } from 'lucide-react';
 import Editor, {
   BtnBold,
   BtnBulletList,
-  BtnClearFormatting,
   BtnItalic,
   BtnNumberedList,
   BtnRedo,
+  BtnStrikeThrough,
   BtnUnderline,
   BtnUndo,
   Toolbar,
@@ -41,9 +41,9 @@ export const TextEditor = ({ value, onChange, placeholder }: IProps) => {
             <BtnBold className={styles.editorBtn} />
             <BtnItalic className={styles.editorBtn} />
             <BtnUnderline className={styles.editorBtn} />
+            <BtnStrikeThrough className={styles.editorBtn} />
             <BtnBulletList className={styles.editorBtn} />
             <BtnNumberedList className={styles.editorBtn} />
-            <BtnClearFormatting className={styles.editorBtn} />
           </Toolbar>
         </Editor>
       </div>

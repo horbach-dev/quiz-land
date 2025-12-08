@@ -1,5 +1,6 @@
 import { Images, Trash2 } from 'lucide-react';
 import { type ChangeEvent, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/shared/components/Button';
 
@@ -19,6 +20,7 @@ interface IProps {
 }
 
 export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
+  const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState<string | ArrayBuffer | null>(null);
   const [progress, setProgress] = useState<number | null>(0);
@@ -64,10 +66,16 @@ export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
 
         <div className={styles.uploadInputPreview}>
           <Images className={styles.uploadInputIcon} />
-          <p>Загрузить изображение</p>
+          <p>{t('shared.load_image')}</p>
         </div>
 
-        {image && <img className={styles.uploadInputImage} src={image as string} alt={name} />}
+        {image && (
+          <img
+            className={styles.uploadInputImage}
+            src={image as string}
+            alt={name}
+          />
+        )}
 
         {!!progress && (
           <div className={styles.uploadInputProgress}>
@@ -84,7 +92,7 @@ export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
           className={styles.uploadInputDelete}
           onClick={handleDelete}
         >
-          Удалить изображение
+          {t('shared.delete_image')}
         </Button>
       )}
     </div>

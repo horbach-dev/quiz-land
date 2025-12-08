@@ -12,7 +12,10 @@ export default function CreateQuizPage() {
   const { t } = useTranslation();
 
   return (
-    <PageLayout withNavigation={false} className={styles.container}>
+    <PageLayout
+      withNavigation={false}
+      className={styles.container}
+    >
       <div className={styles.content}>
         <SectionHeader title={t('create_page.title')} />
         <p className={styles.description}>{t('create_page.description')}</p>

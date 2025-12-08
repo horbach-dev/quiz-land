@@ -29,7 +29,10 @@ export const Popup = ({ isOpen, onClose, children }: PropsWithChildren<IProps>) 
 
   return createPortal(
     <div className={clsx(styles.popup, isOpen ? styles.popupOpen : styles.popupClose)}>
-      <div className={styles.popupOverlay} onClick={onClose} />
+      <div
+        className={styles.popupOverlay}
+        onClick={onClose}
+      />
       <div className={styles.popupWrap}>
         <div className={styles.popupContent}>{children}</div>
       </div>

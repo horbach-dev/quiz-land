@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import { useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import { Label } from '@/shared/shadcn/ui/label.tsx';
 import { Separator } from '@/shared/shadcn/ui/separator.tsx';
@@ -39,9 +39,13 @@ function FieldLegend({
   );
 }
 
-function FieldGroup({ className, ...props }: React.ComponentProps<'div'>) {
+const FieldGroup = forwardRef<
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<'div'>
+>(({ className, ...props }, ref) => {
   return (
     <div
+      ref={ref}
       data-slot='field-group'
       className={cn(
         'group/field-group @container/field-group flex w-full flex-col gap-7 data-[slot=checkbox-group]:gap-3 [&>[data-slot=field-group]]:gap-4',
@@ -50,28 +54,33 @@ function FieldGroup({ className, ...props }: React.ComponentProps<'div'>) {
       {...props}
     />
   );
-}
+});
 
-const fieldVariants = cva('group/field flex w-full gap-3 data-[invalid=true]:text-destructive', {
-  variants: {
-    orientation: {
-      vertical: ['flex-col [&>*]:w-full [&>.sr-only]:w-auto'],
-      horizontal: [
-        'flex-row items-center',
-        '[&>[data-slot=field-label]]:flex-auto',
-        'has-[>[data-slot=field-content]]:items-start has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
-      ],
-      responsive: [
-        'flex-col [&>*]:w-full [&>.sr-only]:w-auto @md/field-group:flex-row @md/field-group:items-center @md/field-group:[&>*]:w-auto',
-        '@md/field-group:[&>[data-slot=field-label]]:flex-auto',
-        '@md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
-      ],
+FieldGroup.displayName = 'FieldGroup';
+
+const fieldVariants = cva(
+  'group/field flex w-full gap-3 data-[invalid=true]:text-destructive',
+  {
+    variants: {
+      orientation: {
+        vertical: ['flex-col [&>*]:w-full [&>.sr-only]:w-auto'],
+        horizontal: [
+          'flex-row items-center',
+          '[&>[data-slot=field-label]]:flex-auto',
+          'has-[>[data-slot=field-content]]:items-start has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
+        ],
+        responsive: [
+          'flex-col [&>*]:w-full [&>.sr-only]:w-auto @md/field-group:flex-row @md/field-group:items-center @md/field-group:[&>*]:w-auto',
+          '@md/field-group:[&>[data-slot=field-label]]:flex-auto',
+          '@md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
+        ],
+      },
+    },
+    defaultVariants: {
+      orientation: 'vertical',
     },
   },
-  defaultVariants: {
-    orientation: 'vertical',
-  },
-});
+);
 
 function Field({
   className,
@@ -93,13 +102,19 @@ function FieldContent({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot='field-content'
-      className={cn('group/field-content flex flex-1 flex-col gap-1.5 leading-snug', className)}
+      className={cn(
+        'group/field-content flex flex-1 flex-col gap-1.5 leading-snug',
+        className,
+      )}
       {...props}
     />
   );
 }
 
-function FieldLabel({ className, ...props }: React.ComponentProps<typeof Label>) {
+function FieldLabel({
+  className,
+  ...props
+}: React.ComponentProps<typeof Label>) {
   return (
     <Label
       data-slot='field-label'
@@ -189,7 +204,9 @@ function FieldError({
       return null;
     }
 
-    const uniqueErrors = [...new Map(errors.map((error) => [error?.message, error])).values()];
+    const uniqueErrors = [
+      ...new Map(errors.map((error) => [error?.message, error])).values(),
+    ];
 
     if (uniqueErrors?.length == 1) {
       return uniqueErrors[0]?.message;
@@ -197,7 +214,10 @@ function FieldError({
 
     return (
       <ul className='ml-4 flex list-disc flex-col gap-1'>
-        {uniqueErrors.map((error, index) => error?.message && <li key={index}>{error.message}</li>)}
+        {uniqueErrors.map(
+          (error, index) =>
+            error?.message && <li key={index}>{error.message}</li>,
+        )}
       </ul>
     );
   }, [children, errors]);

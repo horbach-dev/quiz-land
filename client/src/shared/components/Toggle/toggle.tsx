@@ -10,7 +10,10 @@ interface IProps {
 
 export const Toggle = ({ active, label, onClick }: IProps) => {
   return (
-    <div onClick={onClick} className={styles.toggleWrap}>
+    <div
+      onClick={onClick}
+      className={styles.toggleWrap}
+    >
       {label && <span className={styles.toggleLabel}>{label}</span>}
       <div className={clsx(styles.toggle, active && styles.toggleActive)}>
         <div className={styles.togglePoint}></div>

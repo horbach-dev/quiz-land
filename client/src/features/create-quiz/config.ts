@@ -1,27 +1,58 @@
-export const validationRules = {
+import type { TFunction } from 'i18next';
+
+export const validationRules = (t: TFunction<'translation', undefined>) => ({
   title: {
-    required: 'Обязательное поле',
+    required: t('validation.required'),
     minLength: {
       value: 7,
-      message: 'Минимальное кол-во символов: 7',
+      message: t('validation.min_length', { value: 7 }),
     },
     maxLength: {
       value: 30,
-      message: 'Максимальное кол-во символов: 30',
+      message: t('validation.max_length', { value: 30 }),
     },
   },
   description: {
-    required: 'Обязательное поле',
+    required: t('validation.required'),
+    minLength: {
+      value: 100,
+      message: t('validation.min_length', { value: 100 }),
+    },
   },
-  questionTitle: {
-    required: 'Обязательное поле',
+  questions: {
+    required: t('validation.questions.required'),
+    minLength: {
+      value: 2,
+      message: t('validation.questions.min_length', { value: 2 }),
+    },
+  },
+  question: {
+    required: t('validation.required'),
     minLength: {
       value: 7,
-      message: 'Минимальное кол-во символов: 7',
+      message: t('validation.min_length', { value: 7 }),
     },
     maxLength: {
       value: 100,
-      message: 'Максимальное кол-во символов: 100',
+      message: t('validation.max_length', { value: 100 }),
     },
   },
-};
+  options: {
+    required: t('validation.options.required'),
+    minLength: {
+      value: 2,
+      message: t('validation.options.min_length', { value: 2 }),
+    },
+  },
+  option: {
+    required: t('validation.required'),
+    minLength: {
+      value: 1,
+      message: t('validation.min_length', { value: 1 }),
+    },
+    maxLength: {
+      value: 100,
+      message: t('validation.max_length', { value: 100 }),
+    },
+  },
+});

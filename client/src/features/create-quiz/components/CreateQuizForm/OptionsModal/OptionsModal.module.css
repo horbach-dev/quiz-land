@@ -1,0 +1,57 @@
+.container {
+    overflow: hidden;
+    z-index: 5000 !important;
+    will-change: transform;
+    background: #2a2a55 !important;
+    max-height: calc(100vh - var(--padding-top) - var(--default-padding) * 1.2) !important;
+}
+
+.overlay {
+    will-change: opacity;
+    z-index: 1000 !important;
+}
+
+.header {
+    position: relative;
+    z-index: 2;
+    padding: 1rem var(--default-padding) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.filterHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filterTitle {
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: left;
+}
+
+.filterAction {
+    min-width: 11rem;
+}
+
+.content {
+    min-height: 20rem;
+    position: relative;
+    padding: var(--default-padding);
+
+    p {
+        position: relative;
+        z-index: 0;
+    }
+}
+
+.actions {
+    position: sticky;
+    margin: var(--default-padding) var(--default-padding) 0;
+    bottom: var(--padding-bottom);
+    margin-top: calc(var(--default-padding) * 2);
+    z-index: 20;
+    border-radius: 1rem;
+    backdrop-filter: blur(20px);
+}

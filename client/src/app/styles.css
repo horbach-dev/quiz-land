@@ -161,9 +161,13 @@ img {
 .rsw-editor {
   position: relative !important;
   overflow: visible !important;
-  border-radius: 0.5rem !important;
-  min-height: 10rem !important;
+  border-radius: 0.8rem !important;
+  min-height: 15rem !important;
   font-size: 1.3rem !important;
+}
+
+.rsw-ce {
+  border-radius: 0 0 0.73rem 0.73rem !important;
 }
 
 .rsw-ce  ul {

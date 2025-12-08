@@ -2,11 +2,29 @@
     padding: var(--default-padding);
 }
 
+.content {
+    padding-top: 1rem;
+}
+
+.title {
+    margin-bottom: var(--default-padding);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.poster {
+    margin: auto;
+    width: 50%;
+}
+
 .resultTitle {
+    margin-top: var(--default-padding);
+    margin-bottom: -5%;
     /*margin-bottom: var(--default-padding);*/
     text-align: center;
     font-weight: 700;
-    font-size: 1.5rem;
+    /*font-size: 1.5rem;*/
 }
 
 .result {

@@ -30,10 +30,11 @@
   background: url('./assets/empty.webp') no-repeat;
   background-position: center;
   background-size: 100%;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .emptyTitle {
+  opacity: 0.6;
   margin-top: var(--default-padding);
   font-weight: 700;
   font-size: 1.25rem;

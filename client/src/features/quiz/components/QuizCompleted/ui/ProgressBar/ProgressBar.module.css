@@ -31,10 +31,10 @@
 }
 
 @keyframes fillProgress {
-    from {
+    0% {
         stroke-dashoffset: var(--circumference-value);
     }
-    to {
+    100% {
         stroke-dashoffset: var(--offset-value);
     }
 }
