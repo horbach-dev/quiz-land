@@ -39,9 +39,10 @@ const SortableItem = ({ id }) => {
     backgroundColor: 'white',
     border: '1px solid #ddd',
     borderRadius: '4px',
-    cursor: 'grab', // Меняем курсор на "руку"
     boxShadow: isDragging ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none',
     opacity: isDragging ? 0.6 : 1,
+    cursor: 'grab',
+    touchAction: 'none',
   };
 
   return (
@@ -70,9 +71,17 @@ const SortableItem = ({ id }) => {
 const DndKitList = () => {
   const [items, setItems] = useState(initialItems);
 
+  const activationConstraint = {
+    distance: 8, // Или задержка 150 миллисекунд
+  };
+
   const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(TouchSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: activationConstraint,
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: activationConstraint,
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
