@@ -19,9 +19,9 @@ import {
   FieldSeparator,
 } from '@/shared/shadcn/ui/field.tsx';
 
+import { FormOptionsList } from '../FormOptionsList';
 import { FormQuestionOptionsItem } from '../FormQuestionOptionsItem';
 import { OptionsModal } from '../OptionsModal';
-import { OptionsResult } from '../OptionsResult';
 
 interface IProps {
   questionIndex: number;
@@ -49,6 +49,7 @@ export const FormQuestionOptions = ({
     fields: optionFields,
     append: appendOption,
     remove: removeOption,
+    move: moveOptions,
   } = useFieldArray({
     control,
     name: `questions.${questionIndex}.options`,
@@ -76,11 +77,12 @@ export const FormQuestionOptions = ({
       {!!optionFields.length && (
         <>
           <FieldSeparator />
-          <OptionsResult
+          <FormOptionsList
             watch={watch}
             options={optionFields}
             questionIndex={questionIndex}
             removeOption={removeOption}
+            moveOptions={moveOptions}
             errors={(questionErrors?.options as any) || []}
           />
         </>
@@ -119,8 +121,10 @@ export const FormQuestionOptions = ({
           size='sm'
           onClick={handleChangeOptions}
         >
-          {/*Добавить ответ*/}
-          {t('create_page.options.add_edit')}
+          {/*Добавить / изменить ответ*/}
+          {optionFields.length
+            ? t('create_page.options.edit')
+            : t('create_page.options.add')}
         </Button>
       </Field>
 

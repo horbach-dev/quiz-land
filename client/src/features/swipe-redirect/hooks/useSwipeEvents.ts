@@ -6,9 +6,11 @@ const GAP = 20;
 
 export const useSwipeEvents = (
   container: { current: HTMLDivElement | null },
-  onSwipeRight: () => void,
+  onSwipeRight: (() => void) | null,
 ) => {
   useEffect(() => {
+    if (!onSwipeRight) return;
+
     let touchStartY = 0;
     let touchStartX = 0;
     let touchEndX = 0;

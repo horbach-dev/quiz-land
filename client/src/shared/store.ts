@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+
 import { navigateTo } from '@/shared/utils/navigateTo';
 
 interface IAppState {
@@ -8,8 +9,8 @@ interface IAppState {
   setQuizActiveTab: (v: 'public' | 'shared' | 'my') => void;
   setNavigationVisible: (v: boolean) => void;
   setShowIntro: (v: boolean) => void;
-  swipeRedirectCallback: () => void;
-  setSwipeRedirectCallback: (v: (() => void) | 'default') => void;
+  swipeRedirectCallback: (() => void) | null;
+  setSwipeRedirectCallback: (v: (() => void) | 'default' | null) => void;
 }
 
 const DEFAULT_SWIPE_REDIRECT_CB = () => navigateTo('back-navigate');

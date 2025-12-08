@@ -1,6 +1,7 @@
 import {
   closestCenter,
   DndContext,
+  type DraggableSyntheticListeners,
   KeyboardSensor,
   PointerSensor,
   TouchSensor,
@@ -15,66 +16,27 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { useState } from 'react';
+import type { ReactNode } from 'react';
 
-// Начальные данные (только ID, содержимое будем рендерить отдельно)
-const initialItems = ['Элемент 1', 'Элемент 2', 'Элемент 3', 'Элемент 4'];
+const activationConstraint = { distance: 8 };
 
-// 1. Компонент отдельного сортируемого элемента
-const SortableItem = ({ id }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging // Полезный флаг для стилизации перетаскиваемого элемента
-  } = useSortable({ id });
+interface IProps<T> {
+  items: T[];
+  move?: (a: number, b: number) => void;
+  render: (props: {
+    item: T;
+    index: number;
+    listeners: DraggableSyntheticListeners;
+  }) => ReactNode;
+  setItems?: (cb: (items: T[]) => T[]) => void;
+}
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    padding: '10px 15px',
-    margin: '5px 0',
-    backgroundColor: 'white',
-    border: '1px solid #ddd',
-    borderRadius: '4px',
-    boxShadow: isDragging ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none',
-    opacity: isDragging ? 0.6 : 1,
-    cursor: 'grab',
-    touchAction: 'none',
-  };
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes} // Пропсы доступности остаются на контейнере
-    >
-      <span>{id}</span>
-
-      {/* "Ручка" для перетаскивания */}
-      <button
-        {...listeners} // Листенеры цепляем сюда
-        style={{ cursor: 'grab', background: 'none', border: 'none', color: '#111' }}
-        title="Перетащить"
-        type="button"
-      >
-        ☰ {/* Или используйте иконку */}
-      </button>
-    </div>
-  );
-};
-
-
-// 2. Основной компонент списка с DND логикой
-const DndKitList = () => {
-  const [items, setItems] = useState(initialItems);
-
-  const activationConstraint = {
-    distance: 8, // Или задержка 150 миллисекунд
-  };
-
+export const DragAndDrop = <T extends { id: string }>({
+  items,
+  render,
+  move,
+  setItems,
+}: IProps<T>) => {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: activationConstraint,
@@ -84,47 +46,62 @@ const DndKitList = () => {
     }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
-  // Обработчик окончания перетаскивания
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-
-    // Если элемент перемещен в новое место
+  const handleDragEnd = ({ active, over }) => {
     if (active.id !== over.id) {
-      setItems((items) => {
-        // Находим старый и новый индексы
-        const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
+      const oldIdx = items.findIndex((i) => i.id === active.id);
+      const newIdx = items.findIndex((i) => i.id === over.id);
 
-        // Используем утилиту arrayMove из dnd-kit для обновления порядка
-        return arrayMove(items, oldIndex, newIndex);
-      });
+      if (move) return move(oldIdx, newIdx);
+
+      if (setItems) {
+        setItems((items) => {
+          return arrayMove(items, oldIdx, newIdx);
+        });
+      }
     }
   };
 
   return (
-    // Обертка DndContext: главный контекст DND
     <DndContext
       sensors={sensors}
-      collisionDetection={closestCenter} // Алгоритм определения столкновений
-      onDragEnd={handleDragEnd} // Наш обработчик
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
     >
-      {/* Обертка SortableContext: предоставляет данные о сортировке дочерним элементам */}
       <SortableContext
         items={items}
-        strategy={verticalListSortingStrategy} // Стратегия сортировки (вертикальный список)
+        strategy={verticalListSortingStrategy}
       >
-        <div style={{ width: 300 }}>
-          {items.map((item) => (
-            // Рендерим наши сортируемые элементы
-            <SortableItem key={item} id={item} />
-          ))}
-        </div>
+        {items.map((item, index) => (
+          <SortableItem
+            key={item.id}
+            id={item.id}
+            render={(listeners) => render({ item, index, listeners })}
+          />
+        ))}
       </SortableContext>
     </DndContext>
   );
 };
 
-export default DndKitList;
+const SortableItem = ({ id, render }) => {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+    >
+      {render(listeners)}
+    </div>
+  );
+};
