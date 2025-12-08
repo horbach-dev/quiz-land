@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { Trash2 } from 'lucide-react';
 import type {
   FieldArrayWithId,
@@ -8,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { IFormData } from '@/features/create-quiz/types.ts';
 import { Button } from '@/shared/components/Button';
+import { FieldError } from '@/shared/shadcn/ui/field.tsx';
 
 import styles from './OptionsResult.module.css';
 
@@ -24,6 +26,7 @@ export const OptionsResult = ({
   options,
   removeOption,
   questionIndex,
+  errors,
 }: IProps) => {
   const { t } = useTranslation();
 
@@ -32,17 +35,18 @@ export const OptionsResult = ({
   return (
     <div className={styles.container}>
       {options.map((answer, index) => {
+        const isCorrect = optionsForQuestion[index].isCorrect;
         return (
           <div
             key={answer.id}
-            className={styles.item}
+            className={clsx(styles.item, isCorrect && styles.itemCorrect)}
           >
             <div className={styles.itemHeader}>
               <p
                 className={styles.itemTitle}
                 dangerouslySetInnerHTML={{
                   __html: t('create_page.option.title', {
-                    value: optionsForQuestion[index].isCorrect
+                    value: isCorrect
                       ? `${index + 1} <span>правильный</span>`
                       : index + 1,
                   }),
@@ -60,6 +64,9 @@ export const OptionsResult = ({
               </div>
             </div>
             <p className={styles.itemText}>{optionsForQuestion[index].text}</p>
+            {errors?.[index]?.text?.message && (
+              <FieldError>{errors?.[index]?.text?.message}</FieldError>
+            )}
           </div>
         );
       })}

@@ -53,5 +53,20 @@
     margin-top: calc(var(--default-padding) * 2);
     z-index: 20;
     border-radius: 1rem;
-    backdrop-filter: blur(20px);
+}
+
+/* backdrop-filter есть — включаем blur */
+@supports ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
+    .actions {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background: rgba(39, 36, 59, 0.1);
+    }
+}
+
+/* fallback если НЕТ поддержки blur */
+@supports not ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
+    .actions {
+        background: rgba(39, 36, 59, 0.95);
+    }
 }

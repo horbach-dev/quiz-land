@@ -25,6 +25,8 @@ export const FormQuestionOptionsItem = ({
 }) => {
   const { t } = useTranslation();
 
+  console.log(answerErrors);
+
   return (
     <Field className={styles.container}>
       <div className={styles.header}>

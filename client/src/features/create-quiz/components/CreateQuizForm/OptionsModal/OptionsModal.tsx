@@ -56,8 +56,6 @@ export const OptionsModal = ({
 
   const optionsForQuestion = watch(`questions.${questionIndex}.options`);
 
-  console.log(optionsForQuestion);
-
   return (
     <Drawer
       isOpen={isOpen}

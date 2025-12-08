@@ -2,11 +2,16 @@
 
 .item {
     border-radius: 0.7rem;
-    background-color: rgba(255,255,255,0.05);
+    background-color: rgb(255 86 86 / 15%);
+
     padding: 1rem;
     gap: 1rem;
     width: 100%;
     margin-bottom: var(--default-padding);
+}
+
+.itemCorrect {
+    background-color: rgb(40 255 125 / 15%);
 }
 
 .itemHeader {

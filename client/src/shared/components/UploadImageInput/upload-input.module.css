@@ -9,7 +9,7 @@
   width: 100%;
   min-height: 7rem;
   border-radius: 0.8rem;
-  border: 0.1rem dashed rgba(255, 255, 255, 0.7);
+  border: 0.1rem dashed rgb(145 144 149);
   overflow: hidden;
 }
 

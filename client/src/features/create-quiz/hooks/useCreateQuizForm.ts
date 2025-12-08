@@ -1,11 +1,13 @@
 import type { SyntheticEvent } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { navigateTo } from '@/shared/utils/navigateTo';
+
 import { useCreateQuizMutation } from '../hooks/useCreateQuizMutation';
 import type { IFormData } from '../types';
 
 export const useCreateQuizForm = () => {
-  const { isPending, isSuccess, mutate } = useCreateQuizMutation();
+  const { isPending, isSuccess, mutateAsync } = useCreateQuizMutation();
 
   const {
     control,
@@ -20,11 +22,15 @@ export const useCreateQuizForm = () => {
   } = useForm<IFormData>();
 
   const onSubmit = (data: IFormData) => {
-    mutate({ ...data, limitedByTime: false });
+    mutateAsync({ ...data, limitedByTime: false }).then((res) => {
+      navigateTo(`/quiz/${res.id}`);
+    });
   };
 
   const preSubmit = (data: SyntheticEvent<HTMLFormElement>) => {
-    if (!getValues()?.poster) setError('poster', { message: 'Обязательное поле' });
+    if (!getValues()?.poster) {
+      setError('poster', { message: 'Обязательное поле' });
+    }
     return handleSubmit(onSubmit)(data);
   };
 

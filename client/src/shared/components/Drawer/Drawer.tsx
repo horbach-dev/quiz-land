@@ -17,21 +17,25 @@ export const Drawer = ({
 }) => {
   return createPortal(
     <BottomSheet
+      isOpen={isOpen}
+      onClose={onClose}
       overlayClassName={styles.overlay}
       sheetClassName={styles.container}
       headerClassName={styles.header}
       header={
-        <div className={styles.filterHeader}>
-          <span className={styles.filterTitle}>{title}</span>
-          <div className={styles.filterAction}>{headerActions}</div>
-        </div>
+        (title || headerActions) && (
+          <div className={styles.filterHeader}>
+            {title && <span className={styles.filterTitle}>{title}</span>}
+            {headerActions && (
+              <div className={styles.filterAction}>{headerActions}</div>
+            )}
+          </div>
+        )
       }
-      isOpen={isOpen}
-      onClose={onClose}
     >
       <Background absolute />
       <div className={styles.content}>{children}</div>
-      <div className={styles.actions}>{actions}</div>
+      {actions && <div className={styles.actions}>{actions}</div>}
     </BottomSheet>,
     portalContainer,
   );

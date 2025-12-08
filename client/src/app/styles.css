@@ -164,10 +164,19 @@ img {
   border-radius: 0.8rem !important;
   min-height: 15rem !important;
   font-size: 1.3rem !important;
+  border: none !important;
 }
 
 .rsw-ce {
-  border-radius: 0 0 0.73rem 0.73rem !important;
+  border: 1px solid rgb(145 144 149) !important;
+  outline: none !important;
+  border-radius: 0.8rem !important;
+  transition: box-shadow 0.15s;
+}
+
+.rsw-ce:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 0.22rem rgba(145, 144, 149, 0.5) !important;
 }
 
 .rsw-ce  ul {

@@ -80,8 +80,8 @@ export const FormQuestionOptions = ({
             watch={watch}
             options={optionFields}
             questionIndex={questionIndex}
-            errors={(questionErrors?.options as any) || []}
             removeOption={removeOption}
+            errors={(questionErrors?.options as any) || []}
           />
         </>
       )}
@@ -100,10 +100,10 @@ export const FormQuestionOptions = ({
               index={index}
               questionIndex={questionIndex}
               isCorrect={isCorrect}
-              answerErrors={questionErrors?.options?.errors?.[index]}
               register={register}
               setCorrectOption={setCorrectOption}
               remove={() => removeOption(index)}
+              answerErrors={questionErrors?.options?.[index]}
             />
             {index !== optionFields.length - 1 && (
               <FieldSeparator className='mt-3 mb-3' />
