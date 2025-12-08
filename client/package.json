@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env VITE_DEV=true vite",
     "dev:ngrok": "cross-env VITE_DEV=true VITE_USE_NGROK=true vite",
-    "build": "tsc -b && vite build --emptyOutDir && git add ./docs",
+    "build": "tsc -b && vite build --emptyOutDir && git add ../docs",
     "build:visual": "VITE_VISUALIZER=true vite build --emptyOutDir",
     "lint": "eslint ..",
     "format": "prettier --write .",

@@ -43,7 +43,7 @@
       "description": "Описание теста",
       "description_placeholder": "Введите описание / правила теста...",
       "poster": "Главное изображение",
-      "poster_placeholder": "Максимум 1мб, разрешен файл PNG, JPEG"
+      "poster_placeholder": "Максимум 1МБ, разрешен файл PNG, JPEG"
     },
     "questions": {
       "title": "Вопросы к тесту",
@@ -56,12 +56,16 @@
       "field_title": "Текст вопроса",
       "field_placeholder": "Введите вопрос...",
       "image": "Картинка вопроса",
-      "image_placeholder": "Максимум 1мб, разрешен файл PNG, JPEG",
-      "add_option": "Добавить / изменить ответы"
+      "image_placeholder": "Максимум 1МБ, разрешен файл PNG, JPEG"
     },
-    "option": {
+    "options": {
       "title": "Ответ {{value}}",
-      "placeholder": "Введите ответ..."
+      "placeholder": "Введите ответ...",
+      "add_edit": "Добавить / изменить ответы",
+      "modal_title": "Ответы к № {{value}}",
+      "add_variant": "Добавить вариант",
+      "apply_options": "Применить ответы",
+      "right": "Верный ответ"
     },
     "check_fields": "Проверьте поля на ошибки"
   },
@@ -69,6 +73,7 @@
     "required": "Обязательное поле",
     "min_length": "Минимальное кол-во символов: {{value}}",
     "max_length": "Максимальное кол-во символов: {{value}}",
+    "length_limit": "Превышен лимит символов на {{value}} шт.",
     "questions": {
       "required": "Нельзя создавать тесты без вопросов",
       "min_length": "Минимальное кол-во вопросов: {{value}}"
