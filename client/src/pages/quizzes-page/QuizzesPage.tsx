@@ -6,7 +6,7 @@ import { useQuizListQuery } from '@/features/quiz/services/useQuizListQuery';
 import { PageLayout } from '@/layouts/page-layout';
 import { TabBar } from '@/shared/components/TabBar';
 import { BASE_URL } from '@/shared/constants';
-import { useAppStore } from '@/shared/store';
+import { useAppStore } from '@/shared/stores/appStore';
 
 import styles from './QuizzesPage.module.css';
 import { QuizzesPageFilter } from './ui/quizzes-page-filter';

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { QuizCompleted } from '@/features/quiz/components/QuizCompleted';
@@ -8,9 +8,9 @@ import { useQuizQuery } from '@/features/quiz/services/useQuizQuery';
 import { QuizSession } from '@/features/quiz-session';
 import { useStartSessionMutation } from '@/features/quiz-session/services/useQuizSessionMutation';
 import { PageLayout } from '@/layouts/page-layout';
-import { useAppStore } from '@/shared/store';
+import { useAppStore } from '@/shared/stores/appStore';
+import { usePopupStore } from '@/shared/stores/popupStore.ts';
 
-import { ExitSessionConfirmation } from './components/ExitSessionConfirmation';
 import styles from './quiz-page.module.css';
 
 const SCREENS = {
@@ -20,23 +20,25 @@ const SCREENS = {
 };
 
 export const QuizPage = () => {
-  const [isConfirmationOpen, setConfirmationOpen] = useState<boolean>(false);
+  const setRedirectCallback = useAppStore((s) => s.setSwipeRedirectCallback);
+  const openPopup = usePopupStore((state) => state.openPopup);
   const [isTransition, setIsTransition] = useState<boolean>(false);
   const [screen, setScreen] = useState('main');
 
   const { id } = useParams();
-  const { data } = useQuizQuery(id!);
+  const { data, error } = useQuizQuery(id!);
   const { startSession, isLoadingStart, isLoadingRestart } =
     useStartSessionMutation(id!);
-  const setRedirectCallback = useAppStore((s) => s.setSwipeRedirectCallback);
 
   const onStartSession = (restart?: boolean) => {
     startSession({ restart }).then(() => handleSetScreen('session'));
   };
 
-  const handleSessionBack = () => {
-    setConfirmationOpen(true);
-  };
+  const handleSessionBack = useCallback(() => {
+    openPopup('sessionEndConfirmation', {
+      onConfirm: () => setScreen('main'),
+    });
+  }, [openPopup]);
 
   const handleSetScreen = (screen: string) => {
     setIsTransition(true);
@@ -45,6 +47,10 @@ export const QuizPage = () => {
       setScreen(screen);
     }, 300);
   };
+
+  useEffect(() => {
+    if (error) openPopup('quizError', { overlayClose: false });
+  }, [error, openPopup]);
 
   useEffect(() => {
     if (screen === 'session') {
@@ -56,7 +62,7 @@ export const QuizPage = () => {
     return () => {
       setRedirectCallback('default');
     };
-  }, [screen, setRedirectCallback]);
+  }, [handleSessionBack, screen, setRedirectCallback]);
 
   const CurrentScreen = SCREENS[screen];
 
@@ -79,14 +85,6 @@ export const QuizPage = () => {
           setScreen={handleSetScreen}
         />
       </div>
-      <ExitSessionConfirmation
-        isOpen={isConfirmationOpen}
-        onCancel={() => setConfirmationOpen(false)}
-        onConfirm={() => {
-          setScreen('main');
-          setConfirmationOpen(false);
-        }}
-      />
     </PageLayout>
   );
 };

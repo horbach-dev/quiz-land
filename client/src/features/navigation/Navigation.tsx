@@ -3,7 +3,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
-import { useAppStore } from '@/shared/store';
+import { useAppStore } from '@/shared/stores/appStore';
 import { navigateTo } from '@/shared/utils/navigateTo';
 
 import { NAVIGATION_ITEMS } from './config';

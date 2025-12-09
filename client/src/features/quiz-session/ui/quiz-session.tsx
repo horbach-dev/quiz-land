@@ -92,11 +92,10 @@ export function QuizSession({ quizData, setScreen }: IProps) {
           goToNextStep();
         })
         .catch((error) => {
-          console.error('Не удалось отправить ответ', error);
+          console.log('Не удалось отправить ответ', error.message);
         });
-
-      //eslint-disable-next-line
     },
+    //eslint-disable-next-line
     [step, session?.id, currentQuestion.id, quizQuestions.length],
   );
 

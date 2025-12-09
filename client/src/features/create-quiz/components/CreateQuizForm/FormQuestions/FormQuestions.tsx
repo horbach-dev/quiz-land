@@ -9,12 +9,8 @@ import { useTranslation } from 'react-i18next';
 
 import type { IFormData } from '@/features/create-quiz/types';
 import { Button } from '@/shared/components/Button';
-import {
-  FieldDescription,
-  FieldError,
-  FieldLegend,
-  FieldSet,
-} from '@/shared/shadcn/ui/field';
+import { SectionHeader } from '@/shared/components/SectionHeader';
+import { FieldError, FieldSet } from '@/shared/shadcn/ui/field';
 
 import { useCreateQuizQuestions } from './hooks/useCreateQuizQuestions.ts';
 
@@ -46,10 +42,10 @@ export const FormQuestions = ({
 
   return (
     <FieldSet className='mb-5'>
-      <FieldLegend>{t('create_page.questions.title')}</FieldLegend>
-      <FieldDescription>
-        {t('create_page.questions.description')}
-      </FieldDescription>
+      <SectionHeader
+        title={t('create_page.questions.title')}
+        description={t('create_page.questions.description')}
+      />
 
       {fields.map((field, index) =>
         renderItem({ field, index, remove: () => removeQuestion(index) }),

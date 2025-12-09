@@ -1,7 +1,8 @@
-import { Button } from '@/shared/components/Button';
 import { Trash2 } from 'lucide-react';
-import { FieldLegend } from '@/shared/shadcn/ui/field.tsx';
 import { useTranslation } from 'react-i18next';
+
+import { Button } from '@/shared/components/Button';
+import { FieldLegend } from '@/shared/shadcn/ui/field.tsx';
 
 interface IProps {
   index: number;

@@ -17,8 +17,10 @@ export default function CreateQuizPage() {
       className={styles.container}
     >
       <div className={styles.content}>
-        <SectionHeader title={t('create_page.title')} />
-        <p className={styles.description}>{t('create_page.description')}</p>
+        <SectionHeader
+          title={t('create_page.title')}
+          description={t('create_page.description')}
+        />
         <CreateQuizForm />
       </div>
     </PageLayout>

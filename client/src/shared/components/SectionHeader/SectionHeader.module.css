@@ -1,14 +1,23 @@
 .container {
+  width: 100%;
+  padding-bottom: var(--default-padding);
+}
+
+.top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding-bottom: var(--default-padding);
 }
 
 .title {
   font-size: 1.25rem;
   font-weight: 700;
+}
+
+.description {
+  margin-top: 1rem;
+  color: rgba(255,255,255,0.65);
 }
 
 .actions {

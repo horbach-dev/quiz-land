@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { ArrowDown, ArrowLeft, ChevronsRight } from 'lucide-react';
 import { type AnimationEvent, useState } from 'react';
 
-import { useAppStore } from '@/shared/store';
+import { useAppStore } from '@/shared/stores/appStore';
 
 import { slides } from './config.ts';
 import styles from './IntroSlider.module.css';

@@ -52,7 +52,7 @@ model QuizSession {
   userId           String            @map("user_id")
   user             User              @relation(fields: [userId], references: [id])
   quizId           String            @map("quiz_id")
-  quiz             Quiz              @relation(fields: [quizId], references: [id])
+  quiz             Quiz              @relation(fields: [quizId], references: [id], onDelete: Cascade)
   status           SessionStatus     @default(IN_PROGRESS)
   scoringAlgorithm ScoringAlgorithm?
   startedAt        DateTime          @map("started_at")
@@ -74,7 +74,7 @@ model Question {
   order         Int // Порядок вопроса в квизе
   type          QuestionType // SINGLE_CHOICE, MULTI_CHOICE, TEXT_ANSWER
   quizId        String           @map("quiz_id")
-  quiz          Quiz             @relation(fields: [quizId], references: [id])
+  quiz          Quiz             @relation(fields: [quizId], references: [id], onDelete: Cascade)
   options       QuestionOption[]
   userAnswers   UserAnswer[]
   QuizSession   QuizSession?     @relation(fields: [quizSessionId], references: [id])
@@ -101,7 +101,7 @@ model UserAnswer {
   sessionId           String      @map("session_id")
   session             QuizSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
   questionId          String      @map("question_id")
-  question            Question    @relation(fields: [questionId], references: [id])
+  question            Question    @relation(fields: [questionId], references: [id], onDelete: Cascade)
   submittedAnswerText String?     @map("submitted_answer_text")
   submittedOptionIds  String[]    @map("submitted_option_ids")
   isCorrect           Boolean?    @map("is_correct")

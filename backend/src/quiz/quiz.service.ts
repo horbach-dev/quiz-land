@@ -206,26 +206,16 @@ export class QuizService {
         );
       }
 
-      await this.prisma.$transaction(async (prisma) => {
-        // Удаляем варианты ответов (зависят от Question)
-        await prisma.questionOption.deleteMany({
-          where: { quizId: quizId },
-        });
-
-        // Удаляем вопросы (зависят от Quiz)
-        await prisma.question.deleteMany({
-          where: { quizId: quizId },
-        });
-
-        // Удаляем сам квиз
-        await prisma.quiz.delete({
-          where: { id: quizId },
-        });
+      const result = await this.prisma.quiz.delete({
+        where: { id: quizId },
       });
 
       this.filesService.deleteDirectory(`uploads/quizzes/${quizId}`);
 
-      return true;
+      return {
+        success: true,
+        message: `Квиз "${result.title}" и все связанные данные успешно удалены.`,
+      };
     } catch (e) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       console.log(`Удаление квиза ${e.message}`);

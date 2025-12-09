@@ -78,7 +78,9 @@ export const DragAndDrop = <T extends { id: string }>({
           <SortableItem
             key={item.id}
             id={item.id}
-            render={(listeners) => render({ item, index, listeners })}
+            render={(listeners: DraggableSyntheticListeners) =>
+              render({ item, index, listeners })
+            }
           />
         ))}
       </SortableContext>

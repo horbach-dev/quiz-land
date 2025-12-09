@@ -75,7 +75,7 @@ export class AuthGuard implements CanActivate {
             username: telegramUser.username || undefined,
             first_name: telegramUser.first_name || undefined,
             last_name: telegramUser.last_name || undefined,
-            language: telegramUser.language_code || DEFAULT_LANGUAGE,
+            // language: telegramUser.language_code || DEFAULT_LANGUAGE,
             avatar: telegramUser.photo_url || undefined,
           },
           select: { id: true, telegram_id: true },

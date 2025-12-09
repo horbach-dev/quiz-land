@@ -1,6 +1,7 @@
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 
 import { Navigation } from '@/features/navigation';
+import { Popups } from '@/features/popups';
 import { RotationAlert } from '@/features/rotation-alert';
 import { SwipeRedirect } from '@/features/swipe-redirect';
 import { Background } from '@/shared/components/Background';
@@ -22,6 +23,7 @@ export const AppLayout = () => {
       <Navigation />
       {pathname !== '/' && <SwipeRedirect />}
       {isMobile && pathname !== '/create' && <RotationAlert />}
+      <Popups />
     </>
   );
 };

@@ -12,7 +12,7 @@ import type { IFormData } from '@/features/create-quiz/types.ts';
 import { Button } from '@/shared/components/Button';
 import { DragAndDrop } from '@/shared/components/DragAndDrop';
 import { FieldError } from '@/shared/shadcn/ui/field.tsx';
-import { useAppStore } from '@/shared/store.ts';
+import { useAppStore } from '@/shared/stores/appStore';
 
 import styles from './FormOptionsList.module.css';
 

@@ -2,7 +2,7 @@ import { backButton } from '@tma.js/sdk-react';
 import clsx from 'clsx';
 import { type PropsWithChildren, useEffect } from 'react';
 
-import { useAppStore } from '@/shared/store';
+import { useAppStore } from '@/shared/stores/appStore';
 import { navigateTo } from '@/shared/utils/navigateTo';
 
 import styles from './page-layout.module.css';

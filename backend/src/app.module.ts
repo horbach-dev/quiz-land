@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
 import { CacheModule } from '@nestjs/cache-manager';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
@@ -11,6 +11,8 @@ import { QuizSessionModule } from './quiz-session/quiz-session.module';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { PrismaService } from './prisma.service';
+import { ResponseInterceptor } from './interceptors/response.interceptor';
+import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 
 @Module({
   imports: [
@@ -34,6 +36,14 @@ import { PrismaService } from './prisma.service';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ResponseInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
     },
   ],
 })

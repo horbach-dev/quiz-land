@@ -2,7 +2,7 @@ import { ChevronLeft } from 'lucide-react';
 import { useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import { useAppStore } from '@/shared/store.ts';
+import { useAppStore } from '@/shared/stores/appStore';
 
 import { useSwipeEvents } from '../hooks/useSwipeEvents';
 import styles from './swipe-redirect.module.css';
