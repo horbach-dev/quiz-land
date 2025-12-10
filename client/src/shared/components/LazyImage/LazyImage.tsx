@@ -7,34 +7,33 @@ interface IProps {
   className?: string;
   image?: string;
   title?: string;
+  fit?: 'content' | 'cover';
   placeholder?: string;
 }
 
-export const LazyImage = ({ image, title, className, placeholder }: IProps) => {
-  const [currentImage, setCurrentImage] = useState<string | undefined>(image);
+export const LazyImage = ({
+  image,
+  title,
+  fit = 'cover',
+  className,
+}: IProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
     <div
       className={clsx(
         styles.container,
+        styles[`container-${fit}`],
+        isLoading && styles.containerLoading,
         isLoading && styles.containerLoading,
         className,
       )}
     >
       <img
         className={clsx(styles.image, !isLoading && styles.imageLoaded)}
-        src={currentImage || image}
+        src={image}
         alt={title}
         onLoad={() => setIsLoading(false)}
-        onError={() => {
-          if (placeholder) {
-            setIsLoading(true);
-            setCurrentImage(placeholder);
-          } else {
-            setIsLoading(false);
-          }
-        }}
       />
     </div>
   );

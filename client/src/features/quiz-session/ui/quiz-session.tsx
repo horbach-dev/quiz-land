@@ -26,7 +26,7 @@ export function QuizSession({ quizData, setScreen }: IProps) {
 
   // заводим переменную на хранение времени
   const timeSpent = useRef<number>(data?.session?.timeSpentSeconds || 0);
-  const [answers, setAnswers] = useState<Record<string, string> | []>([]);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
 
   const session = data?.session;
   const quizQuestions = quizData.questions;

@@ -71,8 +71,9 @@ model Question {
   updatedAt     DateTime         @default(now()) @map("updated_at")
   text          String
   image         String?
-  order         Int // Порядок вопроса в квизе
+  order         Int // порядок вопроса в квизе
   type          QuestionType // SINGLE_CHOICE, MULTI_CHOICE, TEXT_ANSWER
+  field         QuestionField? // ответ текстовый или картинка
   quizId        String           @map("quiz_id")
   quiz          Quiz             @relation(fields: [quizId], references: [id], onDelete: Cascade)
   options       QuestionOption[]
@@ -87,6 +88,7 @@ model QuestionOption {
   id         String   @id @default(uuid()) @map("_id")
   text       String
   image      String?
+  order      Int? // порядок ответа в вопросе
   isCorrect  Boolean  @map("is_correct")
   weight     Float?   @map("weight")
   questionId String   @map("question_id")
@@ -119,6 +121,11 @@ enum QuestionType {
   SINGLE_CHOICE // один вариант ответа
   MULTI_CHOICE // несколько вариантов
   TEXT_ANSWER // ответ текстом
+}
+
+enum QuestionField {
+  TEXT
+  IMAGE
 }
 
 enum ScoringAlgorithm {

@@ -3,21 +3,27 @@ import type { TQuizQuestionType } from '@/shared/types/quiz';
 export type IFormDataAnswer = {
   text: string;
   image: string | null;
+  loadedImg: string | null;
   isCorrect: boolean;
 };
 
 export type IFormDataQuestion = {
   text: string;
   image: string | null;
+  loadedImg: string | null;
+  field: 'text' | 'image';
   order: number;
   type: TQuizQuestionType;
   options: IFormDataAnswer[];
 };
 
 export interface IFormData {
+  isEdit?: boolean;
   title: string;
   description: string;
   poster: string | null;
+  loadedImg: string | null;
+  order: number;
   questions: IFormDataQuestion[];
   limitedByTime: boolean;
 }

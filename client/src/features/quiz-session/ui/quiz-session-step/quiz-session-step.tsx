@@ -20,6 +20,7 @@ interface IProps {
 export const QuizSessionStep = memo(
   ({ isHide, isLoading, question, value, setValue }: IProps) => {
     const options = question.options.map((i) => ({
+      image: i.image ? BASE_URL + i.image : null,
       label: i.text,
       value: i.id,
     }));
@@ -35,6 +36,7 @@ export const QuizSessionStep = memo(
         {question.image && (
           <LazyImage
             key={question.id}
+            fit='content'
             image={BASE_URL + question.image}
             title={question.text}
           />
@@ -54,6 +56,7 @@ export const QuizSessionStep = memo(
           <Options
             isLoading={isLoading}
             value={value}
+            isImage={!!question.options[0].image}
             options={options}
             onChange={setValue}
           />

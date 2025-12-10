@@ -5,10 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/components/Button';
 
 import styles from './upload-input.module.css';
+import { BASE_URL } from '@/shared/constants.ts';
 
 interface IProps {
   id?: string;
   name?: string;
+  loadedImage: string | null;
   onDelete?: () => void;
   onChange: (
     file: File,
@@ -19,7 +21,13 @@ interface IProps {
   ) => void;
 }
 
-export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
+export const UploadImageInput = ({
+  id,
+  loadedImage,
+  name,
+  onDelete,
+  onChange,
+}: IProps) => {
   const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState<string | ArrayBuffer | null>(null);
@@ -51,6 +59,8 @@ export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
     }
   };
 
+  const currentImg = image || loadedImage ? BASE_URL + loadedImage : null;
+
   return (
     <div className={styles.uploadInput}>
       <div className={styles.uploadInputContent}>
@@ -58,7 +68,7 @@ export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
           id={id}
           type='file'
           name={name}
-          disabled={!!image}
+          disabled={!!currentImg}
           ref={inputRef}
           onChange={handleChange}
           accept='image/png, image/jpeg, image/jpg'
@@ -69,10 +79,10 @@ export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
           <p>{t('shared.load_image')}</p>
         </div>
 
-        {image && (
+        {currentImg && (
           <img
             className={styles.uploadInputImage}
-            src={image as string}
+            src={currentImg as string}
             alt={name}
           />
         )}
@@ -85,7 +95,7 @@ export const UploadImageInput = ({ id, name, onDelete, onChange }: IProps) => {
         )}
       </div>
 
-      {image && (
+      {currentImg && (
         <Button
           size='sm'
           after={<Trash2 />}

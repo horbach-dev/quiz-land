@@ -49,7 +49,12 @@ export const QuizPage = () => {
   };
 
   useEffect(() => {
-    if (error) openPopup('quizError', { overlayClose: false });
+    if (error) {
+      openPopup('quizError', {
+        text: 'Похоже такого теста не существует :(',
+        overlayClose: false,
+      });
+    }
   }, [error, openPopup]);
 
   useEffect(() => {

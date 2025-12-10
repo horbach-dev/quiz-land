@@ -9,6 +9,10 @@
   margin-bottom: var(--default-padding);
 }
 
+.container-content {
+  aspect-ratio: auto;
+}
+
 .containerLoading:before {
   content: '';
   position: absolute;

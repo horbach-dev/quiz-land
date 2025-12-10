@@ -32,6 +32,7 @@ export default function ProfilePage() {
           }
         />
         <QuizList
+          listKey='profile-page'
           isLoading={isLoading}
           data={data}
           renderItem={(item) => (

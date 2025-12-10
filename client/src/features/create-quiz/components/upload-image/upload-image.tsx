@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { deleteQuizImage } from '@/features/create-quiz/api/delete-quiz-image';
@@ -19,6 +19,7 @@ const checkValidate = (file: File, t) => {
 interface IProps {
   id: string;
   type: string;
+  loadedImg: string | null;
   onChange: (value: string | null) => void;
   clearError: () => void;
   setError: (error: string) => void;
@@ -28,12 +29,18 @@ export const UploadImage = ({
   id,
   type = 'poster',
   onChange,
+  loadedImg,
   clearError,
   setError,
 }: IProps) => {
   const { t } = useTranslation();
   const abortController = useRef<AbortController>(null);
   const [loadedImage, setLoadedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (loadedImg) setLoadedImage(loadedImg);
+  }, [loadedImg]);
 
   const handleUploadImage = (
     file: File,
@@ -93,6 +100,7 @@ export const UploadImage = ({
     <div className={styles.content}>
       <UploadImageInput
         id={id}
+        loadedImage={loadedImage}
         onDelete={handleDeleteImage}
         onChange={handleUploadImage}
       />

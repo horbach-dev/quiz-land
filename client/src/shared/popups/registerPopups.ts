@@ -1,7 +1,9 @@
-import { ExitSessionConfirmation } from './components/ExitSessionConfirmation';
-import { QuizError } from './components/QuizError';
+import { ExitSessionPopup } from './components/ExitSessionPopup';
+import { QuestionOptionPopup } from './components/QuestionOptionPopup';
+import { QuizErrorPopup } from './components/QuizErrorPopup';
 
 export const registerPopups = {
-  quizError: QuizError,
-  sessionEndConfirmation: ExitSessionConfirmation,
+  quizError: QuizErrorPopup,
+  sessionEndConfirmation: ExitSessionPopup,
+  questionOptionPopup: QuestionOptionPopup,
 };

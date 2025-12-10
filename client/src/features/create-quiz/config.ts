@@ -8,8 +8,8 @@ export const validationRules = (t: TFunction<'translation', undefined>) => ({
       message: t('validation.min_length', { value: 7 }),
     },
     maxLength: {
-      value: 30,
-      message: t('validation.max_length', { value: 30 }),
+      value: 50,
+      message: t('validation.max_length', { value: 50 }),
     },
   },
   description: {

@@ -3,7 +3,7 @@ import { Play, RotateCcw, Share } from 'lucide-react';
 
 import { Button } from '@/shared/components/Button';
 import { LazyImage } from '@/shared/components/LazyImage';
-import { APP_URL } from '@/shared/constants';
+import { APP_URL, BASE_URL } from '@/shared/constants';
 import type { TQuiz } from '@/shared/types/quiz';
 
 import styles from './quiz-intro.module.css';
@@ -23,18 +23,16 @@ export const QuizIntro = ({
   isLoadingRestart,
 }: IProps) => {
   const handleShare = () => {
-    shareURL(
-      `${APP_URL}?startapp=${quizData?.id}`,
-      `Пройди тест: ${quizData?.title}`,
-    );
+    shareURL(`${APP_URL}?startapp=${quizData?.id}`, `Пройди тест: ${quizData?.title}`);
   };
 
   const disabled = isLoadingStart || isLoadingRestart;
+  const poster = quizData?.poster ? BASE_URL + quizData.poster : '';
 
   return (
     <div className={styles.container}>
       <LazyImage
-        image={quizData?.poster}
+        image={poster}
         title={quizData?.title}
       />
       {quizData ? (

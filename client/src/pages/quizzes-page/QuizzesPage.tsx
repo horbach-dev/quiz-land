@@ -43,6 +43,7 @@ export default function QuizzesPage() {
           />
         </div>
         <QuizList
+          listKey={quizActiveTab}
           data={data}
           isLoading={isLoading}
           renderItem={(item) => (

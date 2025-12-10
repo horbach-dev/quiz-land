@@ -17,6 +17,7 @@ export const QuizSection = () => {
     <div className={styles.quizSection}>
       <div className={styles.quizList}>
         <QuizList
+          listKey='main-page'
           isLoading={isLoading}
           data={data}
           renderItem={(item) => (

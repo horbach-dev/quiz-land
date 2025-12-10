@@ -18,8 +18,6 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import type { ReactNode } from 'react';
 
-const activationConstraint = { distance: 8 };
-
 interface IProps<T> {
   items: T[];
   move?: (a: number, b: number) => void;
@@ -38,12 +36,8 @@ export const DragAndDrop = <T extends { id: string }>({
   setItems,
 }: IProps<T>) => {
   const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: activationConstraint,
-    }),
-    useSensor(TouchSensor, {
-      activationConstraint: activationConstraint,
-    }),
+    useSensor(PointerSensor),
+    useSensor(TouchSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
@@ -89,8 +83,7 @@ export const DragAndDrop = <T extends { id: string }>({
 };
 
 const SortableItem = ({ id, render }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
   const style = {
     transform: CSS.Transform.toString(transform),

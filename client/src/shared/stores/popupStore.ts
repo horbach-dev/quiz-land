@@ -30,8 +30,8 @@ interface IPopupState {
   closeAll: () => void;
 }
 
-const storeCreator: StateCreator<IPopupState> = (set) => {
-  const openPopup = (name, params) => {
+const storeCreator: StateCreator<IPopupState> = (set, get) => {
+  const openPopup = <T extends PopupName>(name: T, params: TPopupParams<T>) => {
     set((state) => ({
       popups: state.popups.map((popup) => {
         if (popup.name === name) {
@@ -55,21 +55,25 @@ const storeCreator: StateCreator<IPopupState> = (set) => {
     }));
   };
 
+  const closeAll = () => {
+    set((state) => ({
+      popups: state.popups.map((p) => ({ ...p, isOpen: false })),
+    }));
+  };
+
+  const initialPopups: TPopup[] = Object.keys(registerPopups).map((name) => ({
+    name: name as PopupName,
+    close: () => get().closePopup(name as PopupName),
+    isOpen: false,
+    lastOpen: 0,
+    params: { overlayClose: true } as TPopupParams<PopupName>,
+  }));
+
   return {
-    popups: Object.keys(registerPopups).map((name) => ({
-      name: name as PopupName,
-      close: () => closePopup(name as PopupName),
-      isOpen: false,
-      lastOpen: 0,
-      params: { overlayClose: true },
-    })),
+    popups: initialPopups,
     openPopup,
     closePopup,
-    closeAll: () => {
-      set((state) => ({
-        popups: state.popups.map((p) => ({ ...p, isOpen: false })),
-      }));
-    },
+    closeAll,
   };
 };
 

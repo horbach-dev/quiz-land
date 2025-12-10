@@ -60,6 +60,7 @@ export type TQuizAnswer = {
 export type TQuizOption = {
   id: string;
   image: string | null;
+  order: number;
   questionId: string;
   text: string;
   isCorrect: boolean;
@@ -70,6 +71,7 @@ export type TQuizQuestion = {
   order: number;
   text: string;
   quizId: string;
+  field: 'text' | 'image';
   options: TQuizOption[];
   type: TQuizQuestionType;
   weight: number;

@@ -1,49 +1,43 @@
-import type { SyntheticEvent } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { getDefaultValues } from '@/features/create-quiz/utils.ts';
+import type { TQuiz } from '@/shared/types/quiz';
 import { navigateTo } from '@/shared/utils/navigateTo';
 
-import { useCreateQuizMutation } from '../hooks/useCreateQuizMutation';
+import { useCreateQuizMutation } from '../services/useCreateQuizMutation';
+import { useUpdateQuizMutation } from '../services/useUpdateQuizMutation';
 import type { IFormData } from '../types';
 
-export const useCreateQuizForm = () => {
-  const { isPending, isSuccess, mutateAsync } = useCreateQuizMutation();
+export const useCreateQuizForm = (isEdit?: boolean, data?: TQuiz) => {
+  const { mutateAsync: create } = useCreateQuizMutation();
+  const { mutateAsync: update } = useUpdateQuizMutation(data?.id as string);
+  const formMethods = useForm<IFormData>();
 
-  const {
-    control,
-    register,
-    handleSubmit,
-    setValue,
-    setError,
-    watch,
-    getValues,
-    clearErrors,
-    formState: { errors },
-  } = useForm<IFormData>();
+  useEffect(() => {
+    if (data) formMethods.reset(getDefaultValues(data));
+    // eslint-disable-next-line
+  }, [data?.id]);
 
-  const onSubmit = (data: IFormData) => {
-    mutateAsync({ ...data, limitedByTime: false }).then((res) => {
-      navigateTo(`/quiz/${res.id}`);
-    });
-  };
+  const onSubmit = async (data: IFormData) => {
+    // console.log(data);
 
-  const preSubmit = (data: SyntheticEvent<HTMLFormElement>) => {
-    if (!getValues()?.poster) {
-      setError('poster', { message: 'Обязательное поле' });
+    try {
+      if (isEdit) {
+        const response = await update({ ...data, limitedByTime: false });
+        navigateTo(`/quiz/${response.id}`);
+        return;
+      }
+
+      const response = await create({ ...data, limitedByTime: false });
+      navigateTo(`/quiz/${response.id}`);
+    } catch (error) {
+      console.error('Ошибка создания / обновления теста', error);
     }
-    return handleSubmit(onSubmit)(data);
   };
 
   return {
-    watch,
-    control,
-    setValue,
-    clearErrors,
-    isSuccess,
-    isLoading: isPending,
-    register,
-    onSubmit: preSubmit,
-    errors,
-    setError,
+    ...formMethods,
+    onSubmit: formMethods.handleSubmit(onSubmit),
   };
 };

@@ -36,7 +36,7 @@
 .tabBarActive span {
   display: block;
   height: 100%;
-  width: 33.33%;
+  width: 100%;
   border-radius: 0.5rem;
   will-change: transform;
   background: rgba(255, 255, 255, 1);

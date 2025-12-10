@@ -19,6 +19,7 @@ export const CardActions = ({ item }: IProps) => {
       <Button
         size='sm'
         style='icon'
+        to={`/edit/${item.id}`}
       >
         <SquarePen />
       </Button>

@@ -7,6 +7,10 @@ import { FilesService } from '../files/files.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { PrismaService } from '../prisma.service';
 import type { TUser } from '../user/user.decorator';
+import { UpdateQuizDto } from './dto/update-quiz.dto';
+
+const getImagePath = (quizId: string, image: string) =>
+  `uploads/quizzes/${quizId}/${image}`;
 
 @Injectable()
 export class QuizService {
@@ -37,15 +41,13 @@ export class QuizService {
     try {
       const quizId = uuid();
       const images = [createQuizDto.poster];
-      const getImagePath = (image: string) =>
-        `uploads/quizzes/${quizId}/${image}`;
 
       const data = {
         id: quizId,
         isPublic: false,
         title: createQuizDto.title,
         description: createQuizDto.description,
-        poster: getImagePath(createQuizDto.poster),
+        poster: getImagePath(quizId, createQuizDto.poster),
         authorId: user.id,
         scoringAlgorithm:
           createQuizDto.scoringAlgorithm || ScoringAlgorithm.STRICT_MATCH,
@@ -64,7 +66,7 @@ export class QuizService {
               if (option.image) images.push(option.image);
               return {
                 quizId,
-                image: option.image ? getImagePath(option.image) : null,
+                image: option.image ? getImagePath(quizId, option.image) : null,
                 ...option,
               };
             });
@@ -78,7 +80,9 @@ export class QuizService {
             return {
               text: question.text,
               order: question.order,
-              image: question.image ? getImagePath(question.image) : null,
+              image: question.image
+                ? getImagePath(quizId, question.image)
+                : null,
               type: question.type,
               options: optionsCreate,
             };
@@ -92,6 +96,77 @@ export class QuizService {
     } catch (e) {
       console.log('Ошибка создания квиза', e);
       throw new BadRequestException('Ошибка создания квиза');
+    }
+  }
+
+  async update(quizId: string, updateQuizDto: UpdateQuizDto) {
+    try {
+      const currentQuiz = await this.prisma.quiz.findUnique({
+        where: { id: quizId },
+      });
+
+      if (!currentQuiz) {
+        throw new BadRequestException(
+          'Невозможно обновить несуществующий квиз',
+        );
+      }
+
+      const updateData = {
+        isPublic: false,
+        title: updateQuizDto.title,
+        description: updateQuizDto.description,
+        poster: currentQuiz.poster,
+        scoringAlgorithm:
+          updateQuizDto.scoringAlgorithm || ScoringAlgorithm.STRICT_MATCH,
+        limitedByTime: updateQuizDto.limitedByTime,
+        type: QuizType.USER_GENERATED,
+      };
+
+      // Если обновился постер добавляем в изменения и перемещаем в папку
+      if (currentQuiz.poster && updateQuizDto.poster) {
+        const posterSliced = currentQuiz.poster.split('/');
+
+        if (posterSliced[posterSliced.length - 1] !== updateQuizDto.poster) {
+          console.log('изменение постера');
+          updateData.poster = getImagePath(quizId, updateQuizDto.poster);
+          this.moveQuizFiles(quizId, [updateQuizDto.poster]);
+        }
+      }
+
+      // console.log(updateQuizDto);
+
+      if (!updateQuizDto.questions) {
+        return this.prisma.quiz.update({
+          where: { id: quizId },
+          data: updateData,
+        });
+      }
+
+      return this.prisma.quiz.update({
+        where: { id: quizId },
+        data: updateData,
+      });
+
+      // questions: {
+      //   update: updateQuizDto.questions.map((question) => ({
+      //     text: question.text,
+      //     order: question.order,
+      //     type: question.type,
+      //     options: {
+      //       updateMany: question.options?.map((option) => ({
+      //         text: option.text,
+      //       })),
+      //     }
+      //   })),
+      // },
+
+      // text: question.text,
+      //   order: question.order,
+      //   image: null,
+      //   type: question.type,
+      //   options: {},
+    } catch (e) {
+      console.log('Ошибка обновления квиза', e);
     }
   }
 

@@ -1,97 +1,39 @@
 import { useRef } from 'react';
+import { FormProvider } from 'react-hook-form';
+
+import type { TQuiz } from '@/shared/types/quiz';
 
 import { useCreateQuizForm } from '../../hooks/useCreateQuizForm';
-import { FormFooter } from './FormFooter';
-import { FormMain } from './FormMain';
-import {
-  FormQuestion,
-  FormQuestionHeader,
-  FormQuestionMain,
-} from './FormQuestion';
-import { FormQuestionOptions } from './FormQuestionOptions';
-import { FormQuestions } from './FormQuestions';
+import { FormSubmit } from './FormSubmit';
+import { GeneralInfo } from './GeneralInfo';
+import { QuestionsList } from './QuestionsList';
 
-export const CreateQuizForm = () => {
+interface IProps {
+  isEdit?: boolean;
+  data?: TQuiz;
+}
+
+export const CreateQuizForm = ({ isEdit, data }: IProps) => {
   const formRef = useRef(null);
-  const {
-    watch,
-    control,
-    onSubmit,
-    register,
-    setValue,
-    clearErrors,
-    errors,
-    isLoading,
-    setError,
-  } = useCreateQuizForm();
-
-  const isDisabled = !!Object.keys(errors).length;
+  const form = useCreateQuizForm(isEdit, data);
+  const isDisabled = !!Object.keys(form.formState.errors).length;
 
   return (
-    <div className='w-full max-w-md'>
+    <FormProvider {...form}>
       <form
         ref={formRef}
-        onSubmit={onSubmit}
+        onSubmit={form.onSubmit}
       >
-        <FormMain
-          control={control}
-          register={register}
-          errors={errors}
-          setError={setError}
-          clearErrors={clearErrors}
-          setValue={setValue}
-        />
-
-        <FormQuestions
-          isLoading={isLoading}
-          control={control}
-          error={errors.questions?.root?.message}
-          renderItem={({ field, remove, index }) => {
-            const questionErrors = errors?.questions?.[index];
-            return (
-              <FormQuestion
-                key={field.id}
-                index={index}
-                renderHeader={
-                  <FormQuestionHeader
-                    index={index}
-                    removeQuestion={remove}
-                  />
-                }
-                renderMain={
-                  <FormQuestionMain
-                    index={index}
-                    register={register}
-                    setValue={setValue}
-                    setError={setError}
-                    clearErrors={clearErrors}
-                    questionErrors={questionErrors}
-                  />
-                }
-                renderOptions={
-                  <FormQuestionOptions
-                    questionIndex={index}
-                    register={register}
-                    setValue={setValue}
-                    watch={watch}
-                    control={control}
-                    setError={setError}
-                    clearErrors={clearErrors}
-                    questionErrors={questionErrors}
-                  />
-                }
-              />
-            );
-          }}
-        />
-
-        <FormFooter
+        <GeneralInfo />
+        <QuestionsList />
+        <FormSubmit
           formRef={formRef}
           isDisabled={isDisabled}
-          isLoading={isLoading}
-          onSubmit={onSubmit}
+          isEdit={isEdit}
+          isLoading={form.formState.isSubmitting}
+          onSubmit={form.onSubmit}
         />
       </form>
-    </div>
+    </FormProvider>
   );
 };

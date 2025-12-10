@@ -1,0 +1,66 @@
+.container {}
+
+.item {
+  border-radius: 0.7rem;
+  background-color: rgb(255 86 86 / 15%);
+  padding: 1rem;
+  width: 100%;
+}
+
+.itemCorrect {
+  background-color: rgb(40 255 125 / 15%);
+}
+
+.itemLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.itemGrab {
+  height: 2.35rem;
+  width: 1.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.3rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: grab;
+  touch-action: none;
+}
+
+.itemGrab svg {
+  width: 1rem;
+}
+
+.itemHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.itemTitle {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.itemTitle span {
+  margin-left: 0.5rem;
+  color: #13eaaa;
+}
+
+.itemText {
+  font-size: 1.15rem;
+}
+
+.itemImage {
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+}

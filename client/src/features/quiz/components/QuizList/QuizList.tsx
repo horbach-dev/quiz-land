@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { Masonry } from 'masonic';
 import type { ReactNode } from 'react';
 
 import { QuizCardSkeleton } from '@/features/quiz/components/QuizCard/quiz-card-skeleton';
@@ -9,6 +10,7 @@ import styles from './QuizList.module.css';
 
 interface IProps {
   view?: 'column' | 'row';
+  listKey: string;
   data: TQuiz[] | undefined;
   isLoading?: boolean;
   isLoadingMore?: boolean;
@@ -17,6 +19,7 @@ interface IProps {
 }
 
 export const QuizList = ({
+  listKey,
   view = 'column',
   data,
   handleLoadMore,
@@ -28,17 +31,28 @@ export const QuizList = ({
 
   return (
     <>
-      <div className={clsx(styles.container, styles[`container-${view}`])}>
-        {data?.map(renderItem)}
-        {isShowSkeleton && (
-          <>
-            <QuizCardSkeleton view={view} />
-            <QuizCardSkeleton view={view} />
-            <QuizCardSkeleton view={view} />
-            <QuizCardSkeleton view={view} />
-          </>
-        )}
-      </div>
+      {data?.length ? (
+        <Masonry
+          key={listKey}
+          items={data}
+          columnGutter={12}
+          columnWidth={120}
+          columnCount={2}
+          overscanBy={5}
+          render={({ data }) => renderItem(data)}
+        />
+      ) : (
+        <div className={clsx(styles.container, styles[`container-${view}`])}>
+          {isShowSkeleton && (
+            <>
+              <QuizCardSkeleton view={view} />
+              <QuizCardSkeleton view={view} />
+              <QuizCardSkeleton view={view} />
+              <QuizCardSkeleton view={view} />
+            </>
+          )}
+        </div>
+      )}
       {!data?.length && !isLoading && (
         <div className={styles.empty}>
           <div className={styles.emptyImage} />
