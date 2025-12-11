@@ -2,13 +2,22 @@ import { diskStorage } from 'multer';
 import { MulterModuleOptions } from '@nestjs/platform-express';
 import { v4 as uuid } from 'uuid';
 import { extname, join } from 'path';
-import { existsSync, unlinkSync } from 'fs';
+import { existsSync, mkdirSync, unlinkSync } from 'fs';
 
 const destination = 'uploads/temp';
 
 export const storageConfig: MulterModuleOptions = {
   storage: diskStorage({
-    destination: `./${destination}`,
+    destination: (req, file, cb) => {
+      const dir = join(process.cwd(), destination);
+
+      // Проверяем — существует ли папка
+      if (!existsSync(dir)) {
+        mkdirSync(dir, { recursive: true }); // <— создаём, если нет
+      }
+
+      cb(null, dir);
+    },
     filename: (req, file, cb) => {
       const uniqueId = uuid();
       const extension = extname(file.originalname);

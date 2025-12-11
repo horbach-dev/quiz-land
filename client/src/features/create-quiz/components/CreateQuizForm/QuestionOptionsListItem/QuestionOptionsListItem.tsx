@@ -5,8 +5,8 @@ import { useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/shared/components/Button';
-import { BASE_URL } from '@/shared/constants';
 import { FieldError } from '@/shared/shadcn/ui/field';
+import { buildUrl } from '@/shared/utils/buildUrl';
 
 import styles from './QuestionOptionsListItem.module.css';
 
@@ -35,9 +35,9 @@ export const QuestionOptionsListItem = ({
   const value = useWatch({ name: `questions.${questionIndex}.options.${index}` });
 
   const currentImage = value.image
-    ? BASE_URL + 'uploads/temp/' + value.image
+    ? buildUrl('uploads/temp/', value.image)
     : value.loadedImg
-      ? BASE_URL + value.loadedImg
+      ? buildUrl(value.loadedImg)
       : null;
 
   return (

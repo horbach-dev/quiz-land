@@ -15,7 +15,7 @@ interface IProps {
 
 export const CreateQuizForm = ({ isEdit, data }: IProps) => {
   const formRef = useRef(null);
-  const form = useCreateQuizForm(isEdit, data);
+  const form = useCreateQuizForm(data, isEdit);
   const isDisabled = !!Object.keys(form.formState.errors).length;
 
   return (

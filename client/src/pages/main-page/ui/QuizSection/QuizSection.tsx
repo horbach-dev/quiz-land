@@ -5,7 +5,7 @@ import { QuizCard } from '@/features/quiz/components/QuizCard';
 import { QuizList } from '@/features/quiz/components/QuizList';
 import { useQuizListQuery } from '@/features/quiz/services/useQuizListQuery';
 import { Button } from '@/shared/components/Button';
-import { BASE_URL } from '@/shared/constants';
+import { buildUrl } from '@/shared/utils/buildUrl';
 
 import styles from './QuizSection.module.css';
 
@@ -20,12 +20,12 @@ export const QuizSection = () => {
           listKey='main-page'
           isLoading={isLoading}
           data={data}
-          renderItem={(item) => (
+          renderItem={({ data }) => (
             <QuizCard
-              key={item.id}
-              image={BASE_URL + item.poster}
-              title={item.title}
-              link={`quiz/${item.id}`}
+              key={data.id}
+              image={buildUrl(data.poster)}
+              title={data.title}
+              link={`quiz/${data.id}`}
             />
           )}
         />

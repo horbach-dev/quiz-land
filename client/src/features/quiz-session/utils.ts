@@ -16,15 +16,10 @@ export const getDoneAnswers = (answers: TQuizAnswer[]) => {
   return serverAnswers;
 };
 
-export const getInitialStep = (
-  nextQuestionId: string,
-  questions: TQuizQuestion[],
-) => {
+export const getInitialStep = (questions: TQuizQuestion[], nextQuestionId?: string) => {
   const initialStepIndex = nextQuestionId
     ? questions.findIndex((q) => q.id === nextQuestionId)
     : 0;
 
-  return initialStepIndex === -1 || initialStepIndex === undefined
-    ? 0
-    : initialStepIndex;
+  return initialStepIndex === -1 || initialStepIndex === undefined ? 0 : initialStepIndex;
 };

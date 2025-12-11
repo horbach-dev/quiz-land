@@ -4,8 +4,8 @@ import { memo } from 'react';
 import { LazyImage } from '@/shared/components/LazyImage';
 import { Options } from '@/shared/components/Options';
 import { WheelPicker } from '@/shared/components/WheelPicker';
-import { BASE_URL } from '@/shared/constants';
 import type { TQuizQuestion } from '@/shared/types/quiz';
+import { buildUrl } from '@/shared/utils/buildUrl';
 
 import styles from './quiz-session-step.module.css';
 
@@ -20,24 +20,20 @@ interface IProps {
 export const QuizSessionStep = memo(
   ({ isHide, isLoading, question, value, setValue }: IProps) => {
     const options = question.options.map((i) => ({
-      image: i.image ? BASE_URL + i.image : null,
+      image: i.image ? buildUrl(i.image) : null,
       label: i.text,
       value: i.id,
     }));
 
     return (
       <div
-        className={clsx(
-          styles.container,
-          isHide && styles.hide,
-          isLoading && styles.disabled,
-        )}
+        className={clsx(styles.container, isHide && styles.hide, isLoading && styles.disabled)}
       >
         {question.image && (
           <LazyImage
             key={question.id}
             fit='content'
-            image={BASE_URL + question.image}
+            image={buildUrl(question.image)}
             title={question.text}
           />
         )}

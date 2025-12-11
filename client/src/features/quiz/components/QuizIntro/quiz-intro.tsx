@@ -3,8 +3,9 @@ import { Play, RotateCcw, Share } from 'lucide-react';
 
 import { Button } from '@/shared/components/Button';
 import { LazyImage } from '@/shared/components/LazyImage';
-import { APP_URL, BASE_URL } from '@/shared/constants';
+import { APP_URL } from '@/shared/constants';
 import type { TQuiz } from '@/shared/types/quiz';
+import { buildUrl } from '@/shared/utils/buildUrl';
 
 import styles from './quiz-intro.module.css';
 import { QuizIntroSkeleton } from './quiz-intro-skeleton';
@@ -27,7 +28,7 @@ export const QuizIntro = ({
   };
 
   const disabled = isLoadingStart || isLoadingRestart;
-  const poster = quizData?.poster ? BASE_URL + quizData.poster : '';
+  const poster = quizData?.poster ? buildUrl(quizData.poster) : undefined;
 
   return (
     <div className={styles.container}>

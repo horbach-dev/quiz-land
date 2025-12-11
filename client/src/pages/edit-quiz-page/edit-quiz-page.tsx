@@ -1,19 +1,15 @@
 import '@/shared/styles/globals.css';
 
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
 
 import { CreateQuizForm } from '@/features/create-quiz';
-import { useQuizQuery } from '@/features/quiz/services/useQuizQuery.ts';
 import { PageLayout } from '@/layouts/page-layout';
 import { SectionHeader } from '@/shared/components/SectionHeader';
 
 import styles from './edit-quiz-page.module.css';
 
-export default function EditQuizPage() {
+export default function EditQuizPage({ quizData }) {
   const { t } = useTranslation();
-  const { id } = useParams();
-  const { data } = useQuizQuery(id!);
 
   return (
     <PageLayout
@@ -26,7 +22,7 @@ export default function EditQuizPage() {
           description={t('create_page.description')}
         />
         <CreateQuizForm
-          data={data}
+          data={quizData}
           isEdit={true}
         />
       </div>

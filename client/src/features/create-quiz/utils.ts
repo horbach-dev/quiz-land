@@ -11,9 +11,7 @@ export const validateDescription =
       return t('validation.min_length', { value: 50 });
     }
 
-    const length = value
-      .replace(/<[^>]*>?/gm, '')
-      .replace(/\n\s*\n/g, '\n').length;
+    const length = value.replace(/<[^>]*>?/gm, '').replace(/\n\s*\n/g, '\n').length;
 
     if (length > 3000) {
       return t('validation.length_limit', { value: length - 3000 });
@@ -34,7 +32,6 @@ const setImage = (image?: string | null) => {
 
 export const getDefaultValues = (data: TQuiz) => {
   return {
-    isEdit: true,
     title: data.title,
     description: data.description,
     loadedImg: data.poster,

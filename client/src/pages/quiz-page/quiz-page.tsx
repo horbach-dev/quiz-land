@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { QuizCompleted } from '@/features/quiz/components/QuizCompleted';
 import { QuizIntro } from '@/features/quiz/components/QuizIntro';
@@ -19,7 +19,7 @@ const SCREENS = {
   finish: QuizCompleted,
 };
 
-export const QuizPage = () => {
+export default function QuizPage() {
   const setRedirectCallback = useAppStore((s) => s.setSwipeRedirectCallback);
   const openPopup = usePopupStore((state) => state.openPopup);
   const [isTransition, setIsTransition] = useState<boolean>(false);
@@ -27,8 +27,7 @@ export const QuizPage = () => {
 
   const { id } = useParams();
   const { data, error } = useQuizQuery(id!);
-  const { startSession, isLoadingStart, isLoadingRestart } =
-    useStartSessionMutation(id!);
+  const { startSession, isLoadingStart, isLoadingRestart } = useStartSessionMutation(id!);
 
   const onStartSession = (restart?: boolean) => {
     startSession({ restart }).then(() => handleSetScreen('session'));
@@ -76,12 +75,7 @@ export const QuizPage = () => {
       backCallback={screen === 'session' ? handleSessionBack : undefined}
       withNavigation={screen !== 'session'}
     >
-      <div
-        className={clsx(
-          styles.container,
-          isTransition && styles.containerTransition,
-        )}
-      >
+      <div className={clsx(styles.container, isTransition && styles.containerTransition)}>
         <CurrentScreen
           quizData={data}
           onStartSession={onStartSession}
@@ -92,4 +86,4 @@ export const QuizPage = () => {
       </div>
     </PageLayout>
   );
-};
+}

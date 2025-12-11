@@ -37,7 +37,7 @@ export class FilesController {
     }
 
     return {
-      tempPath: file.path,
+      tempPath: `/uploads/temp/${file.filename}`,
       fileName: file.filename,
       type: type,
     };

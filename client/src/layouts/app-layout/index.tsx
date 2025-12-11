@@ -2,9 +2,9 @@ import { lazy, Suspense } from 'react';
 
 import { Loader } from '@/shared/components/Loader';
 
-export const Page = lazy(() => import('./create-quiz-page'));
+const Page = lazy(() => import('./ui/app-layout'));
 
-export const CreateQuizPage = () => {
+export const AppLayout = () => {
   return (
     <Suspense fallback={<Loader />}>
       <Page />

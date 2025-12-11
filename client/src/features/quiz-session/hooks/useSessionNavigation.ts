@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface IProps {
   totalSteps: number;
@@ -7,7 +7,7 @@ interface IProps {
   onEndReached?: () => void;
 }
 
-export function useQuizSessionNavigation({
+export function useSessionNavigation({
   totalSteps,
   initialStep = 0,
   transitionDelay = 300,
@@ -15,6 +15,13 @@ export function useQuizSessionNavigation({
 }: IProps) {
   const [step, setStep] = useState(initialStep);
   const [isHide, setIsHide] = useState(false);
+
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [step]);
 
   const goToNextStep = useCallback(() => {
     if (isHide) return;

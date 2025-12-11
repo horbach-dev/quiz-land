@@ -1,6 +1,6 @@
-import styles from './PageLoader.module.css';
+import styles from './Loader.module.css';
 
-export const PageLoader = () => {
+export const Loader = () => {
   return (
     <div className={styles.container}>
       <div className={styles.loader}></div>

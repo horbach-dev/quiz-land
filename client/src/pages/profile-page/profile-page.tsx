@@ -6,7 +6,7 @@ import { useQuizListQuery } from '@/features/quiz/services/useQuizListQuery';
 import { PageLayout } from '@/layouts/page-layout';
 import { Button } from '@/shared/components/Button';
 import { SectionHeader } from '@/shared/components/SectionHeader';
-import { BASE_URL } from '@/shared/constants';
+import { buildUrl } from '@/shared/utils/buildUrl';
 
 import styles from './profile-page.module.css';
 import { CardActions } from './ui/card-actions';
@@ -35,13 +35,13 @@ export default function ProfilePage() {
           listKey='profile-page'
           isLoading={isLoading}
           data={data}
-          renderItem={(item) => (
+          renderItem={({ data }) => (
             <QuizCard
-              key={item.id}
-              image={BASE_URL + item.poster}
-              title={item.title}
-              link={`quiz/${item.id}`}
-              actions={<CardActions item={item} />}
+              key={data.id}
+              image={buildUrl(data.poster)}
+              title={data.title}
+              link={`quiz/${data.id}`}
+              actions={<CardActions item={data} />}
             />
           )}
         />

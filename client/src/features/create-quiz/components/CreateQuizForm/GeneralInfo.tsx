@@ -14,7 +14,7 @@ import {
   FieldSeparator,
   FieldSet,
 } from '@/shared/shadcn/ui/field';
-import { Input } from '@/shared/shadcn/ui/input';
+import { Textarea } from '@/shared/shadcn/ui/textarea.tsx';
 
 import { UploadImage } from '../upload-image';
 
@@ -36,7 +36,7 @@ export const GeneralInfo = () => {
       <FieldGroup>
         <Field>
           <FieldLabel htmlFor='quiz-title'>{t('create_page.main.title')}</FieldLabel>
-          <Input
+          <Textarea
             id='quiz-title'
             placeholder={t('create_page.main.title_placeholder')}
             {...register('title', validationRules(t).title)}

@@ -4,8 +4,8 @@ import { GripVertical, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/shared/components/Button';
-import { BASE_URL } from '@/shared/constants.ts';
-import { FieldError } from '@/shared/shadcn/ui/field.tsx';
+import { FieldError } from '@/shared/shadcn/ui/field';
+import { buildUrl } from '@/shared/utils/buildUrl';
 
 import styles from './FormOptionsList.module.css';
 
@@ -37,9 +37,9 @@ export const FormOptionsListItem = ({
   const { t } = useTranslation();
 
   const currentImage = image
-    ? BASE_URL + 'uploads/temp/' + image
+    ? buildUrl('uploads/temp/', image)
     : loadedImg
-      ? BASE_URL + loadedImg
+      ? buildUrl(loadedImg)
       : null;
 
   return (

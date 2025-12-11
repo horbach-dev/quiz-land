@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { getDefaultValues } from '@/features/create-quiz/utils.ts';
@@ -9,15 +8,12 @@ import { useCreateQuizMutation } from '../services/useCreateQuizMutation';
 import { useUpdateQuizMutation } from '../services/useUpdateQuizMutation';
 import type { IFormData } from '../types';
 
-export const useCreateQuizForm = (isEdit?: boolean, data?: TQuiz) => {
+export const useCreateQuizForm = (data?: TQuiz, isEdit?: boolean) => {
   const { mutateAsync: create } = useCreateQuizMutation();
   const { mutateAsync: update } = useUpdateQuizMutation(data?.id as string);
-  const formMethods = useForm<IFormData>();
-
-  useEffect(() => {
-    if (data) formMethods.reset(getDefaultValues(data));
-    // eslint-disable-next-line
-  }, [data?.id]);
+  const formMethods = useForm<IFormData>({
+    defaultValues: data ? getDefaultValues(data) : {},
+  });
 
   const onSubmit = async (data: IFormData) => {
     // console.log(data);

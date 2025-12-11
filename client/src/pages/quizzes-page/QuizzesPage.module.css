@@ -11,20 +11,3 @@
   width: 100%;
   margin-bottom: var(--default-padding);
 }
-
-.author {
-  display: flex;
-  align-items: center;
-  margin-top: 1rem;
-}
-
-.authorAvatar {
-  border-radius: 2rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-right: 0.7rem;
-}
-
-.authorNick {
-  font-size: 0.8rem;
-}

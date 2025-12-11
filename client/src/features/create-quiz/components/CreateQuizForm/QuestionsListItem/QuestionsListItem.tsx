@@ -37,13 +37,12 @@ export const QuestionsListItem = ({ index, removeQuestion }: IProps) => {
   } = useFormContext<IFormData>();
 
   const loadedImg = watch(`questions.${index}.loadedImg`);
-  const isEdit = watch(`isEdit`);
   const questionErrors = errors?.questions?.[index];
   const textError = questionErrors?.text?.message;
   const imageError = questionErrors?.image?.message;
 
   useEffect(() => {
-    // if (isEdit) return;
+    if (loadedImg) return;
 
     if (containerRef.current) {
       containerRef.current.scrollIntoView({
@@ -52,7 +51,7 @@ export const QuestionsListItem = ({ index, removeQuestion }: IProps) => {
         inline: 'nearest',
       });
     }
-  }, [isEdit]);
+  }, [loadedImg]);
 
   return (
     <div ref={containerRef} className={styles.question}>

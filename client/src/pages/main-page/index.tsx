@@ -1,11 +1,12 @@
 import { lazy, Suspense } from 'react';
 
-import { PageLoader } from '@/shared/components/PageLoader';
+import { Loader } from '@/shared/components/Loader';
 
-const Page = lazy(() => import('./main-page.tsx'));
+const Page = lazy(() => import('./main-page'));
+
 export const MainPage = () => {
   return (
-    <Suspense fallback={<PageLoader />}>
+    <Suspense fallback={<Loader />}>
       <Page />
     </Suspense>
   );

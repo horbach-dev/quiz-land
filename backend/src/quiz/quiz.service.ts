@@ -67,7 +67,8 @@ export class QuizService {
               return {
                 quizId,
                 image: option.image ? getImagePath(quizId, option.image) : null,
-                ...option,
+                text: option.text,
+                isCorrect: option.isCorrect,
               };
             });
 

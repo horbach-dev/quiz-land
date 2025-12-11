@@ -11,12 +11,7 @@ interface IProps {
   placeholder?: string;
 }
 
-export const LazyImage = ({
-  image,
-  title,
-  fit = 'cover',
-  className,
-}: IProps) => {
+export const LazyImage = ({ image, title, fit = 'cover', className }: IProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   return (

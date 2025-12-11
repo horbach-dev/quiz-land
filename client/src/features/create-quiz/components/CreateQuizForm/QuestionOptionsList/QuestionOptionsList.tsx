@@ -36,8 +36,6 @@ export const QuestionOptionsList = ({ questionIndex }: IProps) => {
 
   const fieldType = useWatch({ name: `questions.${questionIndex}.field` });
 
-  console.log(fieldType);
-
   const options = optionFields.filter(i => {
     if (fieldType === 'image') {
       return i.image;

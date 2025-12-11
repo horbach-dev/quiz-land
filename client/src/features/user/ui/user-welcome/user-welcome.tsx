@@ -21,14 +21,16 @@ export const UserWelcome = () => {
         <p className={styles.welcomeDesc}>{t('welcome.description')}</p>
       </div>
       <div className={styles.userStatistic}>
-        <p className={styles.userStatisticItem}>
-          {t('welcome.completed')}
-          <span>{data?.quizzes_completed || 0}</span>
-        </p>
-        <p className={styles.userStatisticItem}>
-          {t('welcome.created')}
-          <span>{data?.quizzes_created || 0}</span>
-        </p>
+        <div>
+          <p className={styles.userStatisticItem}>
+            {t('welcome.completed')}
+            <span>{data?.quizzes_completed || 0}</span>
+          </p>
+          <p className={styles.userStatisticItem}>
+            {t('welcome.created')}
+            <span>{data?.quizzes_created || 0}</span>
+          </p>
+        </div>
         <div className={styles.userStatisticBtn}>
           <span>{t('welcome.to_profile')}</span>
           <button

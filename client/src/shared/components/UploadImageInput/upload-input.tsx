@@ -3,9 +3,9 @@ import { type ChangeEvent, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/shared/components/Button';
+import { buildUrl } from '@/shared/utils/buildUrl';
 
 import styles from './upload-input.module.css';
-import { BASE_URL } from '@/shared/constants.ts';
 
 interface IProps {
   id?: string;
@@ -59,7 +59,7 @@ export const UploadImageInput = ({
     }
   };
 
-  const currentImg = image || loadedImage ? BASE_URL + loadedImage : null;
+  const currentImg = image || loadedImage ? buildUrl(loadedImage as string) : null;
 
   return (
     <div className={styles.uploadInput}>

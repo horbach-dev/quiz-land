@@ -15,7 +15,7 @@ interface IProps {
   isLoading?: boolean;
   isLoadingMore?: boolean;
   handleLoadMore?: () => void;
-  renderItem: (data: TQuiz) => ReactNode;
+  renderItem: (value: { data: TQuiz; index: number }) => ReactNode;
 }
 
 export const QuizList = ({
@@ -39,7 +39,7 @@ export const QuizList = ({
           columnWidth={120}
           columnCount={2}
           overscanBy={5}
-          render={({ data }) => renderItem(data)}
+          render={renderItem}
         />
       ) : (
         <div className={clsx(styles.container, styles[`container-${view}`])}>

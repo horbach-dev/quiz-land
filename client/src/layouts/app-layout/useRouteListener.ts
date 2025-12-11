@@ -4,7 +4,7 @@ import {
   type NavigateOptions,
   useLocation,
   useNavigate,
-} from 'react-router-dom';
+} from 'react-router';
 
 import { CHANGE_APP_ROUTE_EVENT } from '@/shared/constants';
 
