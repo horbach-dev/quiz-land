@@ -1,9 +1,15 @@
 import { api } from '@/shared/api';
 import type { TQuiz } from '@/shared/types/quiz';
 
-export const getQuizList = async (params): Promise<TQuiz[]> => {
+type TParams = {
+  type: 'my' | 'shared' | 'public' | 'popular';
+  limit?: number;
+  pageParam?: number | unknown;
+};
+
+export const getQuizList = async ({ pageParam, limit, type }: TParams): Promise<TQuiz[]> => {
   const response = await api.get('/quiz', {
-    params,
+    params: { type, page: pageParam, limit: limit ?? 15 },
   });
   return response?.data;
 };

@@ -2,7 +2,6 @@ import { SquarePen } from 'lucide-react';
 
 import { QuizCard } from '@/features/quiz/components/QuizCard';
 import { QuizList } from '@/features/quiz/components/QuizList';
-import { useQuizListQuery } from '@/features/quiz/services/useQuizListQuery';
 import { PageLayout } from '@/layouts/page-layout';
 import { Button } from '@/shared/components/Button';
 import { SectionHeader } from '@/shared/components/SectionHeader';
@@ -13,8 +12,6 @@ import { CardActions } from './ui/card-actions';
 import { ProfileHeader } from './ui/profile-header';
 
 export default function ProfilePage() {
-  const { isLoading, data } = useQuizListQuery({ type: 'my' });
-
   return (
     <PageLayout>
       <div className={styles.container}>
@@ -33,8 +30,7 @@ export default function ProfilePage() {
         />
         <QuizList
           listKey='profile-page'
-          isLoading={isLoading}
-          data={data}
+          params={{ type: 'my' }}
           renderItem={({ data }) => (
             <QuizCard
               key={data.id}

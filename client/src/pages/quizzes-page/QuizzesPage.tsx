@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { QuizCard } from '@/features/quiz/components/QuizCard';
 import { QuizCardAuthor } from '@/features/quiz/components/QuizCard/quiz-card-author';
 import { QuizList } from '@/features/quiz/components/QuizList';
-import { useQuizListQuery } from '@/features/quiz/services/useQuizListQuery';
 import { PageLayout } from '@/layouts/page-layout';
 import { TabBar } from '@/shared/components/TabBar';
 import { useAppStore } from '@/shared/stores/appStore';
@@ -27,7 +26,6 @@ export default function QuizzesPage() {
   const { t } = useTranslation();
   const quizActiveTab = useAppStore((store) => store.quizActiveTab);
   const setQuizActiveTab = useAppStore((store) => store.setQuizActiveTab);
-  const { isLoading, data } = useQuizListQuery({ type: quizActiveTab });
 
   return (
     <PageLayout>
@@ -45,8 +43,7 @@ export default function QuizzesPage() {
         </div>
         <QuizList
           listKey={quizActiveTab}
-          data={data}
-          isLoading={isLoading}
+          params={{ type: quizActiveTab }}
           renderItem={({ data }) => (
             <QuizCard
               key={data.id}

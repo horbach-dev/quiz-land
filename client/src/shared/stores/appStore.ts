@@ -5,7 +5,7 @@ import { navigateTo } from '@/shared/utils/navigateTo';
 interface IAppState {
   isNavigationVisible: boolean;
   showIntro: boolean;
-  quizActiveTab: 'public' | 'shared' | 'my';
+  quizActiveTab: 'public' | 'shared' | 'my' | 'popular';
   setQuizActiveTab: (v: 'public' | 'shared' | 'my') => void;
   setNavigationVisible: (v: boolean) => void;
   setShowIntro: (v: boolean) => void;

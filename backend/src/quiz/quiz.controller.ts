@@ -32,9 +32,16 @@ export class QuizController {
   @Get()
   findQuizzes(
     @Query('type') type: 'my' | 'shared' | 'public',
+    @Query('page') page = 1,
+    @Query('limit') limit = 15,
     @ReqUser() user: TUser,
   ) {
-    return this.quizService.findQuizzes(type, user.id);
+    return this.quizService.findQuizzes(
+      type,
+      user.id,
+      Number(page),
+      Number(limit),
+    );
   }
 
   @Get(':id')

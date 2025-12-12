@@ -171,17 +171,32 @@ export class QuizService {
     }
   }
 
-  findQuizzes(type: 'my' | 'shared' | 'public', userId: string) {
+  findQuizzes(
+    type: 'my' | 'shared' | 'public',
+    userId: string,
+    page: number,
+    limit: number,
+  ) {
     try {
+      const pageNumber = Math.max(1, page);
+      const skip = (pageNumber - 1) * limit;
+
+      const baseSelect = {
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+      } as const;
+
       if (type === 'my') {
         return this.prisma.quiz.findMany({
+          ...baseSelect,
           where: { authorId: userId },
-          orderBy: { createdAt: 'desc' },
         });
       }
 
       if (type === 'shared') {
         return this.prisma.quiz.findMany({
+          ...baseSelect,
           where: {
             accessTo: { has: userId },
             NOT: { authorId: userId },
@@ -189,19 +204,20 @@ export class QuizService {
           include: {
             author: { select: { username: true, id: true, avatar: true } },
           },
-          orderBy: { createdAt: 'desc' },
         });
       }
 
+      // PUBLIC
       return this.prisma.quiz.findMany({
+        ...baseSelect,
         where: { isPublic: true },
-        orderBy: { createdAt: 'desc' },
       });
     } catch (e) {
       console.error('Не удалось найти квизы', e);
-      return new BadRequestException('Не удалось найти квизы в базе');
+      throw new BadRequestException('Не удалось найти квизы в базе');
     }
-  }
+  };
+
 
   async findOne(id: string, userId: string) {
     try {

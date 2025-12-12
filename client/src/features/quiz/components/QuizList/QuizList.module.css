@@ -1,14 +1,19 @@
 .container {
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
-.container-row {
-  grid-template-columns: none;
+.loader {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.container-column {
-  grid-template-columns: repeat(2, 1fr);
+.list div[role="gridcell"] {
+  transition: top 0.25s;
 }
 
 .empty {

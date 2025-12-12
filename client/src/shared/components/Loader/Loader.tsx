@@ -1,8 +1,14 @@
+import clsx from 'clsx';
+
 import styles from './Loader.module.css';
 
-export const Loader = () => {
+interface IProps {
+  global?: boolean;
+}
+
+export const Loader = ({ global = true }: IProps) => {
   return (
-    <div className={styles.container}>
+    <div className={clsx(styles.container, global && styles.containerGlobal)}>
       <div className={styles.loader}></div>
     </div>
   );

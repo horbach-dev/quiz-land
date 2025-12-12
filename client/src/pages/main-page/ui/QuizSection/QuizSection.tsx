@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { QuizCard } from '@/features/quiz/components/QuizCard';
 import { QuizList } from '@/features/quiz/components/QuizList';
-import { useQuizListQuery } from '@/features/quiz/services/useQuizListQuery';
 import { Button } from '@/shared/components/Button';
 import { buildUrl } from '@/shared/utils/buildUrl';
 
@@ -11,15 +10,12 @@ import styles from './QuizSection.module.css';
 
 export const QuizSection = () => {
   const { t } = useTranslation();
-  const { data, isLoading } = useQuizListQuery();
-
   return (
     <div className={styles.quizSection}>
       <div className={styles.quizList}>
         <QuizList
           listKey='main-page'
-          isLoading={isLoading}
-          data={data}
+          params={{ type: 'popular' }}
           renderItem={({ data }) => (
             <QuizCard
               key={data.id}

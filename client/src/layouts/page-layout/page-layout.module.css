@@ -3,8 +3,7 @@
   height: 100%;
   min-height: 100vh;
   opacity: 0;
-  transform: scale(0.95);
-  animation: fadeIn 0.5s forwards;
+  animation: fadeIn 0.75s forwards;
   padding-top: var(--padding-top);
   padding-bottom: var(--padding-bottom);
 }
@@ -12,10 +11,8 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
   }
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }

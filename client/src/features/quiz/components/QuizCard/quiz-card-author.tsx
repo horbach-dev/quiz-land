@@ -15,5 +15,5 @@ export const QuizCardAuthor = ({ avatar, username }: IProps) => {
       />
       <p className={styles.authorNick}>{username}</p>
     </div>
-  )
+  );
 };

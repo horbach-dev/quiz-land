@@ -1,17 +1,22 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getQuizList } from '../api/get-quiz-list';
 
 type TQuizListParams = {
-  type: 'shared' | 'my' | 'public';
+  type: 'shared' | 'my' | 'public' | 'popular';
+  limit?: number;
 };
 
-export function useQuizListQuery(params?: TQuizListParams) {
-  return useQuery({
+export function useQuizListQuery(params: TQuizListParams) {
+  const limit = params?.limit ?? 15;
+
+  return useInfiniteQuery({
     queryKey: ['getQuizList', params],
-    queryFn: () => getQuizList(params),
-    select: (data) => {
-      return data.length ? data : [];
+    queryFn: ({ pageParam }) => getQuizList({ pageParam, limit, type: params.type }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      if (!lastPage.length) return undefined;
+      return allPages.length + 1;
     },
   });
 }
