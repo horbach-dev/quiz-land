@@ -57,10 +57,15 @@
 }
 
 .itemText {
+  word-break: break-all;
   font-size: 1.15rem;
 }
 
 .itemImage {
   margin-top: 1rem;
   border-radius: 0.5rem;
+}
+
+.itemImage img {
+  object-fit: contain;
 }

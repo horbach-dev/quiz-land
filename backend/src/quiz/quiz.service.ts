@@ -4,10 +4,9 @@ import path from 'path';
 import { v4 as uuid } from 'uuid';
 import { QuizType, SessionStatus, ScoringAlgorithm } from '@prisma/client';
 import { FilesService } from '../files/files.service';
-import { CreateQuizDto } from './dto/create-quiz.dto';
+import { CreateQuestionDto, CreateQuizDto } from './dto/create-quiz.dto';
 import { PrismaService } from '../prisma.service';
 import type { TUser } from '../user/user.decorator';
-import { UpdateQuizDto } from './dto/update-quiz.dto';
 
 const getImagePath = (quizId: string, image: string) =>
   `uploads/quizzes/${quizId}/${image}`;
@@ -59,35 +58,11 @@ export class QuizService {
 
       if (createQuizDto.questions?.length) {
         data.questions = {
-          create: createQuizDto.questions.map((question) => {
-            if (question.image) images.push(question.image);
-
-            const optionsData = question.options?.map((option) => {
-              if (option.image) images.push(option.image);
-              return {
-                quizId,
-                image: option.image ? getImagePath(quizId, option.image) : null,
-                text: option.text,
-                isCorrect: option.isCorrect,
-              };
-            });
-
-            // Создаем объект options только если есть данные и массив не пустой
-            const optionsCreate =
-              optionsData && optionsData.length > 0
-                ? { createMany: { data: optionsData } }
-                : undefined;
-
-            return {
-              text: question.text,
-              order: question.order,
-              image: question.image
-                ? getImagePath(quizId, question.image)
-                : null,
-              type: question.type,
-              options: optionsCreate,
-            };
-          }),
+          create: this.prepareQuestionData(
+            quizId,
+            createQuizDto.questions,
+            images,
+          ),
         };
       }
 
@@ -100,10 +75,11 @@ export class QuizService {
     }
   }
 
-  async update(quizId: string, updateQuizDto: UpdateQuizDto) {
+  async update(quizId: string, updateQuizDto: CreateQuizDto) {
     try {
       const currentQuiz = await this.prisma.quiz.findUnique({
         where: { id: quizId },
+        select: { poster: true },
       });
 
       if (!currentQuiz) {
@@ -112,63 +88,98 @@ export class QuizService {
         );
       }
 
-      const updateData = {
-        isPublic: false,
-        title: updateQuizDto.title,
-        description: updateQuizDto.description,
-        poster: currentQuiz.poster,
-        scoringAlgorithm:
-          updateQuizDto.scoringAlgorithm || ScoringAlgorithm.STRICT_MATCH,
-        limitedByTime: updateQuizDto.limitedByTime,
-        type: QuizType.USER_GENERATED,
-      };
+      return this.prisma.$transaction(async (prisma) => {
+        const imagesToMove: string[] = [];
+        let newPosterPath = currentQuiz.poster;
 
-      // Если обновился постер добавляем в изменения и перемещаем в папку
-      if (currentQuiz.poster && updateQuizDto.poster) {
-        const posterSliced = currentQuiz.poster.split('/');
-
-        if (posterSliced[posterSliced.length - 1] !== updateQuizDto.poster) {
+        // Если постер обновился, готовим новый путь и добавляем файл в список перемещения
+        if (
+          updateQuizDto.poster &&
+          updateQuizDto.poster !== currentQuiz.poster?.split('/').pop()
+        ) {
           console.log('изменение постера');
-          updateData.poster = getImagePath(quizId, updateQuizDto.poster);
-          this.moveQuizFiles(quizId, [updateQuizDto.poster]);
+          newPosterPath = getImagePath(quizId, updateQuizDto.poster);
+          imagesToMove.push(updateQuizDto.poster);
         }
-      }
 
-      // console.log(updateQuizDto);
+        const updateQuizBaseData = {
+          title: updateQuizDto.title,
+          description: updateQuizDto.description,
+          poster: newPosterPath,
+          scoringAlgorithm:
+            updateQuizDto.scoringAlgorithm || ScoringAlgorithm.STRICT_MATCH,
+          limitedByTime: updateQuizDto.limitedByTime,
+        };
 
-      if (!updateQuizDto.questions) {
-        return this.prisma.quiz.update({
-          where: { id: quizId },
-          data: updateData,
+        await prisma.questionOption.deleteMany({
+          where: { quizId: quizId },
         });
-      }
 
-      return this.prisma.quiz.update({
-        where: { id: quizId },
-        data: updateData,
+        await prisma.question.deleteMany({
+          where: { quizId: quizId },
+        });
+
+        const newQuestionsData = this.prepareQuestionData(
+          quizId,
+          updateQuizDto.questions,
+          imagesToMove,
+        );
+
+        for (const questionData of newQuestionsData) {
+          await prisma.question.create({
+            data: {
+              ...questionData,
+              quizId: quizId,
+              options: questionData.options,
+            },
+          });
+        }
+
+        if (imagesToMove.length > 0) {
+          this.moveQuizFiles(quizId, imagesToMove);
+        }
+
+        return prisma.quiz.update({
+          where: { id: quizId },
+          data: updateQuizBaseData,
+        });
       });
-
-      // questions: {
-      //   update: updateQuizDto.questions.map((question) => ({
-      //     text: question.text,
-      //     order: question.order,
-      //     type: question.type,
-      //     options: {
-      //       updateMany: question.options?.map((option) => ({
-      //         text: option.text,
-      //       })),
-      //     }
-      //   })),
-      // },
-
-      // text: question.text,
-      //   order: question.order,
-      //   image: null,
-      //   type: question.type,
-      //   options: {},
     } catch (e) {
       console.log('Ошибка обновления квиза', e);
     }
+  }
+
+  private prepareQuestionData(
+    quizId: string,
+    questionsDto: CreateQuestionDto[],
+    imagesToMove: string[],
+  ) {
+    return questionsDto.map((question, questionOrder) => {
+      if (question.image) imagesToMove.push(question.image);
+
+      const optionsData = question.options?.map((option, optionOrder) => {
+        if (option.image) imagesToMove.push(option.image);
+        return {
+          quizId,
+          order: optionOrder,
+          image: option.image ? getImagePath(quizId, option.image) : null,
+          text: option.text,
+          isCorrect: option.isCorrect,
+        };
+      });
+
+      return {
+        order: questionOrder,
+        text: question.text,
+        image: question.image ? getImagePath(quizId, question.image) : null,
+        type: question.type || 'SINGLE_CHOICE',
+        field: question.field || 'TEXT',
+        options:
+          optionsData && optionsData.length > 0
+            ? { createMany: { data: optionsData } }
+            : undefined,
+      };
+    });
   }
 
   findQuizzes(
@@ -207,7 +218,6 @@ export class QuizService {
         });
       }
 
-      // PUBLIC
       return this.prisma.quiz.findMany({
         ...baseSelect,
         where: { isPublic: true },
@@ -216,8 +226,7 @@ export class QuizService {
       console.error('Не удалось найти квизы', e);
       throw new BadRequestException('Не удалось найти квизы в базе');
     }
-  };
-
+  }
 
   async findOne(id: string, userId: string) {
     try {

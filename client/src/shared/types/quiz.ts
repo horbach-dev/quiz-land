@@ -1,13 +1,7 @@
 export type TQuizCategory = '';
-export type TQuizQuestionType =
-  | 'TEXT_ANSWER'
-  | 'SINGLE_CHOICE'
-  | 'MULTI_CHOICE';
-export type TQuizSessionStatus =
-  | 'IN_PROGRESS'
-  | 'COMPLETED'
-  | 'ABANDONED'
-  | 'TIMED_OUT';
+export type TQuizQuestionField = 'TEXT' | 'IMAGE';
+export type TQuizQuestionType = 'TEXT_ANSWER' | 'SINGLE_CHOICE' | 'MULTI_CHOICE';
+export type TQuizSessionStatus = 'IN_PROGRESS' | 'COMPLETED' | 'ABANDONED' | 'TIMED_OUT';
 
 export type TQuiz = {
   id: string;
@@ -71,7 +65,7 @@ export type TQuizQuestion = {
   order: number;
   text: string;
   quizId: string;
-  field: 'text' | 'image';
+  field: TQuizQuestionField;
   options: TQuizOption[];
   type: TQuizQuestionType;
   weight: number;

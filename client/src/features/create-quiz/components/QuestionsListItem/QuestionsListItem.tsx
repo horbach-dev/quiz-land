@@ -1,9 +1,9 @@
 import { Trash2 } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { UploadImage } from '@/features/create-quiz/components/upload-image';
+import { UploadImage } from '@/features/create-quiz/components/UploadImage';
 import { validationRules } from '@/features/create-quiz/config';
 import type { IFormData } from '@/features/create-quiz/types';
 import { Button } from '@/shared/components/Button';
@@ -20,11 +20,12 @@ import { QuestionOptionsList } from '../QuestionOptionsList';
 import styles from './QuestionsListItem.module.css';
 
 interface IProps {
+  id?: string;
   index: number;
   removeQuestion: () => void;
 }
 
-export const QuestionsListItem = ({ index, removeQuestion }: IProps) => {
+export const QuestionsListItem = ({ id, index, removeQuestion }: IProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
   const {
@@ -41,20 +42,12 @@ export const QuestionsListItem = ({ index, removeQuestion }: IProps) => {
   const textError = questionErrors?.text?.message;
   const imageError = questionErrors?.image?.message;
 
-  useEffect(() => {
-    if (loadedImg) return;
-
-    if (containerRef.current) {
-      containerRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'end',
-        inline: 'nearest',
-      });
-    }
-  }, [loadedImg]);
-
   return (
-    <div ref={containerRef} className={styles.question}>
+    <div
+      ref={containerRef}
+      id={id}
+      className={styles.question}
+    >
       <FieldLegend className='flex items-center justify-between'>
         <p className='w-full'>{t('create_page.question.title', { value: index + 1 })}</p>
         <div className='w-fit'>

@@ -41,7 +41,8 @@ export const getDefaultValues = (data: TQuiz) => {
         image: setImage(question.image),
         text: question.text,
         loadedImg: question.image,
-        field: question.field || 'text',
+        type: question.type || 'SINGLE_CHOICE',
+        field: question.field || 'TEXT',
         options: question.options.map((option) => {
           return {
             text: option.text,

@@ -73,7 +73,7 @@ model Question {
   image         String?
   order         Int // порядок вопроса в квизе
   type          QuestionType // SINGLE_CHOICE, MULTI_CHOICE, TEXT_ANSWER
-  field         QuestionField? // ответ текстовый или картинка
+  field         QuestionField // ответ текстовый или картинка
   quizId        String           @map("quiz_id")
   quiz          Quiz             @relation(fields: [quizId], references: [id], onDelete: Cascade)
   options       QuestionOption[]

@@ -10,7 +10,6 @@ import {
 import { ReqUser, type TUser } from '../user/user.decorator';
 import { QuizService } from './quiz.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
-import { UpdateQuizDto } from './dto/update-quiz.dto';
 
 @Controller('quiz')
 export class QuizController {
@@ -24,7 +23,7 @@ export class QuizController {
   @Patch(':id')
   update(
     @Param('id') quizId: string,
-    @Body() createQuizDto: UpdateQuizDto,
+    @Body() createQuizDto: CreateQuizDto,
   ) {
     return this.quizService.update(quizId, createQuizDto);
   }

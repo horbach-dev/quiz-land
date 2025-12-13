@@ -37,7 +37,7 @@ export const ProfileHeader = () => {
         onClick={handleSwitchLang}
         after={<Globe />}
       >
-        {data?.language === 'ru' ? 'RU' : 'EN'}
+        {data?.language === 'ru' ? 'EN' : 'RU'}
       </Button>
     </div>
   );

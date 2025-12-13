@@ -13,13 +13,16 @@ export const useFormQuestionOptions = (questionIndex: number, translation: any) 
     control,
     register,
     setValue,
+    getValues,
     formState: { errors },
   } = useFormContext<IFormData>();
+
+  const getValue = (i: number) => getValues(`questions.${questionIndex}.options.${i}`);
 
   const {
     fields: optionFields,
     append: appendOption,
-    remove: removeOption,
+    remove,
     move: moveOptions,
   } = useFieldArray({
     control,
@@ -41,29 +44,45 @@ export const useFormQuestionOptions = (questionIndex: number, translation: any) 
     editOption(optionFields.length);
   };
 
-  const setCorrectOption = (selectedIndex: number) => {
-    optionFields.forEach((_, index) => {
-      setValue(`questions.${questionIndex}.options.${index}.isCorrect`, false, {
+  const removeOption = (optionIndex: number) => {
+    remove(optionIndex);
+
+    if (optionFields.length > 1 && getValue(optionIndex)?.isCorrect) {
+      setValue(`questions.${questionIndex}.options.0.isCorrect`, true, {
         shouldDirty: true,
       });
-    });
+    }
+  };
 
-    setValue(`questions.${questionIndex}.options.${selectedIndex}.isCorrect`, true, {
+  const setCorrect = (value: boolean, optionIndex: number) => {
+    setValue(`questions.${questionIndex}.options.${optionIndex}.isCorrect`, value, {
+      shouldDirty: true,
+    });
+  };
+
+  const setImage = (value: string | null, optionIndex: number) => {
+    setValue(`questions.${questionIndex}.options.${optionIndex}.image`, value, {
       shouldDirty: true,
     });
   };
 
   const editOption = (optionIndex: number) => {
     openPopup('questionOptionPopup', {
-      isCorrect: true,
-      setCorrect: () => setCorrectOption(optionIndex),
+      isCorrect: getValue(optionIndex).isCorrect,
       questionIndex,
       optionIndex,
+      fieldType: getValues(`questions.${questionIndex}.field`),
+      setImageValue: (image) => setImage(image, optionIndex),
+      setCorrect: (value: boolean) => setCorrect(value, optionIndex),
       registerText: register(
         `questions.${questionIndex}.options.${optionIndex}.text`,
         validationRules(translation).option,
       ),
-      fieldType: 'text',
+    }).onClose(() => {
+      const values = getValue(optionIndex);
+      if (!values?.text && !values?.image) {
+        removeOption(optionIndex);
+      }
     });
   };
 
@@ -75,7 +94,6 @@ export const useFormQuestionOptions = (questionIndex: number, translation: any) 
     control,
     register,
     optionFields,
-    setCorrectOption,
     handleTouchDrag,
     errors: errors?.questions?.[questionIndex],
     addOption,

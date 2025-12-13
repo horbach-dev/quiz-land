@@ -1,10 +1,11 @@
-import { Controller, useWatch } from 'react-hook-form';
+import { Controller, type Path, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import type { IFormData } from '@/features/create-quiz/types.ts';
 import { Button } from '@/shared/components/Button';
 import { DragAndDrop } from '@/shared/components/DragAndDrop';
 import { TabBar } from '@/shared/components/TabBar';
-import { Field, FieldError, FieldSeparator } from '@/shared/shadcn/ui/field';
+import { Field, FieldDescription, FieldError, FieldSeparator } from '@/shared/shadcn/ui/field';
 
 import { QuestionOptionsListItem } from '../QuestionOptionsListItem';
 import { useFormQuestionOptions } from './hooks/useFormQuestionOptions';
@@ -14,8 +15,8 @@ interface IProps {
 }
 
 const TAB_BAR_OPTIONS = [
-  { value: 'text', label: 'Текст' },
-  { value: 'image', label: 'Картинка' },
+  { value: 'TEXT', label: 'Текст' },
+  { value: 'IMAGE', label: 'Изображение' },
 ];
 
 export const QuestionOptionsList = ({ questionIndex }: IProps) => {
@@ -34,35 +35,35 @@ export const QuestionOptionsList = ({ questionIndex }: IProps) => {
 
   const error = errors?.options?.root?.message;
 
-  const fieldType = useWatch({ name: `questions.${questionIndex}.field` });
-
-  const options = optionFields.filter(i => {
-    if (fieldType === 'image') {
-      return i.image;
-    }
-
-    return i.text;
-  });
+  const fieldName: Path<IFormData> = `questions.${questionIndex}.field`;
+  const fieldType = useWatch({ control, name: fieldName });
 
   return (
     <>
-      <Controller
-        name={`questions.${questionIndex}.field`}
-        control={control}
-        render={({ field }) => (
-          <TabBar
-            value={field.value}
-            onChange={field.onChange}
-            options={TAB_BAR_OPTIONS}
+      <FieldSeparator />
+      {!optionFields.length && (
+        <>
+          <FieldDescription>
+            {t('create_page.options.type_description')}
+          </FieldDescription>
+          <Controller
+            name={`questions.${questionIndex}.field`}
+            control={control}
+            render={({ field }) => (
+              <TabBar
+                value={field.value}
+                onChange={field.onChange}
+                options={TAB_BAR_OPTIONS}
+              />
+            )}
           />
-        )}
-      />
+        </>
+      )}
 
       {!!optionFields.length && (
         <>
-          <FieldSeparator />
           <DragAndDrop
-            items={options}
+            items={optionFields}
             move={moveOptions}
             render={({ item, index, listeners }) => {
               const error = errors?.options?.[index];
@@ -78,6 +79,7 @@ export const QuestionOptionsList = ({ questionIndex }: IProps) => {
                   imageError={error?.image?.message}
                   editOption={() => editOption(index)}
                   removeOption={() => removeOption(index)}
+                  fieldType={fieldType}
                 />
               );
             }}

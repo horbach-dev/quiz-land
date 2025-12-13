@@ -19,7 +19,7 @@ const checkValidate = (file: File, t) => {
 interface IProps {
   id: string;
   type: string;
-  loadedImg: string | null;
+  loadedImg?: string | null;
   onChange: (value: string | null) => void;
   clearError: () => void;
   setError: (error: string) => void;
@@ -42,16 +42,7 @@ export const UploadImage = ({
     if (loadedImg) setLoadedImage(loadedImg);
   }, [loadedImg]);
 
-  const handleUploadImage = (
-    file: File,
-    {
-      onLoaded,
-      onProgress,
-    }: {
-      onProgress: (v: number) => void;
-      onLoaded: () => void;
-    },
-  ) => {
+  const handleUploadImage = (file: File, { onLoaded, onProgress }) => {
     clearError();
 
     const validationFailed = checkValidate(file, t);

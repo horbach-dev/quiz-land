@@ -25,6 +25,7 @@ export const QuestionsList = () => {
         return (
           <QuestionsListItem
             key={item.id}
+            id={item.containerId}
             index={index}
             removeQuestion={() => removeQuestion(index)}
           />

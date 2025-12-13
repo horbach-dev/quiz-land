@@ -3,7 +3,7 @@ import { FormProvider } from 'react-hook-form';
 
 import type { TQuiz } from '@/shared/types/quiz';
 
-import { useCreateQuizForm } from '../../hooks/useCreateQuizForm';
+import { useCreateQuizForm } from '../hooks/useCreateQuizForm';
 import { FormSubmit } from './FormSubmit';
 import { GeneralInfo } from './GeneralInfo';
 import { QuestionsList } from './QuestionsList';

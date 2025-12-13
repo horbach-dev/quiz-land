@@ -22,7 +22,6 @@
   font-size: 1.15rem;
   text-align: left;
   color: #ffffff;
-  /*font-size: 3.5vw;*/
   overflow: hidden;
   transition: background-color 0.25s;
 }
@@ -37,9 +36,11 @@
 }
 
 .itemImage {
-    padding: 1rem;
-    /*transition: border 1s;*/
-    background-color: rgba(255, 255, 255, 1);
+    padding: 0;
+}
+
+.itemImage img {
+    object-fit: contain;
 }
 
 .itemImage.itemActive {

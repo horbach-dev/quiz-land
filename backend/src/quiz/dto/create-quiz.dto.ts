@@ -9,7 +9,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { QuestionType, ScoringAlgorithm } from '@prisma/client';
+import { QuestionField, QuestionType, ScoringAlgorithm } from '@prisma/client';
 
 // ----------------------------------------------------
 // DTO для Вариантов ответа (Option)
@@ -44,6 +44,9 @@ export class CreateQuestionDto {
 
   @IsEnum(QuestionType)
   type: QuestionType;
+
+  @IsEnum(QuestionField)
+  field: QuestionField;
 
   @IsArray()
   @IsOptional()

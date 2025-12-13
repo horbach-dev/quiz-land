@@ -1,4 +1,4 @@
-import type { TQuizQuestionType } from '@/shared/types/quiz';
+import type { TQuizQuestionField, TQuizQuestionType } from '@/shared/types/quiz';
 
 export type IFormDataAnswer = {
   text: string;
@@ -8,10 +8,11 @@ export type IFormDataAnswer = {
 };
 
 export type IFormDataQuestion = {
+  containerId?: string;
   text: string;
   image: string | null;
   loadedImg: string | null;
-  field: 'text' | 'image';
+  field: TQuizQuestionField;
   order: number;
   type: TQuizQuestionType;
   options: IFormDataAnswer[];

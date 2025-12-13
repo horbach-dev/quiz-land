@@ -13,7 +13,7 @@
 }
 
 .list div[role="gridcell"] {
-  transition: top 0.25s;
+  transition: top 0.25s, bottom 0.25s;
 }
 
 .empty {

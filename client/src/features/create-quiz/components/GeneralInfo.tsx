@@ -16,7 +16,7 @@ import {
 } from '@/shared/shadcn/ui/field';
 import { Textarea } from '@/shared/shadcn/ui/textarea.tsx';
 
-import { UploadImage } from '../upload-image';
+import { UploadImage } from './UploadImage';
 
 export const GeneralInfo = () => {
   const { t } = useTranslation();

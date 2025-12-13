@@ -14,8 +14,6 @@ export const useQuestionsList = ({ translate }: IProps) => {
     formState: { errors, isSubmitting },
   } = useFormContext<IFormData>();
 
-  // const fieldType = useWatch({ name: 'options.' })
-
   const {
     fields,
     append,
@@ -27,18 +25,33 @@ export const useQuestionsList = ({ translate }: IProps) => {
   });
 
   const addQuestion = () => {
+    const containerId = `question-item-${(fields.length || 0) + 1}`;
+
     append(
       {
+        containerId,
         text: '',
         image: null,
         loadedImg: null,
-        field: 'text',
+        field: 'TEXT',
         options: [],
         type: 'SINGLE_CHOICE',
         order: fields?.length || 0,
       },
       { shouldFocus: false },
     );
+
+    // надо бы исправить
+    setTimeout(() => {
+      const item = document.getElementById(containerId);
+      if (item) {
+        item.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+          inline: 'nearest',
+        });
+      }
+    }, 0);
   };
 
   return {

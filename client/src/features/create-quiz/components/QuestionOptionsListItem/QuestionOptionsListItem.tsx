@@ -1,49 +1,45 @@
 import type { DraggableSyntheticListeners } from '@dnd-kit/core';
 import clsx from 'clsx';
-import { GripVertical, Trash2 } from 'lucide-react';
+import { GripVertical, SquarePen, Trash2 } from 'lucide-react';
+import { useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/shared/components/Button';
 import { FieldError } from '@/shared/shadcn/ui/field';
-import { buildUrl } from '@/shared/utils/buildUrl';
+import type { TQuizQuestionField } from '@/shared/types/quiz';
 
-import styles from './FormOptionsList.module.css';
+import styles from './QuestionOptionsListItem.module.css';
+import { getCurrentImage } from './utils';
 
 interface IProps {
   index: number;
-  isCorrect: boolean;
+  questionIndex: number;
+  editOption: () => void;
   removeOption: () => void;
   dragListeners: DraggableSyntheticListeners;
   onTouchDrag: (isStart: boolean) => void;
-  image: string | null;
-  imageError: string | null;
-  loadedImg: string | null;
-  text: string | null;
-  textError: string | null;
+  textError?: string | null;
+  imageError?: string | null;
+  fieldType: TQuizQuestionField;
 }
 
-export const FormOptionsListItem = ({
+export const QuestionOptionsListItem = ({
   index,
-  isCorrect,
+  questionIndex,
+  editOption,
   removeOption,
   dragListeners,
   onTouchDrag,
-  image,
   imageError,
-  loadedImg,
-  text,
   textError,
+  fieldType,
 }: IProps) => {
   const { t } = useTranslation();
-
-  const currentImage = image
-    ? buildUrl('uploads/temp/', image)
-    : loadedImg
-      ? buildUrl(loadedImg)
-      : null;
+  const value = useWatch({ name: `questions.${questionIndex}.options.${index}` });
+  const currentImage = getCurrentImage(value.image, value.loadedImg);
 
   return (
-    <div className={clsx(styles.item, isCorrect && styles.itemCorrect)}>
+    <div className={clsx(styles.item, value.isCorrect && styles.itemCorrect)}>
       <div className={styles.itemHeader}>
         <div className={styles.itemLabel}>
           <button
@@ -59,7 +55,7 @@ export const FormOptionsListItem = ({
             className={styles.itemTitle}
             dangerouslySetInnerHTML={{
               __html: t('create_page.options.title', {
-                value: isCorrect
+                value: value.isCorrect
                   ? `${index + 1} <span>${t('create_page.options.right')}</span>`
                   : index + 1,
               }),
@@ -70,6 +66,14 @@ export const FormOptionsListItem = ({
           <Button
             style='icon'
             size='sm'
+            onClick={editOption}
+            type='button'
+          >
+            <SquarePen />
+          </Button>
+          <Button
+            style='icon'
+            size='sm'
             onClick={removeOption}
             type='button'
           >
@@ -77,7 +81,7 @@ export const FormOptionsListItem = ({
           </Button>
         </div>
       </div>
-      {currentImage ? (
+      {fieldType === 'IMAGE' && currentImage ? (
         <>
           <img
             className={styles.itemImage}
@@ -88,7 +92,7 @@ export const FormOptionsListItem = ({
         </>
       ) : (
         <>
-          <p className={styles.itemText}>{text}</p>
+          <p className={styles.itemText}>{value.text}</p>
           {textError && <FieldError>{textError}</FieldError>}
         </>
       )}

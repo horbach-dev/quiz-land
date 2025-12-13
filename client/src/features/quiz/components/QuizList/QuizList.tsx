@@ -35,7 +35,7 @@ export const QuizList = ({ listKey, params = { type: 'public' }, renderItem }: I
     <div className={styles.list}>
       {!!flatData?.length && (
         <Masonry
-          key={listKey}
+          key={`${listKey}-${flatData.length}`}
           items={flatData}
           columnGutter={16}
           columnWidth={120}

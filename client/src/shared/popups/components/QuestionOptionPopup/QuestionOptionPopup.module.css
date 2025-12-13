@@ -11,13 +11,6 @@
   margin-bottom: 1rem;
 }
 
-.popup p {
-  margin-bottom: var(--default-padding);
-  text-align: center;
-  font-weight: 700;
-  font-size: 1.25rem;
-}
-
 .button {
   margin-top: 1rem;
 }
