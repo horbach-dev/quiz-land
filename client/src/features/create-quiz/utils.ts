@@ -1,20 +1,20 @@
 import type { TQuiz } from '@/shared/types/quiz';
 
 export const validateDescription =
-  (t) =>
+  ({ min, max }, t) =>
   (value = '') => {
     if (!value) {
       return t('validation.required');
     }
 
-    if (value.length < 50) {
-      return t('validation.min_length', { value: 50 });
+    if (value.length < min) {
+      return t('validation.min_length', { value: min });
     }
 
     const length = value.replace(/<[^>]*>?/gm, '').replace(/\n\s*\n/g, '\n').length;
 
-    if (length > 3000) {
-      return t('validation.length_limit', { value: length - 3000 });
+    if (length > max) {
+      return t('validation.length_limit', { value: length - max });
     }
     return true;
   };

@@ -7,6 +7,8 @@ import { useCreateQuizForm } from '../hooks/useCreateQuizForm';
 import { FormSubmit } from './FormSubmit';
 import { GeneralInfo } from './GeneralInfo';
 import { QuestionsList } from './QuestionsList';
+import { ResultFeedbacks } from './ResultFeedbacks';
+import { TimeLimit } from './TimeLimit';
 
 interface IProps {
   isEdit?: boolean;
@@ -25,7 +27,9 @@ export const CreateQuizForm = ({ isEdit, data }: IProps) => {
         onSubmit={form.onSubmit}
       >
         <GeneralInfo />
+        <TimeLimit />
         <QuestionsList />
+        <ResultFeedbacks />
         <FormSubmit
           formRef={formRef}
           isDisabled={isDisabled}

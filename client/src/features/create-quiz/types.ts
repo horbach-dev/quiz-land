@@ -18,13 +18,22 @@ export type IFormDataQuestion = {
   options: IFormDataAnswer[];
 };
 
+export type IFormDataResult = {
+  from: number;
+  to: number;
+  text: string;
+};
+
 export interface IFormData {
   isEdit?: boolean;
   title: string;
   description: string;
   poster: string | null;
+  time_limit: number;
+  time_limit_choice: boolean;
   loadedImg: string | null;
   order: number;
   questions: IFormDataQuestion[];
+  result_feedbacks: IFormDataResult[];
   limitedByTime: boolean;
 }

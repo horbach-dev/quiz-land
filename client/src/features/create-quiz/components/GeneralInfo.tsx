@@ -53,7 +53,7 @@ export const GeneralInfo = () => {
           <Controller
             name='description'
             control={control}
-            rules={{ validate: validateDescription(t) }}
+            rules={{ validate: validateDescription({ min: 10, max: 5000 }, t) }}
             render={({ field }) => (
               <TextEditor
                 id='quiz-description'

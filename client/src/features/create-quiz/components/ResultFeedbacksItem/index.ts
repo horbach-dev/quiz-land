@@ -1,0 +1,1 @@
+export { ResultFeedbacksItem } from './ResultFeedbacksItem';
