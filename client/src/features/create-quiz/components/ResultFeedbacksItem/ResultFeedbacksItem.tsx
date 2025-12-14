@@ -1,4 +1,5 @@
 import { Trash2 } from 'lucide-react';
+import { memo } from 'react';
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -23,9 +24,9 @@ interface IProps {
   remove: () => void;
 }
 
-export const ResultFeedbacksItem = ({ index, remove }: IProps) => {
+export const ResultFeedbacksItem = memo(({ index, remove }: IProps) => {
   const { t } = useTranslation();
-  const { control, register, errors } = useFeedbackItem(index, t);
+  const { control, register, errors, handleChangeInput } = useFeedbackItem(index, t);
 
   const textError = errors?.text?.message;
   const numberError = errors?.from?.message;
@@ -59,12 +60,13 @@ export const ResultFeedbacksItem = ({ index, remove }: IProps) => {
           </FieldLabel>
           <InputNumber
             max={100}
+            onInput={handleChangeInput}
             inputProps={{
               id: `result-feedback-from-${index}`,
               type: 'number',
               ...register(
-                `result_feedbacks.${index}.from`,
-                validationRules(t).result_feedbacks.number,
+                `resultFeedbacks.${index}.from`,
+                validationRules(t).resultFeedbacks.number,
               ),
             }}
           />
@@ -76,12 +78,13 @@ export const ResultFeedbacksItem = ({ index, remove }: IProps) => {
           </FieldLabel>
           <InputNumber
             max={100}
+            onInput={handleChangeInput}
             inputProps={{
               id: `result-feedback-to-${index}`,
               type: 'number',
               ...register(
-                `result_feedbacks.${index}.to`,
-                validationRules(t).result_feedbacks.number,
+                `resultFeedbacks.${index}.to`,
+                validationRules(t).resultFeedbacks.number,
               ),
             }}
           />
@@ -97,13 +100,13 @@ export const ResultFeedbacksItem = ({ index, remove }: IProps) => {
         </FieldLabel>
 
         <Controller
-          name={`result_feedbacks.${index}.text`}
+          name={`resultFeedbacks.${index}.text`}
           control={control}
           rules={{ validate: validateDescription({ min: 10, max: 5000 }, t) }}
           render={({ field }) => (
             <TextEditor
               id={`result-feedback-${index}`}
-              value={field.value}
+              value={field.value as string}
               onChange={field.onChange}
               placeholder={t('create_page.result_feedbacks.field_placeholder')}
             />
@@ -117,4 +120,4 @@ export const ResultFeedbacksItem = ({ index, remove }: IProps) => {
       </Field>
     </div>
   );
-};
+});

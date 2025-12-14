@@ -189,7 +189,6 @@ export class QuizSessionService {
 
     await Promise.all(updates);
 
-    // 3. Обновление сессии: статус, время, итоговый балл
     const completedAt = new Date();
 
     // 4. Обновление общей статистики пользователя
@@ -208,6 +207,16 @@ export class QuizSessionService {
       ...updatedSession,
       totalQuestions: session.quiz.questions.length,
     };
+  }
+
+  async getCompletedSession(sessionId: string) {
+    const session = await this.repository.findFullSession(sessionId);
+
+    if (!session || session.status !== SessionStatus.COMPLETED) {
+      throw new BadRequestException('Сессия не найдена или не завершена.');
+    }
+
+    return session;
   }
 
   async updateSessionTime(data: { sessionId: string; seconds: number }) {

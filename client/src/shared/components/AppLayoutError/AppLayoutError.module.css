@@ -1,0 +1,22 @@
+.container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: var(--default-padding);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    text-align: center;
+}
+
+.description {
+    margin-bottom: var(--default-padding);
+    font-size: 0.85rem;
+    text-align: center;
+}

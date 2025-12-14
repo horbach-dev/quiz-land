@@ -6,6 +6,9 @@ interface IAppState {
   isNavigationVisible: boolean;
   showIntro: boolean;
   quizActiveTab: 'public' | 'shared' | 'my' | 'popular';
+  globalLoader: boolean;
+  globalLoaderKey?: string;
+  setGlobalLoader: (v: boolean, key?: string) => void;
   setQuizActiveTab: (v: 'public' | 'shared' | 'my') => void;
   setNavigationVisible: (v: boolean) => void;
   setShowIntro: (v: boolean) => void;
@@ -19,6 +22,9 @@ export const useAppStore = create<IAppState>((set) => ({
   isNavigationVisible: false,
   showIntro: !localStorage.getItem('show-intro'),
   quizActiveTab: 'public',
+  globalLoader: true,
+  setGlobalLoader: (globalLoader: boolean, globalLoaderKey?: string) =>
+    set({ globalLoader, globalLoaderKey }),
   swipeRedirectCallback: DEFAULT_SWIPE_REDIRECT_CB,
   setQuizActiveTab: (quizActiveTab) => set({ quizActiveTab }),
   setNavigationVisible: (isNavigationVisible) => set({ isNavigationVisible }),

@@ -6,7 +6,7 @@ import {
   IsEnum,
   IsOptional,
   ValidateNested,
-  MinLength,
+  MinLength, IsNumber,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { QuestionField, QuestionType, ScoringAlgorithm } from '@prisma/client';
@@ -71,15 +71,24 @@ export class CreateQuizDto {
   poster: string;
 
   @IsBoolean()
-  limitedByTime: boolean;
+  @IsOptional()
+  timeLimitChoice?: boolean;
 
-  // @IsInt() // Добавил бы это, если бы вы присылали durationMinutes здесь
-  // durationMinutes?: number;
+  @IsNumber()
+  @IsOptional()
+  timeLimit?: number;
 
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateQuestionDto) // Указываем класс для вложенных вопросов
   questions: CreateQuestionDto[];
+
+  @IsOptional()
+  resultFeedbacks?: {
+    text: string;
+    from: number;
+    to: number;
+  }[];
 
   @IsString()
   scoringAlgorithm?: ScoringAlgorithm;

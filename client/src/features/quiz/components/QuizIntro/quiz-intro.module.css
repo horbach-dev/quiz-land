@@ -13,7 +13,6 @@
 .description {
   width: 100%;
   font-size: 1.15rem;
-  margin-top: calc(var(--default-padding) * 2);
   margin-bottom: 2rem;
   overflow: hidden;
 }
@@ -25,6 +24,7 @@
 .actions {
   display: flex;
   gap: 1rem;
+  margin-bottom: calc(var(--default-padding) * 2);
 }
 
 .skeletonLine {
@@ -43,25 +43,4 @@
   width: 85%;
   height: 1.3rem;
   margin-bottom: 1rem;
-}
-
-.description div {
-  font-family: var(--default-font) !important;
-  line-height: 1.5 !important;
-  font-size: 1.15rem !important;
-  background-color: transparent !important;
-}
-
-.description ol {
-  list-style: auto;
-}
-
-.description ul {
-  list-style: disc;
-}
-
-.description ol,
-ul {
-  line-height: 1.5;
-  padding-left: 1.5rem;
 }

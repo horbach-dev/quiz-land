@@ -2,21 +2,20 @@ import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
-import { QuizCompleted } from '@/features/quiz/components/QuizCompleted';
 import { QuizIntro } from '@/features/quiz/components/QuizIntro';
 import { useQuizQuery } from '@/features/quiz/services/useQuizQuery';
 import { QuizSession } from '@/features/quiz-session';
 import { useStartSessionMutation } from '@/features/quiz-session/services/useQuizSessionMutation';
 import { PageLayout } from '@/layouts/page-layout';
 import { useAppStore } from '@/shared/stores/appStore';
-import { usePopupStore } from '@/shared/stores/popupStore.ts';
+import { usePopupStore } from '@/shared/stores/popupStore';
 
 import styles from './quiz-page.module.css';
+import { preloadAssets } from './utils';
 
 const SCREENS = {
   main: QuizIntro,
   session: QuizSession,
-  finish: QuizCompleted,
 };
 
 export default function QuizPage() {
@@ -24,13 +23,20 @@ export default function QuizPage() {
   const openPopup = usePopupStore((state) => state.openPopup);
   const [isTransition, setIsTransition] = useState<boolean>(false);
   const [screen, setScreen] = useState('main');
+  const [isLoadingImages, setIsLoadingImages] = useState<boolean>(false);
 
   const { id } = useParams();
   const { data, error } = useQuizQuery(id!);
   const { startSession, isLoadingStart, isLoadingRestart } = useStartSessionMutation(id!);
 
   const onStartSession = (restart?: boolean) => {
-    startSession({ restart }).then(() => handleSetScreen('session'));
+    if (data) {
+      setIsLoadingImages(true);
+      preloadAssets(data, () => {
+        setIsLoadingImages(false);
+        startSession({ restart }).then(() => handleSetScreen('session'));
+      });
+    }
   };
 
   const handleSessionBack = useCallback(() => {
@@ -79,8 +85,8 @@ export default function QuizPage() {
         <CurrentScreen
           quizData={data}
           onStartSession={onStartSession}
-          isLoadingStart={isLoadingStart}
-          isLoadingRestart={isLoadingRestart}
+          isLoadingStart={isLoadingStart || isLoadingImages}
+          isLoadingRestart={isLoadingRestart || isLoadingImages}
           setScreen={handleSetScreen}
         />
       </div>

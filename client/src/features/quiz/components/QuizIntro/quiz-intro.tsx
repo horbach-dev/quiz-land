@@ -2,6 +2,7 @@ import { shareURL } from '@tma.js/sdk-react';
 import { Play, RotateCcw, Share } from 'lucide-react';
 
 import { Button } from '@/shared/components/Button';
+import { Description } from '@/shared/components/Description';
 import { LazyImage } from '@/shared/components/LazyImage';
 import { APP_URL } from '@/shared/constants';
 import type { TQuiz } from '@/shared/types/quiz';
@@ -24,7 +25,7 @@ export const QuizIntro = ({
   isLoadingRestart,
 }: IProps) => {
   const handleShare = () => {
-    shareURL(`${APP_URL}?startapp=${quizData?.id}`, `Пройди тест: ${quizData?.title}`);
+    shareURL(`${APP_URL}?startapp=${quizData?.id}/start`, `Пройди тест: ${quizData?.title}`);
   };
 
   const disabled = isLoadingStart || isLoadingRestart;
@@ -81,10 +82,9 @@ export const QuizIntro = ({
             </Button>
           </div>
 
-          <p
-            className={styles.description}
-            dangerouslySetInnerHTML={{ __html: quizData?.description || '' }}
-          />
+          {quizData?.description && (
+            <Description text={quizData?.description} />
+          )}
         </>
       ) : (
         <QuizIntroSkeleton />

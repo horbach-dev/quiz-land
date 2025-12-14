@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { getDoneAnswers } from '@/features/quiz-session/utils';
+import { navigateTo } from '@/shared/utils/navigateTo.ts';
 
 import { useCompleteSessionMutation } from '../services/useCompleteSessionMutation';
 import { useSubmitAnswerMutation } from '../services/useSubmitAnswerMutation';
@@ -10,7 +11,6 @@ interface IParams {
   quizId: string;
   timeSpentSeconds: number;
   questionsLength: number;
-  setScreen: (screen: 'main' | 'finish') => void;
 }
 
 export function useSessionAnswering({
@@ -18,7 +18,6 @@ export function useSessionAnswering({
   quizId,
   timeSpentSeconds,
   questionsLength,
-  setScreen,
 }: IParams) {
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
@@ -51,7 +50,7 @@ export function useSessionAnswering({
         // конец теста
         if (step + 1 === questionsLength) {
           await completeSession(session.id);
-          setScreen('finish');
+          navigateTo(`/completed/${session.id}`, false);
         } else {
           goToNextStep();
         }

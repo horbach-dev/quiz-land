@@ -1,7 +1,7 @@
 import { Controller, type Path, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import type { IFormData } from '@/features/create-quiz/types.ts';
+import type { IFormData } from '@/features/create-quiz/types';
 import { Button } from '@/shared/components/Button';
 import { DragAndDrop } from '@/shared/components/DragAndDrop';
 import { TabBar } from '@/shared/components/TabBar';

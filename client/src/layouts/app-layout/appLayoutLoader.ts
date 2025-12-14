@@ -20,7 +20,6 @@ export const appLayoutLoader = () => {
         if (userData?.language) {
           await i18n.changeLanguage(userData.language);
         }
-
         resolve(userData);
       })
       .catch(reject);

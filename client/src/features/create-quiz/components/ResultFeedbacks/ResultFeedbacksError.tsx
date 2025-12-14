@@ -26,25 +26,26 @@ const validateRules = (values: IFormDataResult[]) => {
 interface IProps {
   error?: string;
   setError: UseFormSetError<IFormData>;
-  clearErrors: UseFormClearErrors<IFormData>
+  clearErrors: UseFormClearErrors<IFormData>;
 }
 
+// TODO костыльный компонент, удалить как появится норм валидация
 export const ResultFeedbacksError = ({ error, setError, clearErrors }: IProps) => {
-  const fields = useWatch({ name: 'result_feedbacks' });
+  const fields = useWatch({ name: 'resultFeedbacks' });
 
   useEffect(() => {
     if (fields?.length > 1) {
       const message = validateRules(fields);
 
-      console.log(message);
+      if (message && !error) {
+        setError('resultFeedbacks', { message });
+      }
 
-      if (message) {
-        setError('result_feedbacks', { message });
-      } else {
-        clearErrors('result_feedbacks');
+      if (!message && error) {
+        clearErrors('resultFeedbacks');
       }
     }
-  }, [fields, setError, clearErrors]);
+  }, [fields, setError, clearErrors, error]);
 
   if (!error) return null;
 

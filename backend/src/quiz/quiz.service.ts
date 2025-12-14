@@ -50,7 +50,11 @@ export class QuizService {
         authorId: user.id,
         scoringAlgorithm:
           createQuizDto.scoringAlgorithm || ScoringAlgorithm.STRICT_MATCH,
-        limitedByTime: createQuizDto.limitedByTime,
+        timeLimit: createQuizDto.timeLimit
+          ? Number(createQuizDto.timeLimit)
+          : 0,
+        timeLimitChoice: !!createQuizDto.timeLimitChoice,
+        resultFeedbacks: createQuizDto.resultFeedbacks,
         authorTelegramId: String(user.telegramId),
         type: QuizType.USER_GENERATED,
         questions: {},
@@ -108,7 +112,11 @@ export class QuizService {
           poster: newPosterPath,
           scoringAlgorithm:
             updateQuizDto.scoringAlgorithm || ScoringAlgorithm.STRICT_MATCH,
-          limitedByTime: updateQuizDto.limitedByTime,
+          timeLimit: updateQuizDto.timeLimit
+            ? Number(updateQuizDto.timeLimit)
+            : 0,
+          timeLimitChoice: !!updateQuizDto.timeLimitChoice,
+          resultFeedbacks: updateQuizDto.resultFeedbacks,
         };
 
         await prisma.questionOption.deleteMany({

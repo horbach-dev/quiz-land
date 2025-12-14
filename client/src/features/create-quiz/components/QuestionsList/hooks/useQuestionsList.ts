@@ -2,7 +2,7 @@ import type { TFunction } from 'i18next';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
 import { validationRules } from '@/features/create-quiz/config';
-import type { IFormData } from '@/features/create-quiz/types.ts';
+import type { IFormData } from '@/features/create-quiz/types';
 
 interface IProps {
   translate: TFunction<'translation', undefined>;
