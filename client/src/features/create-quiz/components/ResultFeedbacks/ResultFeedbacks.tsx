@@ -21,7 +21,7 @@ export const ResultFeedbacks = () => {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'result_feedbacks',
+    name: 'resultFeedbacks',
   });
 
   const handleAddResult = () => {
@@ -48,7 +48,7 @@ export const ResultFeedbacks = () => {
       ))}
 
       <ResultFeedbacksError
-        error={errors?.result_feedbacks?.message}
+        error={errors?.resultFeedbacks?.message}
         setError={setError}
         clearErrors={clearErrors}
       />

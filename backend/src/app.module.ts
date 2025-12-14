@@ -13,6 +13,7 @@ import { AuthService } from './auth/auth.service';
 import { PrismaService } from './prisma.service';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
+import type { Response } from 'express';
 
 @Module({
   imports: [
@@ -23,6 +24,11 @@ import { AllExceptionsFilter } from './filters/all-exceptions.filter';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
       serveRoot: '/uploads',
+      serveStaticOptions: {
+        setHeaders: (res: Response) => {
+          res.setHeader('Cache-Control', 'public, max-age=86400');
+        },
+      },
     }),
     AuthModule,
     UserModule,

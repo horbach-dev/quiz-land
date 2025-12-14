@@ -1,17 +1,19 @@
 import { lazy, Suspense } from 'react';
 import { Await, useLoaderData } from 'react-router';
 
-import { Loader } from '@/shared/components/Loader';
+import { LoaderController } from '@/features/global-preloader';
+import { AppLayoutError } from '@/shared/components/AppLayoutError';
 
 const Page = lazy(() => import('./edit-quiz-page'));
 
 export const EditQuizPage = () => {
   const data = useLoaderData();
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<LoaderController id='EditQuizPage' />}>
       <Await
         resolve={data.quizData}
-        errorElement={<div>Error during render page!</div>}>
+        errorElement={<AppLayoutError />}
+      >
         {(props: any) => <Page quizData={props} />}
       </Await>
     </Suspense>

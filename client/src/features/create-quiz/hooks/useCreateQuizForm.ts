@@ -20,12 +20,12 @@ export const useCreateQuizForm = (data?: TQuiz, isEdit?: boolean) => {
 
     try {
       if (isEdit) {
-        const response = await update({ ...data, limitedByTime: false });
+        const response = await update(data);
         navigateTo(`/quiz/${response.id}`);
         return;
       }
 
-      const response = await create({ ...data, limitedByTime: false });
+      const response = await create(data);
       navigateTo(`/quiz/${response.id}`);
     } catch (error) {
       console.error('Ошибка создания / обновления теста', error);

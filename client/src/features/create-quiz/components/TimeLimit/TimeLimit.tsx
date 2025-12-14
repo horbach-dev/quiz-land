@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { InputNumber } from '@/features/create-quiz/components/InputNumber.tsx';
+import { InputNumber } from '@/features/create-quiz/components/InputNumber';
 import { validationRules } from '@/features/create-quiz/config';
 import type { IFormData } from '@/features/create-quiz/types';
 import { SectionHeader } from '@/shared/components/SectionHeader';
+import { Time } from '@/shared/components/Time';
 import { Toggle } from '@/shared/components/Toggle';
 import {
   Field,
@@ -18,32 +19,26 @@ import {
 
 import styles from './TimeLimit.module.css';
 
-const getHoursLabel = (value: number) => {
-  if (value > 4) return 'часов';
-  if (value > 1) return 'часа';
-  return 'час';
-};
-
-const getMinutesLabel = (value: number) => {
-  if (value > 4) return 'минут';
-  if (value > 1) return 'минуты';
-  return 'минута';
-};
-
 export const TimeLimit = () => {
-  const [isActive, setActive] = useState<boolean>(false);
   const { t } = useTranslation();
   const {
     watch,
     control,
     register,
-    formState: { errors },
+    setValue,
+    formState: { errors, defaultValues },
   } = useFormContext<IFormData>();
 
-  const value = watch('time_limit');
+  const [isActive, setActive] = useState<boolean>(!!defaultValues?.timeLimit);
 
-  const hours = Math.floor(value / 60);
-  const mins = Math.floor(value % 60);
+  const value = watch('timeLimit');
+
+  useEffect(() => {
+    if (!isActive && value) {
+      setValue(`timeLimit`, 0);
+      setValue(`timeLimitChoice`, false);
+    }
+  }, [value, isActive, setValue]);
 
   return (
     <FieldSet>
@@ -67,25 +62,17 @@ export const TimeLimit = () => {
                 inputProps={{
                   id: 'time-limit',
                   type: 'number',
-                  ...register('time_limit', validationRules(t).time_limit),
+                  ...register('timeLimit', validationRules(t).time_limit),
                 }}
               />
-              <div className={styles.time}>
-                {!!hours && (
-                  <span className={styles.timeHour}>
-                    {hours} {getHoursLabel(hours)}
-                  </span>
-                )}
-                {!!mins && (
-                  <span>
-                    {mins} {getMinutesLabel(mins)}
-                  </span>
-                )}
-              </div>
+              <Time
+                className={styles.time}
+                seconds={value ? value * 60 : 0}
+              />
             </div>
 
-            {errors.time_limit?.message ? (
-              <FieldError>{errors.time_limit.message}</FieldError>
+            {errors.timeLimit?.message ? (
+              <FieldError>{errors.timeLimit.message}</FieldError>
             ) : (
               <FieldDescription>{validationRules(t).time_limit.max.message}</FieldDescription>
             )}
@@ -95,11 +82,12 @@ export const TimeLimit = () => {
               {t('create_page.time_limit.choice_description')}
             </FieldDescription>
             <Controller
-              name='time_limit_choice'
+              name='timeLimitChoice'
               control={control}
+              defaultValue={false}
               render={({ field }) => (
                 <Toggle
-                  active={field.value}
+                  active={field.value as boolean}
                   label={t('create_page.time_limit.choice_label')}
                   onClick={() => field.onChange(!field.value)}
                 />

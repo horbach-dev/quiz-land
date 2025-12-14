@@ -167,6 +167,17 @@ img {
   justify-content: center;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Отключает стандартный внешний вид элемента */
+  margin: 0; /* Убирает отступы, которые могут остаться */
+}
+
+/* Скрывает стрелки в Firefox */
+input[type=number] {
+  -moz-appearance: textfield; /* Стилизует поле number как обычное текстовое поле */
+}
+
 .rsw-editor {
   position: relative !important;
   overflow: visible !important;

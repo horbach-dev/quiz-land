@@ -32,13 +32,14 @@ model Quiz {
   poster           String
   accessTo         String[]         @default([]) @map("access_to")
   isPublic         Boolean          @map("is_public")
-  limitedByTime    Boolean          @map("limited_by_time")
+  timeLimit        Int?             @map("time_limit")
+  timeLimitChoice  Boolean?         @map("time_limit_choice")
   type             QuizType         @default(USER_GENERATED)
   scoringAlgorithm ScoringAlgorithm @default(STRICT_MATCH)
-  durationMinutes  Int?             @map("duration_minutes")
   authorId         String           @map("author_id")
   authorTelegramId String           @map("author_telegram_id")
   author           User             @relation(fields: [authorId], references: [id])
+  resultFeedbacks  Json?
   questions        Question[]
   sessions         QuizSession[]
 

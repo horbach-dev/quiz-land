@@ -1,3 +1,4 @@
+import type { IFormData } from '@/features/create-quiz/types';
 import type { TQuiz } from '@/shared/types/quiz';
 
 export const validateDescription =
@@ -30,14 +31,18 @@ const setImage = (image?: string | null) => {
   return result;
 };
 
-export const getDefaultValues = (data: TQuiz) => {
+export const getDefaultValues = (data: TQuiz): IFormData => {
   return {
     title: data.title,
     description: data.description,
     loadedImg: data.poster,
     poster: setImage(data.poster),
+    timeLimit: data.timeLimit,
+    timeLimitChoice: data.timeLimitChoice,
+    resultFeedbacks: data.resultFeedbacks,
     questions: data.questions.map((question) => {
       return {
+        order: question.order,
         image: setImage(question.image),
         text: question.text,
         loadedImg: question.image,

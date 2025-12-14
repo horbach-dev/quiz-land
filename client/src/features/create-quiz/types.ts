@@ -29,11 +29,9 @@ export interface IFormData {
   title: string;
   description: string;
   poster: string | null;
-  time_limit: number;
-  time_limit_choice: boolean;
+  timeLimit?: number;
+  timeLimitChoice?: boolean;
   loadedImg: string | null;
-  order: number;
   questions: IFormDataQuestion[];
-  result_feedbacks: IFormDataResult[];
-  limitedByTime: boolean;
+  resultFeedbacks?: IFormDataResult[];
 }

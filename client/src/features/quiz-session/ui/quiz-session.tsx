@@ -15,10 +15,9 @@ import { QuizFooter } from './QuizFooter';
 
 interface IProps {
   quizData: TQuiz;
-  setScreen: (screen: 'main' | 'finish') => void;
 }
 
-export function QuizSession({ quizData, setScreen }: IProps) {
+export function QuizSession({ quizData }: IProps) {
   const { data } = useQuizSessionQuery(quizData.id);
 
   const session = data?.session;
@@ -38,7 +37,6 @@ export function QuizSession({ quizData, setScreen }: IProps) {
   const { answers, submit, isPending } = useSessionAnswering({
     session,
     quizId: quizData.id,
-    setScreen,
     questionsLength: quizQuestions.length,
     timeSpentSeconds: timeSpent.current,
   });

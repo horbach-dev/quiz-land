@@ -13,7 +13,9 @@ export type TQuiz = {
   author?: TQuizAuthor;
   isPublic: boolean;
   questions: TQuizQuestion[];
-  limitedByTime: boolean;
+  timeLimit?: number;
+  timeLimitChoice?: boolean;
+  resultFeedbacks?: TResultFeedback[];
   createdAt: string;
   updatedAt: string;
   hasActiveSession?: boolean;
@@ -40,6 +42,9 @@ export type TSessionCompleted = {
   score: number | null;
   totalQuestions: number;
   timeSpentSeconds: number;
+  quiz: TQuiz;
+  quizId: string;
+  userId: string;
 };
 
 export type TQuizAnswer = {
@@ -76,4 +81,10 @@ type TQuizAuthor = {
   id: string;
   username: string;
   avatar: string;
+};
+
+type TResultFeedback = {
+  text: string;
+  from: number;
+  to: number;
 };

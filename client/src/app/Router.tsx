@@ -7,6 +7,8 @@ import { EditQuizPage } from '@/pages/edit-quiz-page';
 import { editQuizLoader } from '@/pages/edit-quiz-page/loader';
 import { MainPage } from '@/pages/main-page';
 import { ProfilePage } from '@/pages/profile-page';
+import { QuizCompletedPage } from '@/pages/quiz-completed-page';
+import { quizCompletedLoader } from '@/pages/quiz-completed-page/loader';
 import { QuizPage } from '@/pages/quiz-page';
 import { QuizzesPage } from '@/pages/quizzes-page';
 
@@ -37,6 +39,11 @@ export const routes = [
       {
         path: 'quiz/:id',
         element: <QuizPage />,
+      },
+      {
+        path: 'completed/:id',
+        element: <QuizCompletedPage />,
+        loader: quizCompletedLoader,
       },
       {
         path: 'profile',

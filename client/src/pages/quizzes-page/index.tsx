@@ -1,12 +1,12 @@
 import { lazy, Suspense } from 'react';
 
-import { Loader } from '@/shared/components/Loader';
+import { LoaderController } from '@/features/global-preloader';
 
 const Page = lazy(() => import('./QuizzesPage'));
 
 export const QuizzesPage = () => {
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<LoaderController id='QuizzesPage' />}>
       <Page />
     </Suspense>
   );

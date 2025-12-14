@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param } from '@nestjs/common';
+import { Controller, Post, Body, Param, Get } from '@nestjs/common';
 import { QuizSessionService } from './quiz-session.service';
 import { ReqUser, type TUser } from '../user/user.decorator';
 import { QuizSessionRepository } from './quiz-session.repository';
@@ -32,6 +32,11 @@ export class QuizSessionController {
   @Post('complete/:id')
   completeSession(@Param('id') sessionId: string) {
     return this.quizSessionService.completeSession(sessionId);
+  }
+
+  @Get('completed/:id')
+  getCompletedSession(@Param('id') sessionId: string) {
+    return this.quizSessionService.getCompletedSession(sessionId);
   }
 
   @Post('update-time')

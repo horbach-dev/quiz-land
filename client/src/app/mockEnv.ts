@@ -43,7 +43,7 @@ if (import.meta.env.DEV) {
       launchParams: new URLSearchParams([
         // https://docs.telegram-mini-apps.com/platform/launch-parameters#parameters-list
         ['tgWebAppThemeParams', JSON.stringify(themeParams)],
-        // ['tgWebAppStartParam', JSON.stringify(1)],
+        // ['tgWebAppStartParam', JSON.stringify('52ea2dba-80e9-4c31-b165-a40162461169/start')],
         // Your init data goes here. Learn more about it here:
         // https://docs.telegram-mini-apps.com/platform/init-data#parameters-list
         //

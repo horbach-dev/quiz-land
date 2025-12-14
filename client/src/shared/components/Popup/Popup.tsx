@@ -10,11 +10,7 @@ interface IProps {
   onClose: () => void;
 }
 
-export const Popup = ({
-  isOpen,
-  children,
-  onClose,
-}: PropsWithChildren<IProps>) => {
+export const Popup = ({ isOpen, children, onClose }: PropsWithChildren<IProps>) => {
   const [isShow, setIsShow] = useState<boolean>(false);
 
   useEffect(() => {
@@ -31,12 +27,7 @@ export const Popup = ({
   if (!isShow) return null;
 
   return (
-    <div
-      className={clsx(
-        styles.popup,
-        isOpen ? styles.popupOpen : styles.popupClose,
-      )}
-    >
+    <div className={clsx(styles.popup, isOpen ? styles.popupOpen : styles.popupClose)}>
       <div
         className={styles.popupOverlay}
         onClick={onClose}

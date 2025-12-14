@@ -1,0 +1,30 @@
+.description {
+    width: 100%;
+    font-size: 1.15rem !important;
+    line-height: 1.7 !important;
+    margin-top: calc(var(--default-padding) * 1);
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.description div,
+.description span {
+    font-family: var(--default-font) !important;
+    line-height: 1.7 !important;
+    font-size: 1.15rem !important;
+    background-color: transparent !important;
+}
+
+.description ol {
+    list-style: auto;
+}
+
+.description ul {
+    list-style: disc;
+}
+
+.description ol,
+ul {
+    line-height: 1.7;
+    padding-left: 1.5rem;
+}
