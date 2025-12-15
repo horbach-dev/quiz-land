@@ -1,8 +1,0 @@
-.container {
-  transition: opacity 0.3s;
-  opacity: 1;
-}
-
-.containerTransition {
-  opacity: 0;
-}

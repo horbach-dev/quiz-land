@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 
 import { LoaderController } from '@/features/global-preloader';
 
-const Page = lazy(() => import('./quiz-page'));
+const Page = lazy(() => import('./QuizPage'));
 
 export const QuizPage = () => {
   return (

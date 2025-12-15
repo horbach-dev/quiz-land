@@ -7,14 +7,7 @@ import styles from './Drawer.module.css';
 
 const portalContainer = document.getElementById('modals')!;
 
-export const Drawer = ({
-  isOpen,
-  onClose,
-  title,
-  headerActions,
-  children,
-  actions,
-}) => {
+export const Drawer = ({ isOpen, onClose, title, headerActions, children, actions }) => {
   return createPortal(
     <BottomSheet
       isOpen={isOpen}

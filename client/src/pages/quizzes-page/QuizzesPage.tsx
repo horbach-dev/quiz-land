@@ -8,9 +8,9 @@ import { TabBar } from '@/shared/components/TabBar';
 import { useAppStore } from '@/shared/stores/appStore';
 import { buildUrl } from '@/shared/utils/buildUrl';
 
+import { QuizzesPageFilter } from './components/QuizzesPageFilter';
+import { QuizzesPageHeader } from './components/QuizzesPageHeader';
 import styles from './QuizzesPage.module.css';
-import { QuizzesPageFilter } from './ui/quizzes-page-filter';
-import { QuizzesPageHeader } from './ui/quizzes-page-header';
 
 const tabOptions = [
   { label: 'quizzes_page.tab.public', value: 'public' },

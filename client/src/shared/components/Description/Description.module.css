@@ -8,11 +8,17 @@
 }
 
 .description div,
+.description b,
+.description p,
 .description span {
     font-family: var(--default-font) !important;
-    line-height: 1.7 !important;
+    line-height: 1.8rem !important;
     font-size: 1.15rem !important;
     background-color: transparent !important;
+}
+
+.description b {
+    font-size: 1.2rem !important;
 }
 
 .description ol {

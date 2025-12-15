@@ -14,11 +14,16 @@
 }
 
 .middle {
+  stroke: rgb(192 246 3);
+  filter: drop-shadow(0 0 0.35rem rgb(192 246 3));
+}
+
+.low {
   stroke: rgb(234 225 19);
   filter: drop-shadow(0 0 0.35rem rgb(234 225 19));
 }
 
-.good {
+.high {
   stroke: rgb(19 234 170);
   filter: drop-shadow(0 0 0.35rem rgb(19 234 170));
 }

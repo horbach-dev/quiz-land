@@ -1,9 +1,5 @@
-.quizCompleted {
+.container {
     padding: var(--default-padding);
-}
-
-.content {
-    padding-top: 1rem;
 }
 
 .title {

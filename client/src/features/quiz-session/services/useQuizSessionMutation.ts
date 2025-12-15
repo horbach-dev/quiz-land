@@ -1,26 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
 
 import { startSession } from '../api/start-session';
 
 export function useStartSessionMutation(quizId: string) {
-  const [isRestart, setIsRestart] = useState<boolean>(false);
   const queryClient = useQueryClient();
 
   const { isPending, mutateAsync } = useMutation({
-    mutationFn: ({ restart }: { restart?: boolean }) =>
-      startSession({ id: quizId, restart }),
-    onMutate: ({ restart }) => setIsRestart(!!restart),
+    mutationFn: ({ restart }: { restart?: boolean }) => startSession({ id: quizId, restart }),
     onSuccess: (data) => {
       queryClient.setQueryData(['getSession', quizId], data);
       queryClient.invalidateQueries({ queryKey: ['getQuiz', quizId] });
     },
   });
 
-  return {
-    startSession: mutateAsync,
-    isLoadingStart: isPending && !isRestart,
-    isLoadingRestart: isPending && isRestart,
-    isPending,
-  };
+  return { startSession: mutateAsync, isPending };
 }

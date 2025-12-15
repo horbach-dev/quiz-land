@@ -2,6 +2,7 @@ import { shareURL } from '@tma.js/sdk-react';
 import { CirclePlay, RotateCcw, Share2, Timer } from 'lucide-react';
 
 import { useUserQuery } from '@/features/user/services/useUserQuery';
+import { PageLayout } from '@/layouts/page-layout';
 import { Button } from '@/shared/components/Button';
 import { Description } from '@/shared/components/Description';
 import { LazyImage } from '@/shared/components/LazyImage';
@@ -32,14 +33,14 @@ export default function QuizCompletedPage({ sessionData }: IProps) {
 
   const handleShare = () => {
     shareURL(
-      `${APP_URL}?startapp=${quizId}/completed`,
+      `${APP_URL}?startapp=${sessionData.id}/completed`,
       `Мой результат в тесте: ${quizTitle} ${sessionData?.score} из ${questionsLength}`,
     );
   };
 
   return (
-    <div className={styles.quizCompleted}>
-      <div className={styles.content}>
+    <PageLayout>
+      <div className={styles.container}>
         <p className={styles.title}>{quizTitle}</p>
         <div className={styles.resultHeader}>
           {sessionData.quiz?.poster && (
@@ -94,6 +95,6 @@ export default function QuizCompletedPage({ sessionData }: IProps) {
 
         {feedback && <Description text={feedback.text} />}
       </div>
-    </div>
+    </PageLayout>
   );
 }

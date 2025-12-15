@@ -41,7 +41,7 @@ export function useRouteListener() {
       }
 
       if (path === 'completed') {
-        navigate(`quiz-result/${id}`);
+        navigate(`completed/${id}`);
       }
     }
   }, [tgWebAppStartParam, isRedirected, navigate]);

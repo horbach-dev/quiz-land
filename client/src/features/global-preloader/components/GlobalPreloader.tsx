@@ -20,8 +20,6 @@ export const GlobalPreloader = () => {
 
   if (!isRender) return null;
 
-  console.log('rerender');
-
   return (
     <Loader
       global

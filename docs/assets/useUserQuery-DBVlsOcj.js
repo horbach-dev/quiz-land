@@ -1,1 +1,0 @@
-import{u,Q as t}from"./useBaseQuery-ByNYWybg.js";import{w as s}from"./index-Dsplwb75.js";function a(e,r){return u(e,t)}function y(){const{data:e,...r}=a({queryKey:["getUserData"],queryFn:s,refetchOnMount:!1});return{data:e,...r}}export{a,y as u};

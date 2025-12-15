@@ -14,7 +14,7 @@ export function useSessionNavigation({
   onEndReached,
 }: IProps) {
   const [step, setStep] = useState(initialStep);
-  const [isHide, setIsHide] = useState(false);
+  const [isTransition, setIsTransition] = useState(false);
 
   useEffect(() => {
     window.scroll({
@@ -24,34 +24,34 @@ export function useSessionNavigation({
   }, [step]);
 
   const goToNextStep = useCallback(() => {
-    if (isHide) return;
+    if (isTransition) return;
 
     if (step === totalSteps - 1) {
       onEndReached?.();
       return;
     }
 
-    setIsHide(true);
+    setIsTransition(true);
     setTimeout(() => {
-      setIsHide(false);
+      setIsTransition(false);
       setStep((prevStep) => prevStep + 1);
     }, transitionDelay);
-  }, [step, totalSteps, isHide, transitionDelay, onEndReached]);
+  }, [step, totalSteps, isTransition, transitionDelay, onEndReached]);
 
   const goToPrevStep = useCallback(() => {
-    if (isHide) return;
+    if (isTransition) return;
     if (step === 0) return;
 
-    setIsHide(true);
+    setIsTransition(true);
     setTimeout(() => {
-      setIsHide(false);
+      setIsTransition(false);
       setStep((prevStep) => prevStep - 1);
     }, transitionDelay);
-  }, [step, isHide, transitionDelay]);
+  }, [step, isTransition, transitionDelay]);
 
   return {
     step,
-    isHide,
+    isTransition,
     goToNextStep,
     goToPrevStep,
   };

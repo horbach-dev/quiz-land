@@ -9,11 +9,15 @@ interface IProps {
 
 const getStatus = (value: number) => {
   if (value >= 70) {
-    return 'good';
+    return 'high';
   }
 
-  if (value >= 50) {
+  if (value >= 55) {
     return 'middle';
+  }
+
+  if (value >= 40) {
+    return 'low';
   }
 
   return 'bad';

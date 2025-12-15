@@ -36,7 +36,7 @@ export default function MainPage() {
               style='white'
               size='sm'
               to={`/quizzes`}
-              after={<ChevronRight color='#333' />}
+              after={<ChevronRight />}
             >
               {t('main_page.more')}
             </Button>

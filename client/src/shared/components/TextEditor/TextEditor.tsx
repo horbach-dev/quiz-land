@@ -2,12 +2,12 @@ import { Redo2, Undo2 } from 'lucide-react';
 import Editor, {
   BtnBold,
   BtnBulletList,
-  BtnItalic,
   BtnNumberedList,
   BtnRedo,
   BtnStrikeThrough,
   BtnUnderline,
   BtnUndo,
+  createButton,
   Toolbar,
 } from 'react-simple-wysiwyg';
 
@@ -21,6 +21,7 @@ interface IProps {
 }
 
 export const TextEditor = ({ value, onChange, placeholder }: IProps) => {
+  const BtnAlignCenter = createButton('Align center', '≡', 'justifyCenter');
   return (
     <>
       <div className={styles.editor}>
@@ -39,7 +40,7 @@ export const TextEditor = ({ value, onChange, placeholder }: IProps) => {
               <BtnRedo className={styles.editorBtn} />
             </div>
             <BtnBold className={styles.editorBtn} />
-            <BtnItalic className={styles.editorBtn} />
+            <BtnAlignCenter className={styles.editorBtn} />
             <BtnUnderline className={styles.editorBtn} />
             <BtnStrikeThrough className={styles.editorBtn} />
             <BtnBulletList className={styles.editorBtn} />
