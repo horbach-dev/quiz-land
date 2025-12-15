@@ -170,6 +170,7 @@ export class QuizService {
         return {
           quizId,
           order: optionOrder,
+          weight: option.weight ? Number(option.weight) : null,
           image: option.image ? getImagePath(quizId, option.image) : null,
           text: option.text,
           isCorrect: option.isCorrect,

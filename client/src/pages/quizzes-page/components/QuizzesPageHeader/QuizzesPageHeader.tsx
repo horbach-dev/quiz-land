@@ -1,7 +1,8 @@
-import { type ReactNode, useLayoutEffect, useRef } from 'react';
+import { type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
 import { SectionHeader } from '@/shared/components/SectionHeader';
+import { useCssVarElementHeight } from '@/shared/hooks/useCssVarElementHeight';
 
 import styles from './QuizzesPageHeader.module.css';
 
@@ -13,16 +14,7 @@ interface IProps {
 const header = document.getElementById('header')!;
 
 export const QuizzesPageHeader = ({ actions, title }: IProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    if (containerRef?.current?.offsetHeight) {
-      document.documentElement.style.setProperty(
-        '--quizzes-page-header-height',
-        containerRef.current.offsetHeight + 'px',
-      );
-    }
-  }, []);
+  const containerRef = useCssVarElementHeight('--quizzes-page-header-height');
 
   return createPortal(
     <div

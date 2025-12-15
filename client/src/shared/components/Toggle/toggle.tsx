@@ -3,16 +3,17 @@ import clsx from 'clsx';
 import styles from './toggle.module.css';
 
 interface IProps {
+  full?: boolean
   active: boolean;
   label?: string;
   onClick: () => void;
 }
 
-export const Toggle = ({ active, label, onClick }: IProps) => {
+export const Toggle = ({ full, active, label, onClick }: IProps) => {
   return (
     <div
       onClick={onClick}
-      className={styles.toggleWrap}
+      className={clsx(styles.toggleWrap, full && styles.toggleWrapFull)}
     >
       {label && <span className={styles.toggleLabel}>{label}</span>}
       <div className={clsx(styles.toggle, active && styles.toggleActive)}>

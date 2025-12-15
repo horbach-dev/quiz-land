@@ -1,8 +1,8 @@
 import clsx from 'clsx';
-import { useLayoutEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 
+import { useCssVarElementHeight } from '@/shared/hooks/useCssVarElementHeight';
 import { useAppStore } from '@/shared/stores/appStore';
 import { navigateTo } from '@/shared/utils/navigateTo';
 
@@ -11,18 +11,9 @@ import styles from './Navigation.module.css';
 
 export const Navigation = () => {
   const { t } = useTranslation();
-  const containerRef = useRef<HTMLDivElement>(null);
   const isNavigationVisible = useAppStore((store) => store.isNavigationVisible);
   const { pathname } = useLocation();
-
-  useLayoutEffect(() => {
-    if (containerRef?.current?.offsetHeight) {
-      document.documentElement.style.setProperty(
-        '--navigation-height',
-        containerRef.current.offsetHeight + 'px',
-      );
-    }
-  }, []);
+  const containerRef = useCssVarElementHeight('--navigation-height');
 
   return (
     <div className={clsx(styles.container, !isNavigationVisible && styles.hide)}>

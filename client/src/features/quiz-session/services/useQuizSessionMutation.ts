@@ -9,7 +9,10 @@ export function useStartSessionMutation(quizId: string) {
     mutationFn: ({ restart }: { restart?: boolean }) => startSession({ id: quizId, restart }),
     onSuccess: (data) => {
       queryClient.setQueryData(['getSession', quizId], data);
-      queryClient.invalidateQueries({ queryKey: ['getQuiz', quizId] });
+      // TODO Убрать костыль после замены хука
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['getQuiz', quizId] });
+      }, 500);
     },
   });
 

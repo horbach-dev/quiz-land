@@ -18,5 +18,9 @@ export function preloadAssets(quiz: TQuiz, callback: () => void) {
     });
   }
 
+  if (!images.length) {
+    return callback();
+  }
+
   preloadImages(images, callback);
 };

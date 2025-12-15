@@ -1,11 +1,11 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
 
-import { BASE_URL } from '@/shared/constants';
+import { buildUrl } from '@/shared/utils/buildUrl';
 
 import { errorInterceptor, successInterceptor } from './interceptors';
 
 const axiosRequestConfig: AxiosRequestConfig = {
-  baseURL: BASE_URL + 'api',
+  baseURL: buildUrl('api'),
   responseType: 'json',
   headers: { 'Content-Type': 'application/json' },
 };

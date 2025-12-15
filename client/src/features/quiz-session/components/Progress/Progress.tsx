@@ -1,6 +1,8 @@
 import { Flag } from 'lucide-react';
-import { type ReactNode, useLayoutEffect, useRef } from 'react';
+import { type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+
+import { useCssVarElementHeight } from '@/shared/hooks/useCssVarElementHeight';
 
 import styles from './Progress.module.css';
 
@@ -13,17 +15,8 @@ interface IProps {
 }
 
 export const Progress = ({ step, timer, length }: IProps) => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useCssVarElementHeight('--quiz-progress-page-header-height');
   const width = `${((step + 1) / length) * 100}%`;
-
-  useLayoutEffect(() => {
-    if (containerRef?.current?.offsetHeight) {
-      document.documentElement.style.setProperty(
-        '--quiz-progress-page-header-height',
-        containerRef.current.offsetHeight + 'px',
-      );
-    }
-  }, []);
 
   return createPortal(
     <div

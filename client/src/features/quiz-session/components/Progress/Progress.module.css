@@ -1,6 +1,7 @@
 .progressWrap {
   position: fixed;
   top: 0;
+  left: 50%;
   z-index: 1000;
   gap: 0.5rem;
   display: flex;
@@ -9,6 +10,8 @@
   padding: calc((var(--default-padding) / 2) + var(--padding-top))
     var(--default-padding) var(--default-padding) var(--default-padding);
   width: 100%;
+  max-width: var(--max-app-width);
+  transform: translateX(-50%);
   border-radius: 0 0 1rem 1rem;
   transition:
     opacity 0.3s ease,

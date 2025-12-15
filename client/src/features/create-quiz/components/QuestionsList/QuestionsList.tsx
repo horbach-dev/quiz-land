@@ -6,6 +6,7 @@ import { SectionHeader } from '@/shared/components/SectionHeader';
 import { FieldError, FieldSet } from '@/shared/shadcn/ui/field';
 
 import { QuestionsListItem } from '../QuestionsListItem';
+import { ScoringAlgorithm } from './components/ScoringAlgorithm';
 import { useQuestionsList } from './hooks/useQuestionsList';
 
 export const QuestionsList = () => {
@@ -20,6 +21,8 @@ export const QuestionsList = () => {
         title={t('create_page.questions.title')}
         description={t('create_page.questions.description')}
       />
+
+      {!fields.length && <ScoringAlgorithm />}
 
       {fields.map((item, index) => {
         return (

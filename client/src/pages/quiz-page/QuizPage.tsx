@@ -13,14 +13,8 @@ const SCREENS = {
 };
 
 export default function QuizPage() {
-  const {
-    quizData,
-    screen,
-    isTransition,
-    handleSessionBack,
-    onStartSession,
-    isLoading,
-  } = useQuizPage();
+  const { quizData, screen, isTransition, handleSessionBack, onStartSession, isLoading } =
+    useQuizPage();
 
   const CurrentScreen = SCREENS[screen];
 

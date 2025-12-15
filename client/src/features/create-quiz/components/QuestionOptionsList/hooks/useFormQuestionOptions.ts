@@ -35,6 +35,7 @@ export const useFormQuestionOptions = (questionIndex: number, translation: any) 
       {
         text: '',
         image: null,
+        weight: getValues('scoringAlgorithm') === 'WEIGHTED_SCALE' ? 0 : null,
         loadedImg: null,
         isCorrect: !optionFields.length,
       },
@@ -74,6 +75,8 @@ export const useFormQuestionOptions = (questionIndex: number, translation: any) 
       fieldType: getValues(`questions.${questionIndex}.field`),
       setImageValue: (image) => setImage(image, optionIndex),
       setCorrect: (value: boolean) => setCorrect(value, optionIndex),
+      scoringAlgorithm: getValues('scoringAlgorithm'),
+      registerWeight: register(`questions.${questionIndex}.options.${optionIndex}.weight`),
       registerText: register(
         `questions.${questionIndex}.options.${optionIndex}.text`,
         validationRules(translation).option,
@@ -95,6 +98,7 @@ export const useFormQuestionOptions = (questionIndex: number, translation: any) 
     register,
     optionFields,
     handleTouchDrag,
+    scoringAlgorithm: getValues('scoringAlgorithm'),
     errors: errors?.questions?.[questionIndex],
     addOption,
     removeOption,

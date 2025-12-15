@@ -3,6 +3,11 @@
   align-items: center;
 }
 
+.toggleWrapFull {
+  width: 100%;
+  justify-content: space-between;
+}
+
 .toggleLabel {
   font-size: 0.9rem;
   font-weight: 700;

@@ -37,6 +37,7 @@ export const getDefaultValues = (data: TQuiz): IFormData => {
     description: data.description,
     loadedImg: data.poster,
     poster: setImage(data.poster),
+    scoringAlgorithm: data.scoringAlgorithm,
     timeLimit: data.timeLimit,
     timeLimitChoice: data.timeLimitChoice,
     resultFeedbacks: data.resultFeedbacks,
@@ -52,6 +53,7 @@ export const getDefaultValues = (data: TQuiz): IFormData => {
           return {
             text: option.text,
             image: setImage(option.image),
+            weight: option.weight,
             loadedImg: option.image,
             isCorrect: option.isCorrect,
           };

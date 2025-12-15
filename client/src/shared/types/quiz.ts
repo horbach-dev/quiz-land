@@ -2,6 +2,7 @@ export type TQuizCategory = '';
 export type TQuizQuestionField = 'TEXT' | 'IMAGE';
 export type TQuizQuestionType = 'TEXT_ANSWER' | 'SINGLE_CHOICE' | 'MULTI_CHOICE';
 export type TQuizSessionStatus = 'IN_PROGRESS' | 'COMPLETED' | 'ABANDONED' | 'TIMED_OUT';
+export type TQuizScoringAlgorithm = 'STRICT_MATCH' | 'WEIGHTED_SCALE' | 'PERSONALITY_TEST';
 
 export type TQuiz = {
   id: string;
@@ -16,6 +17,7 @@ export type TQuiz = {
   timeLimit?: number;
   timeLimitChoice?: boolean;
   resultFeedbacks?: TResultFeedback[];
+  scoringAlgorithm: TQuizScoringAlgorithm;
   createdAt: string;
   updatedAt: string;
   hasActiveSession?: boolean;
@@ -32,7 +34,7 @@ export type TQuizSession = {
   score: number | null;
   nextQuestionId?: string | null;
   userAnswers?: TQuizAnswer[];
-  scoringAlgorithm: string | null;
+  scoringAlgorithm: TQuizScoringAlgorithm;
   status: TQuizSessionStatus;
   timeSpentSeconds: number;
 };
@@ -42,6 +44,7 @@ export type TSessionCompleted = {
   score: number | null;
   totalQuestions: number;
   timeSpentSeconds: number;
+  scoringAlgorithm: TQuizScoringAlgorithm;
   quiz: TQuiz;
   quizId: string;
   userId: string;
@@ -60,6 +63,7 @@ export type TQuizOption = {
   id: string;
   image: string | null;
   order: number;
+  weight: number | null;
   questionId: string;
   text: string;
   isCorrect: boolean;

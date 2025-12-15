@@ -1,1 +1,1 @@
-export { SwipeRedirect } from './ui/swipe-redirect';
+export { SwipeRedirect } from './components/SwipeRedirect';

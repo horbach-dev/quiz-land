@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { debounce } from '@/shared/utils/debounce.ts';
+import { debounce } from '@/shared/utils/debounce';
 
 type TWindowSize = {
   width: number;

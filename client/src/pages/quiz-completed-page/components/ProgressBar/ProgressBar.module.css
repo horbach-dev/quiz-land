@@ -8,26 +8,6 @@
   stroke: rgba(224, 224, 224, 0.1);
 }
 
-.bad {
-  stroke: rgb(240 102 0);
-  filter: drop-shadow(0 0 0.35rem rgb(240 102 0));
-}
-
-.middle {
-  stroke: rgb(192 246 3);
-  filter: drop-shadow(0 0 0.35rem rgb(192 246 3));
-}
-
-.low {
-  stroke: rgb(234 225 19);
-  filter: drop-shadow(0 0 0.35rem rgb(234 225 19));
-}
-
-.high {
-  stroke: rgb(19 234 170);
-  filter: drop-shadow(0 0 0.35rem rgb(19 234 170));
-}
-
 .circle {
   transform: rotate(-90deg);
   transform-origin: 50% 50%;

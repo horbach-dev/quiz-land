@@ -3,6 +3,7 @@ import { CirclePlay, RotateCcw, Share2, Timer } from 'lucide-react';
 
 import { useUserQuery } from '@/features/user/services/useUserQuery';
 import { PageLayout } from '@/layouts/page-layout';
+import { getTotalPoints } from '@/pages/quiz-completed-page/utils.ts';
 import { Button } from '@/shared/components/Button';
 import { Description } from '@/shared/components/Description';
 import { LazyImage } from '@/shared/components/LazyImage';
@@ -22,10 +23,10 @@ export default function QuizCompletedPage({ sessionData }: IProps) {
   const { data: userData } = useUserQuery();
 
   const isCurrentUser = sessionData.userId === userData?.id;
-  const questionsLength = sessionData.quiz.questions.length;
+  const totalPoints = getTotalPoints(sessionData.scoringAlgorithm, sessionData.quiz.questions);
   const quizId = sessionData.quizId;
   const quizTitle = sessionData.quiz.title;
-  const percentage = ((sessionData?.score || 0) / questionsLength) * 100;
+  const percentage = ((sessionData?.score || 0) / totalPoints) * 100;
 
   const feedback = sessionData.quiz?.resultFeedbacks?.find((i) => {
     return percentage >= Number(i.from) && percentage <= Number(i.to);
@@ -34,7 +35,7 @@ export default function QuizCompletedPage({ sessionData }: IProps) {
   const handleShare = () => {
     shareURL(
       `${APP_URL}?startapp=${sessionData.id}splitcompleted`,
-      `Мой результат в тесте: ${quizTitle} ${sessionData?.score} из ${questionsLength}`,
+      `Мой результат в тесте: ${quizTitle} ${sessionData?.score} из ${totalPoints}`,
     );
   };
 
@@ -59,7 +60,7 @@ export default function QuizCompletedPage({ sessionData }: IProps) {
               <p className={styles.resultProgressText}>
                 <span className={styles.resultTextResult}>{sessionData.score}</span>
                 {' / '}
-                <span className={styles.resultTextCount}>{questionsLength}</span>
+                <span className={styles.resultTextCount}>{totalPoints}</span>
               </p>
             </div>
             <div className={styles.resultTime}>

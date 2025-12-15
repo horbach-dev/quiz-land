@@ -25,7 +25,8 @@
   max-height: 100%;
   overflow: auto;
   /*height: 100%;*/
-  margin-top: var(--padding-top);
+  margin: var(--padding-top) auto;
+  max-width: var(--max-app-width);
   border-radius: 1rem;
 }
 

@@ -31,6 +31,7 @@ export const QuestionOptionsList = ({ questionIndex }: IProps) => {
     moveOptions,
     editOption,
     handleTouchDrag,
+    scoringAlgorithm,
   } = useFormQuestionOptions(questionIndex, t);
 
   const error = errors?.options?.root?.message;
@@ -74,6 +75,7 @@ export const QuestionOptionsList = ({ questionIndex }: IProps) => {
                   index={index}
                   questionIndex={questionIndex}
                   dragListeners={listeners}
+                  scoringAlgorithm={scoringAlgorithm}
                   onTouchDrag={handleTouchDrag}
                   textError={error?.text?.message}
                   imageError={error?.image?.message}

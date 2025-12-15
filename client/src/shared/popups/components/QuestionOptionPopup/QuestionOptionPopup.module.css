@@ -11,6 +11,17 @@
   margin-bottom: 1rem;
 }
 
+.weight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 7rem;
+}
+
+.weight input {
+  text-align: center;
+}
+
 .button {
   margin-top: 1rem;
 }

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/shared/components/Button';
 import { FieldError } from '@/shared/shadcn/ui/field';
-import type { TQuizQuestionField } from '@/shared/types/quiz';
+import type { TQuizQuestionField, TQuizScoringAlgorithm } from '@/shared/types/quiz';
 
 import styles from './QuestionOptionsListItem.module.css';
 import { getCurrentImage } from './utils';
@@ -20,6 +20,7 @@ interface IProps {
   onTouchDrag: (isStart: boolean) => void;
   textError?: string | null;
   imageError?: string | null;
+  scoringAlgorithm: TQuizScoringAlgorithm;
   fieldType: TQuizQuestionField;
 }
 
@@ -33,13 +34,22 @@ export const QuestionOptionsListItem = ({
   imageError,
   textError,
   fieldType,
+  scoringAlgorithm,
 }: IProps) => {
   const { t } = useTranslation();
   const value = useWatch({ name: `questions.${questionIndex}.options.${index}` });
   const currentImage = getCurrentImage(value.image, value.loadedImg);
+  const isWeighted = scoringAlgorithm === 'WEIGHTED_SCALE';
+  const isCorrect = value.isCorrect && !isWeighted;
 
   return (
-    <div className={clsx(styles.item, value.isCorrect && styles.itemCorrect)}>
+    <div
+      className={clsx(
+        styles.item,
+        isCorrect && styles.itemCorrect,
+        isWeighted && styles.itemWeighted,
+      )}
+    >
       <div className={styles.itemHeader}>
         <div className={styles.itemLabel}>
           <button
@@ -55,12 +65,13 @@ export const QuestionOptionsListItem = ({
             className={styles.itemTitle}
             dangerouslySetInnerHTML={{
               __html: t('create_page.options.title', {
-                value: value.isCorrect
+                value: isCorrect
                   ? `${index + 1} <span>${t('create_page.options.right')}</span>`
                   : index + 1,
               }),
             }}
           />
+          {isWeighted && <p className={styles.itemWeight}>Балл: {value.weight}</p>}
         </div>
         <div className={styles.actions}>
           <Button

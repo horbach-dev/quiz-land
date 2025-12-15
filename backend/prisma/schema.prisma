@@ -47,18 +47,18 @@ model Quiz {
 }
 
 model QuizSession {
-  id               String            @id @default(uuid()) @map("_id")
-  createdAt        DateTime          @default(now()) @map("created_at")
-  updatedAt        DateTime          @default(now()) @map("updated_at")
-  userId           String            @map("user_id")
-  user             User              @relation(fields: [userId], references: [id])
-  quizId           String            @map("quiz_id")
-  quiz             Quiz              @relation(fields: [quizId], references: [id], onDelete: Cascade)
-  status           SessionStatus     @default(IN_PROGRESS)
-  scoringAlgorithm ScoringAlgorithm?
-  startedAt        DateTime          @map("started_at")
-  completedAt      DateTime?         @map("completed_at") // null пока не завершен
-  timeSpentSeconds Int?              @default(0) @map("time_spent_seconds")
+  id               String           @id @default(uuid()) @map("_id")
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime         @default(now()) @map("updated_at")
+  userId           String           @map("user_id")
+  user             User             @relation(fields: [userId], references: [id])
+  quizId           String           @map("quiz_id")
+  quiz             Quiz             @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  status           SessionStatus    @default(IN_PROGRESS)
+  scoringAlgorithm ScoringAlgorithm
+  startedAt        DateTime         @map("started_at")
+  completedAt      DateTime?        @map("completed_at") // null пока не завершен
+  timeSpentSeconds Int?             @default(0) @map("time_spent_seconds")
   score            Float?
   questions        Question[]
   userAnswers      UserAnswer[] // Связь с ответами пользователя в этой сессии
@@ -133,6 +133,7 @@ enum ScoringAlgorithm {
   STRICT_MATCH // Подход А (пользовательские квизы)
   PARTIAL_CREDIT // Подход Б
   WEIGHTED_SCALE // Взвешенная шкала (тесты самочувствия, IQ и т.д)
+  PERSONALITY_TEST
 }
 
 enum SessionStatus {

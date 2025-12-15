@@ -140,8 +140,7 @@ export class QuizSessionService {
     }
 
     // Выбираем стратегию подсчета (по умолчанию STRICT_MATCH)
-    const strategyType =
-      session.quiz.scoringAlgorithm || ScoringAlgorithm.STRICT_MATCH;
+    const strategyType = session.quiz.scoringAlgorithm;
     const scoringEngine = this.scoringStrategies[strategyType];
 
     let totalScore = 0;

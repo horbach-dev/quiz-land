@@ -1,13 +1,31 @@
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import BottomSheet from 'react-light-sheet';
 
 import { Background } from '@/shared/components/Background';
+import { useAppStore } from '@/shared/stores/appStore';
 
 import styles from './Drawer.module.css';
 
 const portalContainer = document.getElementById('modals')!;
 
-export const Drawer = ({ isOpen, onClose, title, headerActions, children, actions }) => {
+export const Drawer = ({
+  withNavigation = true,
+  isOpen,
+  onClose,
+  title,
+  headerActions,
+  children,
+  actions,
+}) => {
+  const setNavigationVisible = useAppStore((store) => store.setNavigationVisible);
+
+  useEffect(() => {
+    if (withNavigation) {
+      setNavigationVisible(!isOpen);
+    }
+  }, [isOpen, withNavigation, setNavigationVisible]);
+
   return createPortal(
     <BottomSheet
       isOpen={isOpen}
@@ -19,9 +37,7 @@ export const Drawer = ({ isOpen, onClose, title, headerActions, children, action
         (title || headerActions) && (
           <div className={styles.filterHeader}>
             {title && <span className={styles.filterTitle}>{title}</span>}
-            {headerActions && (
-              <div className={styles.filterAction}>{headerActions}</div>
-            )}
+            {headerActions && <div className={styles.filterAction}>{headerActions}</div>}
           </div>
         )
       }

@@ -17,6 +17,9 @@
 
 .description {
     margin-bottom: var(--default-padding);
-    font-size: 0.85rem;
     text-align: center;
+}
+
+.container button {
+    margin-bottom: 1rem;
 }

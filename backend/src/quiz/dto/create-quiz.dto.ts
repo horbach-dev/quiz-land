@@ -23,6 +23,10 @@ export class CreateQuestionOptionDto {
   @IsOptional()
   image?: string | null;
 
+  @IsInt()
+  @IsOptional()
+  weight?: number | null;
+
   @IsBoolean()
   isCorrect: boolean;
 }

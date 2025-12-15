@@ -1,8 +1,13 @@
-import type { TQuizQuestionField, TQuizQuestionType } from '@/shared/types/quiz';
+import type {
+  TQuizQuestionField,
+  TQuizQuestionType,
+  TQuizScoringAlgorithm,
+} from '@/shared/types/quiz';
 
 export type IFormDataAnswer = {
   text: string;
   image: string | null;
+  weight: number | null;
   loadedImg: string | null;
   isCorrect: boolean;
 };
@@ -32,6 +37,7 @@ export interface IFormData {
   timeLimit?: number;
   timeLimitChoice?: boolean;
   loadedImg: string | null;
+  scoringAlgorithm: TQuizScoringAlgorithm;
   questions: IFormDataQuestion[];
   resultFeedbacks?: IFormDataResult[];
 }

@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import { useAppStore } from '@/shared/stores/appStore';
 
 import { useSwipeEvents } from '../hooks/useSwipeEvents';
-import styles from './swipe-redirect.module.css';
+import styles from './SwipeRedirect.module.css';
 
 const portal = document.getElementById('swipe')!;
 

@@ -1,4 +1,5 @@
-import { House } from 'lucide-react';
+import { miniApp } from '@tma.js/sdk-react';
+import { CircleX, RotateCcw } from 'lucide-react';
 
 import { Button } from '@/shared/components/Button';
 
@@ -13,11 +14,20 @@ export const AppLayoutError = () => {
         телеграм
       </p>
       <Button
-        after={<House />}
-        to='/'
+        after={<RotateCcw />}
+        onClick={() => window.location.reload()}
       >
-        На главную
+        Перезапустить
       </Button>
+      {miniApp?.close?.isAvailable() && (
+        <Button
+          style='white'
+          after={<CircleX />}
+          onClick={() => miniApp.close()}
+        >
+          Закрыть
+        </Button>
+      )}
     </div>
   );
 };
