@@ -34,7 +34,7 @@ export function useRouteListener() {
     if (tgWebAppStartParam && !isRedirected) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsRedirected(true);
-      const [id, path] = tgWebAppStartParam.replaceAll('"', '').split('/');
+      const [id, path] = tgWebAppStartParam.replaceAll('"', '').split('&&');
 
       if (path === 'start') {
         navigate(`quiz/${id}`);
