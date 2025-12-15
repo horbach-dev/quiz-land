@@ -32,18 +32,21 @@ export function useRouteListener() {
 
   useEffect(() => {
     if (tgWebAppStartParam && !isRedirected) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setIsRedirected(true);
-      const [id, path] = tgWebAppStartParam.replaceAll('"', '').split('&&');
+      try {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setIsRedirected(true);
+        const decoded = decodeURIComponent(tgWebAppStartParam);
+        const { id, path } = JSON.parse(decoded);
 
-      alert(JSON.stringify({ id, path, tgWebAppStartParam }));
+        if (path === 'start') {
+          navigate(`quiz/${id}`);
+        }
 
-      if (path === 'start') {
-        navigate(`quiz/${id}`);
-      }
-
-      if (path === 'completed') {
-        navigate(`completed/${id}`);
+        if (path === 'completed') {
+          navigate(`completed/${id}`);
+        }
+      } catch (e) {
+        console.log('не удалось распарсить ссылку');
       }
     }
   }, [tgWebAppStartParam, isRedirected, navigate]);

@@ -1,0 +1,1 @@
+import{u as t}from"./useQuery-DtnJGtaB.js";import{h as u}from"./index-duMPENMb.js";function o(){const{data:e,...r}=t({queryKey:["getUserData"],queryFn:u,refetchOnMount:!1});return{data:e,...r}}export{o as u};
