@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/components/Button';
 import { APP_URL } from '@/shared/constants';
 
-const text = `Приложение для прохождения и создания квизов!`;
+const text = `Приложение для прохождения и создания тестов!`;
 
 export const ShareAppButton = () => {
   const { t } = useTranslation();

@@ -36,6 +36,8 @@ export function useRouteListener() {
       setIsRedirected(true);
       const [id, path] = tgWebAppStartParam.replaceAll('"', '').split('&&');
 
+      alert(JSON.stringify({ id, path, tgWebAppStartParam }));
+
       if (path === 'start') {
         navigate(`quiz/${id}`);
       }
