@@ -35,8 +35,7 @@ export function useRouteListener() {
       try {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsRedirected(true);
-        const decoded = decodeURIComponent(tgWebAppStartParam);
-        const { id, path } = JSON.parse(decoded);
+        const [id, path] = tgWebAppStartParam.replaceAll('"', '').split('split');
 
         if (path === 'start') {
           navigate(`quiz/${id}`);
@@ -46,7 +45,7 @@ export function useRouteListener() {
           navigate(`completed/${id}`);
         }
       } catch (e) {
-        console.log('не удалось распарсить ссылку');
+        console.error('не удалось распарсить ссылку', e);
       }
     }
   }, [tgWebAppStartParam, isRedirected, navigate]);

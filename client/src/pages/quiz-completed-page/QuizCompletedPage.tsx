@@ -33,7 +33,7 @@ export default function QuizCompletedPage({ sessionData }: IProps) {
 
   const handleShare = () => {
     shareURL(
-      `${APP_URL}?startapp=${encodeURIComponent(`{"id": "${sessionData.id}", path: "completed"}`)}`,
+      `${APP_URL}?startapp=${sessionData.id}splitcompleted`,
       `Мой результат в тесте: ${quizTitle} ${sessionData?.score} из ${questionsLength}`,
     );
   };

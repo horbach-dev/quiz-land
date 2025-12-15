@@ -1,0 +1,1 @@
+import{u as t}from"./useQuery-DEnqu_Pu.js";import{h as u}from"./index-CV0xlpDw.js";function o(){const{data:e,...r}=t({queryKey:["getUserData"],queryFn:u,refetchOnMount:!1});return{data:e,...r}}export{o as u};

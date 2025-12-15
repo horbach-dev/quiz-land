@@ -13,8 +13,7 @@ import styles from './QuizIntro.module.css';
 import { QuizIntroSkeleton } from './QuizIntroSkeleton';
 
 const handleShare = (id: string, quizTitle: string) => {
-  const param = decodeURIComponent(`{ "id": "${id}", "path": "start" }`);
-  shareURL(`${APP_URL}?startapp=${param}`, `Пройди тест: ${quizTitle}`);
+  shareURL(`${APP_URL}?startapp=${id}splitstart`, `Пройди тест: ${quizTitle}`);
 };
 
 interface IProps {
