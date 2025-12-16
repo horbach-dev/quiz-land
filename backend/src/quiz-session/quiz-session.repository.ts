@@ -50,6 +50,16 @@ export class QuizSessionRepository {
     });
   }
 
+  async findNextUnansweredQuestion(quizId: string, answeredIds: string[]) {
+    return this.prisma.question.findFirst({
+      where: {
+        quizId,
+        id: { notIn: answeredIds },
+      },
+      orderBy: { order: 'asc' },
+    });
+  }
+
   createSession(
     userId: string,
     quizId: string,

@@ -1,4 +1,4 @@
-import { QuizScoringStrategy, QuestionContext } from './types';
+import { QuizScoringStrategy, QuestionContext } from './interfaces';
 
 export class WeightedScoring implements QuizScoringStrategy {
   calculateScore(userAnswers: string[], context: QuestionContext): number {
@@ -19,7 +19,6 @@ export class WeightedScoring implements QuizScoringStrategy {
   }
 
   isCorrect(_: string[], __: QuestionContext): boolean {
-    // В тестах на самочувствие понятие "правильно/неправильно" отсутствует
     return true;
   }
 }

@@ -11,20 +11,21 @@
 
 .poster {
     margin: auto;
-    width: 50%;
 }
 
 .resultHeader {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
     margin-bottom: calc(var(--default-padding) * 2);
 }
 
 .resultInfo {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .resultTitle {
@@ -36,7 +37,6 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: -1.5rem;
 }
 
 .resultTimeIcon {
@@ -45,32 +45,41 @@
 }
 
 .resultProgress {
-    margin-top: -1.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 70%;
 }
 
 .resultProgressText {
     display: flex;
     align-items: center;
     position: absolute;
-    font-size: 1.2rem;
 }
 
 .resultTextResult {
     margin-right: 0.3rem;
     font-weight: 700;
+    font-size: 110%;
 }
 
 .resultTextCount {
     margin-left: 0.3rem;
     color: rgba(255, 255, 255, 0.5);
-    font-size: 0.8rem;
+    font-size: 70%;
 }
 
 .actions {
     margin-bottom: calc(var(--default-padding) * 2);
     display: grid;
     gap: 1rem;
+}
+
+.feedbackNotice {
+    margin-bottom: calc(var(--default-padding));
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    border-left: 3px solid #0ca6ff;
+    background-color: rgba(255,255,255,0.05);
 }

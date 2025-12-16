@@ -4,11 +4,13 @@ import { QuizSessionController } from './quiz-session.controller';
 import { PrismaService } from '../prisma.service';
 import { AuthService } from '../auth/auth.service';
 import { QuizSessionRepository } from './quiz-session.repository';
+import { ScoringService } from './scoring/scoring.service';
 
 @Module({
   controllers: [QuizSessionController],
   providers: [
     QuizSessionService,
+    ScoringService,
     QuizSessionRepository,
     PrismaService,
     AuthService,

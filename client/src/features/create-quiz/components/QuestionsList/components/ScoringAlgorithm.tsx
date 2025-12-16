@@ -43,28 +43,27 @@ export const ScoringAlgorithm = () => {
         />
         <FieldDescription>
           Каждый вариант ответа имеет свой вес (например, от 0 до 3 баллов). Баллы за все
-          вопросы суммируются для получения итогового результата (например, для измерения
-          уровня).
+          вопросы суммируются для получения итогового результата.
         </FieldDescription>
       </Field>
-      {/*<Field>*/}
-      {/*  <Controller*/}
-      {/*    name='scoringAlgorithm'*/}
-      {/*    control={control}*/}
-      {/*    render={({ field }) => (*/}
-      {/*      <Toggle*/}
-      {/*        full*/}
-      {/*        active={field.value === 'PERSONALITY_TEST'}*/}
-      {/*        label='Оценка по категориям'*/}
-      {/*        onClick={() => field.onChange('PERSONALITY_TEST')}*/}
-      {/*      />*/}
-      {/*    )}*/}
-      {/*  />*/}
-      {/*  <FieldDescription>*/}
-      {/*    Баллы пользователя распределяются между разными категориями (например, Холерик,*/}
-      {/*    Сангвиник). Итоговый результат — это категория с наибольшим количеством баллов.*/}
-      {/*  </FieldDescription>*/}
-      {/*</Field>*/}
+      <Field>
+        <Controller
+          name='scoringAlgorithm'
+          control={control}
+          render={({ field }) => (
+            <Toggle
+              full
+              active={field.value === 'PERSONALITY_TEST'}
+              label='Оценка по категориям'
+              onClick={() => field.onChange('PERSONALITY_TEST')}
+            />
+          )}
+        />
+        <FieldDescription>
+          Баллы пользователя распределяются между разными категориями (например, Холерик,
+          Сангвиник). Итоговый результат — это категория с наибольшим количеством баллов.
+        </FieldDescription>
+      </Field>
     </FieldGroup>
   );
 };

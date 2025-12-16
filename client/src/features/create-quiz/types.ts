@@ -7,7 +7,8 @@ import type {
 export type IFormDataAnswer = {
   text: string;
   image: string | null;
-  weight: number | null;
+  weight?: number | null;
+  category?: string | null;
   loadedImg: string | null;
   isCorrect: boolean;
 };
@@ -37,7 +38,10 @@ export interface IFormData {
   timeLimit?: number;
   timeLimitChoice?: boolean;
   loadedImg: string | null;
+  positiveScore: boolean;
   scoringAlgorithm: TQuizScoringAlgorithm;
   questions: IFormDataQuestion[];
+  questionCategories?: { text: string }[];
   resultFeedbacks?: IFormDataResult[];
+  feedbackNotice?: string;
 }

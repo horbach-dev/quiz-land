@@ -31,11 +31,15 @@ export const useFormQuestionOptions = (questionIndex: number, translation: any) 
   });
 
   const addOption = () => {
+    const algorithm = getValues('scoringAlgorithm');
+
     appendOption(
       {
         text: '',
         image: null,
-        weight: getValues('scoringAlgorithm') === 'WEIGHTED_SCALE' ? 0 : null,
+        category:
+          algorithm === 'PERSONALITY_TEST' ? getValues('questionCategories')?.[0]?.text : null,
+        weight: algorithm === 'WEIGHTED_SCALE' ? 0 : null,
         loadedImg: null,
         isCorrect: !optionFields.length,
       },
@@ -76,6 +80,10 @@ export const useFormQuestionOptions = (questionIndex: number, translation: any) 
       setImageValue: (image) => setImage(image, optionIndex),
       setCorrect: (value: boolean) => setCorrect(value, optionIndex),
       scoringAlgorithm: getValues('scoringAlgorithm'),
+      categories: getValues('questionCategories'),
+      category: getValues(`questions.${questionIndex}.options.${optionIndex}.category`),
+      setCategory: (value) =>
+        setValue(`questions.${questionIndex}.options.${optionIndex}.category`, value),
       registerWeight: register(`questions.${questionIndex}.options.${optionIndex}.weight`),
       registerText: register(
         `questions.${questionIndex}.options.${optionIndex}.text`,

@@ -192,7 +192,7 @@ input[type=number] {
   outline: none !important;
   border-radius: 0.8rem !important;
   transition: box-shadow 0.15s;
-  word-break: break-all;
+  word-break: break-word !important;
 }
 
 .rsw-ce:focus {

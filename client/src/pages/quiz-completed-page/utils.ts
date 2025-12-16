@@ -1,3 +1,6 @@
+import { shareURL } from '@tma.js/sdk-react';
+
+import { APP_URL } from '@/shared/constants';
 
 export const getTotalPoints = (algorithm, questions) => {
   if (algorithm === 'WEIGHTED_SCALE') {
@@ -9,8 +12,15 @@ export const getTotalPoints = (algorithm, questions) => {
       });
 
       return acc + point;
-    }, 0)
+    }, 0);
   }
 
-  return questions.length
-}
+  return questions.length;
+};
+
+export const shareResult = ({ sessionId, quizTitle, score, totalPoints }) => {
+  shareURL(
+    `${APP_URL}?startapp=${sessionId}splitcompleted`,
+    `Мой результат в тесте: ${quizTitle} ${score} из ${totalPoints}`,
+  );
+};

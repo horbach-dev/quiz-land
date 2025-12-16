@@ -1,4 +1,4 @@
-import { QuizScoringStrategy, QuestionContext } from './types';
+import { QuizScoringStrategy, QuestionContext } from './interfaces';
 
 export class StrictScoring implements QuizScoringStrategy {
   calculateScore(userAnswers: string[], context: QuestionContext): number {

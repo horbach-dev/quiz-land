@@ -1,1 +1,1 @@
-export { QuestionOptionPopup } from './QuestionOptionPopup.tsx';
+export { QuestionOptionPopup } from './QuestionOptionPopup';

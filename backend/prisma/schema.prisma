@@ -33,13 +33,15 @@ model Quiz {
   accessTo         String[]         @default([]) @map("access_to")
   isPublic         Boolean          @map("is_public")
   timeLimit        Int?             @map("time_limit")
-  timeLimitChoice  Boolean?         @map("time_limit_choice")
+  timeLimitChoice  Boolean?         @default(true) @map("time_limit_choice")
+  positiveScore    Boolean?         @map("positive_score")
   type             QuizType         @default(USER_GENERATED)
   scoringAlgorithm ScoringAlgorithm @default(STRICT_MATCH)
   authorId         String           @map("author_id")
   authorTelegramId String           @map("author_telegram_id")
   author           User             @relation(fields: [authorId], references: [id])
   resultFeedbacks  Json?
+  feedbackNotice   String?          @map("feedback_notice")
   questions        Question[]
   sessions         QuizSession[]
 
@@ -56,6 +58,9 @@ model QuizSession {
   quiz             Quiz             @relation(fields: [quizId], references: [id], onDelete: Cascade)
   status           SessionStatus    @default(IN_PROGRESS)
   scoringAlgorithm ScoringAlgorithm
+  feedback         String?
+  feedbackNotice   String?          @map("feedback_notice")
+  finalCategory    String?          @map("final_category") // если тест PERSONALITY_TEST
   startedAt        DateTime         @map("started_at")
   completedAt      DateTime?        @map("completed_at") // null пока не завершен
   timeSpentSeconds Int?             @default(0) @map("time_spent_seconds")
@@ -94,6 +99,7 @@ model QuestionOption {
   weight     Float?   @map("weight")
   questionId String   @map("question_id")
   quizId     String   @map("quiz_id")
+  category   String?
   question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   @@map("question_option")
@@ -130,10 +136,9 @@ enum QuestionField {
 }
 
 enum ScoringAlgorithm {
-  STRICT_MATCH // Подход А (пользовательские квизы)
-  PARTIAL_CREDIT // Подход Б
+  STRICT_MATCH // Строгое сравнение, ответы правильно / неправильно
   WEIGHTED_SCALE // Взвешенная шкала (тесты самочувствия, IQ и т.д)
-  PERSONALITY_TEST
+  PERSONALITY_TEST // Тесты определения категории (пр. Холерик, Флегматик)
 }
 
 enum SessionStatus {

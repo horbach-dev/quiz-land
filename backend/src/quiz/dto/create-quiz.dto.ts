@@ -94,6 +94,13 @@ export class CreateQuizDto {
     to: number;
   }[];
 
+  @IsArray()
+  @IsString()
+  feedbackNotice?: string;
+
+  @IsBoolean()
+  positiveScore: boolean;
+
   @IsString()
   scoringAlgorithm?: ScoringAlgorithm;
 }

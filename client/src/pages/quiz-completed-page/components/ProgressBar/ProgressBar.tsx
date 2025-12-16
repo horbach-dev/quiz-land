@@ -3,32 +3,35 @@ import type { CSSProperties } from 'react';
 
 import styles from './ProgressBar.module.css';
 
+const COLORS = ['rgb(240 102 0)', 'rgb(234 225 19)', 'rgb(3 232 246)', 'rgb(3 236 170)'];
+
+const getPositiveColor = (value: number) => {
+  if (value >= 75) return COLORS[3];
+  if (value >= 50) return COLORS[2];
+  if (value >= 25) return COLORS[1];
+  return COLORS[0];
+};
+
+const getNegativeColor = (value: number) => {
+  if (value >= 75) return COLORS[0];
+  if (value >= 50) return COLORS[1];
+  if (value >= 25) return COLORS[2];
+  return COLORS[3];
+};
+
+const circumference = 251;
+
 interface IProps {
+  isPositive: boolean;
   percentage: number;
 }
 
-const getStatusColor = (value: number) => {
-  if (value >= 70) {
-    return 'rgb(19 234 170)';
-  }
-
-  if (value >= 55) {
-    return 'rgb(192 246 3)';
-  }
-
-  if (value >= 40) {
-    return 'rgb(234 225 19)';
-  }
-
-  return 'rgb(240 102 0)';
-};
-
-const circumference = 188.495;
-
-export const ProgressBar = ({ percentage = 0 }: IProps) => {
+export const ProgressBar = ({ isPositive = true, percentage = 0 }: IProps) => {
   const validatedPercentage = Math.max(0, Math.min(100, percentage));
   const offset = circumference - (validatedPercentage / 100) * circumference;
-  const statusColor = getStatusColor(validatedPercentage);
+  const statusColor = isPositive
+    ? getPositiveColor(validatedPercentage)
+    : getNegativeColor(validatedPercentage);
 
   return (
     <div className={styles.container}>
@@ -59,7 +62,7 @@ export const ProgressBar = ({ percentage = 0 }: IProps) => {
           className={clsx(styles.background)}
           strokeWidth='5'
           fill='transparent'
-          r='30'
+          r='40'
           cx='50'
           cy='50'
         />
@@ -68,7 +71,7 @@ export const ProgressBar = ({ percentage = 0 }: IProps) => {
           strokeWidth='5'
           fill='transparent'
           stroke={statusColor}
-          r='30'
+          r='40'
           cx='50'
           cy='50'
           strokeDasharray={circumference}

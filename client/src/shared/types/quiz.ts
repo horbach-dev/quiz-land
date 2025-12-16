@@ -14,9 +14,12 @@ export type TQuiz = {
   author?: TQuizAuthor;
   isPublic: boolean;
   questions: TQuizQuestion[];
+  questionCategories: string[];
   timeLimit?: number;
   timeLimitChoice?: boolean;
   resultFeedbacks?: TResultFeedback[];
+  feedbackNotice?: string;
+  positiveScore: boolean;
   scoringAlgorithm: TQuizScoringAlgorithm;
   createdAt: string;
   updatedAt: string;
@@ -42,10 +45,10 @@ export type TQuizSession = {
 export type TSessionCompleted = {
   id: string;
   score: number | null;
-  totalQuestions: number;
   timeSpentSeconds: number;
   scoringAlgorithm: TQuizScoringAlgorithm;
   quiz: TQuiz;
+  feedback: string | null;
   quizId: string;
   userId: string;
 };

@@ -1,14 +1,12 @@
-import { shareURL } from '@tma.js/sdk-react';
 import { CirclePlay, RotateCcw, Share2, Timer } from 'lucide-react';
 
 import { useUserQuery } from '@/features/user/services/useUserQuery';
 import { PageLayout } from '@/layouts/page-layout';
-import { getTotalPoints } from '@/pages/quiz-completed-page/utils.ts';
+import { getTotalPoints, shareResult } from '@/pages/quiz-completed-page/utils.ts';
 import { Button } from '@/shared/components/Button';
 import { Description } from '@/shared/components/Description';
 import { LazyImage } from '@/shared/components/LazyImage';
 import { Time } from '@/shared/components/Time';
-import { APP_URL } from '@/shared/constants';
 import type { TSessionCompleted } from '@/shared/types/quiz.ts';
 import { buildUrl } from '@/shared/utils/buildUrl';
 
@@ -22,41 +20,41 @@ interface IProps {
 export default function QuizCompletedPage({ sessionData }: IProps) {
   const { data: userData } = useUserQuery();
 
-  const isCurrentUser = sessionData.userId === userData?.id;
-  const totalPoints = getTotalPoints(sessionData.scoringAlgorithm, sessionData.quiz.questions);
-  const quizId = sessionData.quizId;
-  const quizTitle = sessionData.quiz.title;
-  const percentage = ((sessionData?.score || 0) / totalPoints) * 100;
+  const {
+    id,
+    userId,
+    quizId,
+    score,
+    feedback,
+    scoringAlgorithm,
+    quiz: { title: quizTitle, questions, poster, feedbackNotice },
+  } = sessionData;
 
-  const feedback = sessionData.quiz?.resultFeedbacks?.find((i) => {
-    return percentage >= Number(i.from) && percentage <= Number(i.to);
-  });
-
-  const handleShare = () => {
-    shareURL(
-      `${APP_URL}?startapp=${sessionData.id}splitcompleted`,
-      `Мой результат в тесте: ${quizTitle} ${sessionData?.score} из ${totalPoints}`,
-    );
-  };
+  const isCurrentUser = userId === userData?.id;
+  const totalPoints = getTotalPoints(scoringAlgorithm, questions);
+  const percentage = ((score || 0) / totalPoints) * 100;
 
   return (
     <PageLayout>
       <div className={styles.container}>
         <p className={styles.title}>{quizTitle}</p>
         <div className={styles.resultHeader}>
-          {sessionData.quiz?.poster && (
+          {poster && (
             <LazyImage
               className={styles.poster}
-              image={buildUrl(sessionData.quiz.poster)}
+              image={buildUrl(poster)}
               title={quizTitle}
             />
           )}
           <div className={styles.resultInfo}>
             <p className={styles.resultTitle}>
-              {isCurrentUser ? 'Ваш результат' : 'Результат'}
+              Результат
             </p>
             <div className={styles.resultProgress}>
-              <ProgressBar percentage={percentage} />
+              <ProgressBar
+                isPositive={sessionData.quiz.positiveScore}
+                percentage={percentage}
+              />
               <p className={styles.resultProgressText}>
                 <span className={styles.resultTextResult}>{sessionData.score}</span>
                 {' / '}
@@ -80,21 +78,29 @@ export default function QuizCompletedPage({ sessionData }: IProps) {
             </Button>
             <Button
               after={<Share2 />}
-              onClick={handleShare}
+              onClick={() =>
+                shareResult({
+                  sessionId: id,
+                  quizTitle,
+                  score: sessionData.score,
+                  totalPoints,
+                })
+              }
             >
               Поделиться результатом
             </Button>
           </div>
         ) : (
           <Button
-            to={`/quiz/${sessionData.quiz.id}`}
+            to={`/quiz/${quizId}`}
             after={<CirclePlay />}
           >
             Пройти тест
           </Button>
         )}
 
-        {feedback && <Description text={feedback.text} />}
+        {feedbackNotice && <p className={styles.feedbackNotice}>{feedbackNotice}</p>}
+        {feedback && <Description text={feedback} />}
       </div>
     </PageLayout>
   );

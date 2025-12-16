@@ -44,9 +44,7 @@ export const QuestionOptionsList = ({ questionIndex }: IProps) => {
       <FieldSeparator />
       {!optionFields.length && (
         <>
-          <FieldDescription>
-            {t('create_page.options.type_description')}
-          </FieldDescription>
+          <FieldDescription>{t('create_page.options.type_description')}</FieldDescription>
           <Controller
             name={`questions.${questionIndex}.field`}
             control={control}

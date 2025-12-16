@@ -55,7 +55,9 @@ export class QuizService {
           : 0,
         timeLimitChoice: !!createQuizDto.timeLimitChoice,
         resultFeedbacks: createQuizDto.resultFeedbacks,
+        feedbackNotice: createQuizDto.feedbackNotice,
         authorTelegramId: String(user.telegramId),
+        positiveScore: createQuizDto.positiveScore,
         type: QuizType.USER_GENERATED,
         questions: {},
       };
@@ -117,6 +119,8 @@ export class QuizService {
             : 0,
           timeLimitChoice: !!updateQuizDto.timeLimitChoice,
           resultFeedbacks: updateQuizDto.resultFeedbacks,
+          feedbackNotice: updateQuizDto.feedbackNotice,
+          positiveScore: updateQuizDto.positiveScore,
         };
 
         await prisma.questionOption.deleteMany({
@@ -170,7 +174,10 @@ export class QuizService {
         return {
           quizId,
           order: optionOrder,
-          weight: option.weight ? Number(option.weight) : null,
+          weight:
+            option.weight !== undefined && option.weight !== null
+              ? Number(option.weight)
+              : null,
           image: option.image ? getImagePath(quizId, option.image) : null,
           text: option.text,
           isCorrect: option.isCorrect,
