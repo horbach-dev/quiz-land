@@ -9,9 +9,9 @@ import { Toggle } from '@/shared/components/Toggle';
 import {
   Field,
   FieldDescription,
-  FieldError, FieldGroup,
+  FieldError,
+  FieldGroup,
   FieldLabel,
-  FieldSeparator,
   FieldSet,
 } from '@/shared/shadcn/ui/field';
 import { Textarea } from '@/shared/shadcn/ui/textarea.tsx';
@@ -60,7 +60,6 @@ export const ResultFeedbacks = () => {
 
   return (
     <FieldSet className='mb-5'>
-      <FieldSeparator />
       <SectionHeader
         title={t('create_page.result_feedbacks.title')}
         description={t(descriptions[algorithm])}

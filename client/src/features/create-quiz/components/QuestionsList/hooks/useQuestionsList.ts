@@ -9,10 +9,7 @@ interface IProps {
 }
 
 export const useQuestionsList = ({ translate }: IProps) => {
-  const {
-    control,
-    formState: { errors, isSubmitting },
-  } = useFormContext<IFormData>();
+  const { control } = useFormContext<IFormData>();
 
   const {
     fields,
@@ -42,23 +39,24 @@ export const useQuestionsList = ({ translate }: IProps) => {
     );
 
     // надо бы исправить
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       const item = document.getElementById(containerId);
-      if (item) {
+      if (!item) return;
+
+      // небольшой второй rAF для гарантии
+      requestAnimationFrame(() => {
         item.scrollIntoView({
           behavior: 'smooth',
           block: 'end',
           inline: 'nearest',
         });
-      }
-    }, 0);
+      });
+    });
   };
 
   return {
     addQuestion,
     removeQuestion,
     fields,
-    error: errors.questions?.root?.message,
-    isSubmitting,
   };
 };

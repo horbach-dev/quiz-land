@@ -13,7 +13,6 @@ import {
   FieldDescription,
   FieldError,
   FieldLabel,
-  FieldSeparator,
   FieldSet,
 } from '@/shared/shadcn/ui/field';
 
@@ -96,7 +95,6 @@ export const TimeLimit = () => {
           </Field>
         </>
       )}
-      <FieldSeparator className='mb-4' />
     </FieldSet>
   );
 };

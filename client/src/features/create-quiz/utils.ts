@@ -33,6 +33,11 @@ const setImage = (image?: string | null) => {
 
 export const getDefaultValues = (data: TQuiz): IFormData => {
   return {
+    optionPopup: {
+      isOpen: false,
+      optionIndex: 0,
+      questionIndex: 0,
+    },
     title: data.title,
     description: data.description,
     loadedImg: data.poster,
@@ -43,6 +48,7 @@ export const getDefaultValues = (data: TQuiz): IFormData => {
     resultFeedbacks: data.resultFeedbacks,
     feedbackNotice: data.feedbackNotice,
     positiveScore: data.positiveScore,
+    questionCategories: data.questionCategories,
     questions: data.questions.map((question) => {
       return {
         order: question.order,
@@ -58,6 +64,7 @@ export const getDefaultValues = (data: TQuiz): IFormData => {
             weight: option.weight,
             loadedImg: option.image,
             isCorrect: option.isCorrect,
+            category: option.category,
           };
         }),
       };

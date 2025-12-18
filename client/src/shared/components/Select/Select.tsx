@@ -2,8 +2,9 @@ import clsx from 'clsx';
 import { ChevronDown } from 'lucide-react';
 import { useRef, useState } from 'react';
 
-import styles from './Select.module.css';
 import { useClickOutside } from '@/shared/hooks/useClickOutside';
+
+import styles from './Select.module.css';
 
 interface IProps {
   value: string;
@@ -22,6 +23,8 @@ export const Select = ({ value, onChange, options }: IProps) => {
     onChange(value);
   };
 
+  const label = options?.find(o => o.value === value)?.label;
+
   return (
     <div
       ref={ref}
@@ -31,7 +34,7 @@ export const Select = ({ value, onChange, options }: IProps) => {
         onClick={() => setIsOpen((v) => !v)}
         className={styles.selectPlaceholder}
       >
-        <p>{value ? value : 'Не выбрано'}</p>
+        <p>{label ? label : 'Не выбрано'}</p>
         <ChevronDown className={clsx(styles.icon, isOpen && styles.iconRotate)} />
       </button>
       <div className={clsx(styles.selectList, isOpen && styles.selectListOpen)}>

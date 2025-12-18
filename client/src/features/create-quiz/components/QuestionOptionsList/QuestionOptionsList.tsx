@@ -1,11 +1,10 @@
-import { Controller, type Path, useWatch } from 'react-hook-form';
+import { Controller, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import type { IFormData } from '@/features/create-quiz/types';
 import { Button } from '@/shared/components/Button';
 import { DragAndDrop } from '@/shared/components/DragAndDrop';
 import { TabBar } from '@/shared/components/TabBar';
-import { Field, FieldDescription, FieldError, FieldSeparator } from '@/shared/shadcn/ui/field';
+import { Field, FieldDescription, FieldError } from '@/shared/shadcn/ui/field';
 
 import { QuestionOptionsListItem } from '../QuestionOptionsListItem';
 import { useFormQuestionOptions } from './hooks/useFormQuestionOptions';
@@ -24,25 +23,26 @@ export const QuestionOptionsList = ({ questionIndex }: IProps) => {
 
   const {
     control,
-    optionFields,
+    fields,
     errors,
     addOption,
     removeOption,
-    moveOptions,
-    editOption,
+    move,
     handleTouchDrag,
-    scoringAlgorithm,
-  } = useFormQuestionOptions(questionIndex, t);
+    editOption,
+  } = useFormQuestionOptions({ questionIndex, translate: t });
+
+  console.log('fields', fields);
 
   const error = errors?.options?.root?.message;
 
-  const fieldName: Path<IFormData> = `questions.${questionIndex}.field`;
-  const fieldType = useWatch({ control, name: fieldName });
+  const fieldType = useWatch({ control, name: `questions.${questionIndex}.field` });
+  const questionCategories = useWatch({ control, name: 'questionCategories' });
+  const scoringAlgorithm = useWatch({ control, name: 'scoringAlgorithm' });
 
   return (
     <>
-      <FieldSeparator />
-      {!optionFields.length && (
+      {!fields.length && (
         <>
           <FieldDescription>{t('create_page.options.type_description')}</FieldDescription>
           <Controller
@@ -59,11 +59,11 @@ export const QuestionOptionsList = ({ questionIndex }: IProps) => {
         </>
       )}
 
-      {!!optionFields.length && (
+      {!!fields.length && (
         <>
           <DragAndDrop
-            items={optionFields}
-            move={moveOptions}
+            items={fields}
+            move={move}
             render={({ item, index, listeners }) => {
               const error = errors?.options?.[index];
 
@@ -79,6 +79,7 @@ export const QuestionOptionsList = ({ questionIndex }: IProps) => {
                   imageError={error?.image?.message}
                   editOption={() => editOption(index)}
                   removeOption={() => removeOption(index)}
+                  questionCategories={questionCategories}
                   fieldType={fieldType}
                 />
               );

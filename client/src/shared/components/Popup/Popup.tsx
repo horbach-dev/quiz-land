@@ -22,6 +22,11 @@ export const Popup = ({ isOpen, children, onClose }: PropsWithChildren<IProps>) 
       document.body.style.overflow = '';
       setTimeout(() => setIsShow(false), TRANSITION);
     }
+
+    return () => {
+      setIsShow(false)
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
   if (!isShow) return null;

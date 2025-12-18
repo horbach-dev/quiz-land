@@ -1,6 +1,9 @@
 import { useRef } from 'react';
 import { FormProvider } from 'react-hook-form';
 
+import { QuestionOptionPopup } from '@/features/create-quiz/components/QuestionOptionPopup';
+import { QuizType } from '@/features/create-quiz/components/QuizType';
+import { FieldSeparator } from '@/shared/shadcn/ui/field';
 import type { TQuiz } from '@/shared/types/quiz';
 
 import { useCreateQuizForm } from '../hooks/useCreateQuizForm';
@@ -27,8 +30,13 @@ export const CreateQuizForm = ({ isEdit, data }: IProps) => {
         onSubmit={form.onSubmit}
       >
         <GeneralInfo />
+        <FieldSeparator className='my-7' />
         <TimeLimit />
+        <FieldSeparator className='my-7' />
+        <QuizType />
+        <FieldSeparator className='my-7' />
         <QuestionsList />
+        <FieldSeparator className='my-7' />
         <ResultFeedbacks />
         <FormSubmit
           formRef={formRef}
@@ -38,6 +46,8 @@ export const CreateQuizForm = ({ isEdit, data }: IProps) => {
           onSubmit={form.onSubmit}
         />
       </form>
+
+      <QuestionOptionPopup />
     </FormProvider>
   );
 };

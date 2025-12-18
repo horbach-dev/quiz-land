@@ -11,7 +11,6 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
   FieldSet,
 } from '@/shared/shadcn/ui/field';
 import { Textarea } from '@/shared/shadcn/ui/textarea.tsx';
@@ -97,8 +96,6 @@ export const GeneralInfo = () => {
             <FieldDescription>{t('create_page.main.poster_placeholder')}</FieldDescription>
           )}
         </Field>
-
-        <FieldSeparator />
       </FieldGroup>
     </FieldSet>
   );

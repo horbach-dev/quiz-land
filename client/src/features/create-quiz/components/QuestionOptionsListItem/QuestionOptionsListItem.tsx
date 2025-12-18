@@ -22,6 +22,7 @@ interface IProps {
   imageError?: string | null;
   scoringAlgorithm: TQuizScoringAlgorithm;
   fieldType: TQuizQuestionField;
+  questionCategories?: { text: string; id: string }[];
 }
 
 export const QuestionOptionsListItem = ({
@@ -34,24 +35,27 @@ export const QuestionOptionsListItem = ({
   imageError,
   textError,
   fieldType,
+  questionCategories,
   scoringAlgorithm,
 }: IProps) => {
   const { t } = useTranslation();
   const value = useWatch({ name: `questions.${questionIndex}.options.${index}` });
   const currentImage = getCurrentImage(value.image, value.loadedImg);
-  const isWeighted = scoringAlgorithm === 'WEIGHTED_SCALE';
-  const isCorrect = value.isCorrect && !isWeighted;
+
+  const category = questionCategories?.length
+    ? questionCategories.find((v) => v.id === value?.category)
+    : null;
 
   return (
     <div
       className={clsx(
         styles.item,
-        isCorrect && styles.itemCorrect,
-        isWeighted && styles.itemWeighted,
+        scoringAlgorithm === 'STRICT_MATCH' && styles.itemStrict,
+        scoringAlgorithm === 'STRICT_MATCH' && value.isCorrect && styles.itemCorrect,
       )}
     >
       <div className={styles.itemHeader}>
-        <div className={styles.itemLabel}>
+        <div className={styles.itemHeaderText}>
           <button
             className={styles.itemGrab}
             {...dragListeners}
@@ -61,17 +65,20 @@ export const QuestionOptionsListItem = ({
           >
             <GripVertical />
           </button>
-          <p
-            className={styles.itemTitle}
-            dangerouslySetInnerHTML={{
-              __html: t('create_page.options.title', {
-                value: isCorrect
-                  ? `${index + 1} <span>${t('create_page.options.right')}</span>`
-                  : index + 1,
-              }),
-            }}
-          />
-          {isWeighted && <p className={styles.itemWeight}>Балл: {value.weight}</p>}
+
+          <p className={styles.itemNumber}>{index + 1}</p>
+
+          {scoringAlgorithm === 'STRICT_MATCH' && value.isCorrect && (
+            <span className={styles.itemRight}>{t('create_page.options.right')}</span>
+          )}
+
+          {scoringAlgorithm === 'WEIGHTED_SCALE' && (
+            <p className={styles.itemLabel}>Балл: {value.weight}</p>
+          )}
+
+          {scoringAlgorithm === 'PERSONALITY_TEST' && category && (
+            <p className={styles.itemLabel}>{category.text}</p>
+          )}
         </div>
         <div className={styles.actions}>
           <Button

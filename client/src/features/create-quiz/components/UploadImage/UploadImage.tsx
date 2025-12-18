@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { deleteQuizImage } from '@/features/create-quiz/api/delete-quiz-image';
@@ -29,18 +29,13 @@ export const UploadImage = ({
   id,
   type = 'poster',
   onChange,
-  loadedImg,
+  loadedImg = null,
   clearError,
   setError,
 }: IProps) => {
   const { t } = useTranslation();
-  const abortController = useRef<AbortController>(null);
-  const [loadedImage, setLoadedImage] = useState<string | null>(null);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (loadedImg) setLoadedImage(loadedImg);
-  }, [loadedImg]);
+  const abortController = useRef<AbortController | null>(null);
+  const [loadedImage, setLoadedImage] = useState<string | null>(loadedImg);
 
   const handleUploadImage = (file: File, { onLoaded, onProgress }) => {
     clearError();
@@ -51,36 +46,33 @@ export const UploadImage = ({
       return;
     }
 
-    if (file) {
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('type', type);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('type', type);
 
-      abortController.current = new AbortController();
-      const signal = abortController.current.signal;
+    abortController.current = new AbortController();
+    const signal = abortController.current.signal;
 
-      uploadQuizImage(formData, { signal, onProgress })
-        .then((result) => {
-          onChange(result.fileName);
-          setLoadedImage(result.tempPath);
-        })
-        .catch((err) => {
-          if (err.response?.data?.message) {
-            setError(err.response?.data?.message);
-          } else {
-            setError(t('errors.image.load'));
-          }
-        })
-        .finally(() => {
-          onLoaded();
-          abortController.current = null;
-        });
-    }
+    uploadQuizImage(formData, { signal, onProgress })
+      .then((result) => {
+        onChange(result.fileName);
+        setLoadedImage(result.tempPath);
+      })
+      .catch((err) => {
+        if (err.response?.data?.message) {
+          setError(err.response?.data?.message);
+        } else {
+          setError(t('errors.image.load'));
+        }
+      })
+      .finally(() => {
+        onLoaded();
+        abortController.current = null;
+      });
   };
 
   const handleDeleteImage = async () => {
     onChange(null);
-    setError(t('validation.required'));
     setLoadedImage(null);
 
     if (abortController.current) return abortController.current.abort();

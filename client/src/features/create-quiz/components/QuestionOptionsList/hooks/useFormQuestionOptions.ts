@@ -3,10 +3,8 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import { validationRules } from '@/features/create-quiz/config';
 import type { IFormData } from '@/features/create-quiz/types';
 import { useAppStore } from '@/shared/stores/appStore';
-import { usePopupStore } from '@/shared/stores/popupStore';
 
-export const useFormQuestionOptions = (questionIndex: number, translation: any) => {
-  const openPopup = usePopupStore((s) => s.openPopup);
+export const useFormQuestionOptions = ({ questionIndex, translate }) => {
   const setSwipeCallback = useAppStore((s) => s.setSwipeRedirectCallback);
 
   const {
@@ -17,84 +15,46 @@ export const useFormQuestionOptions = (questionIndex: number, translation: any) 
     formState: { errors },
   } = useFormContext<IFormData>();
 
-  const getValue = (i: number) => getValues(`questions.${questionIndex}.options.${i}`);
+  const getOptionValue = (i: number) => getValues(`questions.${questionIndex}.options.${i}`);
 
-  const {
-    fields: optionFields,
-    append: appendOption,
-    remove,
-    move: moveOptions,
-  } = useFieldArray({
+  const { remove, fields, append, move } = useFieldArray({
     control,
     name: `questions.${questionIndex}.options`,
-    rules: validationRules(translation).options,
+    rules: validationRules(translate).options,
   });
+
+  const editOption = (optionIndex: number) => {
+    setValue('optionPopup', { isOpen: true, questionIndex, optionIndex });
+  };
 
   const addOption = () => {
     const algorithm = getValues('scoringAlgorithm');
+    const category =
+      algorithm === 'PERSONALITY_TEST' ? getValues('questionCategories')?.[0]?.id : null;
 
-    appendOption(
+    append(
       {
         text: '',
         image: null,
-        category:
-          algorithm === 'PERSONALITY_TEST' ? getValues('questionCategories')?.[0]?.text : null,
+        category,
         weight: algorithm === 'WEIGHTED_SCALE' ? 0 : null,
         loadedImg: null,
-        isCorrect: !optionFields.length,
+        isCorrect: !fields.length,
       },
       { shouldFocus: false },
     );
 
-    editOption(optionFields.length);
+    editOption(fields.length);
   };
 
   const removeOption = (optionIndex: number) => {
     remove(optionIndex);
 
-    if (optionFields.length > 1 && getValue(optionIndex)?.isCorrect) {
+    if (fields.length > 1 && getOptionValue(optionIndex)?.isCorrect) {
       setValue(`questions.${questionIndex}.options.0.isCorrect`, true, {
         shouldDirty: true,
       });
     }
-  };
-
-  const setCorrect = (value: boolean, optionIndex: number) => {
-    setValue(`questions.${questionIndex}.options.${optionIndex}.isCorrect`, value, {
-      shouldDirty: true,
-    });
-  };
-
-  const setImage = (value: string | null, optionIndex: number) => {
-    setValue(`questions.${questionIndex}.options.${optionIndex}.image`, value, {
-      shouldDirty: true,
-    });
-  };
-
-  const editOption = (optionIndex: number) => {
-    openPopup('questionOptionPopup', {
-      isCorrect: getValue(optionIndex).isCorrect,
-      questionIndex,
-      optionIndex,
-      fieldType: getValues(`questions.${questionIndex}.field`),
-      setImageValue: (image) => setImage(image, optionIndex),
-      setCorrect: (value: boolean) => setCorrect(value, optionIndex),
-      scoringAlgorithm: getValues('scoringAlgorithm'),
-      categories: getValues('questionCategories'),
-      category: getValues(`questions.${questionIndex}.options.${optionIndex}.category`),
-      setCategory: (value) =>
-        setValue(`questions.${questionIndex}.options.${optionIndex}.category`, value),
-      registerWeight: register(`questions.${questionIndex}.options.${optionIndex}.weight`),
-      registerText: register(
-        `questions.${questionIndex}.options.${optionIndex}.text`,
-        validationRules(translation).option,
-      ),
-    }).onClose(() => {
-      const values = getValue(optionIndex);
-      if (!values?.text && !values?.image) {
-        removeOption(optionIndex);
-      }
-    });
   };
 
   const handleTouchDrag = (isStart: boolean) => {
@@ -104,13 +64,12 @@ export const useFormQuestionOptions = (questionIndex: number, translation: any) 
   return {
     control,
     register,
-    optionFields,
+    fields,
     handleTouchDrag,
-    scoringAlgorithm: getValues('scoringAlgorithm'),
-    errors: errors?.questions?.[questionIndex],
     addOption,
     removeOption,
-    moveOptions,
+    move,
     editOption,
+    errors: errors?.questions?.[questionIndex],
   };
 };

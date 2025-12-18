@@ -21,13 +21,7 @@ interface IProps {
   ) => void;
 }
 
-export const UploadImageInput = ({
-  id,
-  loadedImage,
-  name,
-  onDelete,
-  onChange,
-}: IProps) => {
+export const UploadImageInput = ({ id, loadedImage, name, onDelete, onChange }: IProps) => {
   const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState<string | ArrayBuffer | null>(null);

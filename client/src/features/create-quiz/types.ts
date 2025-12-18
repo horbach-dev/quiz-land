@@ -15,11 +15,11 @@ export type IFormDataAnswer = {
 
 export type IFormDataQuestion = {
   containerId?: string;
+  order: number;
   text: string;
   image: string | null;
   loadedImg: string | null;
   field: TQuizQuestionField;
-  order: number;
   type: TQuizQuestionType;
   options: IFormDataAnswer[];
 };
@@ -41,7 +41,12 @@ export interface IFormData {
   positiveScore: boolean;
   scoringAlgorithm: TQuizScoringAlgorithm;
   questions: IFormDataQuestion[];
-  questionCategories?: { text: string }[];
+  questionCategories?: { text: string; id: string }[];
   resultFeedbacks?: IFormDataResult[];
   feedbackNotice?: string;
+  optionPopup: {
+    isOpen: boolean;
+    optionIndex: number;
+    questionIndex: number;
+  };
 }

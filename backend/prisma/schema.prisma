@@ -24,26 +24,27 @@ model User {
 }
 
 model Quiz {
-  id               String           @id @default(uuid()) @map("_id")
-  createdAt        DateTime         @default(now()) @map("created_at")
-  updatedAt        DateTime         @default(now()) @map("updated_at")
-  title            String
-  description      String
-  poster           String
-  accessTo         String[]         @default([]) @map("access_to")
-  isPublic         Boolean          @map("is_public")
-  timeLimit        Int?             @map("time_limit")
-  timeLimitChoice  Boolean?         @default(true) @map("time_limit_choice")
-  positiveScore    Boolean?         @map("positive_score")
-  type             QuizType         @default(USER_GENERATED)
-  scoringAlgorithm ScoringAlgorithm @default(STRICT_MATCH)
-  authorId         String           @map("author_id")
-  authorTelegramId String           @map("author_telegram_id")
-  author           User             @relation(fields: [authorId], references: [id])
-  resultFeedbacks  Json?
-  feedbackNotice   String?          @map("feedback_notice")
-  questions        Question[]
-  sessions         QuizSession[]
+  id                 String           @id @default(uuid()) @map("_id")
+  createdAt          DateTime         @default(now()) @map("created_at")
+  updatedAt          DateTime         @default(now()) @map("updated_at")
+  title              String
+  description        String
+  poster             String
+  accessTo           String[]         @default([]) @map("access_to")
+  isPublic           Boolean          @map("is_public")
+  timeLimit          Int?             @map("time_limit")
+  timeLimitChoice    Boolean?         @default(true) @map("time_limit_choice")
+  positiveScore      Boolean?         @map("positive_score")
+  type               QuizType         @default(USER_GENERATED)
+  scoringAlgorithm   ScoringAlgorithm @default(STRICT_MATCH)
+  authorId           String           @map("author_id")
+  authorTelegramId   String           @map("author_telegram_id")
+  author             User             @relation(fields: [authorId], references: [id])
+  resultFeedbacks    Json?
+  questionCategories Json?            @map("question_categories")
+  feedbackNotice     String?          @map("feedback_notice")
+  questions          Question[]
+  sessions           QuizSession[]
 
   @@map("quiz")
 }

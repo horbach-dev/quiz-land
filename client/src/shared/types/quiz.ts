@@ -14,7 +14,7 @@ export type TQuiz = {
   author?: TQuizAuthor;
   isPublic: boolean;
   questions: TQuizQuestion[];
-  questionCategories: string[];
+  questionCategories: { id: string; text: string }[];
   timeLimit?: number;
   timeLimitChoice?: boolean;
   resultFeedbacks?: TResultFeedback[];
@@ -68,6 +68,7 @@ export type TQuizOption = {
   order: number;
   weight: number | null;
   questionId: string;
+  category: string | null;
   text: string;
   isCorrect: boolean;
 };

@@ -2,20 +2,20 @@
 
 .item {
   border-radius: 0.7rem;
-  background-color: rgb(255 86 86 / 15%);
+  background-color: rgb(197 170 248 / 15%);
   padding: 1rem;
   width: 100%;
+}
+
+.itemStrict {
+  background-color: rgb(255 86 86 / 15%);
 }
 
 .itemCorrect {
   background-color: rgb(40 255 125 / 15%);
 }
 
-.itemWeighted {
-  background-color: rgb(197 170 248 / 15%);
-}
-
-.itemLabel {
+.itemHeaderText {
   display: flex;
   align-items: center;
   gap: 0.7rem;
@@ -42,6 +42,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.75rem;
   margin-bottom: 0.5rem;
 }
 
@@ -50,22 +51,24 @@
   gap: 0.7rem;
 }
 
-.itemTitle {
+.itemNumber {
   font-weight: 700;
   font-size: 0.85rem;
 }
 
-.itemWeight {
+.itemRight {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-left: 0.5rem;
+  color: #13eaaa;
+}
+
+.itemLabel {
   padding: 0.2rem 0.5rem;
   border-radius: 0.5rem;
   background-color: rgba(255,255,255,0.1);
   font-weight: 700;
   font-size: 0.75rem;
-}
-
-.itemTitle span {
-  margin-left: 0.5rem;
-  color: #13eaaa;
 }
 
 .itemText {

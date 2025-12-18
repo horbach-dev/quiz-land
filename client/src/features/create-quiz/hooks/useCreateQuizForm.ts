@@ -12,12 +12,12 @@ export const useCreateQuizForm = (data?: TQuiz, isEdit?: boolean) => {
   const { mutateAsync: create } = useCreateQuizMutation();
   const { mutateAsync: update } = useUpdateQuizMutation(data?.id as string);
   const formMethods = useForm<IFormData>({
+    reValidateMode: 'onChange',
+    mode: 'onChange',
     defaultValues: data ? getDefaultValues(data) : {},
   });
 
   const onSubmit = async (data: IFormData) => {
-    // console.log(data);
-
     try {
       if (isEdit) {
         const response = await update(data);

@@ -29,6 +29,10 @@ export class CreateQuestionOptionDto {
 
   @IsBoolean()
   isCorrect: boolean;
+
+  @IsString()
+  @IsOptional()
+  category: string;
 }
 
 // ----------------------------------------------------
@@ -97,6 +101,9 @@ export class CreateQuizDto {
   @IsArray()
   @IsString()
   feedbackNotice?: string;
+
+  @IsArray()
+  questionCategories?: { id: string; text: string }[];
 
   @IsBoolean()
   positiveScore: boolean;

@@ -1,18 +1,15 @@
-import { FilePlusCorner } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { Button } from '@/shared/components/Button';
 import { SectionHeader } from '@/shared/components/SectionHeader';
-import { FieldError, FieldSet } from '@/shared/shadcn/ui/field';
+import { FieldSet } from '@/shared/shadcn/ui/field';
 
 import { QuestionsListItem } from '../QuestionsListItem';
-import { QuestionCategories } from './components/QuistionCategories';
-import { ScoringAlgorithm } from './components/ScoringAlgorithm';
+import { QuestionsListFooter } from './components/QuestionsListFooter';
 import { useQuestionsList } from './hooks/useQuestionsList';
 
 export const QuestionsList = () => {
   const { t } = useTranslation();
-  const { fields, addQuestion, removeQuestion, error, isSubmitting } = useQuestionsList({
+  const { fields, addQuestion, removeQuestion } = useQuestionsList({
     translate: t,
   });
 
@@ -22,10 +19,6 @@ export const QuestionsList = () => {
         title={t('create_page.questions.title')}
         description={t('create_page.questions.description')}
       />
-
-      {!fields.length && <ScoringAlgorithm />}
-
-      <QuestionCategories />
 
       {fields.map((item, index) => {
         return (
@@ -38,17 +31,7 @@ export const QuestionsList = () => {
         );
       })}
 
-      <Button
-        disabled={isSubmitting}
-        type='button'
-        onClick={addQuestion}
-        after={<FilePlusCorner />}
-      >
-        {/*Добавить вопрос*/}
-        {t('create_page.questions.add_question')}
-      </Button>
-
-      {error && <FieldError className='text-center'>{error}</FieldError>}
+      <QuestionsListFooter onClick={addQuestion} />
     </FieldSet>
   );
 };
