@@ -1,16 +1,9 @@
-import { SessionStatus, Prisma, ScoringAlgorithm } from '@prisma/client';
+import { SessionStatus, Prisma } from '@prisma/client';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { SubmitAnswerDto } from './dto/submit-answer.dto';
 import { QuizSessionRepository } from './quiz-session.repository';
 import { ScoringService } from './scoring/scoring.service';
-
-type TFeedback = {
-  from?: number;
-  to?: number;
-  category?: string;
-  text: string;
-};
 
 @Injectable()
 export class QuizSessionService {
@@ -125,81 +118,19 @@ export class QuizSessionService {
       await Promise.all(result.updates);
     }
 
-    // Обновление общей статистики пользователя
-    // await this.updateUserStatistics(session.userId, session.quizId, totalScore);
-
-    let feedback: string | null = null;
-    const totalScore = 'totalScore' in result ? result.totalScore : 0;
-
-    if ('totalScore' in result) {
-      feedback = this.getFeedback({
-        feedbacks: session.quiz.resultFeedbacks as TFeedback[],
-        algorithm: session.scoringAlgorithm,
-        score: totalScore,
-        questionsLength: session.quiz.questions.length,
-      });
-    }
-
-    if ('finalCategory' in result) {
-      feedback = this.getFeedback({
-        feedbacks: session.quiz.resultFeedbacks as TFeedback[],
-        category: result.finalCategory,
-      });
-    }
-
     return this.prisma.quizSession.update({
       where: { id: sessionId },
       data: {
         status: SessionStatus.COMPLETED,
         completedAt: new Date(),
-        score: totalScore,
+        score: 'totalScore' in result ? result.totalScore : null,
+        feedback: 'feedback' in result ? result.feedback : null,
         finalCategory: 'finalCategory' in result ? result.finalCategory : null,
-        feedback,
+        categoryStatistic:
+          'categoryStatistic' in result ? result.categoryStatistic : null,
+        feedbackNotice: session.quiz.resultNotice,
       },
     });
-  }
-
-  getFeedback({
-    score,
-    category,
-    feedbacks,
-    algorithm,
-    questionsLength = 0,
-  }: {
-    feedbacks: TFeedback[];
-    algorithm?: ScoringAlgorithm;
-    score?: number;
-    category?: string | null;
-    questionsLength?: number;
-  }) {
-    if (Array.isArray(feedbacks)) {
-      if (category) {
-        return (
-          feedbacks.find((feed) => {
-            return feed.text === category;
-          })?.text || null
-        );
-      }
-
-      if (score) {
-        if (algorithm === ScoringAlgorithm.STRICT_MATCH) {
-          const percent = (score / questionsLength) * 100;
-          return (
-            feedbacks.find((feed) => {
-              return percent >= Number(feed.from) && percent <= Number(feed.to);
-            })?.text || null
-          );
-        }
-
-        return (
-          feedbacks.find((feed) => {
-            return score >= Number(feed.from) && score <= Number(feed.to);
-          })?.text || null
-        );
-      }
-    }
-
-    return null;
   }
 
   async getCompletedSession(sessionId: string) {

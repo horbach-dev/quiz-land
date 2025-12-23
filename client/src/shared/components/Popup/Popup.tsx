@@ -24,7 +24,6 @@ export const Popup = ({ isOpen, children, onClose }: PropsWithChildren<IProps>) 
     }
 
     return () => {
-      setIsShow(false)
       document.body.style.overflow = '';
     };
   }, [isOpen]);

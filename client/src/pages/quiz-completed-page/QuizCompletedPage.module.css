@@ -44,6 +44,14 @@
     height: 1.25rem;
 }
 
+.resultCategory {
+    padding: 1rem;
+    text-align: center;
+    font-weight: 700;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+}
+
 .resultProgress {
     display: flex;
     align-items: center;

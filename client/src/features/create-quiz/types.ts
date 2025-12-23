@@ -25,9 +25,16 @@ export type IFormDataQuestion = {
 };
 
 export type IFormDataResult = {
-  from: number;
-  to: number;
+  from?: number;
+  to?: number;
   text: string;
+  title?: string;
+  category?: string;
+  conditions?: {
+    category: string;
+    moreOrEqual: number | null;
+    lessOrEqual: number | null;
+  }[];
 };
 
 export interface IFormData {
@@ -38,12 +45,13 @@ export interface IFormData {
   timeLimit?: number;
   timeLimitChoice?: boolean;
   loadedImg: string | null;
-  positiveScore: boolean;
   scoringAlgorithm: TQuizScoringAlgorithm;
   questions: IFormDataQuestion[];
   questionCategories?: { text: string; id: string }[];
-  resultFeedbacks?: IFormDataResult[];
-  feedbackNotice?: string;
+  categoriesCounts?: Record<string, number>;
+  results?: IFormDataResult[];
+  resultNotice?: string;
+  resultPositive: boolean;
   optionPopup: {
     isOpen: boolean;
     optionIndex: number;

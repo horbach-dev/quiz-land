@@ -8,6 +8,8 @@ const handleInputChange = (e: SyntheticEvent<HTMLInputElement>, { max, onInput }
 
   if (value === 'e') return;
 
+  target.value = value;
+
   if (value.length > 3) {
     target.value = value.slice(0, 3);
   }
@@ -30,8 +32,8 @@ export const InputNumber = ({ max = 999, onInput, inputProps }: IProps) => {
     <Input
       id='quiz-title'
       type='number'
-      onInput={(e) => handleInputChange(e, { max, onInput })}
       {...inputProps}
+      onInput={(e) => handleInputChange(e, { max, onInput })}
     />
   );
 };

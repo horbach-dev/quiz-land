@@ -1,3 +1,4 @@
+import { useDeferredValue } from 'react';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -41,6 +42,8 @@ export const QuestionOptionPopup = () => {
   const scoringAlgorithm = useWatch({ control, name: 'scoringAlgorithm' });
   const optionType = useWatch({ control, name: `questions.${questionIndex as number}.field` });
   const questionCategories = useWatch({ control, name: 'questionCategories' });
+
+  const categories = useDeferredValue(questionCategories);
 
   const imageError =
     errors?.questions?.[questionIndex]?.options?.[optionIndex]?.image?.message;
@@ -91,7 +94,7 @@ export const QuestionOptionPopup = () => {
             />
           )}
 
-          {scoringAlgorithm === 'PERSONALITY_TEST' && questionCategories && (
+          {scoringAlgorithm === 'PERSONALITY_TEST' && categories && (
             <Controller
               name={`questions.${questionIndex}.options.${optionIndex}.category`}
               control={control}
@@ -99,7 +102,7 @@ export const QuestionOptionPopup = () => {
                 <Select
                   value={field.value as string}
                   onChange={field.onChange}
-                  options={questionCategories.map((category) => ({
+                  options={categories.map((category) => ({
                     label: category.text,
                     value: category.id,
                   }))}

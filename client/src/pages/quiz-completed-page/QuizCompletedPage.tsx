@@ -2,15 +2,17 @@ import { CirclePlay, RotateCcw, Share2, Timer } from 'lucide-react';
 
 import { useUserQuery } from '@/features/user/services/useUserQuery';
 import { PageLayout } from '@/layouts/page-layout';
-import { getTotalPoints, shareResult } from '@/pages/quiz-completed-page/utils.ts';
+import { getTotalPoints, shareResult } from '@/pages/quiz-completed-page/utils';
 import { Button } from '@/shared/components/Button';
 import { Description } from '@/shared/components/Description';
 import { LazyImage } from '@/shared/components/LazyImage';
 import { Time } from '@/shared/components/Time';
-import type { TSessionCompleted } from '@/shared/types/quiz.ts';
+import { ALGORITHMS_WITH_SCORE } from '@/shared/constants';
+import type { TSessionCompleted } from '@/shared/types/quiz';
 import { buildUrl } from '@/shared/utils/buildUrl';
 
 import { ProgressBar } from './components/ProgressBar';
+import { ResultBars } from './components/ResultBars';
 import styles from './QuizCompletedPage.module.css';
 
 interface IProps {
@@ -26,13 +28,18 @@ export default function QuizCompletedPage({ sessionData }: IProps) {
     quizId,
     score,
     feedback,
+    finalCategory,
     scoringAlgorithm,
-    quiz: { title: quizTitle, questions, poster, feedbackNotice },
+    feedbackNotice,
+    categoryStatistic,
+    quiz: { title: quizTitle, questions, poster },
   } = sessionData;
 
   const isCurrentUser = userId === userData?.id;
   const totalPoints = getTotalPoints(scoringAlgorithm, questions);
   const percentage = ((score || 0) / totalPoints) * 100;
+
+  const isScoreAlgorithm = ALGORITHMS_WITH_SCORE.includes(scoringAlgorithm);
 
   return (
     <PageLayout>
@@ -47,26 +54,33 @@ export default function QuizCompletedPage({ sessionData }: IProps) {
             />
           )}
           <div className={styles.resultInfo}>
-            <p className={styles.resultTitle}>
-              Результат
-            </p>
-            <div className={styles.resultProgress}>
-              <ProgressBar
-                isPositive={sessionData.quiz.positiveScore}
-                percentage={percentage}
-              />
-              <p className={styles.resultProgressText}>
-                <span className={styles.resultTextResult}>{sessionData.score}</span>
-                {' / '}
-                <span className={styles.resultTextCount}>{totalPoints}</span>
-              </p>
-            </div>
+            <p className={styles.resultTitle}>Результат</p>
+            {isScoreAlgorithm ? (
+              <div className={styles.resultProgress}>
+                <ProgressBar
+                  isPositive={sessionData.quiz.resultPositive}
+                  percentage={percentage}
+                />
+                <p className={styles.resultProgressText}>
+                  <span className={styles.resultTextResult}>{sessionData.score}</span>
+                  {' / '}
+                  <span className={styles.resultTextCount}>{totalPoints}</span>
+                </p>
+              </div>
+            ) : (
+              <p className={styles.resultCategory}>{finalCategory}</p>
+            )}
             <div className={styles.resultTime}>
               <Timer className={styles.resultTimeIcon} />
               <Time seconds={sessionData.timeSpentSeconds} />
             </div>
           </div>
         </div>
+
+        {!!categoryStatistic?.length && <ResultBars categoryStatistic={categoryStatistic} />}
+
+        {feedbackNotice && <p className={styles.feedbackNotice}>{feedbackNotice}</p>}
+        {feedback && <Description text={feedback} />}
 
         {isCurrentUser ? (
           <div className={styles.actions}>
@@ -98,9 +112,6 @@ export default function QuizCompletedPage({ sessionData }: IProps) {
             Пройти тест
           </Button>
         )}
-
-        {feedbackNotice && <p className={styles.feedbackNotice}>{feedbackNotice}</p>}
-        {feedback && <Description text={feedback} />}
       </div>
     </PageLayout>
   );

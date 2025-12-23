@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
 import { validationRules } from '@/features/create-quiz/config';
@@ -12,6 +13,7 @@ export const useFormQuestionOptions = ({ questionIndex, translate }) => {
     register,
     setValue,
     getValues,
+    watch,
     formState: { errors },
   } = useFormContext<IFormData>();
 
@@ -29,14 +31,12 @@ export const useFormQuestionOptions = ({ questionIndex, translate }) => {
 
   const addOption = () => {
     const algorithm = getValues('scoringAlgorithm');
-    const category =
-      algorithm === 'PERSONALITY_TEST' ? getValues('questionCategories')?.[0]?.id : null;
 
     append(
       {
         text: '',
         image: null,
-        category,
+        category: null,
         weight: algorithm === 'WEIGHTED_SCALE' ? 0 : null,
         loadedImg: null,
         isCorrect: !fields.length,
@@ -60,6 +60,20 @@ export const useFormQuestionOptions = ({ questionIndex, translate }) => {
   const handleTouchDrag = (isStart: boolean) => {
     setSwipeCallback(isStart ? null : 'default');
   };
+
+  const optionPopup = watch('optionPopup');
+
+  // Проверка введенных значений в ответ, если ничего не задано - удаляем поле
+  useEffect(() => {
+    if (optionPopup.questionIndex === questionIndex && !optionPopup.isOpen) {
+      const values = getOptionValue(optionPopup.optionIndex);
+
+      if (!values?.text && !values?.image) {
+        remove(optionPopup.optionIndex);
+      }
+    }
+    //eslint-disable-next-line
+  }, [optionPopup, questionIndex]);
 
   return {
     control,

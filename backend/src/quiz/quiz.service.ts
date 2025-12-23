@@ -54,11 +54,22 @@ export class QuizService {
           ? Number(createQuizDto.timeLimit)
           : 0,
         timeLimitChoice: !!createQuizDto.timeLimitChoice,
-        resultFeedbacks: createQuizDto.resultFeedbacks,
-        feedbackNotice: createQuizDto.feedbackNotice,
+        results: createQuizDto.results,
+        resultNotice: createQuizDto.resultNotice,
+        resultPositive: createQuizDto.resultPositive,
         authorTelegramId: String(user.telegramId),
-        positiveScore: createQuizDto.positiveScore,
-        questionCategories: createQuizDto.questionCategories,
+        questionCategories: createQuizDto.questionCategories?.map(
+          (category) => {
+            if (createQuizDto.categoriesCounts) {
+              return {
+                ...category,
+                count: createQuizDto.categoriesCounts[category.id],
+              };
+            }
+
+            return category;
+          },
+        ),
         type: QuizType.USER_GENERATED,
         questions: {},
       };
@@ -119,10 +130,21 @@ export class QuizService {
             ? Number(updateQuizDto.timeLimit)
             : 0,
           timeLimitChoice: !!updateQuizDto.timeLimitChoice,
-          resultFeedbacks: updateQuizDto.resultFeedbacks,
-          feedbackNotice: updateQuizDto.feedbackNotice,
-          positiveScore: updateQuizDto.positiveScore,
-          questionCategories: updateQuizDto.questionCategories,
+          results: updateQuizDto.results,
+          resultNotice: updateQuizDto.resultNotice,
+          resultPositive: updateQuizDto.resultPositive,
+          questionCategories: updateQuizDto.questionCategories?.map(
+            (category) => {
+              if (updateQuizDto.categoriesCounts) {
+                return {
+                  ...category,
+                  count: updateQuizDto.categoriesCounts[category.id],
+                };
+              }
+
+              return category;
+            },
+          ),
         };
 
         await prisma.questionOption.deleteMany({

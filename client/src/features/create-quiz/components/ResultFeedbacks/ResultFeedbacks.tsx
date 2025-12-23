@@ -1,22 +1,15 @@
 import { FilePlusCorner } from 'lucide-react';
-import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
+import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import type { IFormData } from '@/features/create-quiz/types';
 import { Button } from '@/shared/components/Button';
 import { SectionHeader } from '@/shared/components/SectionHeader';
-import { Toggle } from '@/shared/components/Toggle';
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldSet,
-} from '@/shared/shadcn/ui/field';
-import { Textarea } from '@/shared/shadcn/ui/textarea.tsx';
+import { ALGORITHMS_WITH_SCORE } from '@/shared/constants';
+import { FieldSet } from '@/shared/shadcn/ui/field';
 
 import { ResultFeedbacksItem } from '../ResultFeedbacksItem';
+import { ResultFeedbacksGeneral } from './components/ResultFeedbacksGeneral';
 import { ResultFeedbacksError } from './ResultFeedbacksError';
 
 const descriptions = {
@@ -25,8 +18,6 @@ const descriptions = {
   PERSONALITY_TEST: 'create_page.result_feedbacks.description.personality',
 };
 
-const showPositiveToggleFor = ['STRICT_MATCH', 'WEIGHTED_SCALE'];
-
 export const ResultFeedbacks = () => {
   const { t } = useTranslation();
   const {
@@ -34,29 +25,32 @@ export const ResultFeedbacks = () => {
     setError,
     clearErrors,
     getValues,
-    register,
-    watch,
     formState: { isSubmitting, errors },
   } = useFormContext<IFormData>();
 
-  const { fields, append, remove } = useFieldArray({ control, name: 'resultFeedbacks' });
+  const { fields, append, remove } = useFieldArray({ control, name: 'results' });
 
-  const algorithm = watch('scoringAlgorithm') || 'STRICT_MATCH';
+  const algorithm = useWatch({ control, name: 'scoringAlgorithm' }) || 'STRICT_MATCH';
+  const questionCategories = useWatch({ control, name: 'questionCategories' });
+
+  const isAlgorithmWithScore = ALGORITHMS_WITH_SCORE.includes(algorithm);
 
   const handleAddResult = () => {
-    const prevToValue = getValues(`resultFeedbacks.${fields.length - 1}.to`);
-    const from = prevToValue ? Number(prevToValue) + 1 : 0;
+    if (isAlgorithmWithScore) {
+      const prevToValue = getValues(`results.${fields.length - 1}.to`);
+      const from = prevToValue ? Number(prevToValue) + 1 : 0;
 
-    if (algorithm === 'STRICT_MATCH') {
       append({ text: '', from, to: from + 1 });
+      return;
     }
 
-    if (algorithm === 'WEIGHTED_SCALE') {
-      append({ text: '', from, to: from + 1 });
-    }
+    append({ text: '' });
   };
 
-  const isShowPositiveToggle = showPositiveToggleFor.includes(algorithm);
+  const categoryList = questionCategories?.map((category) => ({
+    label: category.text,
+    value: category.id,
+  }));
 
   return (
     <FieldSet className='mb-5'>
@@ -65,56 +59,20 @@ export const ResultFeedbacks = () => {
         description={t(descriptions[algorithm])}
       />
 
-      <FieldGroup>
-        {isShowPositiveToggle && (
-          <Field>
-            <Controller
-              name='positiveScore'
-              defaultValue={true}
-              control={control}
-              render={({ field }) => (
-                <Toggle
-                  full
-                  active={field.value}
-                  label='Тест является позитивным'
-                  onClick={() => field.onChange(!field.value)}
-                />
-              )}
-            />
-            <FieldDescription>
-              Чем выше балл, тем лучше результат (например, тест на IQ, уровень знаний).
-            </FieldDescription>
-          </Field>
-        )}
-
-        <Field>
-          <FieldLabel htmlFor='quiz-notice'>
-            {t('create_page.result_feedbacks.notice_label')}
-          </FieldLabel>
-          <Textarea
-            id='quiz-notice'
-            placeholder={t('create_page.result_feedbacks.notice_placeholder')}
-            {...register('feedbackNotice')}
-          />
-          {errors.feedbackNotice?.message ? (
-            <FieldError>{errors.feedbackNotice.message}</FieldError>
-          ) : (
-            <FieldDescription>Заметка отображается перед текстом результата</FieldDescription>
-          )}
-        </Field>
-      </FieldGroup>
+      <ResultFeedbacksGeneral isAlgorithmWithScore={isAlgorithmWithScore} />
 
       {fields.map((field, i) => (
         <ResultFeedbacksItem
           key={field.id}
           index={i}
           algorithm={algorithm}
+          categoryList={categoryList}
           remove={() => remove(i)}
         />
       ))}
 
       <ResultFeedbacksError
-        error={errors?.resultFeedbacks?.message}
+        error={errors?.results?.message}
         setError={setError}
         clearErrors={clearErrors}
       />

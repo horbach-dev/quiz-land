@@ -8,11 +8,12 @@ import styles from './Select.module.css';
 
 interface IProps {
   value: string;
+  placeholder?: string;
   onChange: (value: string) => void;
   options: { value: string; label: string }[];
 }
 
-export const Select = ({ value, onChange, options }: IProps) => {
+export const Select = ({ value, onChange, placeholder = 'Не выбрано', options }: IProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -23,7 +24,7 @@ export const Select = ({ value, onChange, options }: IProps) => {
     onChange(value);
   };
 
-  const label = options?.find(o => o.value === value)?.label;
+  const label = options?.find((o) => o.value === value)?.label;
 
   return (
     <div
@@ -31,26 +32,32 @@ export const Select = ({ value, onChange, options }: IProps) => {
       className={styles.select}
     >
       <button
+        type='button'
         onClick={() => setIsOpen((v) => !v)}
         className={styles.selectPlaceholder}
       >
-        <p>{label ? label : 'Не выбрано'}</p>
+        <p>{label ? label : placeholder}</p>
         <ChevronDown className={clsx(styles.icon, isOpen && styles.iconRotate)} />
       </button>
       <div className={clsx(styles.selectList, isOpen && styles.selectListOpen)}>
         <div className={styles.selectListContent}>
-          {options.map((option) => (
-            <button
-              key={option.value}
-              className={clsx(
-                styles.selectItem,
-                value === option.value && styles.selectItemActive,
-              )}
-              onClick={() => handleSetValue(option.value)}
-            >
-              {option.label}
-            </button>
-          ))}
+          {options.length ? (
+            options.map((option) => (
+              <button
+                type='button'
+                key={option.value}
+                className={clsx(
+                  styles.selectItem,
+                  value === option.value && styles.selectItemActive,
+                )}
+                onClick={() => handleSetValue(option.value)}
+              >
+                {option.label}
+              </button>
+            ))
+          ) : (
+            <p className={styles.selectEmpty}>Список пуст</p>
+          )}
         </div>
       </div>
     </div>

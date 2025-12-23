@@ -12,22 +12,22 @@ export const useFeedbackItem = (index: number, translate) => {
     formState: { errors },
   } = useFormContext<IFormData>();
 
-  const feedbackErrors = errors?.resultFeedbacks?.[index];
+  const feedbackErrors = errors?.results?.[index];
 
   // TODO Исправить костыль, когда появиться норм валидация
   const handleChangeInput = () => {
     setTimeout(() => {
-      const values = getValues(`resultFeedbacks.${index}`);
+      const values = getValues(`results.${index}`);
       if (!values) return;
 
       if (Number(values.from) >= Number(values.to) && !feedbackErrors?.from) {
-        setError(`resultFeedbacks.${index}.from`, {
+        setError(`results.${index}.from`, {
           message: translate('validation.result_feedbacks.from_greater_than_to'),
         });
       }
 
       if (Number(values.from) < Number(values.to) && feedbackErrors?.from) {
-        clearErrors(`resultFeedbacks.${index}.from`);
+        clearErrors(`results.${index}.from`);
       }
     }, 0);
   };

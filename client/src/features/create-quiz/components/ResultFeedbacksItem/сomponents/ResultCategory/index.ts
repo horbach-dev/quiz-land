@@ -1,0 +1,1 @@
+export { ResultCategory } from './ResultCategory';

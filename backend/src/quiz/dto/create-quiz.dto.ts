@@ -92,21 +92,33 @@ export class CreateQuizDto {
   questions: CreateQuestionDto[];
 
   @IsOptional()
-  resultFeedbacks?: {
+  results?: {
+    from?: number;
+    to?: number;
     text: string;
-    from: number;
-    to: number;
-  }[];
+    title?: string;
+    category?: string;
+    notice?: string | null;
+    positiveScore?: boolean;
+    conditions?: {
+      category: string;
+      moreOrEqual: number | null;
+      lessOrEqual: number | null;
+    }[];
+  };
 
   @IsArray()
   @IsString()
-  feedbackNotice?: string;
+  resultNotice?: string;
 
   @IsArray()
   questionCategories?: { id: string; text: string }[];
 
+  @IsOptional()
+  categoriesCounts?: Record<string, number>;
+
   @IsBoolean()
-  positiveScore: boolean;
+  resultPositive: boolean;
 
   @IsString()
   scoringAlgorithm?: ScoringAlgorithm;

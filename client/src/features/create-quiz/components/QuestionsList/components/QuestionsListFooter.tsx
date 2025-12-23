@@ -1,4 +1,5 @@
 import { FilePlusCorner } from 'lucide-react';
+import { useDeferredValue } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -15,7 +16,9 @@ export const QuestionsListFooter = ({ onClick }) => {
 
   const questions = useWatch({ control, name: 'questions' });
   const algorithm = useWatch({ control, name: 'scoringAlgorithm' });
-  const categories = useWatch({ control, name: 'questionCategories' });
+  const questionCategories = useWatch({ control, name: 'questionCategories' });
+
+  const categories = useDeferredValue(questionCategories);
 
   // Если тип теста персональный и категорий меньше 2-ух - дизейблим кнопку
   const categoriesCount = categories?.filter((c) => c.text?.trim()).length ?? 0;

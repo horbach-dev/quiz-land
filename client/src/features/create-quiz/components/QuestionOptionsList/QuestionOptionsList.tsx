@@ -1,3 +1,4 @@
+import { useDeferredValue } from 'react';
 import { Controller, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -32,13 +33,13 @@ export const QuestionOptionsList = ({ questionIndex }: IProps) => {
     editOption,
   } = useFormQuestionOptions({ questionIndex, translate: t });
 
-  console.log('fields', fields);
-
   const error = errors?.options?.root?.message;
 
   const fieldType = useWatch({ control, name: `questions.${questionIndex}.field` });
   const questionCategories = useWatch({ control, name: 'questionCategories' });
   const scoringAlgorithm = useWatch({ control, name: 'scoringAlgorithm' });
+
+  const categories = useDeferredValue(questionCategories);
 
   return (
     <>
@@ -79,7 +80,7 @@ export const QuestionOptionsList = ({ questionIndex }: IProps) => {
                   imageError={error?.image?.message}
                   editOption={() => editOption(index)}
                   removeOption={() => removeOption(index)}
-                  questionCategories={questionCategories}
+                  questionCategories={categories}
                   fieldType={fieldType}
                 />
               );

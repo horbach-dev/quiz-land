@@ -14,12 +14,13 @@ export type TQuiz = {
   author?: TQuizAuthor;
   isPublic: boolean;
   questions: TQuizQuestion[];
-  questionCategories: { id: string; text: string }[];
+  questionCategories?: { id: string; text: string }[];
+  categoriesCounts?: Record<string, number>;
   timeLimit?: number;
   timeLimitChoice?: boolean;
-  resultFeedbacks?: TResultFeedback[];
-  feedbackNotice?: string;
-  positiveScore: boolean;
+  results?: TQuizResult[];
+  resultNotice?: string;
+  resultPositive: boolean;
   scoringAlgorithm: TQuizScoringAlgorithm;
   createdAt: string;
   updatedAt: string;
@@ -49,6 +50,9 @@ export type TSessionCompleted = {
   scoringAlgorithm: TQuizScoringAlgorithm;
   quiz: TQuiz;
   feedback: string | null;
+  feedbackNotice: string | null;
+  finalCategory?: string;
+  categoryStatistic?: TSessionCategoryStatistic[];
   quizId: string;
   userId: string;
 };
@@ -91,8 +95,22 @@ type TQuizAuthor = {
   avatar: string;
 };
 
-type TResultFeedback = {
+type TQuizResult = {
+  from?: number;
+  to?: number;
   text: string;
-  from: number;
-  to: number;
+  title?: string;
+  category?: string;
+  conditions?: {
+    category: string;
+    moreOrEqual: number | null;
+    lessOrEqual: number | null;
+  }[];
+};
+
+export type TSessionCategoryStatistic = {
+  id: string;
+  title: string;
+  value: number;
+  count: number;
 };

@@ -25,7 +25,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    top: -0.1rem;
 }
 
 .icon {
@@ -56,6 +55,8 @@
     transition: transform 0.25s, opacity 0.25s;
     word-break: break-word;
     pointer-events: none;
+    background: rgb(39, 36, 59);
+    box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.2);
 }
 
 .selectListOpen {
@@ -70,22 +71,9 @@
     border-radius: 0.75rem;
 }
 
-@supports (
-  (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))
-) {
-    .selectList {
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        background: rgba(39, 36, 59, 0.7);
-    }
-}
-
-@supports not (
-  (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))
-) {
-    .selectList {
-        background: rgba(39, 36, 59, 0.95);
-    }
+.selectEmpty {
+    padding: 1rem;
+    text-align: center;
 }
 
 .selectItem {

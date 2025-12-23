@@ -4,6 +4,7 @@ import { SectionHeader } from '@/shared/components/SectionHeader';
 import { FieldSet } from '@/shared/shadcn/ui/field';
 
 import { QuestionsListItem } from '../QuestionsListItem';
+import { CalculateQuestionCategories } from './components/CalculateQuestionCategories';
 import { QuestionsListFooter } from './components/QuestionsListFooter';
 import { useQuestionsList } from './hooks/useQuestionsList';
 
@@ -31,6 +32,7 @@ export const QuestionsList = () => {
         );
       })}
 
+      <CalculateQuestionCategories />
       <QuestionsListFooter onClick={addQuestion} />
     </FieldSet>
   );

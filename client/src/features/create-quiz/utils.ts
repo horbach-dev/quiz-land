@@ -45,10 +45,11 @@ export const getDefaultValues = (data: TQuiz): IFormData => {
     scoringAlgorithm: data.scoringAlgorithm || 'STRICT_MATCH',
     timeLimit: data.timeLimit,
     timeLimitChoice: data.timeLimitChoice,
-    resultFeedbacks: data.resultFeedbacks,
-    feedbackNotice: data.feedbackNotice,
-    positiveScore: data.positiveScore,
+    results: data.results,
+    resultNotice: data.resultNotice,
+    resultPositive: data.resultPositive,
     questionCategories: data.questionCategories,
+    categoriesCounts: data.categoriesCounts,
     questions: data.questions.map((question) => {
       return {
         order: question.order,

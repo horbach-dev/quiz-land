@@ -23,7 +23,7 @@ export const QuizFooter = ({ disabled, isDone, onClick }: IProps) => {
           before={!isDone && <ChevronsLeft />}
           after={isDone && <ChevronsRight />}
         >
-          {isDone ? 'Поделиться' : 'Назад'}
+          {'Назад'}
         </Button>
       </div>
     </div>,

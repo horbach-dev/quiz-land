@@ -31,18 +31,18 @@ interface IProps {
 
 // TODO костыльный компонент, удалить как появится норм валидация
 export const ResultFeedbacksError = ({ error, setError, clearErrors }: IProps) => {
-  const fields = useWatch({ name: 'resultFeedbacks' });
+  const fields = useWatch({ name: 'results' });
 
   useEffect(() => {
     if (fields?.length > 1) {
       const message = validateRules(fields);
 
       if (message && !error) {
-        setError('resultFeedbacks', { message });
+        setError('results', { message });
       }
 
       if (!message && error) {
-        clearErrors('resultFeedbacks');
+        clearErrors('results');
       }
     }
   }, [fields, setError, clearErrors, error]);

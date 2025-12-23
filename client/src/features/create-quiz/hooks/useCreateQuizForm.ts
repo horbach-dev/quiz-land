@@ -13,7 +13,7 @@ export const useCreateQuizForm = (data?: TQuiz, isEdit?: boolean) => {
   const { mutateAsync: update } = useUpdateQuizMutation(data?.id as string);
   const formMethods = useForm<IFormData>({
     reValidateMode: 'onChange',
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: data ? getDefaultValues(data) : {},
   });
 

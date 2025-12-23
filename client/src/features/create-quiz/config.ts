@@ -39,8 +39,8 @@ export const validationRules = (t: TFunction<'translation', undefined>) => ({
       message: t('validation.min_length', { value: 7 }),
     },
     maxLength: {
-      value: 100,
-      message: t('validation.max_length', { value: 100 }),
+      value: 200,
+      message: t('validation.max_length', { value: 200 }),
     },
   },
   options: {
@@ -56,7 +56,7 @@ export const validationRules = (t: TFunction<'translation', undefined>) => ({
       message: t('validation.max_length', { value: 100 }),
     },
   },
-  resultFeedbacks: {
+  results: {
     number: {
       required: t('validation.options.required'),
     },

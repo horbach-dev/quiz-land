@@ -30,15 +30,18 @@ interface IPopupState {
   popups: TPopup[];
   openPopup: <T extends PopupName>(
     name: T,
-    params: TPopupParams<T>,
-  ) => { onClose: (cb: () => void) => void };
+    params: TPopupParams<T> | ((close: () => void) => TPopupParams<T>),
+  ) => () => void;
   closePopup: (name: PopupName) => void;
   closeAll: () => void;
 }
 
 const storeCreator: StateCreator<IPopupState> = (set, get) => {
-  const openPopup = <T extends PopupName>(name: T, params: TPopupParams<T>) => {
-    set((state) => ({
+  const openPopup = <T extends PopupName>(
+    name: T,
+    params: TPopupParams<T> | ((close: () => void) => TPopupParams<T>),
+  ) => {
+    const newState = (params) => (state) => ({
       popups: state.popups.map((popup) => {
         if (popup.name === name) {
           return {
@@ -50,21 +53,16 @@ const storeCreator: StateCreator<IPopupState> = (set, get) => {
         }
         return popup;
       }),
-    }));
+    });
 
-    return {
-      onClose: (callback: () => void) => {
-        let executed = false;
-        const unsubscribe = onCloseEmitter.subscribe((closedName) => {
-          if (closedName === name && !executed) {
-            executed = true;
-            callback();
-            unsubscribe();
-          }
-        });
-        return unsubscribe;
-      },
-    };
+    if (typeof params === 'function') {
+      const newParams = params(() => get().closePopup(name));
+      set(newState(newParams));
+    } else {
+      set(newState(params));
+    }
+
+    return () => get().closePopup(name);
   };
 
   const closePopup = (name: PopupName) => {
