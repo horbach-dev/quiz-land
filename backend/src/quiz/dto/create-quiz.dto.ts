@@ -1,12 +1,13 @@
 import {
-  IsBoolean,
-  IsString,
   IsArray,
-  IsInt,
+  IsBoolean,
   IsEnum,
+  IsInt,
+  IsNumber,
   IsOptional,
+  IsString,
+  MinLength,
   ValidateNested,
-  MinLength, IsNumber,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { QuestionField, QuestionType, ScoringAlgorithm } from '@prisma/client';

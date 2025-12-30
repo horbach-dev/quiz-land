@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/components/Button';
 import { buildUrl } from '@/shared/utils/buildUrl';
 
+import { InputImage } from './InputImage';
 import styles from './upload-input.module.css';
 
 interface IProps {
@@ -24,12 +25,12 @@ interface IProps {
 export const UploadImageInput = ({ id, loadedImage, name, onDelete, onChange }: IProps) => {
   const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [image, setImage] = useState<string | ArrayBuffer | null>(null);
+  const [localImage, setLocalImage] = useState<string | ArrayBuffer | null>(null);
   const [progress, setProgress] = useState<number | null>(0);
 
   const handleDelete = () => {
     if (inputRef.current?.value) inputRef.current.value = '';
-    setImage(null);
+    setLocalImage(null);
     setProgress(0);
     onDelete?.();
   };
@@ -45,7 +46,7 @@ export const UploadImageInput = ({ id, loadedImage, name, onDelete, onChange }: 
 
     if (file) {
       reader.onload = function (e) {
-        if (e.target?.result) setImage(e.target.result);
+        if (e.target?.result) setLocalImage(e.target.result);
       };
 
       reader.readAsDataURL(file);
@@ -53,7 +54,7 @@ export const UploadImageInput = ({ id, loadedImage, name, onDelete, onChange }: 
     }
   };
 
-  const currentImg = image || loadedImage ? buildUrl(loadedImage as string) : null;
+  const currentImg = localImage || loadedImage ? buildUrl(loadedImage as string) : null;
 
   return (
     <div className={styles.uploadInput}>
@@ -73,13 +74,7 @@ export const UploadImageInput = ({ id, loadedImage, name, onDelete, onChange }: 
           <p>{t('shared.load_image')}</p>
         </div>
 
-        {currentImg && (
-          <img
-            className={styles.uploadInputImage}
-            src={currentImg as string}
-            alt={name}
-          />
-        )}
+        {currentImg && <InputImage src={currentImg} />}
 
         {!!progress && (
           <div className={styles.uploadInputProgress}>

@@ -5,7 +5,8 @@ import {
   Body,
   Query,
   Param,
-  Delete, Patch,
+  Delete,
+  Patch,
 } from '@nestjs/common';
 import { ReqUser, type TUser } from '../user/user.decorator';
 import { QuizService } from './quiz.service';
@@ -21,10 +22,7 @@ export class QuizController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id') quizId: string,
-    @Body() createQuizDto: CreateQuizDto,
-  ) {
+  update(@Param('id') quizId: string, @Body() createQuizDto: CreateQuizDto) {
     return this.quizService.update(quizId, createQuizDto);
   }
 

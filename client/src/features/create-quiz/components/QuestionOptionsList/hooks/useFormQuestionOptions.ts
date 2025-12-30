@@ -65,7 +65,7 @@ export const useFormQuestionOptions = ({ questionIndex, translate }) => {
 
   // Проверка введенных значений в ответ, если ничего не задано - удаляем поле
   useEffect(() => {
-    if (optionPopup.questionIndex === questionIndex && !optionPopup.isOpen) {
+    if (optionPopup?.questionIndex === questionIndex && !optionPopup.isOpen) {
       const values = getOptionValue(optionPopup.optionIndex);
 
       if (!values?.text && !values?.image) {

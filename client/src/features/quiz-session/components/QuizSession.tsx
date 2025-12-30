@@ -42,6 +42,7 @@ export function QuizSession({ quizData }: IProps) {
   });
 
   const currentQuestion = quizQuestions[step];
+  const nextQuestion = quizQuestions?.[step + 1];
 
   const handleSubmitAnswer = (value: string) =>
     submit({ questionId: currentQuestion.id, value, step, goToNextStep });
@@ -49,6 +50,7 @@ export function QuizSession({ quizData }: IProps) {
   if (!currentQuestion || !session) return null;
 
   const currentAnswer = answers[currentQuestion.id];
+  const hasNextAnswer = !!answers?.[nextQuestion?.id];
 
   return (
     <div className={styles.container}>
@@ -67,9 +69,10 @@ export function QuizSession({ quizData }: IProps) {
         />
       </div>
       <QuizFooter
-        isDone={false}
-        disabled={step === 0}
-        onClick={goToPrevStep}
+        isNext={hasNextAnswer}
+        prevDisabled={step === 0}
+        onPrevClick={goToPrevStep}
+        onNextClick={goToNextStep}
       />
     </div>
   );

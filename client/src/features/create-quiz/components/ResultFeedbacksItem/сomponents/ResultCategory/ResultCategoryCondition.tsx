@@ -9,7 +9,7 @@ import { Select } from '@/shared/components/Select';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/shared/shadcn/ui/field';
 
 interface IProps {
-  categoriesCounts: Record<string, number>;
+  categoriesCounts?: Record<string, number>;
   resultIndex: number;
   index: number;
   categoryList: { label: string; value: string }[];
@@ -25,7 +25,7 @@ export const ResultCategoryCondition = ({
 }: IProps) => {
   const { control, register } = useFormContext<IFormData>();
   const condition = useWatch({ control, name: `results.${resultIndex}.conditions.${index}` });
-  const categoryMax = categoriesCounts?.[condition?.category || ''];
+  const categoryMax = categoriesCounts?.[condition?.category || ''] || 100;
 
   return (
     <Fragment>
@@ -56,7 +56,7 @@ export const ResultCategoryCondition = ({
           <Field>
             <FieldLabel htmlFor={`condition-more-${index}`}>Больше || ровно</FieldLabel>
             <InputNumber
-              max={100}
+              max={categoryMax}
               inputProps={{
                 id: `condition-more-${index}`,
                 placeholder: 'Число...',
@@ -65,11 +65,11 @@ export const ResultCategoryCondition = ({
             />
             <FieldDescription>Макс. {categoryMax}</FieldDescription>
           </Field>
-          <p className='relative top-[1rem]'>&</p>
+          <p className='relative'>&</p>
           <Field>
             <FieldLabel htmlFor={`condition-less-${index}`}>Меньше || ровно</FieldLabel>
             <InputNumber
-              max={100}
+              max={categoryMax}
               inputProps={{
                 id: `condition-less-${index}`,
                 placeholder: 'Число...',

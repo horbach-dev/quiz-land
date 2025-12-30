@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { InputNumber } from '@/features/create-quiz/components/InputNumber';
@@ -22,20 +22,13 @@ import { useFeedbackItem } from './useFeedbackItem';
 import { ResultCategory } from './сomponents/ResultCategory';
 import { ResultFeedbacksItemHeader } from './сomponents/ResultFeedbacksItemHeader';
 
-const fields = {
-  STRICT_MATCH: {
-    maxValue: 100,
-    description: 'create_page.result_feedbacks.result_description.strict',
-  },
-  WEIGHTED_SCALE: {
-    maxValue: 1000,
-    description: 'create_page.result_feedbacks.result_description.weighted',
-  },
-  PERSONALITY_TEST: {
-    maxValue: 1000,
-    description: 'create_page.result_feedbacks.result_description.personality',
-  },
+const descriptions = {
+  STRICT_MATCH: 'create_page.result_feedbacks.result_description.strict',
+  WEIGHTED_SCALE: 'create_page.result_feedbacks.result_description.weighted',
+  PERSONALITY_TEST: 'create_page.result_feedbacks.result_description.personality',
 };
+
+const maxScoreValue = 1000;
 
 interface IProps {
   index: number;
@@ -53,14 +46,16 @@ export const ResultFeedbacksItem = memo(
     const titleError = errors?.title?.message;
     const numberError = errors?.from?.message;
 
-    const filed = fields[algorithm];
+    const resultDescription = descriptions[algorithm];
 
     const isAlgorithmWithScore = ALGORITHMS_WITH_SCORE.includes(algorithm);
+
+    const categoriesCounts = useWatch({ control, name: 'categoriesCounts' });
 
     return (
       <div className={styles.container}>
         <ResultFeedbacksItemHeader
-          description={filed?.description}
+          description={resultDescription}
           remove={remove}
           index={index}
         />
@@ -88,6 +83,7 @@ export const ResultFeedbacksItem = memo(
             <ResultCategory
               resultIndex={index}
               categoryList={categoryList}
+              categoriesCounts={categoriesCounts}
             />
             <FieldSeparator />
           </>
@@ -100,7 +96,7 @@ export const ResultFeedbacksItem = memo(
                 {t('create_page.result_feedbacks.label_from')}
               </FieldLabel>
               <InputNumber
-                max={filed.maxValue}
+                max={maxScoreValue}
                 onInput={handleChangeInput}
                 inputProps={{
                   id: `result-feedback-from-${index}`,
@@ -108,14 +104,14 @@ export const ResultFeedbacksItem = memo(
                   ...register(`results.${index}.from`, validationRules(t).results.number),
                 }}
               />
-              <FieldDescription>Максимально: {filed.maxValue}</FieldDescription>
+              <FieldDescription>Максимально: {maxScoreValue}</FieldDescription>
             </Field>
             <Field>
               <FieldLabel htmlFor={`result-feedback-to-${index}`}>
                 {t('create_page.result_feedbacks.label_to')}
               </FieldLabel>
               <InputNumber
-                max={100}
+                max={maxScoreValue}
                 onInput={handleChangeInput}
                 inputProps={{
                   id: `result-feedback-to-${index}`,
@@ -123,7 +119,7 @@ export const ResultFeedbacksItem = memo(
                   ...register(`results.${index}.to`, validationRules(t).results.number),
                 }}
               />
-              <FieldDescription>Максимально: {filed.maxValue}</FieldDescription>
+              <FieldDescription>Максимально: {maxScoreValue}</FieldDescription>
             </Field>
           </div>
         )}

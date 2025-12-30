@@ -105,23 +105,12 @@ export class ScoringService {
     let feedback: string | null = null;
 
     if (results) {
-      if (strategyType === ScoringAlgorithm.STRICT_MATCH) {
-        const percent = (totalScore / session.quiz.questions.length) * 100;
-
-        feedback =
-          results.find((feed) => {
-            return percent >= Number(feed.from) && percent <= Number(feed.to);
-          })?.text || null;
-      }
-
-      if (strategyType === ScoringAlgorithm.WEIGHTED_SCALE) {
-        feedback =
-          results.find((feed) => {
-            return (
-              totalScore >= Number(feed.from) && totalScore <= Number(feed.to)
-            );
-          })?.text || null;
-      }
+      feedback =
+        results.find((feed) => {
+          return (
+            totalScore >= Number(feed.from) && totalScore <= Number(feed.to)
+          );
+        })?.text || null;
     }
 
     return { totalScore, feedback, updates };
@@ -130,8 +119,6 @@ export class ScoringService {
   // Вспомогательный метод для тестов личности
   private calculatePersonalityResult(session: FullQuizSession) {
     if (!session) return null;
-
-    let dominantCategory: string | null = null;
 
     // Собираем все ответы и связанные с ними категории/шкалы
     const categoryCounts: Record<string, number> = {};
@@ -157,6 +144,21 @@ export class ScoringService {
     }
 
     const results = session.quiz.results as TDataResult[] | undefined;
+    let dominantCategory: string | null = null;
+
+    const categories = session.quiz.questionCategories as {
+      text: string;
+      id: string;
+      count: number;
+    }[];
+
+    // Подготавливаем статистику для ответа
+    const categoryStatistic = categories.map((category) => ({
+      id: category.id,
+      title: category.text,
+      value: categoryCounts[category.id] || 0,
+      count: category.count || 0,
+    }));
 
     // Определяем доминирующую категорию (кто набрал больше "голосов")
     // Если небыли заданы условия
@@ -176,25 +178,16 @@ export class ScoringService {
           return feed.id === dominantCategory;
         })?.text || null;
 
-      return { finalCategory };
+      const feedback = results
+        ? results.find((feed) => feed.category === dominantCategory)?.text
+        : null;
+
+      return { finalCategory, feedback, categoryStatistic };
     }
 
     if (results?.[0].conditions) {
       let finalCategory: string | null = null;
       let feedback: string | null = null;
-      const categories = session.quiz.questionCategories as {
-        text: string;
-        id: string;
-        count: number;
-      }[];
-
-      // Подготавливаем статистику для ответа
-      const categoryStatistic = categories.map((category) => ({
-        id: category.id,
-        title: category.text,
-        value: categoryCounts[category.id] || 0,
-        count: category.count || 0,
-      }));
 
       // Ищем результат, у которого ВЫПОЛНЯЮТСЯ ВСЕ условия
       for (const result of results) {
@@ -203,16 +196,15 @@ export class ScoringService {
         const isMatch = result.conditions.every((condition) => {
           const points = categoryCounts[condition.category] || 0;
 
-          const min =
-            condition.moreOrEqual !== ''
-              ? Number(condition.moreOrEqual)
-              : -Infinity;
-          const max =
-            condition.lessOrEqual !== ''
-              ? Number(condition.lessOrEqual)
-              : Infinity;
+          const numericMin = condition.moreOrEqual
+            ? Number(condition.moreOrEqual)
+            : -Infinity;
 
-          return points >= min && points <= max;
+          const numericMax = condition.lessOrEqual
+            ? Number(condition.lessOrEqual)
+            : Infinity;
+
+          return points >= numericMin && points <= numericMax;
         });
 
         if (isMatch) {

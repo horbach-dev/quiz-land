@@ -1,4 +1,4 @@
-import {IsOptional, IsString, IsArray, IsInt} from 'class-validator';
+import { IsOptional, IsString, IsArray, IsInt } from 'class-validator';
 
 export class SubmitAnswerDto {
   @IsString()

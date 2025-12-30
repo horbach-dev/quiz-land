@@ -48,6 +48,7 @@ export const QuizType = () => {
                 <Field>
                   <Toggle
                     full
+                    disabled={isDisabled}
                     active={field.value === 'STRICT_MATCH'}
                     label='Точный ответ (Да / Нет)'
                     onClick={() => field.onChange('STRICT_MATCH')}
@@ -60,6 +61,7 @@ export const QuizType = () => {
                 <Field>
                   <Toggle
                     full
+                    disabled={isDisabled}
                     active={field.value === 'WEIGHTED_SCALE'}
                     label='Взвешенная шкала (Сумма баллов)'
                     onClick={() => field.onChange('WEIGHTED_SCALE')}
@@ -72,6 +74,7 @@ export const QuizType = () => {
                 <Field>
                   <Toggle
                     full
+                    disabled={isDisabled}
                     active={field.value === 'PERSONALITY_TEST'}
                     label='Оценка по категориям'
                     onClick={() => field.onChange('PERSONALITY_TEST')}

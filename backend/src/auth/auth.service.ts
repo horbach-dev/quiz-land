@@ -31,7 +31,9 @@ export class AuthService {
       const data = parse(initDataRaw);
       return data.user || null;
     } catch (error) {
-      throw new UnauthorizedException(`Error parsing TMA Data: ${error.message}`);
+      throw new UnauthorizedException(
+        `Error parsing TMA Data: ${error.message}`,
+      );
     }
   }
 }

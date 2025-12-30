@@ -8,23 +8,31 @@ import styles from './QuizFooter.module.css';
 const portalContainer = document.getElementById('footer')!;
 
 interface IProps {
-  disabled: boolean;
-  onClick: () => void;
-  isDone: boolean;
+  prevDisabled: boolean;
+  onPrevClick: () => void;
+  onNextClick: () => void;
+  isNext: boolean;
 }
 
-export const QuizFooter = ({ disabled, isDone, onClick }: IProps) => {
+export const QuizFooter = ({ prevDisabled, isNext, onPrevClick, onNextClick }: IProps) => {
   return createPortal(
     <div className={styles.container}>
       <div className={styles.content}>
         <Button
-          onClick={onClick}
-          disabled={disabled}
-          before={!isDone && <ChevronsLeft />}
-          after={isDone && <ChevronsRight />}
+          onClick={onPrevClick}
+          disabled={prevDisabled}
+          before={<ChevronsLeft />}
         >
           {'Назад'}
         </Button>
+        {isNext && (
+          <Button
+            onClick={onNextClick}
+            after={<ChevronsRight />}
+          >
+            {'Далее'}
+          </Button>
+        )}
       </div>
     </div>,
     portalContainer,

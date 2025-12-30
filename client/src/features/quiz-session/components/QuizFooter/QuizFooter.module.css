@@ -43,7 +43,8 @@
 }
 
 .content {
+  display: flex;
+  gap: 0.75rem;
   width: 100%;
   max-width: var(--max-app-width);
-  padding: 0 1rem;
 }

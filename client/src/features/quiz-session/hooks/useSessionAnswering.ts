@@ -60,6 +60,7 @@ export function useSessionAnswering({
         console.log('Не удалось отправить ответ', e.message);
       }
     },
+    // eslint-disable-next-line
     [session.id, isPending, timeSpentSeconds, questionsLength],
   );
 

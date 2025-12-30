@@ -7,10 +7,11 @@ import { ResultCategoryCondition } from './ResultCategoryCondition';
 
 interface IProps {
   resultIndex: number;
+  categoriesCounts?: Record<string, number>;
   categoryList: { value: string; label: string }[];
 }
 
-export const ResultCategory = ({ categoryList, resultIndex }: IProps) => {
+export const ResultCategory = ({ categoriesCounts, categoryList, resultIndex }: IProps) => {
   const { append, fields, remove } = useFieldArray({
     name: `results.${resultIndex}.conditions`,
   });
@@ -18,8 +19,6 @@ export const ResultCategory = ({ categoryList, resultIndex }: IProps) => {
   const handleAddCondition = () => {
     append({ category: '', moreOrEqual: null, lessOrEqual: null });
   };
-
-  const categoriesCounts = {}
 
   return (
     <FieldSet>
