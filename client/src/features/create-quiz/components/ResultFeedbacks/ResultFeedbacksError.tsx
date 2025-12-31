@@ -9,7 +9,13 @@ const validateRules = (values: IFormDataResult[]) => {
     return false;
   }
 
-  const sortedRanges = [...values].sort((a, b) => a.from - b.from);
+  const sortedRanges = [...values].toSorted((a, b) => {
+    if (typeof b.from === 'number' && typeof a.to === 'number') {
+      return a.to - b.from;
+    }
+
+    return 1;
+  });
 
   for (let i = 0; i < sortedRanges.length - 1; i++) {
     const current = sortedRanges[i];
