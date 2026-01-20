@@ -7,6 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: SSH_PRIVATE_KEY
 
     steps:
       - name: Checkout code
@@ -29,5 +30,6 @@ jobs:
             cd /var/www/quiz-land
             git pull origin main
             cd ./backend
+            npm install
             npm run build
-            pm2 restart quiz-land || pm2 start dist/main.js --name "quiz-land"
+            pm2 restart quiz-land || pm2 start dist/main.js --name "quiz-land" --max-memory-restart 1G
