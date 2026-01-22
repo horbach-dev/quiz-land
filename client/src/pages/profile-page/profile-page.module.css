@@ -1,3 +1,7 @@
 .container {
   padding: var(--default-padding);
 }
+
+.bar {
+  margin-bottom: var(--default-padding);
+}

@@ -224,7 +224,7 @@ export class QuizService {
   }
 
   findQuizzes(
-    type: 'my' | 'shared' | 'public',
+    type: 'my' | 'shared' | 'public' | 'progress' | 'completed',
     userId: string,
     page: number,
     limit: number,
@@ -243,6 +243,48 @@ export class QuizService {
         return this.prisma.quiz.findMany({
           ...baseSelect,
           where: { authorId: userId },
+        });
+      }
+
+      if (type === 'progress') {
+        return this.prisma.quiz.findMany({
+          ...baseSelect,
+          where: {
+            sessions: {
+              some: {
+                userId: userId,
+                status: SessionStatus.IN_PROGRESS,
+              },
+            },
+          },
+          include: {
+            sessions: {
+              where: { userId, status: SessionStatus.IN_PROGRESS },
+              orderBy: { updatedAt: 'desc' },
+              take: 1,
+            },
+          },
+        });
+      }
+
+      if (type === 'completed') {
+        return this.prisma.quiz.findMany({
+          ...baseSelect,
+          where: {
+            sessions: {
+              some: {
+                userId: userId,
+                status: SessionStatus.COMPLETED,
+              },
+            },
+          },
+          include: {
+            sessions: {
+              where: { userId, status: SessionStatus.COMPLETED },
+              orderBy: { updatedAt: 'desc' },
+              take: 1,
+            },
+          },
         });
       }
 

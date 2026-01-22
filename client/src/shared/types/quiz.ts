@@ -3,6 +3,7 @@ export type TQuizQuestionField = 'TEXT' | 'IMAGE';
 export type TQuizQuestionType = 'TEXT_ANSWER' | 'SINGLE_CHOICE' | 'MULTI_CHOICE';
 export type TQuizSessionStatus = 'IN_PROGRESS' | 'COMPLETED' | 'ABANDONED' | 'TIMED_OUT';
 export type TQuizScoringAlgorithm = 'STRICT_MATCH' | 'WEIGHTED_SCALE' | 'PERSONALITY_TEST';
+export type TQuizListType = 'public' | 'my' | 'shared' | 'popular' | 'progress' | 'completed';
 
 export type TQuiz = {
   id: string;
@@ -25,6 +26,7 @@ export type TQuiz = {
   createdAt: string;
   updatedAt: string;
   hasActiveSession?: boolean;
+  sessions?: TQuizSession[];
 };
 
 export type TQuizSession = {

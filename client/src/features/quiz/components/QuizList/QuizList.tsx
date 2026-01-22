@@ -5,13 +5,13 @@ import { QuizCardSkeleton } from '@/features/quiz/components/QuizCard/quiz-card-
 import { useQuizListQuery } from '@/features/quiz/services/useQuizListQuery.ts';
 import { IntersectingWrapper } from '@/shared/components/IntersectingWrapper';
 import { Loader } from '@/shared/components/Loader';
-import type { TQuiz } from '@/shared/types/quiz';
+import type { TQuiz, TQuizListType } from '@/shared/types/quiz';
 
 import styles from './QuizList.module.css';
 
 interface IProps {
   listKey: string;
-  params?: { type: 'public' | 'my' | 'shared' | 'popular' };
+  params?: { type: TQuizListType };
   renderItem: (value: { data: TQuiz; index: number }) => ReactNode;
 }
 

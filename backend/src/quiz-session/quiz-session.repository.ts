@@ -110,12 +110,12 @@ export class QuizSessionRepository {
     });
   }
 
-  async deleteSession(userId: string, quizId: string) {
+  async deleteSession(userId: string, quizId: string, all?: boolean) {
     const sessionsToDelete = await this.prisma.quizSession.findMany({
       where: {
         userId,
-        quizId,
         status: SessionStatus.IN_PROGRESS,
+        ...(all ? {} : { quizId }),
       },
       select: { id: true },
     });

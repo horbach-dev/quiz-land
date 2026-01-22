@@ -1,9 +1,11 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
+import type { TQuizListType } from '@/shared/types/quiz.ts';
+
 import { getQuizList } from '../api/get-quiz-list';
 
 type TQuizListParams = {
-  type: 'shared' | 'my' | 'public' | 'popular';
+  type: TQuizListType;
   limit?: number;
 };
 

@@ -2,7 +2,7 @@ import { api } from '@/shared/api';
 import type { TQuiz } from '@/shared/types/quiz';
 
 type TParams = {
-  type: 'my' | 'shared' | 'public' | 'popular';
+  type: 'public' | 'my' | 'shared' | 'popular' | 'progress' | 'ended';
   limit?: number;
   pageParam?: number | unknown;
 };
