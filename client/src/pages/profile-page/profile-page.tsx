@@ -1,12 +1,13 @@
 import { SquarePen } from 'lucide-react';
-import { useState } from 'react';
 
+// import { useTranslation } from 'react-i18next';
 import { QuizCard } from '@/features/quiz/components/QuizCard';
 import { QuizList } from '@/features/quiz/components/QuizList';
 import { PageLayout } from '@/layouts/page-layout';
 import { Button } from '@/shared/components/Button';
 import { SectionHeader } from '@/shared/components/SectionHeader';
 import { TabBar } from '@/shared/components/TabBar';
+import { useAppStore } from '@/shared/stores/appStore.ts';
 import type { TQuizListType } from '@/shared/types/quiz';
 import { buildUrl } from '@/shared/utils/buildUrl';
 
@@ -21,7 +22,9 @@ const options = [
 ];
 
 export default function ProfilePage() {
-  const [activeTab, setActiveTab] = useState<TQuizListType>('completed');
+  // const { t } = useTranslation();
+  const profileActiveTab = useAppStore((store) => store.profileActiveTab);
+  const setProfileActiveTab = useAppStore((store) => store.setProfileActiveTab);
 
   return (
     <PageLayout>
@@ -41,24 +44,24 @@ export default function ProfilePage() {
         />
         <TabBar
           className={styles.bar}
-          value={activeTab}
+          value={profileActiveTab}
           options={options}
-          onChange={(v) => setActiveTab(v as TQuizListType)}
+          onChange={(v) => setProfileActiveTab(v as TQuizListType)}
         />
         <QuizList
           listKey='profile-page'
-          params={{ type: activeTab }}
+          params={{ type: profileActiveTab }}
           renderItem={({ data }) => (
             <QuizCard
               key={data.id}
               image={buildUrl(data.poster)}
               title={data.title}
               link={
-                activeTab === 'completed'
+                profileActiveTab === 'completed'
                   ? `completed/${data?.sessions?.[0]?.id}`
                   : `quiz/${data.id}`
               }
-              actions={activeTab === 'my' && <CardActions item={data} />}
+              actions={profileActiveTab === 'my' && <CardActions item={data} />}
             />
           )}
         />

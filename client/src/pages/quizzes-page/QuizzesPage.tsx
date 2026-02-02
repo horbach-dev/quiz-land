@@ -11,16 +11,13 @@ import { buildUrl } from '@/shared/utils/buildUrl';
 import { QuizzesPageFilter } from './components/QuizzesPageFilter';
 import { QuizzesPageHeader } from './components/QuizzesPageHeader';
 import styles from './QuizzesPage.module.css';
+import type { TQuizListType } from '@/shared/types/quiz';
 
 const tabOptions = [
   { label: 'quizzes_page.tab.public', value: 'public' },
   { label: 'quizzes_page.tab.my', value: 'my' },
   { label: 'quizzes_page.tab.shared', value: 'shared' },
 ];
-
-type TQuizListParams = {
-  type: 'shared' | 'my' | 'public';
-};
 
 export default function QuizzesPage() {
   const { t } = useTranslation();
@@ -38,7 +35,7 @@ export default function QuizzesPage() {
           <TabBar
             value={quizActiveTab}
             options={tabOptions}
-            onChange={(v) => setQuizActiveTab(v as TQuizListParams['type'])}
+            onChange={(v) => setQuizActiveTab(v as TQuizListType)}
           />
         </div>
         <QuizList
